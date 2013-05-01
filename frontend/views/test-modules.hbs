@@ -1,0 +1,24 @@
+<h2>Test: module includes</h2>
+
+\{{mod "foo"}}<br>
+{{mod "foo"}}
+<br>
+<br>
+\{{mod "foo" template="alternate"}}<br>
+{{mod "foo" template="alternate"}}
+<br>
+<br>
+\{{mod "foo" tag="aside" skins="sheep, alternate" connectors="stats, filter"}}<br>
+{{mod "foo" tag="aside" skins="sheep, alternate" connectors="stats, filter"}}
+<br>
+<br>
+\{{mod "foo" template="alternate" skins="alternate, baz" htmlClasses="test-class" connectors="stats, filter" indent=2}}<br>
+{{mod "foo" template="alternate" skins="alternate, baz" htmlClasses="test-class" connectors="stats, filter" indent=2}}
+<br>
+<br>
+\{{mod "bar"}} includes module foo...<br>
+{{mod "bar"}}
+<br>
+<br>
+\{{mod "nothing"}} doesn't exist!<br>
+{{mod "nothing"}}

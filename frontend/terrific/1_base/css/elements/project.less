@@ -1,0 +1,29 @@
+
+@color-bg-dark: #222;
+@color-text: #999;
+
+body {
+	background-color: @color-bg-dark;
+	color: @color-text;
+	font-family: sans-serif;
+	font-size: small;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+	color: @color-text;
+	text-decoration: none;
+}
+
+.mod {
+	.wf-box();
+	margin-top: 3px;
+	background-color: #444;
+	.mod {
+		.wf-box-sub();
+		background-color: #555;
+		outline-style: dotted;
+	}
+}
