@@ -485,11 +485,7 @@ helpers = helpers || Handlebars.helpers; data = data || {};
   var buffer = "", stack1, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 
-  options = {hash:{
-    'tag': ("nav")
-  },data:data};
-  buffer += escapeExpression(((stack1 = helpers.mod),stack1 ? stack1.call(depth0, "nav-main", options) : helperMissing.call(depth0, "mod", "nav-main", options)))
-    + "\n\n";
+  buffer += "\n\n";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.mod),stack1 ? stack1.call(depth0, "bootstrap-carousel", options) : helperMissing.call(depth0, "mod", "bootstrap-carousel", options)))
     + "\n\n";
@@ -531,11 +527,11 @@ helpers = helpers || Handlebars.helpers; data = data || {};
   },data:data};
   buffer += escapeExpression(((stack1 = helpers.mod),stack1 ? stack1.call(depth0, "foo", options) : helperMissing.call(depth0, "mod", "foo", options)))
     + "\n<br>\n<br>\n"
-    + "{{mod \"bar\"}} includes module foo...<br>\n";
+    + "{{mod \"bar\"}} Includes module foo...<br>\n";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.mod),stack1 ? stack1.call(depth0, "bar", options) : helperMissing.call(depth0, "mod", "bar", options)))
     + "\n<br>\n<br>\n"
-    + "{{mod \"nothing\"}} doesn't exist!<br>\n";
+    + "{{mod \"nothing\"}} Doesn't exist! We should get an error message.<br>\n";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.mod),stack1 ? stack1.call(depth0, "nothing", options) : helperMissing.call(depth0, "mod", "nothing", options)));
   return buffer;
@@ -596,6 +592,4 @@ helpers = helpers || Handlebars.helpers; data = data || {};
 
   return "<span class=\"wf-label\">.mod-nav-main</span>\n<ul>\n	<li><a href=\"/\">Home</a></li>\n	<li><a href=\"/subpage\">Sub-Page</a></li>\n</ul>";
   });
-log('inline logic ready.');
-log('templates available inline:');
-dir(JST)
+debug('main.js: inline logic ready.');

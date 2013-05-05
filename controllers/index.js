@@ -9,16 +9,16 @@ module.exports = function(app) {
 
 	return {
 		home: function(req, res, next) {
-			// render index.hbs and include it in layout.hbs
-			res.render('frontend/views/home', {
+			// render home.hbs and include it in layout.hbs
+			res.render('views/home', {
 				layout: 'templates/layout'
 				,title: siteName
 				,lang: lang
 				,data: 'some text'
 			});
 		}
-		,test: function(req, res, next) {
-			res.render('frontend/views/test-modules', {
+		,aSubpage: function(req, res, next) {
+			res.render('views/test-modules', {
 				layout: 'templates/layout'
 				,title: siteName
 				,lang: lang

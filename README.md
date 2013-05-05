@@ -1,6 +1,13 @@
 # Project Name
 
+This project brings the Terrific.js pattern to Node and Express. It provides a solid template for most web projects.
+It implements some of the features of Terrific Composer, like server-side module includes.
+
 ## Features
+- Light-weight and hackable JavaScript backend
+- Can be used for single page apps.
+- Server-side module includes.
+- Handlebars templates.
 - Made with single page apps in mind
 - Code and template re-use between browser and server.
 - Initial rendering is done at the server, subsequent changes are rendered directly in the browser.
@@ -14,29 +21,58 @@
 - Easy appcache manifest generation
 
 ## DOCS
-naming convention: use - (hyphen for pretty much everything: module names, skins, template files)
-'lib' is for any third-party code that we don't touch: libraries, jquery plugins
-000_base is for any module dependencies: utils, i18n, (connectors?)
-zzz_application is for any global code that depends on module availability: bootstrap
+naming convention:
+
+- use - (hyphen for pretty much everything: module names, skins, template files)
+- 'lib' is for any third-party code that we don't touch: libraries, jquery plugins
+
+### Templates and views
+In node-terrific the distinction between templates and views are as follows:
+
+- Templates (`/templates`): Your basic document(s), typically a HTML document that contains all the things that are
+always needed: HEAD, scripts, tracking and so on. Your template base template can be set in each route controller using
+the layout property or disabled altogether with `layout: false`. A template that has a `{{{body}}}` variable will
+include a
+- View (`/frontend/views`): A view typically corresponds to an individual page with an URL. This is where you include
+any modules specific to the page.
+
+### Terrific Folder: Order matters
+A simple but important concept is to understand how the default folders in /terrific are included. Any files you throw
+in there are included and executed like so:
+
+- `_inline` folder: Any style or JS sources in here are available in the files `inline.js` (todo: and `inline.css`).
+This is a good place for basic bootstrapping code and dependencies like an asset loader or possibly some initial data
+for use in a model. Use widely and sparingly.
+- `base` folder: anything that needs to be defined before including any modules: LessCSS variables, mixins, grids,
+some global JS code like Modernizr or other utilities and libraries and plugins.
+- `mod-something` folders: All your module code and styles absically everything visible that's not pure layout.
+- `_application` folder: The code that actually starts your app: Terrific bootstrap and any other global logic that
+depends on modules being available. If you need to build themeing into your app, this is the place too.
+
 
 ## todo
+- docs: node setup & new project setup
 - Finalize a version that just provides Terrific support.
 - Then focus on the advanced features
 - look at Meteor.com
-- repository
 - include prototyping/wireframe styles and a basic template using it. (similar to http://cs-cdw-proto.namics.com/)
 - template re-use / ajax crawling (Google AJAX Crawling Specification) / initial load
 - shared logic to create correct state
 - test automation
 - dependency management
 - currently all module templates are always inlined.
-- @import — todo: option to @import .css also. todo: publish
 - bootstrap
 - module creation (wizard?)
 - grunt: minification (and linting?)
+- (npm publish: module-terrific.js?)
+- auth info to config.js
+- inline css?
+- documentation templates/placeholders (READMEs, plugins, libs, modules, etc.)
 - grunt: develop mode and production mode
 - handle appcache through grunt
 - database access from server and browser
+
+- @import DONE
 - file watcher DONE
 - module include DONE
 - js skins DONE

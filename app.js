@@ -3,23 +3,27 @@
  * Module dependencies.
  */
 
-var config = require('./config')
+var  path = require('path')
 	,express = require('express')
 	,http = require('http')
-	,path = require('path')
 	,hbs = require('hbs')
 
 	,app = express()
 	,NODE_ENV = app.get('env')
 ;
 
-app.config = config;
-require('./routes')(app);
-require('./module-terrific.js')(app);
+app.config = require('./app_modules/config.js');
+// our base path, here.
+app.config.dirName = __dirname;
+app.helpers = require('./app_modules/helpers.js')(app);
+// convert all relative paths in config.js to absolute paths using our base path
+app.helpers.configAbsolutePaths();
+require(app.config.paths.routes)(app);
+require('./app_modules/terrific.js')(app);
 
 app.configure(function() {
 	app.set('port', process.env.PORT || app.config.devPort);
-	app.set('views', path.join( __dirname)); // defines a base path when getting templates
+	app.set('views', path.join( __dirname, 'frontend')); // defines a base path when getting templates
 	app.set('view engine', 'hbs');
 	app.use(express.favicon());
 	app.use(express.logger('dev'));

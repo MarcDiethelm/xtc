@@ -5,26 +5,26 @@ module.exports = function(grunt) {
 
 		,sources: {
 			inline_js: [
-				 'frontend/terrific/0_inline/js/lib/*.js'
+				 'frontend/_terrific/_inline/js/lib/*.js'
 				,'frontend/_static/dist/templates-inline.jst'
-				,'frontend/terrific/0_inline/js/*.js'
+				,'frontend/_terrific/_inline/js/*.js'
 			]
 			,external_js: [
-				 'frontend/terrific/1_base/js/lib/*.js'
-				,'frontend/terrific/2_modules/mod-*/*.js'
-				,'frontend/terrific/2_modules/mod-*/skin/*.js'
-				,'frontend/terrific/3_application/*.js'
+				 'frontend/_terrific/_base/js/lib/*.js'
+				,'frontend/_terrific/mod-*/*.js'
+				,'frontend/_terrific/mod-*/skin/*.js'
+				,'frontend/_terrific/_application/*.js'
 			]
 			,external_css: [
-				 'frontend/terrific/1_base/css/lib/*.css'
-				,'frontend/terrific/1_base/css/elements/*.less'
-				,'frontend/terrific/2_modules/mod-*/*.less'
-				,'frontend/terrific/2_modules/mod-*/skin/*.less'
-				,'frontend/terrific/3_application/*.less'
+				 'frontend/_terrific/_base/css/lib/*.css'
+				,'frontend/_terrific/_base/css/elements/*.less'
+				,'frontend/_terrific/mod-*/*.less'
+				,'frontend/_terrific/mod-*/skin/*.less'
+				,'frontend/_terrific/_application/*.less'
 			]
 			,templates: [
 				 'frontend/views/*.hbs'
-				,'frontend/terrific/2_modules/mod-*/*.hbs'
+				,'frontend/_terrific/mod-*/*.hbs'
 			]
 		},
 		dest: 'frontend/_static/dist'

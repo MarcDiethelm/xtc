@@ -7,9 +7,9 @@ var  express = require('express')
 ;
 
 module.exports = function(app) {
-	var index = require('./controllers/index')(app);
+	var index = require('./../controllers/index')(app);
 	app.get('/', index.home);
-	app.get('/', index.test);
+	app.get('/subpage', index.aSubpage);
 	app.get('/data/:someParam', auth(authUser, authPsw), index.data);
 	app.get('/site.appcache', index.appCache);
 };

@@ -56,17 +56,19 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 			,content
 			,err
 			,template = templateName == moduleName ? moduleName : moduleName + '-' + templateName
-			,file = path.join(__dirname, '/frontend/terrific/2_modules/mod-' + moduleName + '/' + template + '.hbs');
+			,modDir = app.config.paths.module.replace('{{name}}', moduleName)
+			,file = path.join(modDir, template + '.hbs')
+		;
 
-				try {
-					console.log('read module', file)
-					content = fs.readFileSync(file, 'utf8');
-				} catch (e) {
-					err = error('Can\'t read template file. Module: ' + moduleName + ', Template: ' + templateName + '.hbs.', e);
-					console.error(err.c);
-					options.error = true;
-				}
-				return hbs.compile(content || err.web);
+		try {
+			console.log('read module', file)
+			content = fs.readFileSync(file, 'utf8');
+		} catch (e) {
+			err = error('Can\'t read template file. Module: ' + moduleName + ', Template: ' + templateName + '.hbs.', e);
+			console.error(err.c);
+			options.error = true;
+		}
+		return hbs.compile(content || err.web);
 	}
 
 	// todo: look at my other error utils. make it a module.
