@@ -1,0 +1,24 @@
+<!doctype html>
+<html class="no-js" lang="{{lang}}">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8"/>
+	<title>{{title}}</title>
+	<link rel="stylesheet" type="text/css" href="dist/styles.css">
+	<link rel="icon" type="image/png" href="dist/img/site.favicon.png" />
+	<script>
+		{{> inline-js}}{{!-- a partial --}}
+	</script>
+</head>
+<body>
+	{{mod "nav-main" tag="nav"}}
+
+	{{{body}}}
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="dist/external.js"></script>
+	<br>
+	{{#env "production"}}mode: production{{/env}}
+	{{#env "development"}}mode: development{{/env}}
+</body>
+</html>
