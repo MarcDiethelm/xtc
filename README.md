@@ -49,7 +49,8 @@ some global JS code like Modernizr or other utilities and libraries and plugins.
 - `_application` folder: The code that actually starts your app: Terrific bootstrap and any other global logic that
 depends on modules being available. If you need to build themeing into your app, this is the place too.
 
-## todo
+## To Do
+
 - docs: node setup & new project setup
 - docs: building with grunt
 - docs: config and dev/prod modes, templating: assets variable vs. env block helper
@@ -73,6 +74,8 @@ depends on modules being available. If you need to build themeing into your app,
 - grunt: develop mode and production mode
 - handle appcache through grunt
 - database access from server and browser
+
+## Done
 
 - grunt: minification DONE
 - @import DONE

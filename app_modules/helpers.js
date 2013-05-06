@@ -27,17 +27,15 @@ module.exports = function(app) {
 			;
 			// this could be created dynamically depending on config properties
 			app.locals.assets = {
-					js: {
-						 inline: app.config.webPaths.dist + config.js.inline[NODE_ENV] // currently uused
-						,external: app.config.webPaths.dist + config.js.external[NODE_ENV]
-					}
-					,css: {
-						external: app.config.webPaths.dist + config.css.external[NODE_ENV]
-					}
+				js: {
+					 inline: app.config.webPaths.dist + config.js.inline[NODE_ENV] // currently uused
+					,external: app.config.webPaths.dist + config.js.external[NODE_ENV]
 				}
+				,css: {
+					external: app.config.webPaths.dist + config.css.external[NODE_ENV]
+				}
+			}
 		}
 	};
-
-
 
 }
