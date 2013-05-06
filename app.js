@@ -18,6 +18,7 @@ app.config.dirName = __dirname;
 app.helpers = require('./app_modules/helpers.js')(app);
 // convert all relative paths in config.js to absolute paths using our base path
 app.helpers.configAbsolutePaths();
+app.helpers.addDistFileNamesToLocals();
 require(app.config.paths.routes)(app);
 require('./app_modules/terrific.js')(app);
 
@@ -47,13 +48,13 @@ hbs.registerHelper('env', function(name, context) {
 	return name == NODE_ENV ? context.fn(this) : '';
 });
 // dirty single purpose partial function
-// todo: clean this up!
+// todo: clean this up! Currently this only serves inline-js...
 hbs.registerPartial('inline-js', function() {
 	var  fs = require('fs')
-		,file = path.join(__dirname, 'frontend/_static/dist/inline.js')
+		,file = path.join(app.config.paths.dist, app.config.distFileNames.js.inline[NODE_ENV])
 	;
 	try {
-		console.log('read module', file)
+		console.log('read inline partial', file)
 		content = fs.readFileSync(file, 'utf8');
 	} catch (e) {
 		err = error('Can\'t read partial template file.', e);

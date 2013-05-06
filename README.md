@@ -48,16 +48,20 @@ depends on modules being available. If you need to build themeing into your app,
 ## todo
 
 - docs: node setup & new project setup
+- docs: building with grunt
+- docs: config and dev/prod modes, templating: assets variable vs. env block helper
+- use config.js for grunt paths
 - include prototyping/wireframe styles and a basic template using it. (similar to http://cs-cdw-proto.namics.com/)
 - test automation
 - module creation (wizard?)
-- grunt: minification (and linting?)
 - folder naming
 - (npm publish: module-terrific.js?)
 - auth info to config.js
+- grunt: linting?
 - inline css?
 - documentation templates/placeholders (READMEs, plugins, libs, modules, etc.)
 
+- grunt: minification DONE
 - @import DONE
 - bootstrap DONE
 - file watcher DONE
