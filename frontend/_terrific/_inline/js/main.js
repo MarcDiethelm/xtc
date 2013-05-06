@@ -1,1 +1,1 @@
-log('inline logic ready.');
+debug('main.js: inline logic ready.');
