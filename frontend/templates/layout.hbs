@@ -1,14 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="{{lang}}" manifest="site.appcache">
+<html class="no-js" lang="{{lang}}">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta charset="UTF-8"/>
 	<title>{{title}}</title>
-	<!--<link rel="stylesheet" type="text/css" href="{{stylesheetUrl}}">-->
-	<link rel="stylesheet" type="text/css" href="dist/styles.css">
-	{{#env "production"}}{{/env}}
-	{{#env "development"}}{{/env}}
-	<link rel="icon" type="image/png" href="img/site.favicon.png" />
+	<link rel="stylesheet" type="text/css" href="{{assets.css.external}}">
+	<link rel="icon" type="image/png" href="dist/img/site.favicon.png" />
 	<script>
 		{{> inline-js}}{{!-- a partial --}}
 	</script>
@@ -18,9 +15,8 @@
 
 	{{{body}}}
 
-	<!--<script src="{{javascriptUrl}}"></script>-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="dist/external.js"></script>
+	<script src="{{assets.js.external}}"></script>
 	<br>
 	{{#env "production"}}mode: production{{/env}}
 	{{#env "development"}}mode: development{{/env}}

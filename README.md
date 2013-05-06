@@ -1,4 +1,4 @@
-# Project Name
+# Node Terrific
 
 This project brings the Terrific.js pattern to Node and Express. It provides a solid template for most web projects.
 It implements some of the features of Terrific Composer, like server-side module includes.
@@ -49,9 +49,11 @@ some global JS code like Modernizr or other utilities and libraries and plugins.
 - `_application` folder: The code that actually starts your app: Terrific bootstrap and any other global logic that
 depends on modules being available. If you need to build themeing into your app, this is the place too.
 
-
 ## todo
 - docs: node setup & new project setup
+- docs: building with grunt
+- docs: config and dev/prod modes, templating: assets variable vs. env block helper
+- use config.js for grunt paths
 - Finalize a version that just provides Terrific support.
 - Then focus on the advanced features
 - look at Meteor.com
@@ -61,18 +63,20 @@ depends on modules being available. If you need to build themeing into your app,
 - test automation
 - dependency management
 - currently all module templates are always inlined.
-- bootstrap
+- app bootstrap
 - module creation (wizard?)
-- grunt: minification (and linting?)
 - (npm publish: module-terrific.js?)
 - auth info to config.js
+- grunt: linting?
 - inline css?
 - documentation templates/placeholders (READMEs, plugins, libs, modules, etc.)
 - grunt: develop mode and production mode
 - handle appcache through grunt
 - database access from server and browser
 
+- grunt: minification DONE
 - @import DONE
+- Terrific bootstrap DONE
 - file watcher DONE
 - module include DONE
 - js skins DONE
