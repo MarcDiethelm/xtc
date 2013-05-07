@@ -9,16 +9,15 @@ var  path = require('path')
 	,hbs = require('hbs')
 
 	,app = express()
-	,NODE_ENV = app.get('env')
 ;
 
 app.config = require('./app_modules/config.js');
-// our base path, here.
+// our base path: here.
 app.config.dirName = __dirname;
 app.helpers = require('./app_modules/helpers.js')(app);
-// convert all relative paths in config.js to absolute paths using our base path
 app.helpers.configAbsolutePaths();
-app.helpers.addDistFileNamesToLocals();
+app.helpers.shareAssetWebPathsWithLocals();
+app.helpers.registerTemplateHelpers();
 require(app.config.paths.routes)(app);
 require('./app_modules/terrific.js')(app);
 
@@ -41,39 +40,4 @@ app.configure('development', function() {
 
 http.createServer(app).listen(app.get('port'), function() {
 	console.log("Express server listening on port " + app.get('port'));
-});
-
-hbs.registerHelper('env', function(name, context) {
-	//  return the template only if the name matches NODE_ENV ('development', 'production', etc.)
-	return name == NODE_ENV ? context.fn(this) : '';
-});
-// dirty single purpose partial function
-// todo: clean this up! Currently this only serves inline-js...
-hbs.registerPartial('inline-js', function() {
-	var  fs = require('fs')
-		,file = path.join(app.config.paths.dist, app.config.distFileNames.js.inline[NODE_ENV])
-	;
-	try {
-		console.log('read inline partial', file)
-		content = fs.readFileSync(file, 'utf8');
-	} catch (e) {
-		err = error('Can\'t read partial file.', e);
-		console.error(err.c);
-	}
-	return content;
-});
-// dirty single purpose partial function
-// todo: clean this up! Currently this only serves inline-js...
-hbs.registerPartial('inline-css', function() {
-	var  fs = require('fs')
-		,file = path.join(app.config.paths.dist, app.config.distFileNames.css.inline[NODE_ENV])
-	;
-	try {
-		console.log('read inline partial', file)
-		content = fs.readFileSync(file, 'utf8');
-	} catch (e) {
-		err = error('Can\'t read partial file.', e);
-		console.error(err.c);
-	}
-	return content;
 });

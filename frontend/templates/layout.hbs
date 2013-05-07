@@ -5,11 +5,8 @@
 	<meta charset="UTF-8"/>
 	<title>{{title}}</title>
 	<style>
-		{{> inline-css}}{{!-- a partial --}}
+		{{asset "css"}}{{!-- inline css. the key is defined in config.js --}}
 	</style>
-	<script>
-		{{> inline-js}}{{!-- a partial --}}
-	</script>
 	<link rel="stylesheet" type="text/css" href="{{assets.css.external}}">
 	<link rel="icon" type="image/png" href="dist/img/site.favicon.png" />
 </head>
@@ -19,6 +16,9 @@
 	{{{body}}}
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script>
+		{{asset "js"}}{{!-- inline js. the key is defined in config.js --}}
+	</script>
 	<script src="{{assets.js.external}}"></script>
 	<br>
 	{{#env "production"}}mode: production{{/env}}

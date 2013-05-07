@@ -49,14 +49,13 @@ depends on modules being available. If you need to build themeing into your app,
 
 - docs: node setup & new project setup
 - docs: building with grunt
-- docs: config and dev/prod modes, templating: assets variable vs. env block helper
+- docs: config and dev/prod modes, templating: assets include vs. assets path variable vs. env block helper
 - use config.js for grunt paths
 - include prototyping/wireframe styles and a basic template using it. (similar to http://cs-cdw-proto.namics.com/)
 - test automation
 - module creation (wizard?)
 - (npm publish: module-terrific.js?)
 - auth info to config.js
-- look at how inline assets are included / performance
 - sprite generation
 - grunt: linting?
 - documentation templates/placeholders (READMEs, plugins, libs, modules, etc.)

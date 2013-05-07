@@ -5,8 +5,8 @@ module.exports = {
 	,i18n: {
 		lang: 'en-US'
 	}
-	,distFileNames: {
-		js: {
+	,assets: {
+		js: { // use this property name to include an inline file in a template, e.g. {{asset "js"}}
 			inline: {
 				 development:       'inline.js'
 				,production:        'inline.min.js'
@@ -16,7 +16,7 @@ module.exports = {
 				,production:        'external.min.js'
 			}
 		},
-		css: {
+		css: { // use this property name to include an inline file in a template, e.g. {{asset "css"}}
 			inline: {
 				 development:       'inline.css'
 				,production:        'inline.min.css'
