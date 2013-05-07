@@ -69,7 +69,6 @@ depends on modules being available. If you need to build themeing into your app,
 - (npm publish: module-terrific.js?)
 - auth info to config.js
 - grunt: linting?
-- inline css?
 - documentation templates/placeholders (READMEs, plugins, libs, modules, etc.)
 - grunt: develop mode and production mode
 - handle appcache through grunt
