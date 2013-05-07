@@ -61,26 +61,13 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 		;
 
 		try {
-			console.log('read module', file)
+			//console.log('read module', file)
 			content = fs.readFileSync(file, 'utf8');
 		} catch (e) {
-			err = error('Can\'t read template file. Module: ' + moduleName + ', Template: ' + templateName + '.hbs.', e);
+			err = app.error('Can\'t read template file. Module: ' + moduleName + ', Template: ' + templateName + '.hbs.', e);
 			console.error(err.c);
 			options.error = true;
 		}
 		return hbs.compile(content || err.web);
-	}
-
-	// todo: look at my other error utils. make it a module.
-	function error(message, originalError) {
-		var err = ''
-			,originalMessage = originalError && originalError.message || ''
-		;
-		message = message || '';
-		err += message + ' Reason: ' + originalMessage;
-		return {
-			c: err
-			,web: '\n'+err
-		};
 	}
 }

@@ -53,7 +53,7 @@ depends on modules being available. If you need to build themeing into your app,
 
 - docs: node setup & new project setup
 - docs: building with grunt
-- docs: config and dev/prod modes, templating: assets variable vs. env block helper
+- docs: config and dev/prod modes, templating: assets include vs. assets path variable vs. env block helper
 - use config.js for grunt paths
 - Finalize a version that just provides Terrific support.
 - Then focus on the advanced features
@@ -68,6 +68,7 @@ depends on modules being available. If you need to build themeing into your app,
 - module creation (wizard?)
 - (npm publish: module-terrific.js?)
 - auth info to config.js
+- sprite generation
 - grunt: linting?
 - documentation templates/placeholders (READMEs, plugins, libs, modules, etc.)
 - grunt: develop mode and production mode
