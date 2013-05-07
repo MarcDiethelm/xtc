@@ -54,13 +54,11 @@ depends on modules being available. If you need to build themeing into your app,
 - include prototyping/wireframe styles and a basic template using it. (similar to http://cs-cdw-proto.namics.com/)
 - test automation
 - module creation (wizard?)
-- folder naming
 - (npm publish: module-terrific.js?)
 - auth info to config.js
 - look at how inline assets are included / performance
 - sprite generation
 - grunt: linting?
-- inline css?
 - documentation templates/placeholders (READMEs, plugins, libs, modules, etc.)
 
 ## Done

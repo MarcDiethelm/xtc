@@ -4,11 +4,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta charset="UTF-8"/>
 	<title>{{title}}</title>
-	<link rel="stylesheet" type="text/css" href="{{assets.css.external}}">
-	<link rel="icon" type="image/png" href="dist/img/site.favicon.png" />
+	<style>
+		{{> inline-css}}{{!-- a partial --}}
+	</style>
 	<script>
 		{{> inline-js}}{{!-- a partial --}}
 	</script>
+	<link rel="stylesheet" type="text/css" href="{{assets.css.external}}">
+	<link rel="icon" type="image/png" href="dist/img/site.favicon.png" />
 </head>
 <body>
 	{{mod "nav-main" tag="nav"}}

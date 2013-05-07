@@ -17,9 +17,13 @@ module.exports = {
 			}
 		},
 		css: {
+			inline: {
+				 development:       'inline.css'
+				,production:        'inline.min.css'
+			},
 			external: {
-				 development:       'styles.css'
-				,production:        'styles.min.css'
+				 development:       'external.css'
+				,production:        'external.min.css'
 			}
 		}
 	}

@@ -4,7 +4,18 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json')
 
 		,sources: {
-			inline_js: [
+			inline_css: [
+				 'frontend/_terrific/_inline/css/lib/*.css'
+				,'frontend/_terrific/_inline/css/*.less'
+			]
+			,external_css: [
+				 'frontend/_terrific/_base/css/lib/*.css'
+				,'frontend/_terrific/_base/css/elements/*.less'
+				,'frontend/_terrific/mod-*/*.less'
+				,'frontend/_terrific/mod-*/skin/*.less'
+				,'frontend/_terrific/_application/css/*.less'
+			]
+			,inline_js: [
 				 'frontend/_terrific/_inline/js/lib/*.js'
 				,'frontend/_terrific/_inline/js/*.js'
 			]
@@ -12,14 +23,7 @@ module.exports = function(grunt) {
 				 'frontend/_terrific/_base/js/lib/*.js'
 				,'frontend/_terrific/mod-*/*.js'
 				,'frontend/_terrific/mod-*/skin/*.js'
-				,'frontend/_terrific/_application/*.js'
-			]
-			,external_css: [
-				 'frontend/_terrific/_base/css/lib/*.css'
-				,'frontend/_terrific/_base/css/elements/*.less'
-				,'frontend/_terrific/mod-*/*.less'
-				,'frontend/_terrific/mod-*/skin/*.less'
-				,'frontend/_terrific/_application/*.less'
+				,'frontend/_terrific/_application/js/*.js'
 			]
 		},
 		dest: 'frontend/_static/dist'
@@ -27,10 +31,15 @@ module.exports = function(grunt) {
 		//////////////////////////////////////////////////////////////
 
 		,less_imports: {
+			inline: {
+				options: {}
+				,src: '<%=sources.inline_css%>'
+				,dest: '<%=dest%>/inline-imports.less'
+			},
 			external: {
 				options: {}
 				,src: '<%=sources.external_css%>'
-				,dest: '<%=dest%>/styles-imports.less'
+				,dest: '<%=dest%>/external-imports.less'
 			}
 		}
 		,concat: {
@@ -54,22 +63,35 @@ module.exports = function(grunt) {
 			}
 		}
 		,less: {
+			inline: {
+				options: {}
+				,src: '<%=dest%>/inline-imports.less'
+				,dest: '<%=dest%>/inline.css'
+			},
 			external: {
 				options: {}
-				//,src: '<%=sources.external_css%>'
-				,src: '<%=dest%>/styles-imports.less'
-				,dest: '<%=dest%>/styles.css'
+				,src: '<%=dest%>/external-imports.less'
+				,dest: '<%=dest%>/external.css'
 			}
 		},
 		cssmin: {
+			inline: {
+				files: {
+					'<%=dest%>/inline.min.css': ['<%=dest%>/inline.css']
+				}
+			},
 			external: {
 				files: {
-					'<%=dest%>/styles.min.css': ['<%=dest%>/styles.css']
+					'<%=dest%>/external.min.css': ['<%=dest%>/external.css']
 				}
 			}
 		}
 		,watch: {
-			styles: {
+			inline_styles: {
+				files: ['<%=sources.inline_css%>']
+				,tasks: ['build-inline-css']
+			},
+			external_styles: {
 				files: ['<%=sources.external_css%>']
 				,tasks: ['build-external-css']
 			}
@@ -95,15 +117,15 @@ module.exports = function(grunt) {
 	// create pipelines                             // use actual task name (first part before colon)!
 	grunt.registerTask('build-inline-js',            ['concat:inline_scripts', 'uglify:inline']);
 	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'uglify:external']);
-	grunt.registerTask('less-imports',               ['less_imports:external']);
-	grunt.registerTask('build-external-css',         ['less:external', 'cssmin:external']);
+	grunt.registerTask('build-inline-css',           ['less_imports:inline', 'less:inline', 'cssmin:inline']);
+	grunt.registerTask('build-external-css',         ['less_imports:external', 'less:external', 'cssmin:external']);
 
 	// aggregate pipelines
 	grunt.registerTask('default',
 	[
 		'build-inline-js'
 		,'build-external-js'
-		,'less-imports'
+		,'build-inline-css'
 		,'build-external-css'
 		,'watch'
 	]);

@@ -57,7 +57,22 @@ hbs.registerPartial('inline-js', function() {
 		console.log('read inline partial', file)
 		content = fs.readFileSync(file, 'utf8');
 	} catch (e) {
-		err = error('Can\'t read partial template file.', e);
+		err = error('Can\'t read partial file.', e);
+		console.error(err.c);
+	}
+	return content;
+});
+// dirty single purpose partial function
+// todo: clean this up! Currently this only serves inline-js...
+hbs.registerPartial('inline-css', function() {
+	var  fs = require('fs')
+		,file = path.join(app.config.paths.dist, app.config.distFileNames.css.inline[NODE_ENV])
+	;
+	try {
+		console.log('read inline partial', file)
+		content = fs.readFileSync(file, 'utf8');
+	} catch (e) {
+		err = error('Can\'t read partial file.', e);
 		console.error(err.c);
 	}
 	return content;
