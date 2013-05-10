@@ -8,6 +8,7 @@ var  express = require('express')
 
 module.exports = function(app) {
 	var index = require('./../controllers/index')(app);
+
 	app.get('/', index.home);
 	app.get('/subpage', index.aSubpage);
 	app.get('/data/:someParam', auth(authUser, authPsw), index.data);
