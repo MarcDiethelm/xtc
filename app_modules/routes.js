@@ -12,4 +12,6 @@ module.exports = function(app) {
 	app.get('/', index.home);
 	app.get('/subpage', index.aSubpage);
 	app.get('/data/:someParam', auth(authUser, authPsw), index.data);
+
+	app.render404 = index.render404;
 };
