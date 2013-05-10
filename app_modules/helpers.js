@@ -44,14 +44,16 @@ module.exports = function(app) {
 			var  assets = app.config.assets;
 
 			// this could be created dynamically depending on config properties
-			app.locals.assets = {
-				js: {
-					external: app.config.webPaths.dist + assets.js.external[NODE_ENV]
+			app.locals({
+				assets: {
+					js: {
+						external: app.config.webPaths.dist + assets.js.external[NODE_ENV]
+					}
+					,css: {
+						external: app.config.webPaths.dist + assets.css.external[NODE_ENV]
+					}
 				}
-				,css: {
-					external: app.config.webPaths.dist + assets.css.external[NODE_ENV]
-				}
-			}
+			});
 		},
 
 		registerTemplateHelpers: function() {

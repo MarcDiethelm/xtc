@@ -6,7 +6,7 @@ module.exports = {
 		lang: 'en-US'
 	}
 	,assets: {
-		js: { // use this property name to include an inline file in a template, e.g. {{asset "js"}}
+		js: { // set and use this property name to include an inline file in a template, e.g. {{asset "js"}}
 			inline: {
 				 development:       'inline.js'
 				,production:        'inline.min.js'
@@ -16,7 +16,7 @@ module.exports = {
 				,production:        'external.min.js'
 			}
 		},
-		css: { // use this property name to include an inline file in a template, e.g. {{asset "css"}}
+		css: { // set and use this property name to include an inline file in a template, e.g. {{asset "css"}}
 			inline: {
 				 development:       'inline.css'
 				,production:        'inline.min.css'
