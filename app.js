@@ -33,12 +33,16 @@ app.configure(function() {
 // development only
 app.configure('development', function() {
 	app.use(express.errorHandler());
+	app.use(express.responseTime());
 });
+
+// production only
+app.configure('production', function() {});
 
 // If no other middleware responds, send a 404. Defined in routes.js.
 app.use(app.render404);
 
 
 http.createServer(app).listen(app.get('port'), function() {
-	console.log("Express server listening on port " + app.get('port'));
+	console.log('Express server in %s mode listening on port %d', app.get('env'), app.get('port'));
 });
