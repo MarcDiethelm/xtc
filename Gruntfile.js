@@ -135,7 +135,7 @@ module.exports = function(grunt) {
 
 	// create pipelines                             // use actual task name (first part before colon)!
 	grunt.registerTask('build-inline-js',            ['concat:inline_scripts', 'uglify:inline']);
-	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'uglify:inline']);
+	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'uglify:external']);
 	grunt.registerTask('build-inline-css',           ['less_imports:inline', 'less:inline', 'cssmin:inline']);
 	grunt.registerTask('build-external-css',         ['less_imports:external', 'less:external', 'cssmin:external']);
 	grunt.registerTask('precompile-templates',       ['handlebars:compile']);
