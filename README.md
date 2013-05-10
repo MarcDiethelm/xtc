@@ -79,6 +79,7 @@ depends on modules being available. If you need to build themeing into your app,
 
 ## Done
 
+- gzip responses DONE
 - grunt: minification DONE
 - @import DONE
 - Terrific bootstrap DONE
