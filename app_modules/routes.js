@@ -13,4 +13,6 @@ module.exports = function(app) {
 	app.get('/subpage', index.aSubpage);
 	app.get('/data/:someParam', auth(authUser, authPsw), index.data);
 	app.get('/site.appcache', index.appCache);
+
+	app.render404 = index.render404;
 };

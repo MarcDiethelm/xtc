@@ -32,6 +32,17 @@ module.exports = function(app) {
 		,data: function(req, res, next) {
 			res.json({someParam: req.params.someParam});
 		}
+		// If no Express middleware sends a response this function is called.
+		,render404: function(req, res, next) {
+			res.status(404)
+				.render(
+				'views/404'
+				,{
+					 title: '404 – ' + siteName
+					,uri: req.originalUrl
+				}
+			);
+		}
 		,appCache: function(req,res, next) {
 			res.header("Content-Type", "text/cache-manifest");
 			res.render('appcache', {

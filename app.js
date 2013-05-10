@@ -35,6 +35,10 @@ app.configure('development', function() {
 	app.use(express.errorHandler());
 });
 
+// If no other middleware responds, send a 404. Defined in routes.js.
+app.use(app.render404);
+
+
 http.createServer(app).listen(app.get('port'), function() {
 	console.log("Express server listening on port " + app.get('port'));
 });
