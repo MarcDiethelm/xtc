@@ -1,0 +1,31 @@
+<svg version="1.1"
+     baseProfile="full"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events">
+
+	<g id="rotateSquare">
+		<rect x="100px" y="100px"
+		      width="300px" height="300px"
+		      fill="hotpink" stroke="#646464" stroke-width="5px" />
+
+		<foreignObject  x="110px" y="150px"
+		                width="290px" height="290px">
+			<html xmlns="http://www.w3.org/1999/xhtml">
+			<body>
+				<h2>Alternate Template</h2>
+				in SVG
+				{{{body}}}
+			</body>
+			</html>
+		</foreignObject>
+
+		<animateTransform
+			attributeType="XML"
+			attributeName="transform"
+			type="rotate"
+			from="0,250,250" to="360,250,250"
+			begin="0s" dur="6s"
+			repeatCount="indefinite" />
+	</g>
+</svg>

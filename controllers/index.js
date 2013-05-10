@@ -13,17 +13,24 @@ module.exports = function(app) {
 		 // render home.hbs and include it in the default template (defined in config.js)
 		home: function(req, res, next) {
 			res.render('views/home', {
-				,title: siteName
-				,lang: lang
-				,data: 'some text'
+				 title: siteName
+				,someData: 'Homepage using default template'
 			});
 		}
 		 // Render a different view
 		,aSubpage: function(req, res, next) {
-			res.render('views/test-modules', {
+			res.render('views/subpage', {
+				 title: siteName
+				,someData: 'A sub-page using default template'
+			});
+		}
+		 // We can override the default template and use another. Protip: To not use any template set layout: false
+		,aSubpageAlternate: function(req, res, next) {
+			res.set('Content-Type', 'image/svg+xml');
+			res.render('views/subpage', {
+				 layout: 'templates/alternate'
 				,title: siteName
-				,lang: lang
-				,data: 'some text'
+				,someData: 'a sub-page using alternate template'
 			});
 		}
 		// Or we can just send data
