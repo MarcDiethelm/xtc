@@ -41,7 +41,7 @@ This is a good place for basic bootstrapping code and dependencies like an asset
 for use in a model. Use widely and sparingly.
 - `base` folder: anything that needs to be defined before including any modules: LessCSS variables, mixins, grids,
 some global JS code like Modernizr or other utilities and libraries and plugins.
-- `mod-something` folders: All your module code and styles absically everything visible that's not pure layout.
+- `mod-something` folders: All your module code and styles, basically everything visible that's not pure layout.
 - `_application` folder: The code that actually starts your app: Terrific bootstrap and any other global logic that
 depends on modules being available. If you need to build themeing into your app, this is the place too.
 
@@ -59,6 +59,8 @@ depends on modules being available. If you need to build themeing into your app,
 - sprite generation
 - grunt: linting?
 - documentation templates/placeholders (READMEs, plugins, libs, modules, etc.)
+- to data uri conversion?
+- use dependencyPath in Tc bootstrap?
 
 ## Done
 
