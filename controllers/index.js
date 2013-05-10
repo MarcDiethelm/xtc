@@ -13,7 +13,6 @@ module.exports = function(app) {
 		 // render home.hbs and include it in the default template (defined in config.js)
 		home: function(req, res, next) {
 			res.render('views/home', {
-				layout: 'templates/layout'
 				,title: siteName
 				,lang: lang
 				,data: 'some text'
@@ -22,7 +21,6 @@ module.exports = function(app) {
 		 // Render a different view
 		,aSubpage: function(req, res, next) {
 			res.render('views/test-modules', {
-				layout: 'templates/layout'
 				,title: siteName
 				,lang: lang
 				,data: 'some text'

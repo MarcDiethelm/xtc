@@ -3,8 +3,9 @@ module.exports = {
 	siteName: 'Hello World'
 	,devPort: 3000
 	,i18n: {
-		lang: 'en-US'
+		langDefault: 'en-US'
 	}
+	,defaultTemplate: 'templates/default'
 	,assets: {
 		js: { // set and use this property name to include an inline file in a template, e.g. {{asset "js"}}
 			inline: {
