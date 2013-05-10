@@ -1,15 +1,43 @@
 this["JST"] = this["JST"] || {};
 
+this["JST"]["404"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
+helpers = helpers || Handlebars.helpers; data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<h1>404 Not found</h1>\n\n<code>";
+  if (stack1 = helpers.uri) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.uri; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</code>\n\n<p>This resource does not exist.</p>";
+  return buffer;
+  });
+
 this["JST"]["home"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [2,'>= 1.0.0-rc.3'];
 helpers = helpers || Handlebars.helpers; data = data || {};
   var buffer = "", stack1, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 
-  buffer += "\n\n";
+  buffer += "<h1>Home</h1>\n\n";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.mod),stack1 ? stack1.call(depth0, "bootstrap-carousel", options) : helperMissing.call(depth0, "mod", "bootstrap-carousel", options)))
     + "\n\n";
+  return buffer;
+  });
+
+this["JST"]["subpage"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
+helpers = helpers || Handlebars.helpers; data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<p>\n	";
+  if (stack1 = helpers.someData) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.someData; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + " ipsum dolor sit amet, consectetur adipisicing elit. A adipisci distinctio, dolorum, error hic laudantium\n	magnam officiis perferendis praesentium quas quod repellat saepe ullam veniam voluptates? Esse maiores ullam vero.\n</p>";
   return buffer;
   });
 
@@ -80,7 +108,7 @@ helpers = helpers || Handlebars.helpers; data = data || {};
   
 
 
-  return "<span class=\"wf-label\">.mod-bootstrap-carousel</span>\n<div id=\"myCarousel\" class=\"carousel slide\">\n	<ol class=\"carousel-indicators\">\n		<li data-target=\"#myCarousel\" data-slide-to=\"0\" class=\"active\"></li>\n		<li data-target=\"#myCarousel\" data-slide-to=\"1\"></li>\n		<li data-target=\"#myCarousel\" data-slide-to=\"2\"></li>\n	</ol>\n	<!-- Carousel items -->\n	<div class=\"carousel-inner\">\n		<div class=\"active item\"><img src=\"http://placehold.it/320x180&text=Slide 1\"></div>\n		<div class=\"item\"><img src=\"http://placehold.it/320x180&text=Slide 2\"></div>\n		<div class=\"item\"><img src=\"http://placehold.it/320x180&text=Slide 3\"></div>\n	</div>\n	<!-- Carousel nav -->\n	<a class=\"carousel-control left\" href=\"#myCarousel\" data-slide=\"prev\">&lsaquo;</a>\n	<a class=\"carousel-control right\" href=\"#myCarousel\" data-slide=\"next\">&rsaquo;</a>\n</div>\n<p>\n	This module's dependencies (js and css) are stored in the base folder. This means they are concatenated [and loaded\n	as external assets] and are always available in this base template.\n</p>";
+  return "<span class=\"wf-label\">.mod-bootstrap-carousel</span>\n<div id=\"myCarousel\" class=\"carousel slide\">\n	<ol class=\"carousel-indicators\">\n		<li data-target=\"#myCarousel\" data-slide-to=\"0\" class=\"active\"></li>\n		<li data-target=\"#myCarousel\" data-slide-to=\"1\"></li>\n		<li data-target=\"#myCarousel\" data-slide-to=\"2\"></li>\n	</ol>\n	<!-- Carousel items -->\n	<div class=\"carousel-inner\">\n		<div class=\"active item\"><img src=\"http://placehold.it/320x180&amp;text=Slide 1\"/></div>\n		<div class=\"item\"><img src=\"http://placehold.it/320x180&amp;text=Slide 2\"/></div>\n		<div class=\"item\"><img src=\"http://placehold.it/320x180&amp;text=Slide 3\"/></div>\n	</div>\n	<!-- Carousel nav -->\n	<a class=\"carousel-control left\" href=\"#myCarousel\" data-slide=\"prev\">&lsaquo;</a>\n	<a class=\"carousel-control right\" href=\"#myCarousel\" data-slide=\"next\">&rsaquo;</a>\n</div>\n<p>\n	This module's dependencies (js and css) are stored in the base folder. This means they are concatenated [and loaded\n	as external assets] and are always available in this base template.\n</p>";
   });
 
 this["JST"]["foo-alternate"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -111,5 +139,5 @@ helpers = helpers || Handlebars.helpers; data = data || {};
   
 
 
-  return "<span class=\"wf-label\">.mod-nav-main</span>\n<ul>\n	<li><a href=\"/\">Home</a></li>\n	<li><a href=\"/subpage\">Sub-Page</a></li>\n</ul>";
+  return "<span class=\"wf-label\">.mod-nav-main</span>\n<ul>\n	<li><a href=\"/\">Home</a></li>\n	<li><a href=\"/subpage\">Sub-Page</a></li>\n	<li><a href=\"/subpage-alternate\">Alternate Template</a></li>\n	<li><a href=\"/404\">404</a></li>\n</ul>";
   });
