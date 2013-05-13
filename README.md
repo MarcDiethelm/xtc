@@ -32,6 +32,8 @@ include a
 - View (`/frontend/views`): A view typically corresponds to an individual page with an URL. This is where you include
 any modules specific to the page.
 
+Modules can also define multiple templates for their markup.
+
 ### Terrific Folder: Order matters
 A simple but important concept is to understand how the default folders in /terrific are included. Any files you throw
 in there are included and executed like so:
@@ -47,13 +49,14 @@ depends on modules being available. If you need to build themeing into your app,
 
 ## To Do
 
+- basic module tests (+ watch task for those tests)
+- module creation (wizard?)
+- use config.js for grunt paths
 - docs: node setup & new project setup
 - docs: building with grunt
 - docs: config and dev/prod modes, templating: assets include vs. assets path variable vs. env block helper
-- use config.js for grunt paths
 - include prototyping/wireframe styles and a basic template using it. (similar to http://cs-cdw-proto.namics.com/)
-- test automation
-- module creation (wizard?)
+- Handle file additions and .hbs changes (server-side cache invalidation) or document the need to restart grunt/node
 - (npm publish: module-terrific.js?)
 - auth info to config.js
 - sprite generation
@@ -61,13 +64,14 @@ depends on modules being available. If you need to build themeing into your app,
 - documentation templates/placeholders (READMEs, plugins, libs, modules, etc.)
 - to data uri conversion?
 - use dependencyPath in Tc bootstrap?
+- tests for node-terific framework
 
 ## Done
 
 - gzip responses DONE
 - grunt: minification DONE
 - @import DONE
-- bootstrap DONE
+- Terrific bootstrap DONE
 - file watcher DONE
 - module include DONE
 - js skins DONE
