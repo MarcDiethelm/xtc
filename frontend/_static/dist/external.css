@@ -243,8 +243,16 @@ a:active {
 .mod-bootstrap-carousel {
   width: 320px;
 }
+.mod-example .bd {
+  font-style: italic;
+  font-weight: bold;
+}
 .mod-nav-main li {
   list-style: none;
   display: inline-block;
   padding-right: 20px;
+}
+.skin-example-alternate .bd {
+  text-decoration: underline;
+  font-style: normal;
 }

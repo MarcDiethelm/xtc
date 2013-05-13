@@ -1412,6 +1412,54 @@ if (!Object.keys) {
 })(Tc.$);
 (function($) {
 	/**
+	 * Example module implementation.
+	 *
+	 * @author 
+	 * @namespace Tc.Module
+	 * @class Default
+	 * @extends Tc.Module
+	 */
+	Tc.Module.Example = Tc.Module.extend({
+
+		/**
+		 * Initializes the Example module.
+		 *
+		 * @method init
+		 * @constructor
+		 * @param {jQuery|Zepto} $ctx the jquery context
+		 * @param {Sandbox} sandbox the sandbox to get the resources from
+		 * @param {String} modId the unique module id
+		 */
+		init: function($ctx, sandbox, modId) {
+			// call base constructor
+			this._super($ctx, sandbox, modId);
+		},
+
+		/**
+		 * Hook function to do all of your module stuff.
+		 *
+		 * @method on
+		 * @param {Function} callback function
+		 * @return void
+		 */
+		on: function(callback) {
+			this.$ctx.append('\n<br><span class="debug">JS Module &quot;example&quot; started</span>');
+			callback();
+		},
+
+		/**
+		 * Hook function to trigger your events.
+		 *
+		 * @method after
+		 * @return void
+		 */
+		after: function() {
+			console.log('module example after()')
+		}
+	});
+})(Tc.$);
+(function($) {
+	/**
 	 * Foo module implementation.
 	 *
 	 * @author Foo B. Baz
@@ -1457,6 +1505,34 @@ if (!Object.keys) {
 		}
 	});
 })(Tc.$);
+(function($) {
+	/**
+	 * Basic Skin implementation for the Example module.
+	 *
+	 * @author 
+	 * @namespace Tc.Module.Default
+	 * @class Basic
+	 * @extends Tc.Module
+	 * @constructor
+	 */
+	Tc.Module.Example.Alternate = function(parent) {
+		/**
+		 * override the appropriate methods from the decorated module (ie. this.get = function()).
+		 * the former/original method may be called via parent.<method>()
+		 */
+		this.on = function(callback) {
+			// calling parent method
+			parent.on(callback);
+			parent.$ctx.append('\n<br><span>JS skin &quot;Example.Alternate&quot; started</span>');
+		};
+
+		this.after = function() {
+			// calling parent method
+			parent.after();
+		};
+	};
+})(Tc.$);
+
 (function($) {
 	/**
 	 * Basic Skin implementation for the Foo module.
