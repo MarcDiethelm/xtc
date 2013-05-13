@@ -47,6 +47,14 @@ some global JS code like Modernizr or other utilities and libraries and plugins.
 - `_application` folder: The code that actually starts your app: Terrific bootstrap and any other global logic that
 depends on modules being available. If you need to build themeing into your app, this is the place too.
 
+## Module Testing
+
+You can write client-side tests for your Terrific modules. For any page your currently working on each contained module
+is tested atomically and the results are printed to the console. It's somewhat limited because it's not application-wide
+and doesn't provide for inter-module (i.e. connectors) testing. But it's still very useful to see if something breaks on
+any given page.
+todo: todos in _static/test/test.js
+
 ## To Do
 
 - basic module tests (+ watch task for those tests)

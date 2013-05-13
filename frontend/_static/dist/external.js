@@ -1394,10 +1394,10 @@ if (!Object.keys) {
 			//log('Module BootstrapCarousel has unmet dependencies');
 			// bootstrap-carousel.css
 			// bootstrap-carousel.js
-			$('.carousel').carousel();
+			$('.carousel').carousel({interval: false});
 
 			callback();
-			this.$ctx.append('\n<br><span>mod BootstrapCarousel started</span>');
+			this.$ctx.append('\n<br><span class="debug">mod BootstrapCarousel started</span>');
 		},
 
 		/**
@@ -1573,14 +1573,15 @@ $(document.documentElement).removeClass('no-js');
 	$(document).ready(function () {
 		var app
 			,$ = Tc.$
-			,$body = $(document)
+			,$body = $(document.documentElement)
 			,config = {
 				dependencyPath: {
 					library: window.assetsUrl + '/scripts/libs-dyn/',
 					plugin:  window.assetsUrl + '/scripts/plugins-dyn/',
 					util:    window.assetsUrl + '/scripts/utils-dyn/'
 				}
-			}
+			},
+			moduleTest
 		;
 
 		// custom function for context selection
@@ -1590,9 +1591,9 @@ $(document.documentElement).removeClass('no-js');
 
 		app = window.application = new Tc.Application($body, config);
 		app.registerModules();
-		app.registerModule($body, 'Layout');
-		// register internationalization module
-		app.registerModule($body, 'i18n');
+		ModuleTest && (moduleTest = new ModuleTest(app)); // Prepare atomic module tests
+		//app.registerModule($body, 'Layout');
 		app.start();
+		moduleTest && moduleTest.run();
 	});
 })(window, Tc, document);

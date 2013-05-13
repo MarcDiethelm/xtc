@@ -37,6 +37,13 @@ module.exports = function(app) {
 		,data: function(req, res, next) {
 			res.json({someParam: req.params.someParam});
 		}
+		// Frontend testing
+		,test: function(req, res, next) {
+			res.render('views/test-modules', {
+				title: 'Test – ' + siteName
+				,someData: 'a sub-page using alternate template'
+			});
+		}
 		// If no Express middleware sends a response this function is called.
 		,render404: function(req, res, next) {
 			res.status(404)

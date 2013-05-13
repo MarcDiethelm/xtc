@@ -36,12 +36,22 @@ module.exports = {
 		//,inline: 'frontend/_inline'
 		//,base: 'frontend/_terrific/_base'
 		,module: 'frontend/_terrific/mod-{{name}}/'
+		,views: 'frontend/views/'
 		//,application: 'frontend/_terrific/_application'
 		,dist: 'frontend/_static/dist/'
-	},
+	}
 
-	webPaths: {
+	,webPaths: {
 		// where built assets are written
 		dist: '/dist/'
+	}
+
+	 // Config properties for client-side QUnit
+	,QUnitFE: {
+		// QUnit updates document.title to add a checkmark or x-mark to indicate if a testsuite passed or failed.
+		alterTitle: true
+		// A summary of all executed tests and any failed tests are logged to the browser console.
+		// In addition you can activate the standard QUnit UI.
+		,showUi: false
 	}
 }

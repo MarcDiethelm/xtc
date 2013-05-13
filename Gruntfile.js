@@ -25,6 +25,10 @@ module.exports = function(grunt) {
 				,'frontend/_terrific/mod-*/skin/*.js'
 				,'frontend/_terrific/_application/js/*.js'
 			]
+			,module_test_js: [
+				 'frontend/_static/test/*.js'
+				,'frontend/_terrific/mod-*/test/*.js'
+			]
 		},
 		dest: 'frontend/_static/dist'
 
@@ -48,8 +52,12 @@ module.exports = function(grunt) {
 				,dest: '<%=dest%>/inline.js'
 			}
 			,external_scripts: {
-				src: '<%=sources.external_js%>'
+				 src: '<%=sources.external_js%>'
 				,dest: '<%=dest%>/external.js'
+			}
+			,module_tests: {
+				 src: '<%=sources.module_test_js%>'
+				,dest: '<%=dest%>/test.js'
 			}
 		},
 		uglify: {
@@ -103,6 +111,10 @@ module.exports = function(grunt) {
 				files: ['<%=sources.external_js%>']
 				,tasks: ['build-external-js']
 			}
+			,module_tests: {
+				files: ['<%=sources.module_test_js%>']
+				,tasks: ['build-module-tests']
+			}
 		}
 	});
 
@@ -119,14 +131,16 @@ module.exports = function(grunt) {
 	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'uglify:external']);
 	grunt.registerTask('build-inline-css',           ['less_imports:inline', 'less:inline', 'cssmin:inline']);
 	grunt.registerTask('build-external-css',         ['less_imports:external', 'less:external', 'cssmin:external']);
+	grunt.registerTask('build-module-tests',         ['concat:module_tests']);
 
 	// aggregate pipelines
 	grunt.registerTask('default',
 	[
-		'build-inline-js'
+		 'build-inline-js'
 		,'build-external-js'
 		,'build-inline-css'
 		,'build-external-css'
+		,'build-module-tests'
 		,'watch'
 	]);
 

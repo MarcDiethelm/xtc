@@ -1,24 +1,10 @@
-<h2>Test: module includes</h2>
+{{#if showUi}}<link rel="stylesheet" href="/lib/qunit-1.11.0.css"/> {{/if}}
+<script src="/lib/qunit-1.11.0.js"></script>
+<script src="/dist/test.js"></script>
+<script>
+	QUnit.config.altertitle = {{alterTitle}};
+	QUnit.config.reorder = {{reorder}}; // is always false
+</script>
 
-\{{mod "foo"}}<br>
-{{mod "foo"}}
-<br>
-<br>
-\{{mod "foo" template="alternate"}}<br>
-{{mod "foo" template="alternate"}}
-<br>
-<br>
-\{{mod "foo" tag="aside" skins="sheep, alternate" connectors="stats, filter"}}<br>
-{{mod "foo" tag="aside" skins="sheep, alternate" connectors="stats, filter"}}
-<br>
-<br>
-\{{mod "foo" template="alternate" skins="alternate, baz" htmlClasses="test-class" connectors="stats, filter" indent=2}}<br>
-{{mod "foo" template="alternate" skins="alternate, baz" htmlClasses="test-class" connectors="stats, filter" indent=2}}
-<br>
-<br>
-\{{mod "bar"}} Includes module foo...<br>
-{{mod "bar"}}
-<br>
-<br>
-\{{mod "nothing"}} Doesn't exist! We should get an error message.<br>
-{{mod "nothing"}}
+{{#if showUi}}<div id="qunit"></div>{{/if}}
+<div id="qunit-fixture"></div>

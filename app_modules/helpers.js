@@ -80,6 +80,29 @@ module.exports = function(app) {
 				//  return the template only if the name matches NODE_ENV ('development', 'production', etc.)
 				return name == NODE_ENV ? context.fn(this) : '';
 			});
+
+			hbs.registerHelper('test', function(name, context) {
+				var  file, template
+					,config = app.config.QUnitFE
+
+				if (NODE_ENV != 'development')
+					return '';
+
+				file = path.join(app.config.paths.views, 'test-modules.hbs');
+
+				try {
+					template = fs.readFileSync(file, 'utf8');
+				} catch (e) {
+					err = app.error('Can\'t read test template file.', e);
+					console.error(err.c);
+				}
+				template = hbs.compile(template)({
+					alterTitle: config.alterTitle.toString()
+					,showUi: config.showUi
+					,reorder: 'false'
+				});
+				return new hbs.SafeString(template);
+			});
 		}
 	};
 
