@@ -35,10 +35,10 @@
 			//log('Module BootstrapCarousel has unmet dependencies');
 			// bootstrap-carousel.css
 			// bootstrap-carousel.js
-			$('.carousel').carousel();
+			$('.carousel').carousel({interval: false});
 
 			callback();
-			this.$ctx.append('\n<br><span>mod BootstrapCarousel started</span>');
+			this.$ctx.append('\n<br><span class="debug">mod BootstrapCarousel started</span>');
 		},
 
 		/**
