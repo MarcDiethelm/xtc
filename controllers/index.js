@@ -24,7 +24,7 @@ module.exports = function(app) {
 				,someData: 'A sub-page using default template'
 			});
 		}
-		 // We can override the default template and use another. Protip: To not use any template set layout: false
+		 // We can override the default template and use another. Protip: To not use any template, set layout: false
 		,aSubpageAlternate: function(req, res, next) {
 			res.set('Content-Type', 'image/svg+xml');
 			res.render('views/subpage', {
@@ -37,13 +37,20 @@ module.exports = function(app) {
 		,data: function(req, res, next) {
 			res.json({someParam: req.params.someParam});
 		}
-		// Frontend testing
-		,test: function(req, res, next) {
-			res.render('views/test-modules', {
-				title: 'Test – ' + siteName
-				,someData: 'a sub-page using alternate template'
-			});
+		 // Look for a view with the name supplied by the catch-all route
+		,subPages: function(req, res, next) {
+			var pageName = req.params.pageName;
+			try {
+				res.render('views/'+ pageName, {
+					title: siteName
+				});
+			} catch (e) {
+				// we never get here. either render succeeds or next() is called apparently. which is fine, because
+				// the last defined middleware is render404.
+			}
 		}
+		/////////////////////////////////////////////////////////////////////
+
 		// If no Express middleware sends a response this function is called.
 		,render404: function(req, res, next) {
 			res.status(404)
