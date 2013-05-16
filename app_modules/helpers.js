@@ -3,6 +3,7 @@ module.exports = function(app) {
 	var path = require('path')
 		,hbs = require('hbs')
 		,fs = require('fs')
+		,_ = require('underscore')
 		,NODE_ENV = app.get('env')
 	;
 
@@ -21,20 +22,45 @@ module.exports = function(app) {
 
 	return {
 		/**
+		 * Create one configuration from the different files as available.
+		 */
+		mergeConfigs: function(basePath, configPath) {
+			var  config = {
+					dirname: basePath // the absolute path to the app. our base path.
+				}
+				,configPath = path.join(basePath, configPath)
+				,configs = [
+					'config.js'
+					,'config-secret.js'
+					,'config-local.js'
+				]
+			;
+
+
+			configs.forEach(function(filename) {
+				var  file = path.join(configPath, filename)
+				;
+
+				if (fs.existsSync(file)) {
+					config = _.extend( config, require(file) );
+				}
+			});
+			app.config = config;
+		},
+		/**
 		 * Convert all relative paths in config.js to absolute paths using our base path
 		 */
 		configAbsolutePaths: function() {
-				var paths = app.config.paths
-					,pathName
-				;
-				for (pathName in paths) {
-
-					paths[pathName] = this.localPathToAbsolute(paths[pathName]);
-				};
-			},
+			var paths = app.config.paths
+				,pathName
+			;
+			for (pathName in paths) {
+				paths[pathName] = this.localPathToAbsolute(paths[pathName]);
+			};
+		},
 
 		localPathToAbsolute: function(localPath) {
-			return path.join( app.config.dirName, localPath);
+			return path.join( app.config.dirname, localPath);
 		},
 
 		/**

@@ -22,6 +22,16 @@ naming convention:
 - use - (hyphen for pretty much everything: module names, skins, template files)
 - 'lib' is for any third-party code that we don't touch: libraries, jquery plugins
 
+### Configuration
+After cloning you should set up your configuration files in `_config`. Initially there is just one that's actually read:
+`config.js`. However you can create two more from the templates provided in the same folder: `config-secret.js` and
+`config-local.js`. They are merged into the app config in the order mentioned just now.
+
+Both additional files are lised in `.gitignore` and won't be committed to your repository. `config-local` is also listed
+`.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be deployed. Use `config-secret.js` for
+authentication data, SSL certs and so on.
+
+
 ### Templates and views
 In node-terrific the distinction between templates and views are as follows:
 

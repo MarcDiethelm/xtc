@@ -1,2 +1,4 @@
+config-secret.js
+config-local.js
 frontend/_static/dist/
 node_modules

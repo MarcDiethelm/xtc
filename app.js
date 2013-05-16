@@ -1,7 +1,3 @@
-/**
- * Module dependencies.
- */
-
 var  path = require('path')
 	,express = require('express')
 	,http = require('http')
@@ -9,9 +5,9 @@ var  path = require('path')
 	,app = express()
 ;
 
-app.config = require('./app_modules/config.js');
-app.config.dirName = __dirname; // the absolute path to this directory. our base path.
+
 app.helpers = require('./app_modules/helpers.js')(app);
+app.helpers.mergeConfigs(__dirname, '_config');
 app.helpers.configAbsolutePaths();
 app.helpers.shareAssetWebPathsWithLocals();
 app.helpers.registerTemplateHelpers();
