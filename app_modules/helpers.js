@@ -97,6 +97,7 @@ module.exports = function(app) {
 					} catch (e) {
 						err = app.error('Can\'t read inline asset file.', e);
 						console.error(err.c);
+						cached = '';
 					}
 				}
 				return new hbs.SafeString(cached);
