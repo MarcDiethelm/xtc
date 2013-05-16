@@ -1,7 +1,7 @@
 var  path = require('path')
 	,express = require('express')
 	,http = require('http')
-	,hbs = require('hbs')
+	,hbs  = require('express3-handlebars')
 	,app = express()
 ;
 
