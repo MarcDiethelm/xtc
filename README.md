@@ -57,13 +57,23 @@ some global JS code like Modernizr or other utilities and libraries and plugins.
 - `_application` folder: The code that actually starts your app: Terrific bootstrap and any other global logic that
 depends on modules being available. If you need to build themeing into your app, this is the place too.
 
-## Module Testing
+### Module Testing
 
 You can write client-side tests for your Terrific modules. For any page your currently working on each contained module
 is tested atomically and the results are printed to the console. It's somewhat limited because it's not application-wide
 and doesn't provide for inter-module (i.e. connectors) testing. But it's still very useful to see if something breaks on
 any given page.
 todo: todos in _static/test/test.js
+
+### PHPStorm / WebStorm Users
+
+There are some things you can do that will make development so much more easy:
+
+- You can run Grunt directly in the IDE. Any errors during asset parsing will be immediately pointed out to you. I you
+have the Command Line Tools plugin installed, open the Tools menu and select 'Run Command...'. Enter `grunt` in the
+input line.
+- You can run/restart Node directly in the IDE. If you have the Node.js plugin installed create a Run configuration
+pointing to app.js. There's more than one way do get there. If in doubt refer to the documentation of your IDE.
 
 ## To Do
 
@@ -72,6 +82,7 @@ todo: todos in _static/test/test.js
 - use config.js for grunt paths
 - docs: node setup & new project setup
 - docs: building with grunt
+- docs: sprites creation with glue and grunt-glue (http://glue.readthedocs.org/en/latest/installation.html) (and optipng)
 - docs: config and dev/prod modes, templating: assets include vs. assets path variable vs. env block helper
 - include prototyping/wireframe styles and a basic template using it. (similar to http://cs-cdw-proto.namics.com/)
 - Handle file additions and .hbs changes (server-side cache invalidation) or document the need to restart grunt/node
