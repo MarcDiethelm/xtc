@@ -16,13 +16,30 @@ At risk:
 - Grunt.js templates for efficient and consistent project and module creation.
 - NPM packaging this project as a tool for super-easy project creation
 
-## DOCS
-naming convention:
 
-- use - (hyphen for pretty much everything: module names, skins, template files)
-- 'lib' is for any third-party code that we don't touch: libraries, jquery plugins
+## DOCS
+
+
+### Installing Node.js
+
+It is higly recommended that you use a Node version manager for two reasons: NVMs perform install Node binaries AND any
+global node modules in a hidden folder in your home directory. No need to use sudo and mess with your system.
+And eventually you'll have more than one Node project each with their dependencies on different versions of Node.js and
+global modules.
+
+So, install [Nave](https://github.com/isaacs/nave) from Github and install the latest stable Node.js version with
+`nave use stable`. Nave will open a new shell for you where node is a local install.
+
+### Node Modules dependencies
+
+After that you can just do `npm install` in the project folder and all dependencies of the server part will be
+installed.
+
+To use the automated sprite generation please follow the
+[Glue documentation](http://glue.readthedocs.org/en/latest/installation.html)
 
 ### Configuration
+
 After cloning you should set up your configuration files in `_config`. Initially there is just one that's actually read:
 `config.js`. However you can create two more from the templates provided in the same folder: `config-secret.js` and
 `config-local.js`. They are merged into the app config in the order mentioned just now.
@@ -30,6 +47,28 @@ After cloning you should set up your configuration files in `_config`. Initially
 Both additional files are lised in `.gitignore` and won't be committed to your repository. `config-local` is also listed
 `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be deployed. Use `config-secret.js` for
 authentication data, SSL certs and so on.
+
+### Asset Building: Grunt
+
+Before you can start the server you need to generate the assets for the frontend. Use the terminal in your project
+folder and enter `grunt`. That's it. Grunt will watch all your JS and Less/CSS source files as configured in
+Gruntfile.js and re-generate the assets automatically when you edit them. You will have to re-start Grunt for it to
+register any new files though!
+
+todo: sprites generation with node-glue
+
+### Start the server!
+
+Use a different terminal in your project folder (do you know `screen`?) and start the server with `node app.js`.
+
+
+## Manual
+
+
+### Naming Convention
+
+- use - (hyphen for pretty much everything: module names, skins, template files)
+- 'lib' is for any third-party code that we don't touch: libraries, jquery plugins
 
 
 ### Templates and views
@@ -71,7 +110,7 @@ There are some things you can do that will make development so much more easy:
 
 - You can run Grunt directly in the IDE. Any errors during asset parsing will be immediately pointed out to you. I you
 have the Command Line Tools plugin installed, open the Tools menu and select 'Run Command...'. Enter `grunt` in the
-input line.
+input line. Just make sure you have installed Grunt CLI globally with `sudo npm install -g grunt-cli`.
 - You can run/restart Node directly in the IDE. If you have the Node.js plugin installed create a Run configuration
 pointing to app.js. There's more than one way do get there. If in doubt refer to the documentation of your IDE.
 
