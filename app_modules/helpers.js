@@ -3,7 +3,7 @@ module.exports = function(app) {
 	var path = require('path')
 		,hbs = require('hbs')
 		,fs = require('fs')
-		,_ = require('underscore')
+		,utils = require('./utils')
 		,NODE_ENV = app.get('env')
 	;
 
@@ -42,7 +42,7 @@ module.exports = function(app) {
 				;
 
 				if (fs.existsSync(file)) {
-					config = _.extend( config, require(file) );
+					config = utils.extend( config, require(file) );
 				}
 			});
 			app.config = config;

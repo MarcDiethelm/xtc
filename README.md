@@ -123,6 +123,7 @@ pointing to app.js. There's more than one way do get there. If in doubt refer to
 - docs: building with grunt
 - docs: sprites creation with glue and grunt-glue (http://glue.readthedocs.org/en/latest/installation.html) (and optipng)
 - docs: config and dev/prod modes, templating: assets include vs. assets path variable vs. env block helper
+- Indentation of included modules via user-defined property.
 - include prototyping/wireframe styles and a basic template using it. (similar to http://cs-cdw-proto.namics.com/)
 - Handle file additions and .hbs changes (server-side cache invalidation) or document the need to restart grunt/node
 - (npm publish: module-terrific.js?)
