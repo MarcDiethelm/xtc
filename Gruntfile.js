@@ -29,8 +29,9 @@ module.exports = function(grunt) {
 				 'frontend/_static/test/*.js'
 				,'frontend/_terrific/mod-*/test/*.js'
 			]
-		},
-		dest: 'frontend/_static/dist'
+		}
+		,tmp: 'frontend/_static/dist/tmp'
+		,dest: 'frontend/_static/dist'
 
 		//////////////////////////////////////////////////////////////
 
@@ -38,12 +39,12 @@ module.exports = function(grunt) {
 			inline: {
 				options: {}
 				,src: '<%=sources.inline_css%>'
-				,dest: '<%=dest%>/inline-imports.less'
+				,dest: '<%=tmp%>/inline-imports.less'
 			},
 			external: {
 				options: {}
 				,src: '<%=sources.external_css%>'
-				,dest: '<%=dest%>/external-imports.less'
+				,dest: '<%=tmp%>/external-imports.less'
 			}
 		}
 		,concat: {
@@ -73,12 +74,12 @@ module.exports = function(grunt) {
 		,less: {
 			inline: {
 				options: {}
-				,src: '<%=dest%>/inline-imports.less'
+				,src: '<%=tmp%>/inline-imports.less'
 				,dest: '<%=dest%>/inline.css'
 			},
 			external: {
 				options: {}
-				,src: '<%=dest%>/external-imports.less'
+				,src: '<%=tmp%>/external-imports.less'
 				,dest: '<%=dest%>/external.css'
 			}
 		},
