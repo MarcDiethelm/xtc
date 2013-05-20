@@ -1591,7 +1591,7 @@ $(document.documentElement).removeClass('no-js');
 
 		app = window.application = new Tc.Application($body, config);
 		app.registerModules();
-		ModuleTest && (moduleTest = new ModuleTest(app)); // Prepare atomic module tests
+		typeof ModuleTest != 'undefined' && (moduleTest = new ModuleTest(app)); // Prepare atomic module tests
 		//app.registerModule($body, 'Layout');
 		app.start();
 		moduleTest && moduleTest.run();
