@@ -125,7 +125,6 @@ pointing to app.js. There's more than one way do get there. If in doubt refer to
 - docs: config and dev/prod modes, templating: assets include vs. assets path variable vs. env block helper
 - Indentation of included modules via user-defined property.
 - include prototyping/wireframe styles and a basic template using it. (similar to http://cs-cdw-proto.namics.com/)
-- Handle file additions and .hbs changes (server-side cache invalidation) or document the need to restart grunt/node
 - (npm publish: module-terrific.js?)
 - auth info to config.js
 - sprite generation
