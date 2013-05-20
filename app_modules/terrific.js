@@ -9,6 +9,7 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 			tag: 'div'
 			,connectors: null
 		}
+		,NODE_ENV = app.get('env')
 	;
 
 	wrapperTemplate = hbs.compile(wrapperTemplate)
@@ -34,6 +35,7 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 
 		options.template = hash.template || options.name;
 		cacheKey = options.name + ' ' + options.template;
+		NODE_ENV == 'development' && (mods[cacheKey] = null);
 		// if the module/template combination is cached use it, else read from disk and cache it.
 		modSourceTemplate = mods[cacheKey] || (mods[cacheKey] = getModTemplate(options));
 		// render the module source in the request context, so that variables can be interpolated based on request controller data
