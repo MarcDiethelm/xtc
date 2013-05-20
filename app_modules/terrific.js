@@ -3,7 +3,8 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 	var hbs = require('hbs')
 		,fs = require('fs')
 		,path = require('path')
-		,mods = {} // cache the modules sources
+		,utils = require('./utils')
+		,cache = {} // cache the modules sources
 		,wrapperTemplate = '<{{tag}} class="mod mod-{{name}}{{#if htmlClasses}} {{htmlClasses}}{{/if}}{{#each skins}} skin-{{../name}}-{{this}}{{/each}}"{{#if connectors}} data-connectors="{{connectors}}"{{/if}}>{{{moduleSrc}}}</{{tag}}>'
 		,defaults = {
 			tag: 'div'
@@ -22,6 +23,7 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 			,cacheKey
 			,wrappedMod
 			,modSourceTemplate
+			,mergedData
 		;
 		argLen >= 2 && (args.name = arguments[0]);
 
@@ -31,7 +33,12 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 			,htmlClasses    : hash.htmlClasses || undefined
 			,skins          : hash.skins && hash.skins.replace(' ', '').split(',') || undefined
 			,connectors     : hash.connectors || undefined
+			,data           : hash.data ? (new Function('return' + hash.data))() : {}
 		}
+
+		// merge the request context and data in the module include, with the latter trumping the former.
+
+		mergedData = utils.extend(utils.clone(this), options.data);
 
 		options.template = hash.template || options.name;
 		cacheKey = options.name + ' ' + options.template;
@@ -41,16 +48,24 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 		NODE_ENV == 'development' && (cache[cacheKey] = null);
 
 		// if the module/template combination is cached use it, else read from disk and cache it.
-		modSourceTemplate = mods[cacheKey] || (mods[cacheKey] = getModTemplate(options));
-		// render the module source in the request context, so that variables can be interpolated based on request controller data
-		options.moduleSrc = modSourceTemplate(this); // moduleSrc is a var in the moduleWrapper template
+
+		modSourceTemplate = cache[cacheKey] || (cache[cacheKey] = getModTemplate(options));
+
+		// render the module source in the locally merged context
+		// moduleSrc is a {{variable}} in the moduleWrapper template
+
+		options.moduleSrc = modSourceTemplate(mergedData);
 
 		// if there was an error while reading the module template, persist it
-		options.error && (mods[cacheKey].error = true);
+
+		options.error && (cache[cacheKey].error = true);
+
 		// if we have a persisted read error, add the error class to the module.
-		mods[cacheKey].error && (options.htmlClasses = options.htmlClasses ? options.htmlClasses + ' tc-error' : 'tc-error');
+
+		cache[cacheKey].error && (options.htmlClasses = options.htmlClasses ? options.htmlClasses + ' tc-error' : 'tc-error');
 
 		// render the wrapper template
+
 		wrappedMod = wrapperTemplate(options);
 
 		return new hbs.SafeString(wrappedMod);
@@ -76,4 +91,5 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 		}
 		return hbs.compile(content || err.web);
 	}
+
 }
