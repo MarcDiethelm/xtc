@@ -5,7 +5,8 @@ Tc.tests.Example = function( modName, $node, testApp ) {
 		 // prepare something for each following tests
 		setup: function () {
 			 // Create a new instance of the Terrific module for each test() below.
-			this.mod = testApp.registerModule($node, modName);
+			var $ctx = $node.clone(true, true);
+			this.mod = testApp.registerModule($ctx, modName);
 			this.mod.start();
 		},
 		 // clean up after each test()
