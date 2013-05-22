@@ -131,13 +131,12 @@ pointing to app.js. There's more than one way do get there. If in doubt refer to
 - Indentation of included modules via user-defined property.
 - include prototyping/wireframe styles and a basic template using it. (similar to http://cs-cdw-proto.namics.com/)
 - (npm publish: module-terrific.js?)
-- auth info to config.js
 - sprite generation
 - grunt: linting?
 - documentation templates/placeholders (READMEs, plugins, libs, modules, etc.)
 - to data uri conversion?
 - use dependencyPath in Tc bootstrap?
-- tests for node-terific framework
+- tests for node-terrific framework
 
 ## Done
 
