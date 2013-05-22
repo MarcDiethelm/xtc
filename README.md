@@ -22,13 +22,14 @@ At risk:
 
 ### Installing Node.js
 
-It is higly recommended that you use a Node version manager for two reasons: NVMs perform install Node binaries AND any
+It is highly recommended that you use a Node version manager for two reasons: NVMs install Node binaries AND any
 global node modules in a hidden folder in your home directory. No need to use sudo and mess with your system.
-And eventually you'll have more than one Node project each with their dependencies on different versions of Node.js and
-global modules.
+Eventually you'll have multiple Node projects, depending on different versions of Node.js and
+global modules. With nave you can create named environments in a snap.
 
 So, install [Nave](https://github.com/isaacs/nave) from Github and install the latest stable Node.js version with
 `nave use stable`. Nave will open a new shell for you where node is a local install.
+
 
 ### Node Modules dependencies
 
@@ -38,15 +39,19 @@ installed.
 To use the automated sprite generation please follow the
 [Glue documentation](http://glue.readthedocs.org/en/latest/installation.html)
 
+
 ### Configuration
 
 After cloning you should set up your configuration files in `_config`. Initially there is just one that's actually read:
 `config.js`. However you can create two more from the templates provided in the same folder: `config-secret.js` and
 `config-local.js`. They are merged into the app config in the order mentioned just now.
 
-Both additional files are lised in `.gitignore` and won't be committed to your repository. `config-local` is also listed
-`.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be deployed. Use `config-secret.js` for
-authentication data, SSL certs and so on.
+Use `config-local` to override a configuration locally when in development mode.
+Use `config-secret.js` for authentication data, SSL certs and so on.
+
+Both additional files are listed in `.gitignore` and won't be committed to your repository. `config-local` is also listed
+in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be deployed.
+
 
 ### Asset Building: Grunt
 
