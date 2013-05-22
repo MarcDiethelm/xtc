@@ -1,7 +1,6 @@
 (function() {
 	Tc.tests = {};
 // todo: handle modules that have no markup
-// todo: avoid testing multiple occurrences of the same module!
 	window.ModuleTest = function ModuleTest(app) {
 		var i
 			,tests = []
@@ -9,13 +8,18 @@
 			,modName
 		;
 
+		// look at the modules that exist on the page's Tc app and get the module names
 		for (i = 0; i < app.modules.length, mod = app.modules[i]; i++) {
 			modName = mod.$ctx[0].className.split(' ')[1]
 			modName = Tc.Utils.String.toCamel(modName).replace('mod', '');
 
-			if (!Tc.tests[modName]) {
+			// if the module has no test, goto next
+			// if we already have the module/test, goto next
+			if (!Tc.tests[modName] || Tc.tests[modName].isTesting) {
 				continue;
 			}
+
+			Tc.tests[modName].isTesting = true;
 
 			tests.push({
 				 name: modName
