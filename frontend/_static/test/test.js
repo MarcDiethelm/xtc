@@ -32,14 +32,13 @@
 	ModuleTest.prototype = {
 
 		run: function() {
-			var i, test, $node
+			var i, test
 				,testApp = new Tc.Application()
-				,moduleInstance
 			;
 
 			for (i = 0; i < this.tests.length, test = this.tests[i]; i++) {
 				$ctx = $(test.$node).wrap('<div/>').parent(); // Terrific needs this...
-				//moduleInstance = testApp.sandbox.addModules($ctx)[0]
+
 				// run the test
 				Tc.tests[test.name]( test.name, $ctx, testApp );
 				console.groupEnd();
