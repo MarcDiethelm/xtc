@@ -30,14 +30,14 @@ global modules. With nave you can create named environments in a snap.
 So, install [Nave](https://github.com/isaacs/nave) from Github and install the latest stable Node.js version with
 `nave use stable`. Nave will open a new shell for you where node is a local install.
 
+However strictly speaking you don't NEED a node version manager. Downloading the installer from the website will work
+fine.
+
 
 ### Node Modules dependencies
 
 After that you can just do `npm install` in the project folder and all dependencies of the server part will be
 installed.
-
-To use the automated sprite generation please follow the
-[Glue documentation](http://glue.readthedocs.org/en/latest/installation.html)
 
 
 ### Configuration
@@ -60,7 +60,15 @@ folder and enter `grunt`. That's it. Grunt will watch all your JS and Less/CSS s
 Gruntfile.js and re-generate the assets automatically when you edit them. You will have to re-start Grunt for it to
 register any new files though!
 
-todo: sprites generation with node-glue
+If you want to use the automatic sprites generation there are some more steps on your todo list. You only need to do
+this once though. Your next project will be able to use te functionality out of the box.
+
+First make sure you have an up to date Python installation. Refer to the section "Properly Install Python" for your
+platform, [from the official guide](http://docs.python-guide.org/en/latest/index.html). Mostly you need Homebrew and Pip.
+After that, [install Glue](http://glue.readthedocs.org/en/latest/installation.html).
+
+It worked if you can `glue -v` to get the installed version.
+
 
 ### Start the server!
 
@@ -108,6 +116,11 @@ is tested atomically and the results are printed to the console. It's somewhat l
 and doesn't provide for inter-module (i.e. connectors) testing. But it's still very useful to see if something breaks on
 any given page.
 todo: todos in _static/test/test.js
+
+### Building sprites with Glue
+
+todo: sprites generation with node-glue
+
 
 ### PHPStorm / WebStorm Users
 
