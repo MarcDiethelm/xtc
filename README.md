@@ -9,7 +9,7 @@ It implements some of the features of Terrific Composer, like server-side module
 - Server-side module includes.
 - Handlebars templates.
 - Modularization
-- Flexible asset pipeline using Grunt.js // tbd: with sections for inlined, linked and on-demand assets.
+- Flexible asset pipeline using Grunt.js, with file watcher // tbd: with sections for inlined, linked and on-demand assets.
 - Automated testing
 
 At risk:
@@ -115,7 +115,6 @@ You can write client-side tests for your Terrific modules. For any page your cur
 is tested atomically and the results are printed to the console. It's somewhat limited because it's not application-wide
 and doesn't provide for inter-module (i.e. connectors) testing. But it's still very useful to see if something breaks on
 any given page.
-todo: todos in _static/test/test.js
 
 ### Building sprites with Glue
 
@@ -132,36 +131,8 @@ input line. Just make sure you have installed Grunt CLI globally with `sudo npm 
 - You can run/restart Node directly in the IDE. If you have the Node.js plugin installed create a Run configuration
 pointing to app.js. There's more than one way do get there. If in doubt refer to the documentation of your IDE.
 
-## To Do
 
-- basic module tests (+ watch task for those tests)
-- module creation (wizard?)
-- use config.js for grunt paths
-- docs: node setup & new project setup
-- docs: building with grunt
-- docs: sprites creation with glue and grunt-glue (http://glue.readthedocs.org/en/latest/installation.html) (and optipng)
-- docs: config and dev/prod modes, templating: assets include vs. assets path variable vs. env block helper
-- Indentation of included modules via user-defined property.
-- include prototyping/wireframe styles and a basic template using it. (similar to http://cs-cdw-proto.namics.com/)
-- (npm publish: module-terrific.js?)
-- sprite generation
-- grunt: linting?
-- documentation templates/placeholders (READMEs, plugins, libs, modules, etc.)
-- to data uri conversion?
-- use dependencyPath in Tc bootstrap?
-- tests for node-terrific framework
-
-## Done
-
-- gzip responses DONE
-- grunt: minification DONE
-- @import DONE
-- Terrific bootstrap DONE
-- file watcher DONE
-- module include DONE
-- js skins DONE
-
-## What this does not
+## What this does not (yet)
 - shared logic to create correct state
 - Dependency management
 - Code and template re-use between browser and server.
