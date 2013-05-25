@@ -69,6 +69,10 @@ After that, [install Glue](http://glue.readthedocs.org/en/latest/installation.ht
 
 It worked if you can `glue -v` to get the installed version.
 
+After that, [install OptiPNG](http://glue.readthedocs.org/en/latest/optipng.html). OptiPNG is a PNG optimizer that
+recompresses image files to a smaller size. You may have to manually symlink optipng into /usr/local/bin (or another
+folder in your path).
+
 
 ### Start the server!
 
@@ -119,7 +123,11 @@ todo: todos in _static/test/test.js
 
 ### Building sprites with Glue
 
-todo: sprites generation with node-glue
+todo: doc sprites generation with node-glue
+todo: think about file locations and other options
+todo: disable sprite generation in config.js (default). Glue fails if there are no images!
+
+http://glue.readthedocs.org/en/latest/options.html
 
 
 ### PHPStorm / WebStorm Users
