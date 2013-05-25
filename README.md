@@ -102,7 +102,7 @@ in there are included and executed like so:
 
 - `_inline` folder: Any style or JS sources in here are available in the files `inline.js` (todo: and `inline.css`).
 This is a good place for basic bootstrapping code and dependencies like an asset loader or possibly some initial data
-for use in a model. Use widely and sparingly.
+for use in a model. Use wisely and sparingly.
 - `base` folder: anything that needs to be defined before including any modules: LessCSS variables, mixins, grids,
 some global JS code like Modernizr or other utilities and libraries and plugins.
 - `mod-something` folders: All your module code and styles, basically everything visible that's not pure layout.
