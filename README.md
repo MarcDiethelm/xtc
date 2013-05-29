@@ -69,6 +69,10 @@ After that, [install Glue](http://glue.readthedocs.org/en/latest/installation.ht
 
 It worked if you can `glue -v` to get the installed version.
 
+After that, [install OptiPNG](http://glue.readthedocs.org/en/latest/optipng.html). OptiPNG is a PNG optimizer that
+recompresses image files to a smaller size. You may have to manually symlink optipng into /usr/local/bin (or another
+folder in your path).
+
 
 ### Start the server!
 
