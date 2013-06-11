@@ -5,7 +5,10 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 		,path = require('path')
 		,utils = require('./utils')
 		,cache = {} // cache the modules sources
-		,wrapperTemplate = '<{{tag}} class="mod mod-{{name}}{{#if htmlClasses}} {{htmlClasses}}{{/if}}{{#each skins}} skin-{{../name}}-{{this}}{{/each}}"{{#if id}} id="{{id}}"{{/if}}{{#if connectors}} data-connectors="{{connectors}}"{{/if}}>{{{moduleSrc}}}</{{tag}}>'
+		,wrapperTemplate =
+			'<{{tag}} class="mod mod-{{name}}{{#if htmlClasses}} {{htmlClasses}}{{/if}}{{#each skins}} skin-{{../name}}-{{this}}{{/each}}"{{#if id}} id="{{id}}"{{/if}}{{#if connectors}} data-connectors="{{connectors}}"{{/if}}>\n' +
+			'   {{{moduleSrc}}}\n' +
+			'</{{tag}}>\n'
 		,defaults = {
 			tag: 'div'
 			,connectors: null
