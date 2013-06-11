@@ -5,7 +5,7 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 		,path = require('path')
 		,utils = require('./utils')
 		,cache = {} // cache the modules sources
-		,wrapperTemplate = '<{{tag}} class="mod mod-{{name}}{{#if htmlClasses}} {{htmlClasses}}{{/if}}{{#each skins}} skin-{{../name}}-{{this}}{{/each}}"{{#if connectors}} data-connectors="{{connectors}}"{{/if}}>{{{moduleSrc}}}</{{tag}}>'
+		,wrapperTemplate = '<{{tag}} class="mod mod-{{name}}{{#if htmlClasses}} {{htmlClasses}}{{/if}}{{#each skins}} skin-{{../name}}-{{this}}{{/each}}"{{#if id}} id="{{id}}"{{#if connectors}} data-connectors="{{connectors}}"{{/if}}>{{{moduleSrc}}}</{{tag}}>'
 		,defaults = {
 			tag: 'div'
 			,connectors: null
@@ -30,6 +30,7 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 		options = {
 			name            : args.name || hash.name || undefined
 			,tag            : hash.tag || defaults.tag
+			,id             : hash.id || undefined
 			,htmlClasses    : hash.htmlClasses || undefined
 			,skins          : hash.skins && hash.skins.replace(' ', '').split(',') || undefined
 			,connectors     : hash.connectors || undefined
