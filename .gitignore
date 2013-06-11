@@ -3,3 +3,4 @@ config-local.js
 frontend/_static/dist/
 frontend/_terrific/_base/css/sprites/*.less
 node_modules
+.idea/
