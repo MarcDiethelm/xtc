@@ -3,7 +3,10 @@
 This project brings the Terrific.js pattern to Node and Express. It provides a solid template for most web projects.
 It implements some of the features of Terrific Composer, like server-side module includes.
 
+
 ## Features
+
+
 - Light-weight and hackable JavaScript backend
 - Can be used for single page apps.
 - Server-side module includes.
@@ -89,6 +92,7 @@ Use a different terminal in your project folder (do you know `screen`?) and star
 
 
 ### Templates and views
+
 In node-terrific the distinction between templates and views are as follows:
 
 - Templates (`/templates`): Your basic document(s), typically a HTML document that contains all the things that are
@@ -100,7 +104,9 @@ any modules specific to the page.
 
 Modules can also define multiple templates for their markup.
 
+
 ### Terrific Folder: Order matters
+
 A simple but important concept is to understand how the default folders in /terrific are included. Any files you throw
 in there are included and executed like so:
 
@@ -113,12 +119,27 @@ some global JS code like Modernizr or other utilities and libraries and plugins.
 - `_application` folder: The code that actually starts your app: Terrific bootstrap and any other global logic that
 depends on modules being available. If you need to build themeing into your app, this is the place too.
 
+
+### Module Creation
+
+To create new Terrific modules you can use a Yeoman generator. To install use:
+
+	sudo npm install -g yo generator-xtc
+
+To create a new module simply type
+
+	yo xtc:module
+
+in the project root folder.
+
+
 ### Module Testing
 
 You can write client-side tests for your Terrific modules. For any page your currently working on each contained module
 is tested atomically and the results are printed to the console. It's somewhat limited because it's not application-wide
 and doesn't provide for inter-module (i.e. connectors) testing. But it's still very useful to see if something breaks on
 any given page.
+
 
 ### Building sprites with Glue
 
@@ -141,6 +162,8 @@ pointing to app.js. There's more than one way do get there. If in doubt refer to
 
 
 ## What this does not (yet)
+
+
 - shared logic to create correct state
 - Dependency management
 - Code and template re-use between browser and server.
