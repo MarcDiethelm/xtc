@@ -18,7 +18,7 @@ module.exports = function(app) {
 			c: err
 			,web: '\n'+err
 		};
-	}
+	};
 
 	return {
 		/**

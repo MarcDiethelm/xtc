@@ -25,7 +25,7 @@ $(document.documentElement).removeClass('no-js');
 			return this.$ctx.find(selector);
 		};
 
-		app = window.application = new Tc.Application($body, config);
+		app = new Tc.Application($body, config);
 		app.registerModules();
 		app.registerModule($body, 'PageController');
 		// after all modules are registered, register module tests

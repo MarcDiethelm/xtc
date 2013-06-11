@@ -13,7 +13,7 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 		,NODE_ENV = app.get('env')
 	;
 
-	wrapperTemplate = hbs.compile(wrapperTemplate)
+	wrapperTemplate = hbs.compile(wrapperTemplate);
 
 	hbs.registerHelper('mod', function(name) {
 		var  options
@@ -35,7 +35,7 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 			,skins          : hash.skins && hash.skins.replace(' ', '').split(',') || undefined
 			,connectors     : hash.connectors || undefined
 			,data           : hash.data ? (new Function('return' + hash.data))() : {}
-		}
+		};
 
 		// merge the request context and data in the module include, with the latter trumping the former.
 
@@ -50,10 +50,6 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 
 		// if the module/template combination is cached use it, else read from disk and cache it.
 		modSourceTemplate = cache[cacheKey] || (cache[cacheKey] = getModTemplate(options));
-		// render the module source in the request context, so that variables can be interpolated based on request controller data
-		options.moduleSrc = modSourceTemplate(this); // moduleSrc is a var in the moduleWrapper template
-
-		modSourceTemplate = cache[cacheKey] || (cache[cacheKey] = getModTemplate(options));
 
 		// render the module source in the locally merged context
 		// moduleSrc is a {{variable}} in the moduleWrapper template
@@ -65,8 +61,6 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 		options.error && (cache[cacheKey].error = true);
 
 		// if we have a persisted read error, add the error class to the module.
-		cache[cacheKey].error && (options.htmlClasses = options.htmlClasses ? options.htmlClasses + ' tc-error' : 'tc-error');
-
 		cache[cacheKey].error && (options.htmlClasses = options.htmlClasses ? options.htmlClasses + ' tc-error' : 'tc-error');
 
 		// render the wrapper template
