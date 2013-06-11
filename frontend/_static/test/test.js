@@ -1,17 +1,32 @@
 (function() {
 	Tc.tests = {};
-// todo: handle modules that have no markup
+
 	window.ModuleTest = function ModuleTest(app) {
 		var i
 			,tests = []
 			,mod
 			,modName
+
+			/**
+			 * Gets the module name
+			 *
+			 * @param {Module} instance The module instance
+			 * @return {String} The appropriate module name
+			 */
+			,getModuleName = function(instance) {
+				for (var modName in Tc.Module) {
+					if (Tc.Module.hasOwnProperty(modName) && modName !== 'constructor' && instance instanceof Tc.Module[modName]) {
+						instance.modName = modName;
+						return modName;
+					}
+				}
+			}
 		;
 
 		// look at the modules that exist on the page's Tc app and get the module names
+
 		for (i = 0; i < app.modules.length, mod = app.modules[i]; i++) {
-			modName = mod.$ctx[0].className.split(' ')[1]
-			modName = Tc.Utils.String.toCamel(modName).replace('mod', '');
+			modName = getModuleName(mod);
 
 			// if the module has no test, goto next
 			// if we already have the module/test, goto next
@@ -31,6 +46,7 @@
 
 	ModuleTest.prototype = {
 
+		// the test runner
 		run: function() {
 			var i, test
 				,testApp = new Tc.Application()

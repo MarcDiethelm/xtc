@@ -13,13 +13,13 @@ module.exports = {
 		}
 		return target;
 	}
-	,
+
 	/**
 	 * Extend a given object with all the properties in passed-in object(s).
 	 * @param obj
 	 * @returns {*}
 	 */
-	extend: function (obj) {
+	,extend: function (obj) {
 		Array.prototype.slice.call(arguments, 1)
 		.forEach(function (source) {
 			if (source) {

@@ -1,5 +1,4 @@
-Tc.tests.Example = function( modName, $node, testApp ) {
-
+Tc.tests.PageController = function( modName, $node, testApp ) {
 	 // Start a QUnit module for this Terrific module
 	module(modName, {
 		 // prepare something for each following tests
@@ -17,7 +16,6 @@ Tc.tests.Example = function( modName, $node, testApp ) {
 
 	test( 'dummy tests', function() {
 
-		strictEqual( this.mod.$ctx.is('.skin-alternate'), false, 'Isn\'t CSS skin-alternate.' );
 		strictEqual( this.mod.$$('.debug').length, 1, 'Appends debug text.' );
 	});
 };

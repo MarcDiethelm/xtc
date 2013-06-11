@@ -18,7 +18,7 @@ module.exports = function(app) {
 			c: err
 			,web: '\n'+err
 		};
-	}
+	};
 
 	return {
 		/**
@@ -78,6 +78,7 @@ module.exports = function(app) {
 					,css: {
 						external: app.config.webPaths.dist + assets.css.external[NODE_ENV]
 					}
+					,img: app.config.webPaths.img
 				}
 			});
 		},

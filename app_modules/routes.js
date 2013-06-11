@@ -7,6 +7,7 @@ var  express = require('express')
 ;
 
 module.exports = function(app) {
+
 	var index = require('./../controllers/index')(app);
 
 	app.get('/', index.home);

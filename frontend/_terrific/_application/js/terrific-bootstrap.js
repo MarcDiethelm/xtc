@@ -9,8 +9,7 @@ $(document.documentElement).removeClass('no-js');
 (function (window, Tc, document) {
 	$(document).ready(function () {
 		var app
-			,$ = Tc.$
-			,$body = $(document.documentElement)
+			,$body = $('body')
 			,config = {
 				dependencyPath: {
 					library: window.assetsUrl + '/scripts/libs-dyn/',
@@ -26,10 +25,11 @@ $(document.documentElement).removeClass('no-js');
 			return this.$ctx.find(selector);
 		};
 
-		app = window.application = new Tc.Application($body, config);
+		app = new Tc.Application($body, config);
 		app.registerModules();
+		app.registerModule($body, 'PageController');
+		// after all modules are registered, register module tests
 		typeof ModuleTest != 'undefined' && (moduleTest = new ModuleTest(app)); // Prepare atomic module tests
-		//app.registerModule($body, 'Layout');
 		app.start();
 		moduleTest && moduleTest.run();
 	});

@@ -2,7 +2,7 @@
 
 /* WIREFRAME STYLES */
 
-.box {
+.wf-box-sizing() {
 	-moz-box-sizing: border-box;
  -webkit-box-sizing: border-box;
      -ms-box-sizing: border-box;
@@ -10,16 +10,16 @@
 }
 
 .wf-row {
-	.box();
+	.wf-box-sizing();
 	margin-bottom: 25px;
 }
 .wf-box {
-	.box();
-	outline: 1px dashed #999;
+	.wf-box-sizing();
+	border: 1px dashed #999;
 	background-color: #eaeaea;
 }
 .wf-box-sub {
-	.box();
+	.wf-box-sizing();
 	background-color: #f8f8f8;
 	outline: 1px solid #fff;
 }
