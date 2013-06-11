@@ -1,14 +1,29 @@
 <!doctype html>
-<html class="no-js" lang="{{lang}}">
+<!--[if lt IE 8]>
+<html class="no-js lt-ie10 lt-ie9 lt-ie8" lang="{{lang}}"><![endif]-->
+<!--[if IE 8]>
+<html class="no-js ie8 lt-ie10 lt-ie9" lang="{{lang}}"><![endif]-->
+<!--[if IE 9]>
+<html class="no-js ie9 lt-ie10" lang="{{lang}}"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="{{lang}}"><!--<![endif]-->
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta charset="UTF-8"/>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
 	<title>{{title}}</title>
 	<style>
 		{{asset "css"}}{{!-- inline css. the key is defined in config.js --}}
 	</style>
 	<link rel="stylesheet" type="text/css" href="{{assets.css.external}}">
 	<link rel="icon" type="image/png" href="{{assets.img}}site.favicon.png" />
+
+	<!--[if lt IE 9]>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
+	<![endif]-->
 </head>
 <body>
 	{{mod "nav-main" tag="nav"}}
