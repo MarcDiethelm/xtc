@@ -120,7 +120,25 @@ some global JS code like Modernizr or other utilities and libraries and plugins.
 depends on modules being available. If you need to build themeing into your app, this is the place too.
 
 
-### Module Creation
+### Terrific Modules
+
+Terrific modules can consist of Handlebars templates, LessCSS styles and a Terrific JS module.
+Additionally you may create LessCSS and JS skins inside a `skin` folder. These skins can be used to 'decorate' the
+main definitions of the module.
+
+To include a module in a Handlebars template use this syntax:
+
+	{{mod "example"}}
+
+A module include with all the options configured looks like this:
+
+	{{mod "example" template="alternate" skins="alternate, baz" tag="section" id="foo" htmlClasses="test-class" connectors="stats, filter" data="{var1: 'foo'}"}}
+
+Please refer to the official docs at (Terrifically.org)[http://terrifically.org/] to learn more about the Terrific
+pattern. Just ignore the part about "Composer". :)
+
+
+### Terrific Module Creation
 
 To create new Terrific modules you can use a Yeoman generator. To install use:
 
@@ -131,6 +149,11 @@ To create a new module simply type
 	yo xtc:module
 
 in the project root folder.
+
+
+### Skin Creation
+
+coming soon
 
 
 ### Module Testing
