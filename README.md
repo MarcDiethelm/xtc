@@ -143,9 +143,9 @@ any given page.
 
 ### Building sprites with Glue
 
-todo: doc sprites generation with node-glue
-todo: think about file locations and other options
-todo: disable sprite generation in config.js (default). Glue fails if there are no images!
+* todo: doc sprites generation with node-glue
+* todo: doc file locations and other options
+* todo: disable sprite generation in config.js (default)
 
 http://glue.readthedocs.org/en/latest/options.html
 
@@ -154,12 +154,13 @@ http://glue.readthedocs.org/en/latest/options.html
 
 There are some things you can do that will make development so much more easy:
 
-- You can run Grunt directly in the IDE. Any errors during asset parsing will be immediately pointed out to you. I you
+* You can run Grunt directly in the IDE. Any errors during asset parsing will be immediately pointed out to you. I you
 have the Command Line Tools plugin installed, open the Tools menu and select 'Run Command...'. Enter `grunt` in the
 input line. Just make sure you have installed Grunt CLI globally with `sudo npm install -g grunt-cli`.
-- You can run/restart Node directly in the IDE. If you have the Node.js plugin installed create a Run configuration
+* You can run/restart Node directly in the IDE. If you have the Node.js plugin installed create a Run configuration
 pointing to app.js. There's more than one way do get there. If in doubt refer to the documentation of your IDE.
-
+* Install the Handlebars/Mustache plugin. It will give you syntax highlighting for .hbs files. Also you can set the
+comment style to Handlebars comments once you have the plugin.
 
 ## What this does not (yet)
 
