@@ -7,7 +7,7 @@ module.exports = {
 	}
 	,annotateModules: {
 		development: true
-		,production: true
+		,production: false
 	}
 	,defaultTemplate: 'templates/default'
 	,assets: {
