@@ -137,6 +137,9 @@ A module include with all the options configured looks like this:
 Please refer to the official docs at (Terrifically.org)[http://terrifically.org/] to learn more about the Terrific
 pattern. Just ignore the part about "Composer". :)
 
+You can enable annotations around modules in the html output, in config.js. The annotation displays the module name,
+the template file name and the file system path to the module.
+
 
 ### Terrific Module Creation
 

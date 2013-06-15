@@ -5,6 +5,10 @@ module.exports = {
 	,i18n: {
 		langDefault: 'en-US'
 	}
+	,annotateModules: {
+		development: true
+		,production: true
+	}
 	,defaultTemplate: 'templates/default'
 	,assets: {
 		js: { // set and use this property name to include an inline file in a template, e.g. {{asset "js"}}

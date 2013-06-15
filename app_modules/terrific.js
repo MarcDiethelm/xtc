@@ -5,6 +5,8 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 		,path = require('path')
 		,utils = require('./utils')
 		,cache = {} // cache the modules sources
+		,NODE_ENV = app.get('env')
+		,annotateModules = app.config.annotateModules[NODE_ENV]
 		,wrapperTemplate =
 			'<{{tag}} class="mod mod-{{name}}{{#if htmlClasses}} {{htmlClasses}}{{/if}}{{#each skins}} skin-{{../name}}-{{this}}{{/each}}"{{#if id}} id="{{id}}"{{/if}}{{#if connectors}} data-connectors="{{connectors}}"{{/if}}>\n' +
 			'   {{{moduleSrc}}}\n' +
@@ -13,8 +15,15 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 			tag: 'div'
 			,connectors: null
 		}
-		,NODE_ENV = app.get('env')
 	;
+
+	if (annotateModules) {
+		 // descriptive comment, where to find the module
+		wrapperTemplate =
+			'<!-- START MODULE: {{_module}}, template: {{_file}}, path: {{_path}} -->\n' +
+			wrapperTemplate +
+			'<!-- END MODULE: {{_module}} -->\n\n'
+	}
 
 	wrapperTemplate = hbs.compile(wrapperTemplate);
 
@@ -57,7 +66,7 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 		// render the module source in the locally merged context
 		// moduleSrc is a {{variable}} in the moduleWrapper template
 
-		options.moduleSrc = modSourceTemplate(mergedData);
+		options.moduleSrc = modSourceTemplate.fn(mergedData);
 
 		// if there was an error while reading the module template, persist it
 
@@ -66,8 +75,13 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 		// if we have a persisted read error, add the error class to the module.
 		cache[cacheKey].error && (options.htmlClasses = options.htmlClasses ? options.htmlClasses + ' tc-error' : 'tc-error');
 
-		// render the wrapper template
+		if (annotateModules) {
+			options._module = modSourceTemplate.name;
+			options._file = modSourceTemplate.file;
+			options._path = modSourceTemplate.path;
+		}
 
+		// render the wrapper template
 		wrappedMod = wrapperTemplate(options);
 
 		return new hbs.SafeString(wrappedMod);
@@ -81,17 +95,25 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 			,template = templateName == moduleName ? moduleName : moduleName + '-' + templateName
 			,modDir = app.config.paths.module.replace('{{name}}', moduleName)
 			,file = path.join(modDir, template + '.hbs')
+			,retVal
 		;
 
 		try {
-			//console.log('read module', file)
 			content = fs.readFileSync(file, 'utf8');
 		} catch (e) {
 			err = app.error('Can\'t read template file. Module: ' + moduleName + ', Template: ' + templateName + '.hbs.', e);
 			console.error(err.c);
 			options.error = true;
 		}
-		return hbs.compile(content || err.web);
+
+		retVal = { fn: hbs.compile(content || err.web) };
+
+		if (annotateModules) {
+			retVal.name = moduleName;
+			retVal.file = template + '.hbs';
+			retVal.path = modDir.replace(app.config.dirname, '');
+		}
+		return retVal;
 	}
 
 }
