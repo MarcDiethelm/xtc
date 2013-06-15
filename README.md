@@ -142,7 +142,7 @@ pattern. Just ignore the part about "Composer". :)
 
 To create new Terrific modules you can use a Yeoman generator. To install use:
 
-	sudo npm install -g yo generator-xtc
+	npm install -g yo generator-xtc
 
 To create a new module simply type
 
@@ -179,7 +179,7 @@ There are some things you can do that will make development so much more easy:
 
 * You can run Grunt directly in the IDE. Any errors during asset parsing will be immediately pointed out to you. I you
 have the Command Line Tools plugin installed, open the Tools menu and select 'Run Command...'. Enter `grunt` in the
-input line. Just make sure you have installed Grunt CLI globally with `sudo npm install -g grunt-cli`.
+input line. Just make sure you have installed Grunt CLI globally with `npm install -g grunt-cli`.
 * You can run/restart Node directly in the IDE. If you have the Node.js plugin installed create a Run configuration
 pointing to app.js. There's more than one way do get there. If in doubt refer to the documentation of your IDE.
 * Install the Handlebars/Mustache plugin. It will give you syntax highlighting for .hbs files. Also you can set the
