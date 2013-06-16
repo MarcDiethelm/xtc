@@ -1,26 +1,32 @@
 
+
+var siteName;
+
 module.exports = function(app) {
 
-	var siteName = app.config.siteName;
+	siteName = app.config.siteName;
 	app.settings.env == 'development' && (siteName += ' – Dev');
 
-	// Making lang available in all render data
+	// Template data that is always available
 	app.locals({
-		lang: app.config.i18n.langDefault
+		 lang: app.config.i18n.langDefault
+		,docTitle: siteName
 	});
 
 	return {
+
+		/**
+		 * User-defined route controllers
+		 */
+
 		 // render home.hbs and include it in the default template (defined in config.js)
 		home: function(req, res, next) {
-			res.render('views/home', {
-				 title: siteName
-				,someData: 'Homepage using default template'
-			});
+			res.render('views/home');
 		}
-		 // Render a different view
+		 // Render a different view and include some data
 		,aSubpage: function(req, res, next) {
 			res.render('views/subpage', {
-				 title: siteName
+				 docTitle: docTitle('Subpage')
 				,someData: 'A sub-page using default template'
 			});
 		}
@@ -29,7 +35,7 @@ module.exports = function(app) {
 			res.set('Content-Type', 'image/svg+xml');
 			res.render('views/subpage', {
 				 layout: 'templates/alternate'
-				,title: siteName
+				,docTitle: docTitle('Subpage Alternate Layout')
 				,someData: 'a sub-page using alternate template'
 			});
 		}
@@ -37,30 +43,9 @@ module.exports = function(app) {
 		,data: function(req, res, next) {
 			res.json({someParam: req.params.someParam});
 		}
-		 // Look for a view with the name supplied by the catch-all route
-		,subPages: function(req, res, next) {
-			var pageName = req.params.pageName;
-			try {
-				res.render('views/'+ pageName, {
-					title: siteName
-				});
-			} catch (e) {
-				// we never get here. either render succeeds or next() is called apparently. which is fine, because
-				// the last defined middleware is render404.
-			}
-		}
-		/////////////////////////////////////////////////////////////////////
-
-		// If no Express middleware sends a response this function is called.
-		,render404: function(req, res, next) {
-			res.status(404)
-				.render(
-				'views/404'
-				,{
-					 title: '404 – ' + siteName
-					,uri: req.originalUrl
-				}
-			);
-		}
 	}
 };
+
+function docTitle(pageName) {
+	return pageName + ' – ' + siteName;
+}

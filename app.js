@@ -11,7 +11,7 @@ app.helpers.mergeConfigs(__dirname, '_config');
 app.helpers.configAbsolutePaths();
 app.helpers.shareAssetWebPathsWithLocals();
 app.helpers.registerTemplateHelpers();
-require('./app_modules/terrific.js')(app);
+app.terrific = require('./app_modules/terrific.js')(app);
 
 app.configure(function() {
 	app.set('port', process.env.PORT || app.config.devPort);

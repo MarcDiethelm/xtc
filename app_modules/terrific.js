@@ -38,7 +38,8 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 		argLen >= 2 && (args.name = arguments[0]);
 
 		options = {
-			name            : args.name || hash.name
+			 name           : args.name || hash.name
+			,template       : hash.template
 			,tag            : hash.tag
 			,id             : hash.id
 			,htmlClasses    : hash.htmlClasses

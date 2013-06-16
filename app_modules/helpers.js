@@ -112,11 +112,12 @@ module.exports = function(app) {
 			hbs.registerHelper('test', function(name, context) {
 				var  file, template
 					,config = app.config.QUnitFE
+				;
 
 				if (NODE_ENV != 'development')
 					return '';
 
-				file = path.join(app.config.paths.views, 'test-modules.hbs');
+				file = path.join(app.config.paths.views, '_test-modules.hbs');
 
 				try {
 					template = fs.readFileSync(file, 'utf8');

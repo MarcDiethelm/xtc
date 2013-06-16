@@ -18,9 +18,9 @@
 		 * @param {Sandbox} sandbox the sandbox to get the resources from
 		 * @param {String} modId the unique module id
 		 */
-		init: function($ctx, sandbox, modId, modName) {
+		init: function($ctx, sandbox, modId) {
 			// call base constructor
-			this._super($ctx, sandbox, modId, modName);
+			this._super($ctx, sandbox, modId);
 		},
 
 		/**
@@ -31,7 +31,7 @@
 		 * @return void
 		 */
 		on: function(callback) {
-			this.$ctx.append('\n<br><span class="debug">JS Module &quot;PageController&quot; started</span>');
+			this.$ctx.append('\n<span class="debug">JS Module &quot;PageController&quot; started</span>');
 			callback();
 		},
 

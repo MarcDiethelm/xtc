@@ -1,24 +1,18 @@
 <!doctype html>
-<!--[if lt IE 8]>
-<html class="no-js lt-ie10 lt-ie9 lt-ie8" lang="{{lang}}"><![endif]-->
-<!--[if IE 8]>
-<html class="no-js ie8 lt-ie10 lt-ie9" lang="{{lang}}"><![endif]-->
-<!--[if IE 9]>
-<html class="no-js ie9 lt-ie10" lang="{{lang}}"><![endif]-->
-<!--[if gt IE 9]><!-->
-<html class="no-js" lang="{{lang}}"><!--<![endif]-->
+<!--[if lt IE 8]     ><html class="no-js lt-ie10 lt-ie9 lt-ie8" lang="{{lang}}"><![endif]-->
+<!--[if IE 8]        ><html class="no-js ie8 lt-ie10 lt-ie9" lang="{{lang}}"><![endif]-->
+<!--[if IE 9]        ><html class="no-js ie9 lt-ie10" lang="{{lang}}"><![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="{{lang}}"><!--<![endif]-->
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
-
-	<title>{{title}}</title>
+	<title>{{docTitle}}</title>
 	<style>
 		{{asset "css"}}{{!-- inline css. the key is defined in config.js --}}
 	</style>
 	<link rel="stylesheet" type="text/css" href="{{assets.css.external}}">
 	<link rel="icon" type="image/png" href="{{assets.img}}site.favicon.png" />
-
 	<!--[if lt IE 9]>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
@@ -26,18 +20,27 @@
 	<![endif]-->
 </head>
 <body>
-	{{mod "nav-main" tag="nav"}}
+	<header role="banner">
+	{{!-- This is a good place for a main navigation module
+		{{mod "nav-main" tag="nav"}}
+	--}}
+	</header>
 
-	{{{body}}}
+	<main role="main">
+		{{{body}}} {{!-- The view is inserted in place of the body variable --}}
+	</main>
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<footer role="contentinfo">
+	</footer>
+
 	<script>
 		{{asset "js"}}{{!-- inline js. the key is defined in config.js --}}
 	</script>
+	{{#env "production"}}<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>{{/env}}
+	{{#env "development"}}<script src="/lib/jquery-1.10.1.js"></script>{{/env}}
 	<script src="{{assets.js.external}}"></script>
-	<br>
-	{{#env "production"}}{{/env}}
-	{{#env "development"}}{{/env}}
-	{{test modules}}
+
+	{{!-- <br>
+	{{test modules}} currently disabled, needs work --}}
 </body>
 </html>

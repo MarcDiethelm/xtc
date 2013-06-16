@@ -188,6 +188,17 @@ pointing to app.js. There's more than one way do get there. If in doubt refer to
 * Install the Handlebars/Mustache plugin. It will give you syntax highlighting for .hbs files. Also you can set the
 comment style to Handlebars comments once you have the plugin.
 
+
+## Template Development and Integration into other backends
+
+Node-terrific implements some features to help with template integration in different backend systems.
+
+`/_home` Displays an overview of all user-defined views and modules, i.e. ones whose names don't start with an
+underscore. The page contains links to the views and modules at `/_view/[name]` and `/_module/[name]` respectively.
+If you add the parameter `raw` to the URI, you get the pure HTML of that resource without any surrounding markup, e.g:
+
+	/_module/example?raw
+
 ## What this does not (yet)
 
 

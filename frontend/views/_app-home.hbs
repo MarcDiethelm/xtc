@@ -1,0 +1,29 @@
+
+
+<!doctype html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>{{docTitle}}</title>
+	<link rel="stylesheet" type="text/css" href="{{assets.css.external}}">
+</head>
+<body>
+	<h1>{{title}} Summary</h1>
+	<h2>Views</h2>
+
+	<ul>
+	{{#each views}}
+		<li><a href="/_view/{{this}}">{{this}}</a> | <small><a href="/_view/{{this}}?raw">raw</a></small></li>
+	{{/each}}
+	</ul>
+
+
+	<h2>Modules</h2>
+
+	<ul>
+	{{#each modules}}
+		<li><a href="/_module/{{this}}">{{this}}</a> | <small><a href="/_module/{{this}}?raw">raw</a></small></li>
+	{{/each}}
+	</ul>
+</body>
+</html>
