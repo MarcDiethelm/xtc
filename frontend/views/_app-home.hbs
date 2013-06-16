@@ -13,7 +13,12 @@
 
 	<ul>
 	{{#each views}}
-		<li><a href="/_view/{{this}}">{{this}}</a> | <small><a href="/_view/{{this}}?raw">raw</a></small></li>
+		<li>
+			<a href="/_view/{{this.name}}">{{this.name}}</a> |
+			<small>
+				<a href="/_view/{{this.name}}?raw">raw</a>{{#if this.git}} | <a href="{{this.git}}">git</a>{{/if}}
+			</small>
+		</li>
 	{{/each}}
 	</ul>
 
@@ -22,7 +27,12 @@
 
 	<ul>
 	{{#each modules}}
-		<li><a href="/_module/{{this}}">{{this}}</a> | <small><a href="/_module/{{this}}?raw">raw</a></small></li>
+		<li>
+			<a href="/_module/{{this.name}}">{{this.name}}</a>
+			<small>
+				| <a href="/_module/{{this.name}}?raw">raw</a>{{#if this.git}} | <a href="{{this.git}}">git</a>{{/if}}
+			</small>
+		</li>
 	{{/each}}
 	</ul>
 </body>

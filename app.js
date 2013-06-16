@@ -37,7 +37,7 @@ app.configure('development', function() {
 app.configure('production', function() {});
 
 // our routes are defined in routes.js
-require(app.config.paths.routes)(app);
+require(app.config.pathsAbsolute.routes)(app);
 
 // If no other middleware responds, send a 404. Defined in routes.js.
 app.use(app.render404);

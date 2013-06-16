@@ -54,8 +54,10 @@ module.exports = function(app) {
 			var paths = app.config.paths
 				,pathName
 			;
+			app.config.pathsAbsolute = {};
+
 			for (pathName in paths) {
-				paths[pathName] = this.localPathToAbsolute(paths[pathName]);
+				app.config.pathsAbsolute[pathName] = this.localPathToAbsolute(paths[pathName]);
 			};
 		},
 
@@ -87,7 +89,7 @@ module.exports = function(app) {
 			var cache = {};
 
 			hbs.registerHelper('asset', function(inlineAssetName) {
-				var  file = path.join(app.config.paths.dist, app.config.assets[inlineAssetName].inline[NODE_ENV])
+				var  file = path.join(app.config.pathsAbsolute.dist, app.config.assets[inlineAssetName].inline[NODE_ENV])
 					,cached = cache[inlineAssetName]
 				;
 
@@ -117,7 +119,7 @@ module.exports = function(app) {
 				if (NODE_ENV != 'development')
 					return '';
 
-				file = path.join(app.config.paths.views, '_test-modules.hbs');
+				file = path.join(app.config.pathsAbsolute.views, '_test-modules.hbs');
 
 				try {
 					template = fs.readFileSync(file, 'utf8');

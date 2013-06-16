@@ -89,6 +89,7 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 			options._module = modSourceTemplate.name;
 			options._file = modSourceTemplate.file;
 			options._path = modSourceTemplate.path;
+			options._git = modSourceTemplate.git;
 		}
 
 		// render the wrapper template
@@ -102,7 +103,7 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 			,content
 			,err
 			,template = templateName == moduleName ? moduleName : moduleName + '-' + templateName
-			,modDir = app.config.paths.module.replace('{{name}}', moduleName)
+			,modDir = app.config.paths.module + app.config.moduleDirName.replace('{{name}}', moduleName)
 			,file = path.join(modDir, template + '.hbs')
 			,retVal
 		;
@@ -124,6 +125,7 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 			retVal.name = moduleName;
 			retVal.file = template + '.hbs';
 			retVal.path = modDir.replace(app.config.dirname, '');
+			app.config.repository && (retVal.git = app.config.repository +'/tree/develop/'+ retVal.path);
 		}
 		return retVal;
 	};

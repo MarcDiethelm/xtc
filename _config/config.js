@@ -9,6 +9,7 @@ module.exports = {
 		development: true
 		,production: false
 	}
+	,repository: 'https://github.com/MarcDiethelm/node-terrific/tree/develop/' // to construct links to views and modules
 	,defaultTemplate: 'templates/default'
 	,assets: {
 		js: { // set and use this property name to include an inline file in a template, e.g. {{asset "js"}}
@@ -32,18 +33,20 @@ module.exports = {
 			}
 		}
 	}
-	// use paths relative to app.js, they will be turned into absolute paths before use
+	// paths relative to app.js, a property called app.config.pathsAbsolute will be generated from them
 	,paths: {
 		//config: hardcoded in apps.js
 		//helpers: hardcoded in apps.js
 		 routes: 'app_modules/routes.js'
 		//,inline: 'frontend/_inline'
 		//,base: 'frontend/_terrific/_base'
-		,module: 'frontend/_terrific/mod-{{name}}/'
+		,module: 'frontend/_terrific/'
 		,views: 'frontend/views/'
 		//,application: 'frontend/_terrific/_application'
 		,dist: 'frontend/_static/dist/'
 	}
+
+	,moduleDirName: 'mod-{{name}}/'
 
 	,webPaths: {
 		// where built assets are written

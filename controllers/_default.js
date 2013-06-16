@@ -23,8 +23,9 @@ module.exports = function(app) {
 
 			var wrench = require('wrench')
 				,fs = require('fs')
+				,modulePath = app.config.paths.module
 				,views = wrench.readdirSyncRecursive(app.config.paths.views)
-				,modules = fs.readdirSync(app.config.paths.module.replace('/mod-{{name}}', ''))
+				,modules = fs.readdirSync(modulePath)
 			;
 
 			res.render('views/_app-home', {
@@ -32,7 +33,7 @@ module.exports = function(app) {
 				,docTitle: docTitle('Components Overview')
 				,title: 'Components Overview'
 				,views: views.filter(isUserView).map(file2ViewName)
-				,modules: modules.filter(isModuleFolder).map(folder2ModuleName)
+				,modules: modules.filter(isModuleFolder).map(directory2ModuleName)
 			});
 
 			function isUserView(viewName) {
@@ -44,11 +45,17 @@ module.exports = function(app) {
 			}
 
 			function file2ViewName(file) {
-				return file.replace('.hbs', '');
+				return {
+					name: file.replace('.hbs', '')
+					,git: app.config.repository && app.config.repository + app.config.paths.views + file
+				}
 			}
 
-			function folder2ModuleName(folder) {
-				return folder.replace('mod-', '');
+			function directory2ModuleName(dir) {
+				return {
+					name: dir.replace('mod-', '')
+					,git: app.config.repository && app.config.repository + modulePath + dir
+				};
 			}
 		}
 
