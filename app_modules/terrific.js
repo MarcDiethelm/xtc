@@ -15,6 +15,7 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 			tag: 'div'
 			,connectors: null
 		}
+		,renderModule
 	;
 
 	if (annotateModules) {
@@ -28,32 +29,44 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 	wrapperTemplate = hbs.compile(wrapperTemplate);
 
 	hbs.registerHelper('mod', function(name) {
+
 		var  options
 			,argLen = arguments.length
 			,hash = arguments[argLen-1].hash
 			,args = {}
-			,cacheKey
-			,wrappedMod
-			,modSourceTemplate
-			,mergedData
 		;
 		argLen >= 2 && (args.name = arguments[0]);
 
 		options = {
-			name            : args.name || hash.name || undefined
-			,tag            : hash.tag || defaults.tag
-			,id             : hash.id || undefined
-			,htmlClasses    : hash.htmlClasses || undefined
+			name            : args.name || hash.name
+			,tag            : hash.tag
+			,id             : hash.id
+			,htmlClasses    : hash.htmlClasses
 			,skins          : hash.skins && hash.skins.replace(' ', '').split(',') || undefined
-			,connectors     : hash.connectors || undefined
+			,connectors     : hash.connectors
 			,data           : hash.data ? (new Function('return' + hash.data))() : {}
 		};
+
+		return new hbs.SafeString( renderModule(options) );
+	});
+
+
+	renderModule = function renderModule(options) {
+		var  cacheKey
+			,modSourceTemplate
+			,mergedData
+		;
+
+		options.template = options.template || options.name;
+		options.tag = options.tag || defaults.tag;
+		options.data = options.data || {};
 
 		// merge the request context and data in the module include, with the latter trumping the former.
 
 		mergedData = utils.extend(utils.clone(this), options.data);
 
-		options.template = hash.template || options.name;
+		// create a unique identifier for the module/template combination
+
 		cacheKey = options.name + ' ' + options.template;
 
 		// force reading from disk in development mode
@@ -68,12 +81,8 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 
 		options.moduleSrc = modSourceTemplate.fn(mergedData);
 
-		// if there was an error while reading the module template, persist it
-
-		options.error && (cache[cacheKey].error = true);
-
 		// if we have a persisted read error, add the error class to the module.
-		cache[cacheKey].error && (options.htmlClasses = options.htmlClasses ? options.htmlClasses + ' tc-error' : 'tc-error');
+		modSourceTemplate.err && (options.htmlClasses = options.htmlClasses ? options.htmlClasses + ' tc-error' : 'tc-error');
 
 		if (annotateModules) {
 			options._module = modSourceTemplate.name;
@@ -82,10 +91,9 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 		}
 
 		// render the wrapper template
-		wrappedMod = wrapperTemplate(options);
+		return  wrapperTemplate(options);
+	};
 
-		return new hbs.SafeString(wrappedMod);
-	});
 
 	function getModTemplate(options) {
 		var moduleName = options.name
@@ -106,7 +114,10 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 			options.error = true;
 		}
 
-		retVal = { fn: hbs.compile(content || err.web) };
+		retVal = {
+			fn: hbs.compile(content || err.web)
+			,err: err
+		};
 
 		if (annotateModules) {
 			retVal.name = moduleName;
@@ -114,6 +125,10 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 			retVal.path = modDir.replace(app.config.dirname, '');
 		}
 		return retVal;
-	}
+	};
+
+	return {
+		renderModule: renderModule
+	};
 
 }
