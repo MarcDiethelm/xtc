@@ -89,7 +89,7 @@ module.exports = function(app) {
 
 		setLocals: function () {
 			var siteName = app.config.siteName;
-			app.settings.env == 'development' && (siteName += ' – Dev');
+			app.settings.env == 'development' && (siteName += ' (Dev)');
 
 			// Template data that is always available
 			app.locals({

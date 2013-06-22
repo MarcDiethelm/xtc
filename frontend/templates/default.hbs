@@ -21,9 +21,11 @@
 </head>
 <body>
 	<header role="banner">
-	{{!-- This is a good place for a main navigation module
-		{{mod "nav-main" tag="nav"}}
-	--}}
+	{{!-- This is a good place for a main navigation module.
+	      Setting _isLayout="true" allows to skip this module when solo viewing a view for development.
+	 --}}
+		{{mod "nav-main" tag="nav" _isLayout="true"}}
+		<hr>
 	</header>
 
 	<main role="main">
@@ -31,6 +33,7 @@
 	</main>
 
 	<footer role="contentinfo">
+		<hr>
 	</footer>
 
 	<script>

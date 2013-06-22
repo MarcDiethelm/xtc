@@ -17,6 +17,7 @@ module.exports = function(app) {
 		,aSubpage: function(req, res, next) {
 			res.render('views/subpage', {
 				 docTitle: docTitle('Subpage')
+				,title: 'Subpage'
 				,someData: 'A sub-page using default template'
 			});
 		}
