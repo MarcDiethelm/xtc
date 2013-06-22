@@ -82,6 +82,19 @@ folder in your path).
 Use a different terminal in your project folder (do you know `screen`?) and start the server with `node app.js`.
 
 
+### PHPStorm / WebStorm Users
+
+There are some things you can do that will make development so much more easy:
+
+* You can run Grunt directly in the IDE. Any errors during asset parsing will be immediately pointed out to you. I you
+have the Command Line Tools plugin installed, open the Tools menu and select 'Run Command...'. Enter `grunt` in the
+input line. Just make sure you have installed Grunt CLI globally with `npm install -g grunt-cli`.
+* You can run/restart Node directly in the IDE. If you have the Node.js plugin installed create a Run configuration
+pointing to app.js. There's more than one way do get there. If in doubt refer to the documentation of your IDE.
+* Install the Handlebars/Mustache plugin. It will give you syntax highlighting for .hbs files. Also you can set the
+comment style to Handlebars comments once you have the plugin.
+
+
 ## Manual
 
 
@@ -176,19 +189,6 @@ any given page.
 http://glue.readthedocs.org/en/latest/options.html
 
 
-### PHPStorm / WebStorm Users
-
-There are some things you can do that will make development so much more easy:
-
-* You can run Grunt directly in the IDE. Any errors during asset parsing will be immediately pointed out to you. I you
-have the Command Line Tools plugin installed, open the Tools menu and select 'Run Command...'. Enter `grunt` in the
-input line. Just make sure you have installed Grunt CLI globally with `npm install -g grunt-cli`.
-* You can run/restart Node directly in the IDE. If you have the Node.js plugin installed create a Run configuration
-pointing to app.js. There's more than one way do get there. If in doubt refer to the documentation of your IDE.
-* Install the Handlebars/Mustache plugin. It will give you syntax highlighting for .hbs files. Also you can set the
-comment style to Handlebars comments once you have the plugin.
-
-
 ## Template Development and Integration into other backends
 
 Node-terrific implements some features to help with template integration in different backend systems.
@@ -204,6 +204,7 @@ Adding the parameter `solo` to a view request, will skip any modules that have t
 include.
 
 	/_view/example?solo
+
 
 ## What this does not (yet)
 
