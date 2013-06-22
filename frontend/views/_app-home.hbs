@@ -6,17 +6,34 @@
 	<meta charset="UTF-8">
 	<title>{{docTitle}}</title>
 	<link rel="stylesheet" type="text/css" href="{{assets.css.external}}">
+	<style>
+		ul, li {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		.item {
+			padding-bottom: 1em;
+		}
+		.subitem {
+			padding-top: .7em;
+			padding-left: 1.7em;
+		}
+		.name {
+			font-weight: bold;
+		}
+	</style>
 </head>
 <body>
-	<h1>{{title}} Summary</h1>
+	<h1>{{title}}</h1>
 	<h2>Views</h2>
 
 	<ul>
 	{{#each views}}
-		<li>
-			<a href="/_view/{{this.name}}">{{this.name}}</a> |
+		<li class="item">
+			<a class="name" href="/_view/{{this.name}}">{{this.name}}</a>
 			<small>
-				<a href="/_view/{{this.name}}?raw">raw</a>{{#if this.git}} | <a href="{{this.git}}">git</a>{{/if}}
+				 | <a href="/_view/{{this.name}}?raw">raw</a>{{#if this.repoUri}} | <a href="{{this.repoUri}}">git</a>{{/if}}
 			</small>
 		</li>
 	{{/each}}
@@ -27,10 +44,20 @@
 
 	<ul>
 	{{#each modules}}
-		<li>
-			<a href="/_module/{{this.name}}">{{this.name}}</a>
+		<li class="item">
+			{{this.name}}
 			<small>
-				| <a href="/_module/{{this.name}}?raw">raw</a>{{#if this.git}} | <a href="{{this.git}}">git</a>{{/if}}
+				{{#if this.repoUri}} | <a href="{{this.repoUri}}">git</a>{{/if}}
+				<ul>
+				{{#each this.templates}}
+					<li class="subitem">
+						<a class="name" href="/_module/{{../this.name}}/{{this.name}}">{{this.name}}</a>
+						| <a href="/_module/{{../this.name}}/{{this.name}}?raw">raw</a>
+						{{#if this.repoUri}} | <a href="{{this.repoUri}}">git</a>{{/if}}
+					</li>
+				{{/each}}
+				</ul>
+
 			</small>
 		</li>
 	{{/each}}

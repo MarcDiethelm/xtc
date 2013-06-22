@@ -1,4 +1,4 @@
-module.exports = function(app) { // to do: no need to export, no need to import app (so far)
+module.exports = function(app) {
 
 	var hbs = require('hbs')
 		,fs = require('fs')
@@ -21,7 +21,7 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 	if (annotateModules) {
 		 // descriptive comment, where to find the module
 		wrapperTemplate =
-			'<!-- START MODULE: {{_module}}, template: {{_file}}, path: {{_path}} -->\n' +
+			'<!-- START MODULE: {{_module}}, template: {{_file}}, path: {{_path}}, repository: {{_repository}} -->\n' +
 			wrapperTemplate +
 			'<!-- END MODULE: {{_module}} -->\n\n'
 	}
@@ -89,7 +89,7 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 			options._module = modSourceTemplate.name;
 			options._file = modSourceTemplate.file;
 			options._path = modSourceTemplate.path;
-			options._git = modSourceTemplate.git;
+			options._repository = modSourceTemplate.repository;
 		}
 
 		// render the wrapper template
@@ -125,7 +125,7 @@ module.exports = function(app) { // to do: no need to export, no need to import 
 			retVal.name = moduleName;
 			retVal.file = template + '.hbs';
 			retVal.path = modDir.replace(app.config.dirname, '');
-			app.config.repository && (retVal.git = app.config.repository +'/tree/develop/'+ retVal.path);
+			app.config.repository && (retVal.repository = app.config.repository + retVal.path);
 		}
 		return retVal;
 	};

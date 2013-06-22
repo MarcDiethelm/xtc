@@ -1,6 +1,8 @@
 
 
-var siteName;
+var siteName
+	,path = require('path')
+;
 
 module.exports = function(app) {
 
@@ -21,42 +23,16 @@ module.exports = function(app) {
 
 		_home: function(req, res, next) {
 
-			var wrench = require('wrench')
-				,fs = require('fs')
-				,modulePath = app.config.paths.module
-				,views = wrench.readdirSyncRecursive(app.config.paths.views)
-				,modules = fs.readdirSync(modulePath)
-			;
+			var overview = require(path.join(app.config.dirname, 'app_modules/overview.js'))(app);
 
 			res.render('views/_app-home', {
-				layout: false
+				 layout: false
 				,docTitle: docTitle('Components Overview')
 				,title: 'Components Overview'
-				,views: views.filter(isUserView).map(file2ViewName)
-				,modules: modules.filter(isModuleFolder).map(directory2ModuleName)
+				,views: overview.views
+				,modules: overview.modules
 			});
 
-			function isUserView(viewName) {
-				return viewName.indexOf('_') === 0 ? false : true;
-			}
-
-			function isModuleFolder(folderName) {
-				return folderName.indexOf('mod-') === 0 ? true : false;
-			}
-
-			function file2ViewName(file) {
-				return {
-					name: file.replace('.hbs', '')
-					,git: app.config.repository && app.config.repository + app.config.paths.views + file
-				}
-			}
-
-			function directory2ModuleName(dir) {
-				return {
-					name: dir.replace('mod-', '')
-					,git: app.config.repository && app.config.repository + modulePath + dir
-				};
-			}
 		}
 
 		,_getView: function(req, res, next) {
@@ -76,7 +52,7 @@ module.exports = function(app) {
 		,_getModule: function(req, res, next) {
 			var module = app.terrific.renderModule({
 				 name: req.params.name
-				,template: req.params.name
+				,template: req.params.template
 			});
 
 			if (module.error) {
