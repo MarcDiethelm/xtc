@@ -110,7 +110,7 @@ module.exports = function(grunt) {
 		}
 		,watch: {
 			sprites: {
-				files: ['<%=sources.sprites%>']
+				files: ['<%=sources.sprites%>*.png', '<%=sources.sprites%>*.jpg']
 				,tasks: ['build-sprites', 'build-external-css']
 			},
 			inline_styles: {
@@ -148,8 +148,8 @@ module.exports = function(grunt) {
 	// create pipelines                              // use actual task name (first part before colon)!
 	grunt.registerTask('build-sprites',              ['glue']);
 	
-	grunt.registerTask('build-inline-js',            [                 'concat:inline_scripts',   'uglify:inline']);
-	grunt.registerTask('build-external-js',          ['build-sprites', 'concat:external_scripts', 'uglify:external']);
+	grunt.registerTask('build-inline-js',            ['concat:inline_scripts',   'uglify:inline']);
+	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'uglify:external']);
 	grunt.registerTask('build-inline-css',           ['less_imports:inline',   'less:inline',   'cssmin:inline']);
 	grunt.registerTask('build-external-css',         ['less_imports:external', 'less:external', 'cssmin:external']);
 	grunt.registerTask('build-module-tests',         ['concat:module_tests']);
@@ -160,6 +160,7 @@ module.exports = function(grunt) {
 		 'build-inline-js'
 		,'build-external-js'
 		,'build-inline-css'
+		,'build-sprites'
 		,'build-external-css'
 		,'build-module-tests'
 		,'watch'
