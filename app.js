@@ -10,6 +10,7 @@ app.helpers = require('./app_modules/helpers.js')(app);
 app.helpers.mergeConfigs(__dirname, '_config');
 app.helpers.configAbsolutePaths();
 app.helpers.shareAssetWebPathsWithLocals();
+app.helpers.setLocals();
 app.helpers.registerTemplateHelpers();
 app.terrific = require('./app_modules/terrific.js')(app);
 

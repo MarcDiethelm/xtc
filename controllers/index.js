@@ -1,17 +1,7 @@
 
-
-var siteName;
-
 module.exports = function(app) {
 
-	siteName = app.config.siteName;
-	app.settings.env == 'development' && (siteName += ' – Dev');
-
-	// Template data that is always available
-	app.locals({
-		 lang: app.config.i18n.langDefault
-		,docTitle: siteName
-	});
+	var docTitle = app.helpers.docTitle;
 
 	return {
 
@@ -45,7 +35,3 @@ module.exports = function(app) {
 		}
 	}
 };
-
-function docTitle(pageName) {
-	return pageName + ' – ' + siteName;
-}

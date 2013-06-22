@@ -20,7 +20,9 @@ module.exports = function(app) {
 		};
 	};
 
+
 	return {
+
 		/**
 		 * Create one configuration from the different files as available.
 		 */
@@ -83,6 +85,22 @@ module.exports = function(app) {
 					,img: app.config.webPaths.img
 				}
 			});
+		},
+
+		setLocals: function () {
+			var siteName = app.config.siteName;
+			app.settings.env == 'development' && (siteName += ' – Dev');
+
+			// Template data that is always available
+			app.locals({
+				 lang: app.config.i18n.langDefault
+				,docTitle: siteName
+				,node_env: NODE_ENV
+			});
+		},
+
+		docTitle: function(pageName) {
+			return pageName + ' – ' + app.locals.docTitle;
 		},
 
 		registerTemplateHelpers: function() {
