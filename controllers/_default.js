@@ -1,8 +1,6 @@
 
 
-var siteName
-	,path = require('path')
-;
+var path = require('path');
 
 module.exports = function(app) {
 
@@ -15,7 +13,6 @@ module.exports = function(app) {
 		 */
 
 		_home: function(req, res, next) {
-
 			var overview = require(path.join(app.config.dirname, 'app_modules/overview.js'))(app);
 
 			res.render('views/_app-home', {
@@ -25,7 +22,6 @@ module.exports = function(app) {
 				,views: overview.views
 				,modules: overview.modules
 			});
-
 		}
 
 		,_getView: function(req, res, next) {
@@ -37,16 +33,20 @@ module.exports = function(app) {
 			}
 			res.render('views/' + req.params.name, {
 				 layout: layout
-				,docTitle: docTitle(req.params.name)
+				,docTitle: docTitle('View: '+ req.params.name)
 				,uri: req.originalUrl
+				,skipModules: 'solo' in req.query && 'layout'
 			});
 		}
 
 		,_getModule: function(req, res, next) {
-			var module = app.terrific.renderModule({
-				 name: req.params.name
-				,template: req.params.template
-			});
+			var module = app.terrific.renderModule(
+				{},
+				{
+					 name: req.params.name
+					,template: req.params.template
+				}
+			);
 
 			if (module.error) {
 				res.send(module.error.web);
@@ -58,8 +58,10 @@ module.exports = function(app) {
 			} else {
 				res.render(app.config.defaultTemplate, {
 					layout: false
-					,docTitle: docTitle(req.params.name)
+					,docTitle: docTitle('Module: '+ req.params.name +', Template: '+ req.params.template)
 					,body: module
+					,exclusive: req.params.name
+					,skipModules: true
 				});
 			}
 

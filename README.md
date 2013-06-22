@@ -193,11 +193,17 @@ comment style to Handlebars comments once you have the plugin.
 
 Node-terrific implements some features to help with template integration in different backend systems.
 
-`/_home` Displays an overview of all user-defined views and modules, i.e. ones whose names don't start with an
+`/_home` displays an overview of all user-defined views and modules, i.e. ones whose names don't start with an
 underscore. The page contains links to the views and modules at `/_view/[name]` and `/_module/[name]` respectively.
 If you add the parameter `raw` to the URI, you get the pure HTML of that resource without any surrounding markup, e.g:
 
+	/_view/example?raw
 	/_module/example?raw
+
+Adding the parameter `solo` to a view request, will skip any modules that have the attribute `isLayout="true"` on their
+include.
+
+	/_view/example?solo
 
 ## What this does not (yet)
 

@@ -45,18 +45,29 @@ module.exports = function(app) {
 			,htmlClasses    : hash.htmlClasses
 			,skins          : hash.skins && hash.skins.replace(' ', '').split(',') || undefined
 			,connectors     : hash.connectors
+			,_isLayout      : hash._isLayout
 			,data           : hash.data ? (new Function('return' + hash.data))() : {}
 		};
 
-		return new hbs.SafeString( renderModule(options) );
+		return new hbs.SafeString( renderModule(this, options) );
 	});
 
 
-	renderModule = function renderModule(options) {
+	renderModule = function renderModule(context, options) {
 		var  cacheKey
 			,modSourceTemplate
 			,mergedData
 		;
+
+		// this check is used when rendering isolated modules or views for development and testing (in the default layout!).
+		// skip any modules that are not THE module or THE view.
+		// view: skip all modules that have the attribute _isLayout="true"
+		// module: skip all other modules
+		if (
+				context.skipModules === true ||                         // case: module
+				context.skipModules == 'layout' && options._isLayout    // case: view
+			)
+		{ return ''; }
 
 		options.template = options.template || options.name;
 		options.tag = options.tag || defaults.tag;
@@ -64,7 +75,7 @@ module.exports = function(app) {
 
 		// merge the request context and data in the module include, with the latter trumping the former.
 
-		mergedData = utils.extend(utils.clone(this), options.data);
+		mergedData = utils.extend(utils.clone(context), options.data);
 
 		// create a unique identifier for the module/template combination
 

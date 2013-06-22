@@ -33,7 +33,9 @@
 		<li class="item">
 			<a class="name" href="/_view/{{this.name}}">{{this.name}}</a>
 			<small>
-				 | <a href="/_view/{{this.name}}?raw">raw</a>{{#if this.repoUri}} | <a href="{{this.repoUri}}">git</a>{{/if}}
+				| <a href="/_view/{{this.name}}?solo">solo</a>
+				| <a href="/_view/{{this.name}}?raw">raw</a>
+				{{#if this.repoUri}} | <a href="{{this.repoUri}}">git</a>{{/if}}
 			</small>
 		</li>
 	{{/each}}
