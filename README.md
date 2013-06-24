@@ -162,9 +162,9 @@ To create new Terrific modules you can use a Yeoman generator. To install use:
 
 To create a new module simply type
 
-	yo xtc:module
+	yo xtc:module [name]
 
-in the project root folder.
+in the project root folder. The module name can be added as the first argument.
 
 
 ### Skin Creation
