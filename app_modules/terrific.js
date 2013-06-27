@@ -114,7 +114,7 @@ module.exports = function(app) {
 			,content
 			,err
 			,template = templateName == moduleName ? moduleName : moduleName + '-' + templateName
-			,modDir = app.config.paths.module + app.config.moduleDirName.replace('{{name}}', moduleName)
+			,modDir = app.config.paths.modulesBaseDir + app.config.moduleDirName.replace('{{name}}', moduleName)
 			,file = path.join(modDir, template + '.hbs')
 			,retVal
 		;

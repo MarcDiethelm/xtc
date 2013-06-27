@@ -19,17 +19,14 @@ var wrench = require('wrench')
 
 module.exports = function(app) {
 	cfg = app.config;
-	modulePath = cfg.paths.module;
+	modulePath = cfg.paths.modulesBaseDir;
 	moduleFolderPrefix = cfg.moduleDirName.replace('{{name}}', '').replace('/', '');
 	views = wrench.readdirSyncRecursive(path.join(cfg.pathsAbsolute.templateBaseDir, cfg.viewsDirName));
 	moduleCandidates = fs.readdirSync(modulePath);
 
 	return {
-		views: views.filter(isUserView).map(file2View)
-
-		,modules: moduleFolderPrefix ?
-			moduleCandidates.filter(isModuleFolder).map(directory2Module) :
-			moduleCandidates.map(directory2Module)
+		 views: views.filter(isUserView).map(file2View)
+		,modules: moduleCandidates.filter(isModuleFolder).map(directory2Module)
 	}
 };
 
@@ -38,7 +35,13 @@ function isUserView(viewName) {
 }
 
 function isModuleFolder(folderName) {
-	return folderName.indexOf(moduleFolderPrefix) === 0 ? true : false;
+	if (moduleFolderPrefix) {
+		return folderName.indexOf(moduleFolderPrefix) === 0 ? true : false;
+	}
+	else {
+		// If we don't have a prefix to look for eliminate all results beginning with a period.
+		return folderName.indexOf('.') === 0 ? false : true;
+	}
 }
 
 function isTemplateFile(fileName) {
@@ -69,7 +72,7 @@ function directory2Module(dir) {
 }
 
 function getModuleTemplates(dir, modName) {
-	return fs.readdirSync(cfg.paths.module + dir).filter(isTemplateFile).map(function(file) {
+	return fs.readdirSync(cfg.paths.modulesBaseDir + dir).filter(isTemplateFile).map(function(file) {
 		return file2Template(file, dir, modName);
 	});
 }

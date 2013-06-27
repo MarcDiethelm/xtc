@@ -20,8 +20,8 @@ module.exports = {
 		//,base: 'frontend/_terrific/_base'
 		// path to the view and templates directories
 		,templateBaseDir: 'frontend/'
-		// path to the module directories
-		,module: 'frontend/_terrific/'
+		// path to the Terrific modules directories
+		,modulesBaseDir: 'frontend/_terrific/'
 		//,application: 'frontend/_terrific/_application'
 		,dist: 'frontend/_static/dist/'
 	}
