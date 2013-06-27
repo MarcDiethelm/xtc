@@ -51,6 +51,7 @@ module.exports = {
 	,webPaths: {
 		// where built assets are written
 		dist: '/dist/'
+		,img: '/img/'
 	}
 
 	 // Config properties for client-side QUnit
