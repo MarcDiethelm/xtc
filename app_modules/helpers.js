@@ -68,14 +68,22 @@ module.exports = function(app) {
 		},
 
 		/**
-		 * Create URLs to asset files and make them available to templates through app.locals
+		 * Set some always available template vars through app.locals
+		 * e.g. create URLs to asset files
 		 */
-		shareAssetWebPathsWithLocals: function() {
-			var  assets = app.config.assets;
+		setLocals: function () {
+			var siteName = app.config.siteName
+				,assets = app.config.assets
+			;
+			app.settings.env == 'development' && (siteName += ' (Dev)');
 
-			// this could be created dynamically depending on config properties
+			// Template data that is always available
 			app.locals({
-				assets: {
+				 lang: app.config.i18n.langDefault
+				,docTitle: siteName
+				,node_env: NODE_ENV
+				// this could be created dynamically depending on config properties(?)
+				,assets: {
 					js: {
 						external: app.config.webPaths.dist + assets.js.external[NODE_ENV]
 					}
@@ -84,18 +92,6 @@ module.exports = function(app) {
 					}
 					,img: app.config.webPaths.img
 				}
-			});
-		},
-
-		setLocals: function () {
-			var siteName = app.config.siteName;
-			app.settings.env == 'development' && (siteName += ' (Dev)');
-
-			// Template data that is always available
-			app.locals({
-				 lang: app.config.i18n.langDefault
-				,docTitle: siteName
-				,node_env: NODE_ENV
 			});
 		},
 
