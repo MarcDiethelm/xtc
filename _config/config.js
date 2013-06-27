@@ -9,8 +9,27 @@ module.exports = {
 		development: true
 		,production: false
 	}
-	,repository: 'https://github.com/MarcDiethelm/node-terrific/tree/develop/' // to construct links to views and modules
-	,defaultTemplate: 'templates/default'
+	 // to construct links to views and modules
+	,repository: 'https://github.com/MarcDiethelm/node-terrific/tree/develop/'
+	// paths relative to app.js, a property called app.config.pathsAbsolute will be generated from them
+	,paths: {
+		//config: hardcoded in apps.js
+		//helpers: hardcoded in apps.js
+		 routes: 'app_modules/routes.js'
+		//,inline: 'frontend/_inline'
+		//,base: 'frontend/_terrific/_base'
+		// path to the view and templates directories
+		,templateBaseDir: 'frontend/'
+		// path to the module directories
+		,module: 'frontend/_terrific/'
+		//,application: 'frontend/_terrific/_application'
+		,dist: 'frontend/_static/dist/'
+	}
+	// relative to templateBaseDir
+	,viewsDirName: 'views/'
+	,templatesDirName: 'templates/'
+	,defaultTemplateName: 'default'
+	,moduleDirName: 'mod-{{name}}/'
 	,assets: {
 		js: { // set and use this property name to include an inline file in a template, e.g. {{asset "js"}}
 			inline: {
@@ -33,20 +52,6 @@ module.exports = {
 			}
 		}
 	}
-	// paths relative to app.js, a property called app.config.pathsAbsolute will be generated from them
-	,paths: {
-		//config: hardcoded in apps.js
-		//helpers: hardcoded in apps.js
-		 routes: 'app_modules/routes.js'
-		//,inline: 'frontend/_inline'
-		//,base: 'frontend/_terrific/_base'
-		,module: 'frontend/_terrific/'
-		,views: 'frontend/views/'
-		//,application: 'frontend/_terrific/_application'
-		,dist: 'frontend/_static/dist/'
-	}
-
-	,moduleDirName: 'mod-{{name}}/'
 
 	,webPaths: {
 		// where built assets are written

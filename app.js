@@ -3,6 +3,7 @@ var  path = require('path')
 	,http = require('http')
 	,hbs = require('express3-handlebars')
 	,app = express()
+	,cfg
 ;
 
 
@@ -12,12 +13,13 @@ app.helpers.configAbsolutePaths();
 app.helpers.setLocals();
 app.helpers.registerTemplateHelpers();
 app.terrific = require('./app_modules/terrific.js')(app);
+cfg = app.config;
 
 app.configure(function() {
-	app.set('port', process.env.PORT || app.config.devPort);
-	app.set('views', path.join( __dirname, 'frontend')); // defines a base path when getting templates
+	app.set('port', process.env.PORT || cfg.devPort);
+	app.set('views', cfg.pathsAbsolute.templateBaseDir); // defines a base path when getting templates and views
 	app.set('view engine', 'hbs');
-	app.set('view options', { layout: app.config.defaultTemplate });
+	app.set('view options', { layout: path.join(cfg.templatesDirName, cfg.defaultTemplateName) });
 	app.use(express.logger('dev'));
 	app.use(express.favicon());
 	app.use(express.bodyParser());
@@ -37,7 +39,7 @@ app.configure('development', function() {
 app.configure('production', function() {});
 
 // our routes are defined in routes.js
-require(app.config.pathsAbsolute.routes)(app);
+require(cfg.pathsAbsolute.routes)(app);
 
 // If no other middleware responds, send a 404. Defined in routes.js.
 app.use(app.render404);

@@ -7,6 +7,7 @@
 
 var wrench = require('wrench')
 	,fs = require('fs')
+	,path = require('path')
 	,cfg
 	,modulePath
 	,moduleFolderPrefix
@@ -20,7 +21,7 @@ module.exports = function(app) {
 	cfg = app.config;
 	modulePath = cfg.paths.module;
 	moduleFolderPrefix = cfg.moduleDirName.replace('{{name}}', '').replace('/', '');
-	views = wrench.readdirSyncRecursive(cfg.paths.views);
+	views = wrench.readdirSyncRecursive(path.join(cfg.pathsAbsolute.templateBaseDir, cfg.viewsDirName));
 	moduleCandidates = fs.readdirSync(modulePath);
 
 	return {

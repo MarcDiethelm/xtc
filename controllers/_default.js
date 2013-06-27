@@ -1,10 +1,9 @@
-
-
-var path = require('path');
-
 module.exports = function(app) {
 
-	var docTitle = app.helpers.docTitle;
+	var path = require('path')
+		,docTitle = app.helpers.docTitle
+		,cfg = app.config
+	;
 
 	return {
 
@@ -13,9 +12,9 @@ module.exports = function(app) {
 		 */
 
 		_home: function(req, res, next) {
-			var overview = require(path.join(app.config.dirname, 'app_modules/overview.js'))(app);
+			var overview = require(path.join(cfg.dirname, 'app_modules/overview.js'))(app);
 
-			res.render('views/_app-home', {
+			res.render(path.join(cfg.viewsDirName, '_app-home'), {
 				 layout: false
 				,docTitle: docTitle('Components Overview')
 				,title: 'Components Overview'
@@ -25,13 +24,13 @@ module.exports = function(app) {
 		}
 
 		,_getView: function(req, res, next) {
-			var layout = app.config.defaultTemplate;
+			var layout = cfg.defaultTemplate;
 
 			if ('raw' in req.query) {
 				res.setHeader('Content-Type', 'text/plain');
 				layout = false;
 			}
-			res.render('views/' + req.params.name, {
+			res.render(path.join(cfg.viewsDirName, req.params.name), {
 				 layout: layout
 				,docTitle: docTitle('View: '+ req.params.name)
 				,uri: req.originalUrl
@@ -41,22 +40,24 @@ module.exports = function(app) {
 
 		,_getModule: function(req, res, next) {
 			var module = app.terrific.renderModule(
-				{},
-				{
-					 name: req.params.name
-					,template: req.params.template
-				}
-			);
+					{},
+					{
+						 name: req.params.name
+						,template: req.params.template
+					}
+				)
+			;
 
 			if (module.error) {
 				res.send(module.error.web);
 				return;
 			}
+
 			if ('raw' in req.query) {
 				res.setHeader('Content-Type', 'text/plain');
 				res.send(module);
 			} else {
-				res.render(app.config.defaultTemplate, {
+				res.render(path.join(cfg.templatesDirName, cfg.defaultTemplateName), {
 					layout: false
 					,docTitle: docTitle('Module: '+ req.params.name +', Template: '+ req.params.template)
 					,body: module
@@ -66,10 +67,11 @@ module.exports = function(app) {
 			}
 
 		}
+
 		 // Look for a view with the name supplied by the catch-all route
 		,_subPage: function(req, res, next) {
 			try {
-				res.render('views/'+ req.params.pageName, {
+				res.render(path.join(cfg.viewsDirName,  req.params.pageName), {
 					 docTitle: docTitle(req.params.pageName)
 					,uri: req.originalUrl
 				});

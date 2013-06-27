@@ -22,7 +22,6 @@ module.exports = function(app) {
 
 
 	return {
-
 		/**
 		 * Create one configuration from the different files as available.
 		 */
@@ -133,7 +132,7 @@ module.exports = function(app) {
 				if (NODE_ENV != 'development')
 					return '';
 
-				file = path.join(app.config.pathsAbsolute.views, '_test-modules.hbs');
+				file = path.join(app.config.pathsAbsolute.templateBaseDir, app.config.viewsDirName, '_test-modules.hbs');
 
 				try {
 					template = fs.readFileSync(file, 'utf8');
