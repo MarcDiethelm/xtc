@@ -36,6 +36,8 @@ So, install [Nave](https://github.com/isaacs/nave) from Github and install the l
 However strictly speaking you don't NEED a node version manager. Downloading the installer from the website will work
 fine.
 
+<small>Windows users: reopen the CMD after installing to get the updated path for npm.</small>
+
 
 ### Node Modules dependencies
 
