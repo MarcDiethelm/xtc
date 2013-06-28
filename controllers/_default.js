@@ -40,7 +40,7 @@ module.exports = function(app) {
 
 		,_getModule: function(req, res, next) {
 			var module = app.terrific.renderModule(
-					{},
+					app.locals,
 					{
 						 name: req.params.name
 						,template: req.params.template
