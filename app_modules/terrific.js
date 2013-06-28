@@ -12,7 +12,7 @@ module.exports = function(app) {
 			'   {{{moduleSrc}}}\n' +
 			'</{{tag}}>\n'
 		,defaults = {
-			tag: 'div'
+			tag: 'section'
 			,connectors: null
 		}
 		,renderModule
