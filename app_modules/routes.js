@@ -31,6 +31,7 @@ module.exports = function(app) {
 	app.get('/_home', _default._home);
 	app.get('/_view/:name', _default._getView);
 	app.get('/_module/:name/:template', _default._getModule);
+	app.get('/_test/:name', _default._getModuleTest);
 	app.get('/:pageName', _default._subPage); // catch-all route
 
 	// final middleware

@@ -16,8 +16,7 @@ $(document.documentElement).removeClass('no-js');
 					plugin:  window.assetsUrl + '/scripts/plugins-dyn/',
 					util:    window.assetsUrl + '/scripts/utils-dyn/'
 				}
-			},
-			moduleTest
+			}
 		;
 
 		// custom function for context selection
@@ -28,9 +27,8 @@ $(document.documentElement).removeClass('no-js');
 		app = new Tc.Application($body, config);
 		app.registerModules();
 		app.registerModule($body, 'PageController');
-		// after all modules are registered, register module tests
-		typeof ModuleTest != 'undefined' && (moduleTest = new ModuleTest(app)); // Prepare atomic module tests
 		app.start();
-		moduleTest && moduleTest.run();
+		// Run atomic module tests
+		typeof ModuleTest != 'undefined' && (new ModuleTest(app).run());
 	});
 })(window, Tc, document);

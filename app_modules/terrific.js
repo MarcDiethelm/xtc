@@ -103,6 +103,9 @@ module.exports = function(app) {
 			options._repository = modSourceTemplate.repository;
 		}
 
+		// if this was called for module testing and no template could be read, just return an empty string (don't wrap a template-less module)
+		if (options.isTest && modSourceTemplate.err && modSourceTemplate.err.code == 'ENOENT') return 'no markup found';
+
 		// render the wrapper template
 		return  wrapperTemplate(options);
 	};
@@ -123,7 +126,7 @@ module.exports = function(app) {
 			content = fs.readFileSync(file, 'utf8');
 		} catch (e) {
 			err = app.error('Can\'t read template file. Module: ' + moduleName + ', Template: ' + templateName + '.hbs.', e);
-			console.error(err.c);
+			!options.isTest && console.error(err.c);
 			options.error = true;
 		}
 

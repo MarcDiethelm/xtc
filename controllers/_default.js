@@ -65,7 +65,30 @@ module.exports = function(app) {
 					,skipModules: true
 				});
 			}
+		}
 
+		,_getModuleTest: function(req, res, next) {
+			var module = app.terrific.renderModule(
+					app.locals,
+					{
+						 name: req.params.name
+						,template: req.params.template || req.params.name
+						,isTest: true
+					}
+				)
+			;
+
+			if (module.error) {
+				res.send(module.error.web);
+				return;
+			}
+			res.render(path.join(cfg.viewsDirName, '_app-test-module'), {
+				layout: false
+				,docTitle: docTitle('Module: '+ req.params.name +', Template: '+ req.params.template)
+				,body: module
+				,exclusive: req.params.name
+				,skipModules: true
+			});
 		}
 
 		 // Look for a view with the name supplied by the catch-all route
