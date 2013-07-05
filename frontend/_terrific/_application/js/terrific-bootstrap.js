@@ -29,8 +29,8 @@ $(document.documentElement).removeClass('no-js');
 		app.registerModules();
 		app.registerModule($body, 'PageController');
 		// after all modules are registered, register module tests
-		typeof ModuleTest != 'undefined' && (moduleTest = new ModuleTest(app)); // Prepare atomic module tests
+		//typeof ModuleTest != 'undefined' && (moduleTest = new ModuleTest(app)); // Prepare atomic module tests
 		app.start();
-		moduleTest && moduleTest.run();
+		//moduleTest && moduleTest.run();
 	});
 })(window, Tc, document);

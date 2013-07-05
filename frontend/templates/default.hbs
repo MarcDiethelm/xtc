@@ -40,8 +40,8 @@
 		{{inline "js"}}{{!-- inline js. the key is defined in config.js --}}
 	</script>
 	{{#env "production"}}<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>{{/env}}
-	{{test modules}}
 	{{#env "development"}}<script src="{{static.prefix}}/lib/jquery-1.10.1.js"></script>{{/env}}
 	<script src="{{static.build.js.external}}"></script>
+	{{!--{{test modules}}--}}
 </body>
 </html>

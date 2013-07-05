@@ -1,22 +1,25 @@
 # Node Terrific
 
-This project brings the Terrific.js pattern to Node and Express. It provides a solid template for most web projects.
-It implements some of the features of Terrific Composer, like server-side module includes.
+This project brings the Terrific.js frontend modularization pattern to Node and Express and implements some of the
+features of Terrific Composer, like server-side module includes.
+It provides an awesome server, framework and template for most frontend projects.
 
 
 ## Features
 
 
-- Light-weight and hackable JavaScript backend
+- Light-weight, fast and hackable JavaScript backend
 - Can be used for single page apps.
 - Server-side module includes.
 - Handlebars templates.
 - Modularization
 - Flexible asset pipeline using Grunt.js, with file watcher // tbd: with sections for inlined, linked and on-demand assets.
-- Automated testing
+- Todo: Automated testing
+- Project setup takes minutes
+- todo: Grunt.js templates for efficient and consistent project and module creation.
 
 At risk:
-- Grunt.js templates for efficient and consistent project and module creation.
+
 - NPM packaging this project as a tool for super-easy project creation
 
 
@@ -31,12 +34,12 @@ Eventually you'll have multiple Node projects, depending on different versions o
 global modules. With nave you can create named environments in a snap.
 
 So, install [Nave](https://github.com/isaacs/nave) from Github and install the latest stable Node.js version with
-`nave use stable`. Nave will open a new shell for you where node is a local install.
+`nave use stable`. Nave will open a new shell for you where `node` points to your user space install.
 
-However strictly speaking you don't NEED a node version manager. Downloading the installer from the website will work
+However, strictly speaking you don't NEED a node version manager. Downloading the installer from the website will work
 fine.
 
-<small>Windows users: reopen the CMD after installing to get the updated path for npm.</small>
+<small>Windows users:  after installing reopen the CMD to get the updated path, so you can use npm.</small>
 
 
 ### Node Modules dependencies
@@ -152,13 +155,22 @@ A module include with all the options configured looks like this:
 Please refer to the official docs at (Terrifically.org)[http://terrifically.org/] to learn more about the Terrific
 pattern. Just ignore the part about "Composer". :)
 
+A module's markup will by default be wrapped in a SECTION tag, which also has the following class value:
+
+	mod mod-modulename [skin-modulename-skinname]
+
 You can enable annotations around modules in the html output, in config.js. The annotation displays the module name,
 the template file name and the file system path to the module.
+
+You can use a `data` attribute on a module include to inject data (a JS object literal) into the context of the module template.
+
+todo: Using the `noWrapper` and `noAnnotation` attributes on a module include will prevent creation of the wrapper element and/or
+module annotation. This is useful to create modules for base layouts, e.g a HTML HEAD module including the doctype.
 
 
 ### Terrific Module Creation
 
-To create new Terrific modules you can use a Yeoman generator. To install use:
+To create new Terrific modules you can conveniently use a Yeoman generator. Install it with
 
 	npm install -g yo generator-xtc
 
@@ -176,7 +188,7 @@ coming soon
 
 ### Module Testing
 
-You can write client-side tests for your Terrific modules. For any page your currently working on each contained module
+Todo: You can write client-side tests for your Terrific modules. For any page your currently working on each contained module
 is tested atomically and the results are printed to the console. It's somewhat limited because it's not application-wide
 and doesn't provide for inter-module (i.e. connectors) testing. But it's still very useful to see if something breaks on
 any given page.
@@ -223,6 +235,11 @@ Adding the parameter `solo` to a view request, will skip any modules that have t
 include.
 
 	/_view/example?solo
+
+
+## Differences to Terrific Composer
+
+- The default tag of a generated wrapper for a markup module is SECTION instead of DIV.
 
 
 ## What this does not (yet)
