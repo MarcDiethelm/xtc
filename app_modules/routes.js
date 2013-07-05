@@ -31,7 +31,9 @@ module.exports = function(app) {
 	app.get('/_home', _default._home);
 	app.get('/_view/:name', _default._getView);
 	app.get('/_module/:name/:template', _default._getModule);
-	app.get('/:pageName', _default._subPage); // catch-all route
+	// catch-all routes
+	app.get('/:pageName', _default._subPage);
+	app.post('/:pageName', _default._subPage);
 
 	// final middleware
 	app.render404 = _default.render404;
