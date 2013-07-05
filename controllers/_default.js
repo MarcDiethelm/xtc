@@ -71,7 +71,7 @@ module.exports = function(app) {
 		 // Look for a view with the name supplied by the catch-all route
 		,_subPage: function(req, res, next) {
 			try {
-				res.render(path.join(cfg.viewsDirName,  req.params.pageName), {
+				res.render(path.join(cfg.viewsDirName, req.params.pageName), {
 					 docTitle: docTitle(req.params.pageName)
 					,uri: req.originalUrl
 				});
