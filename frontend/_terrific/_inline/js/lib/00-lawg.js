@@ -4,32 +4,7 @@
  * A logging and debugging helper for the browser
  * Author: Marc Diethelm
  *
-
- - It's tiny.
- - Global functions for the common firebug/browser console methods (as available). Those functions are:
- 	log,
- 	info,
- 	debug,
- 	error,
- 	dir,
- 	table.
- - IE with Developer Tools add-on provides a console object, but the log method only prints the first argument.
- Lawg's window.log() will concatenate and output anything (eventually maybe) you throw at it.
- - If no console object is available the concatenated arguments will be output in window.alert.
- - To make logging with alerts actually useful certain objects are output with special representations.
-   This is extremely helpful for debugging on mobile devices.
- 	- DOM elements are shown in the format: tagName[#id][.className][.className][...]
- 	- jQuery collections are displayed as: $([DOM element][, DOM element][...])
- 	- NodeLists are displayed as: NodeList[[DOM element][, DOM element][...]]
- 	- Arrays items of the types listed above are 'deep converted' also.
- 	- Everything else uses its own native JS toString method.
- - Use window._alert to bypass console logging altogether.
- - Lawg extends jQuery with a log method. Log any jQuery collection to the console/ to an alert with
- 		$(selector).log([@param clear Boolean]). If you set the optional parameter clear to true,
- 	the previous console output is cleared before logging.
- - Lawg extends jQuery with an alert method. Output any jQuery collection to an alert with
- 		$(selector).alert()
-
+ * see README-lawg.md
  */
 
 (function() {
@@ -107,7 +82,7 @@
 		$() instanceof jQuery; // abusing try/catch for flow control. Old crappy browsers (I'm lookin at you IE) will throw.
 		isjQuery = function(obj) { return obj instanceof jQuery }
 	} catch (e) {
-		isjQuery = function(obj) { return 'jquery' in obj && typeof obj.jquery == 'string' }
+		isjQuery = function(obj) { return typeof obj == 'object' && 'jquery' in obj && typeof obj.jquery == 'string' }
 	}
 
 	isArray = Array.isArray || function(obj) {
