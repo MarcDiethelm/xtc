@@ -42,7 +42,6 @@
 		 * @return void
 		 */
 		after: function() {
-			console.log('module PageController after()')
 		}
 	});
 })(Tc.$);
