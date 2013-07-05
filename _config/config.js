@@ -11,52 +11,60 @@ module.exports = {
 	}
 	 // to construct links to views and modules
 	,repository: 'https://github.com/MarcDiethelm/node-terrific/tree/develop/'
-	// paths relative to app.js, a property called app.config.pathsAbsolute will be generated from them
+
+	// file system paths relative to app.js, a property called app.config.pathsAbsolute will be generated from them
 	,paths: {
-		//config: hardcoded in apps.js
 		//helpers: hardcoded in apps.js
-		 routes: 'app_modules/routes.js'
 		//,inline: 'frontend/_inline'
 		//,base: 'frontend/_terrific/_base'
+		//,application: 'frontend/_terrific/_application'
+		 routes: 'app_modules/routes.js'
 		// path to the view and templates directories
 		,templateBaseDir: 'frontend/'
 		// path to the Terrific modules directories
 		,modulesBaseDir: 'frontend/_terrific/'
-		//,application: 'frontend/_terrific/_application'
-		,dist: 'frontend/_static/dist/'
+		// path to the static assets, used by Express and by the 'asset' template helper
+		,staticBaseDir: 'frontend/_static/'
 	}
 	// relative to templateBaseDir
 	,viewsDirName: 'views/'
 	,templatesDirName: 'templates/'
 	,defaultTemplateName: 'default'
 	,moduleDirName: 'mod-{{name}}/'
-	,assets: {
-		js: { // set and use this property name to include an inline file in a template, e.g. {{asset "js"}}
-			inline: {
-				 development:       'inline.js'
-				,production:        'inline.min.js'
-			}
-			,external: {
-				 development:       'external.js'
-				,production:        'external.min.js'
-			}
-		},
-		css: { // set and use this property name to include an inline file in a template, e.g. {{asset "css"}}
-			inline: {
-				 development:       'inline.css'
-				,production:        'inline.min.css'
+
+	// URIs for use in templates are constructed from the following data
+		// URI prefix for static assets, e.g. '/static'
+	,'staticUriPrefix': ''
+		// static assets URIs are relative to 'staticUriPrefix'
+	,'static': {
+		 img: '/img'
+		// URIs to generated assets
+		,build: {
+			js: {
+				// to inline scripts in a template, usage: {{inline "js"}}
+				inline: {
+					 development:       '/dist/inline.js'
+					,production:        '/dist/inline.min.js'
+				}
+				// URI of the generated main js file, usage: {{static.build.js.external}}
+				,external: {
+					 development:       '/dist/external.js'
+					,production:        '/dist/external.min.js'
+				}
 			},
-			external: {
-				 development:       'external.css'
-				,production:        'external.min.css'
+			css: {
+				// to inline styles in a template, usage: {{inline "css"}}
+				inline: {
+					 development:       '/dist/inline.css'
+					,production:        '/dist/inline.min.css'
+				},
+				// URI of the generated main css file, usage: {{static.build.css.external}}
+				external: {
+					 development:       '/dist/external.css'
+					,production:        '/dist/external.min.css'
+				}
 			}
 		}
-	}
-
-	,webPaths: {
-		// where built assets are written
-		dist: '/dist/'
-		,img: '/img/'
 	}
 
 	 // Config properties for client-side QUnit

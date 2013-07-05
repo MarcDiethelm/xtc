@@ -25,7 +25,7 @@ app.configure(function() {
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(express.compress());
-	app.use(express.static(path.join(__dirname, 'frontend/_static')));
+	app.use(cfg.staticUriPrefix, express.static(cfg.pathsAbsolute.staticBaseDir));
 	app.use(app.router);
 });
 

@@ -181,6 +181,23 @@ is tested atomically and the results are printed to the console. It's somewhat l
 and doesn't provide for inter-module (i.e. connectors) testing. But it's still very useful to see if something breaks on
 any given page.
 
+### Static Assets
+
+If you look at config.js you will find that you can define the file system locations of your assets very flexibly.
+This allows you to model file structures to your liking or to the requirements of a particular backend where your code
+might need to be integrated.
+
+The URIs to your static assets are are all available under the `static` variable in your templates:
+
+	static.prefix // The base URI to the static assets
+	static.img // The base URI to your images
+	static.build.js.external // The URI to the generated main JS file
+	static.build.css.external // The URI to the generated main CSS file
+
+The static prefix URI is available in your LessCSS files as the variable
+
+	@static-prefix
+
 
 ### Building sprites with Glue
 

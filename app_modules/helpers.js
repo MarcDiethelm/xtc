@@ -67,13 +67,17 @@ module.exports = function(app) {
 			return path.join( app.config.dirname, localPath);
 		},
 
+		docTitle: function(pageName) {
+			return pageName + ' – ' + app.locals.docTitle;
+		},
+
 		/**
 		 * Set some always available template vars through app.locals
 		 * e.g. create URLs to asset files
 		 */
 		setLocals: function () {
 			var siteName = app.config.siteName
-				,assets = app.config.assets
+				,static_ = app.config.static
 			;
 			app.settings.env == 'development' && (siteName += ' (Dev)');
 
@@ -82,32 +86,32 @@ module.exports = function(app) {
 				 lang: app.config.i18n.langDefault
 				,docTitle: siteName
 				,node_env: NODE_ENV
-				// this could be created dynamically depending on config properties(?)
-				,assets: {
-					js: {
-						external: app.config.webPaths.dist + assets.js.external[NODE_ENV]
+				// Asset URIs
+				,'static': {
+					 prefix: app.config.staticUriPrefix
+					,img: path.join(app.config.staticUriPrefix, static_.img)
+					// generated assets
+					,build: {
+						js: {
+							external: path.join(app.config.staticUriPrefix, static_.build.js.external[NODE_ENV])
+						}
+						,css: {
+							external: path.join(app.config.staticUriPrefix, static_.build.css.external[NODE_ENV])
+						}
 					}
-					,css: {
-						external: app.config.webPaths.dist + assets.css.external[NODE_ENV]
-					}
-					,img: app.config.webPaths.img
 				}
 			});
-		},
-
-		docTitle: function(pageName) {
-			return pageName + ' – ' + app.locals.docTitle;
 		},
 
 		registerTemplateHelpers: function() {
 			var cache = {};
 
-			hbs.registerHelper('asset', function(inlineAssetName) {
-				var  file = path.join(app.config.pathsAbsolute.dist, app.config.assets[inlineAssetName].inline[NODE_ENV])
+			hbs.registerHelper('inline', function(inlineAssetName) {
+				var  file = path.join(app.config.pathsAbsolute.staticBaseDir, app.config.static.build[inlineAssetName].inline[NODE_ENV])
 					,cached = cache[inlineAssetName]
 				;
 
-				if (!cached && cached !== '') {
+				if (NODE_ENV == 'development' || !cached && cached !== '') {
 					try {
 						//console.log('read inline asset "'+ inlineAssetName +'" from:', file)
 						cached = cache[inlineAssetName] = fs.readFileSync(file, 'utf8');

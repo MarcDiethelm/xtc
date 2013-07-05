@@ -3,41 +3,47 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json')
 
+		,sourcePrefix: 'frontend'
 		,sources: {
 			inline_css: [
-				 'frontend/_terrific/_inline/css/lib/*.css'
-				,'frontend/_terrific/_inline/css/*.less'
+				 '<%=sourcePrefix%>/_terrific/_inline/css/lib/*.css'
+				,'<%=sourcePrefix%>/_terrific/_inline/css/*.less'
 			]
 			,external_css: [
-				 'frontend/_terrific/_base/css/sprites/*.less'
-				,'frontend/_terrific/_base/css/lib/*.css'
-				,'frontend/_terrific/_base/css/elements/*.less'
-				,'frontend/_terrific/mod-*/*.less'
-				,'frontend/_terrific/mod-*/skin/*.less'
-				,'frontend/_terrific/_application/css/*.less'
+				 '<%=sourcePrefix%>/_terrific/_base/css/sprites/*.less'
+				,'<%=sourcePrefix%>/_terrific/_base/css/lib/*.css'
+				,'<%=sourcePrefix%>/_terrific/_base/css/elements/*.less'
+				,'<%=sourcePrefix%>/_terrific/mod-*/*.less'
+				,'<%=sourcePrefix%>/_terrific/mod-*/skin/*.less'
+				,'<%=sourcePrefix%>/_terrific/_application/css/*.less'
 			]
 			,inline_js: [
-				 'frontend/_terrific/_inline/js/lib/*.js'
-				,'frontend/_terrific/_inline/js/*.js'
+				 '<%=sourcePrefix%>/_terrific/_inline/js/lib/*.js'
+				,'<%=sourcePrefix%>/_terrific/_inline/js/*.js'
 			]
 			,external_js: [
-				 'frontend/_terrific/_base/js/lib/*.js'
-				,'frontend/_terrific/mod-*/*.js'
-				,'frontend/_terrific/mod-*/skin/*.js'
-				,'frontend/_terrific/_application/js/*.js'
+				 '<%=sourcePrefix%>/_terrific/_base/js/lib/*.js'
+				,'<%=sourcePrefix%>/_terrific/mod-*/*.js'
+				,'<%=sourcePrefix%>/_terrific/mod-*/skin/*.js'
+				,'<%=sourcePrefix%>/_terrific/_application/js/*.js'
 			]
 			,module_test_js: [
-				 'frontend/_static/test/*.js'
-				,'frontend/_terrific/mod-*/test/*.js'
+				 '<%=sourcePrefix%>/_static/test/*.js'
+				,'<%=sourcePrefix%>/_terrific/mod-*/test/*.js'
 			]
 			,sprites: [
-				'frontend/_terrific/_base/css/sprites/'
-				//,'frontend/_terrific/mod-*/sprites/'
+				'<%=sourcePrefix%>/_terrific/_base/css/sprites/'
+				//,'<%=sourcePrefix%>/_terrific/mod-*/sprites/'
 			]
 		}
-		,tmp: 'frontend/_static/dist/tmp'
+		,destPrefix: 'frontend/_static/dist'
+		,tmp: '<%=destPrefix%>/tmp'
+		,dest_js: '<%=destPrefix%>'
+		,dest_css: '<%=destPrefix%>'
+		,dest_sprites_css: 'frontend/_terrific/_base/css/sprites' // technically this should go in tmp, but we want the generated classes in our base css for easy lookup.
 		,dest: 'frontend/_static/dist'
-		,dest_sprites_css: 'frontend/_terrific/_base/css/sprites/' // technically this should go in <%=dest%>/tmp, but we want the generated classes in our base css for easy lookup.
+		,dest_sprites_img: '<%=destPrefix%>'
+		,staticUriPrefix: '/static'
 
 		//////////////////////////////////////////////////////////////
 
@@ -45,7 +51,7 @@ module.exports = function(grunt) {
 			icons: {
 				src: '<%=sources.sprites%>'
 				//,dest: '<%=dest_sprites_css%>/00-sprites.less'
-				,options: '--css=<%=dest_sprites_css%> --img=<%=dest%> --less --url=/dist --namespace= --sprite-namespace= --recursive --crop --optipng'
+				,options: '--css=<%=dest_sprites_css%> --img=<%=dest_sprites_img%> --less --url=<%=staticUriPrefix%> --namespace= --sprite-namespace= --recursive --crop --optipng'
 			}
 		}
 		,less_imports: {
@@ -63,48 +69,53 @@ module.exports = function(grunt) {
 		,concat: {
 			inline_scripts: {
 				 src: '<%=sources.inline_js%>'
-				,dest: '<%=dest%>/inline.js'
+				,dest: '<%=dest_js%>/inline.js'
 			}
 			,external_scripts: {
 				 src: '<%=sources.external_js%>'
-				,dest: '<%=dest%>/external.js'
+				,dest: '<%=dest_js%>/external.js'
 			}
 			,module_tests: {
 				 src: '<%=sources.module_test_js%>'
-				,dest: '<%=dest%>/test.js'
+				,dest: '<%=dest_js%>/test.js'
 			}
 		},
 		uglify: {
 			inline: {
-				src: '<%=dest%>/inline.js'
-				,dest: '<%=dest%>/inline.min.js'
+				src: '<%=dest_js%>/inline.js'
+				,dest: '<%=dest_js%>/inline.min.js'
 			},
 			external: {
-				src: '<%=dest%>/external.js'
-				,dest: '<%=dest%>/external.min.js'
+				src: '<%=dest_js%>/external.js'
+				,dest: '<%=dest_js%>/external.min.js'
 			}
 		}
 		,less: {
 			inline: {
-				options: {}
+				options: {
+					// cssmin will not create file if the output is empty. a special comment fixes this.
+					banner: '/*! */'
+				}
 				,src: '<%=tmp%>/inline-imports.less'
-				,dest: '<%=dest%>/inline.css'
+				,dest: '<%=dest_css%>/inline.css'
 			},
 			external: {
-				options: {}
+				options: {
+					banner: "@static-prefix: '<%=staticUriPrefix%>';"
+				}
 				,src: '<%=tmp%>/external-imports.less'
-				,dest: '<%=dest%>/external.css'
+				,dest: '<%=dest_css%>/external.css'
 			}
 		},
 		cssmin: {
 			inline: {
 				files: {
-					'<%=dest%>/inline.min.css': ['<%=dest%>/inline.css']
+					'<%=dest_css%>/inline.min.css': ['<%=dest_css%>/inline.css']
 				}
 			},
 			external: {
 				files: {
-					'<%=dest%>/external.min.css': ['<%=dest%>/external.css']
+					'<%=dest_css%>/external.min.css': ['<%=dest_css%>/external.css']
 				}
 			}
 		}

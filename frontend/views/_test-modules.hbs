@@ -1,7 +1,7 @@
-{{#if showUi}}<link rel="stylesheet" href="/lib/qunit-1.11.0.css"/> {{/if}}
-<script src="/lib/qunit-1.11.0.js"></script>
-<script src="/lib/jquery-iframe.js"></script>
-<script src="/dist/test.js"></script>
+{{#if showUi}}<link rel="stylesheet" href="{{static.prefix}}/lib/qunit-1.11.0.css"/> {{/if}}
+<script src="{{static.prefix}}/lib/qunit-1.11.0.js"></script>
+<script src="{{static.prefix}}/lib/jquery-iframe.js"></script>
+<script src="{{static.prefix}}/dist/test.js"></script>
 <script>
 	QUnit.config.altertitle = {{alterTitle}};
 	QUnit.config.reorder = {{reorder}}; // is always false
