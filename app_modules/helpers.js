@@ -32,7 +32,8 @@ module.exports = function(app) {
 				}
 				,configPath = path.join(basePath, configPath)
 				,configs = [
-					'config.js'
+					 'config-default.js'
+					,'config-project.js'
 					,'config-secret.js'
 					,'config-local.js'
 				]

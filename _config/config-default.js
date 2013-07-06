@@ -1,6 +1,6 @@
 // Never commit authentication data to a public repository!
 module.exports = {
-	siteName: 'Hello World'
+	siteName: 'XTC Project'
 	,devPort: 3000
 	,i18n: {
 		langDefault: 'en-US'

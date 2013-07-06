@@ -53,9 +53,9 @@ installed.
 
 ### Configuration
 
-After cloning you should set up your configuration files in `_config`. Initially there is just one that's actually read:
-`config.js`. However you can create two more from the templates provided in the same folder: `config-secret.js` and
-`config-local.js`. They are merged into the app config in the order mentioned just now.
+After cloning you should set up your configuration files in `_config`. Initially there are just two that are actually
+read: `config-default.js` and `config-project.js`. However you can create two more from the templates provided in the
+same folder: `config-secret.js` and `config-local.js`. They are merged into the app config in the order mentioned.
 
 Use `config-local` to override a configuration locally when in development mode.
 Use `config-secret.js` for authentication data, SSL certs and so on.
