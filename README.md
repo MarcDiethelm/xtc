@@ -1,8 +1,11 @@
 # Node Terrific
 
-This project brings the Terrific.js frontend modularization pattern to Node and Express and implements some of the
-features of Terrific Composer, like server-side module includes.
+This project brings the Terrific.js clever, yet simple frontend modularization pattern to Node and Express and
+[implements][modules] some of the features of Terrific Composer, like server-side module includes. And much more...
 It provides an awesome server, framework and template for most frontend projects.
+
+The Terrific.js pattern prevent collisions between different areas of code, makes hassle-free collaboration and code
+reuse in the frontend possible.
 
 
 ## Features
@@ -141,7 +144,7 @@ All these resources are available to your templates as [assets] in concatenated 
 (except stuff in /lib folders).
 
 
-### Terrific Modules
+### Terrific Modules [modules]
 
 Terrific modules can consist of Handlebars templates, LessCSS styles and a Terrific JS module.
 Additionally you may create LessCSS and JS skins inside a `skin` folder. These skins can be used to 'decorate' the
