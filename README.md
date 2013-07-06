@@ -66,10 +66,10 @@ in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never
 Before you can start the server you need to generate the assets for the frontend. Use the terminal in your project
 folder and enter `grunt`. That's it. Grunt will watch all your JS and Less/CSS source files as configured in
 Gruntfile.js and re-generate the assets automatically when you edit them. You will have to re-start Grunt for it to
-register any new files though!
+register [any files in new folders](https://github.com/gruntjs/grunt-contrib-watch/issues/70) though!
 
 If you want to use the automatic sprites generation there are some more steps on your todo list. You only need to do
-this once though. Your next project will be able to use te functionality out of the box.
+this once though. Your next project will be able to use the functionality out of the box.
 
 First make sure you have an up to date Python installation. Refer to the section "Properly Install Python" for your
 platform, [from the official guide](http://docs.python-guide.org/en/latest/index.html). Mostly you need Homebrew and Pip.
@@ -91,7 +91,7 @@ Use a different terminal in your project folder (do you know `screen`?) and star
 
 There are some things you can do that will make development so much more easy:
 
-* You can run Grunt directly in the IDE. Any errors during asset parsing will be immediately pointed out to you. I you
+* You can run Grunt directly in the IDE. Any errors during asset parsing will be immediately pointed out to you. If you
 have the Command Line Tools plugin installed, open the Tools menu and select 'Run Command...'. Enter `grunt` in the
 input line. Just make sure you have installed Grunt CLI globally with `npm install -g grunt-cli`.
 * You can run/restart Node directly in the IDE. If you have the Node.js plugin installed create a Run configuration
@@ -105,8 +105,8 @@ comment style to Handlebars comments once you have the plugin.
 
 ### Naming Convention
 
-- use - (hyphen for pretty much everything: module names, skins, template files)
-- 'lib' is for any third-party code that we don't touch: libraries, jquery plugins
+- use - (hyphen) for pretty much everything: module names, skins, template files
+- 'lib' folders are for any third-party code that we don't touch: libraries, jquery plugins
 
 
 ### Templates and views
@@ -123,7 +123,7 @@ any modules specific to the page.
 Modules can also define multiple templates for their markup.
 
 
-### Terrific Folder: Order matters
+### Terrific Folder: Order matters [resources]
 
 A simple but important concept is to understand how the default folders in /terrific are included. Any files you throw
 in there are included and executed like so:
@@ -136,6 +136,9 @@ some global JS code like Modernizr or other utilities and libraries and plugins.
 - `mod-something` folders: All your module code and styles, basically everything visible that's not pure layout.
 - `_application` folder: The code that actually starts your app: Terrific bootstrap and any other global logic that
 depends on modules being available. If you need to build themeing into your app, this is the place too.
+
+All these resources are available to your templates as [assets] in concatenated and minified form
+(except stuff in /lib folders).
 
 
 ### Terrific Modules
@@ -152,20 +155,23 @@ A module include with all the options configured looks like this:
 
 	{{mod "example" template="alternate" skins="alternate, baz" tag="section" id="foo" htmlClasses="test-class" connectors="stats, filter" data="{var1: 'foo'}"}}
 
-Please refer to the official docs at (Terrifically.org)[http://terrifically.org/] to learn more about the Terrific
+Please refer to the official docs at [Terrifically.org](http://terrifically.org/) to learn more about the Terrific
 pattern. Just ignore the part about "Composer". :)
 
 A module's markup will by default be wrapped in a SECTION tag, which also has the following class value:
 
 	mod mod-modulename [skin-modulename-skinname]
 
-You can enable annotations around modules in the html output, in config.js. The annotation displays the module name,
+The wrapper classes serve as attachment points for the module's logic and styling.
+
+You can enable **annotations** around modules in the html output, in config.js. The annotation displays the module name,
 the template file name and the file system path to the module.
 
-You can use a `data` attribute on a module include to inject data (a JS object literal) into the context of the module template.
+You can use a `data` attribute on a module include to **inject data** (a JS object literal) into the context of the
+module template.
 
 todo: Using the `noWrapper` and `noAnnotation` attributes on a module include will prevent creation of the wrapper element and/or
-module annotation. This is useful to create modules for base layouts, e.g a HTML HEAD module including the doctype.
+module annotation. This is useful when creating markup-onöy modules in base layouts, e.g a HTML HEAD module including the doctype.
 
 
 ### Terrific Module Creation
@@ -193,13 +199,13 @@ is tested atomically and the results are printed to the console. It's somewhat l
 and doesn't provide for inter-module (i.e. connectors) testing. But it's still very useful to see if something breaks on
 any given page.
 
-### Static Assets
+### Static Assets [assets]
 
 If you look at config.js you will find that you can define the file system locations of your assets very flexibly.
 This allows you to model file structures to your liking or to the requirements of a particular backend where your code
 might need to be integrated.
 
-The URIs to your static assets are are all available under the `static` variable in your templates:
+The URIs to your static assets are all available under the `static` variable in your templates:
 
 	static.prefix // The base URI to the static assets
 	static.img // The base URI to your images
@@ -209,6 +215,24 @@ The URIs to your static assets are are all available under the `static` variable
 The static prefix URI is available in your LessCSS files as the variable
 
 	@static-prefix
+
+Inline assets are available through a template helper, like so
+
+	{{inline "js"}}
+	{{inline "css"}}
+
+If you run the server in production mode the minified versions of these assets will be used.
+
+### Development and Production Mode
+
+Express determines which mode to use through an system environment variable `NODE_ENV` which either has the value `development`
+or `production`. Generally speaking in dev mode resources aren't cached so that any changes that are made in the
+frontend can be picked up. Also, in dev mode unminified asset versions are used for easier debugging.
+
+You can conditionally render markup using the environment block helper...
+
+	{{#env "production"}}<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>{{/env}}
+	{{#env "development"}}<script src="{{static.prefix}}/lib/jquery-1.10.1.js"></script>{{/env}}
 
 
 ### Building sprites with Glue
