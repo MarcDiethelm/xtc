@@ -173,8 +173,9 @@ the template file name and the file system path to the module.
 You can use a `data` attribute on a module include to **inject data** (a JS object literal) into the context of the
 module template.
 
-todo: Using the `noWrapper` and `noAnnotation` attributes on a module include will prevent creation of the wrapper element and/or
-module annotation. This is useful when creating markup-onöy modules in base layouts, e.g a HTML HEAD module including the doctype.
+Using the `noWrapper=true` attribute on a module include will prevent creation of the wrapper element and module annotation.
+This is useful when creating markup-only modules in base layouts, e.g a HTML HEAD module including the doctype. You can
+think of it like using **a partial but using modules** instead of yet another mechanism.
 
 
 ### Terrific Module Creation

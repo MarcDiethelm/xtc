@@ -24,13 +24,16 @@ module.exports = function(app) {
 			'<!-- START MODULE: {{_module}}, template: {{_file}}, path: {{_path}}, repository: {{_repository}} -->\n' +
 			wrapperTemplate +
 			'<!-- END MODULE: {{_module}} -->\n\n'
+		;
 	}
 
 	wrapperTemplate = hbs.compile(wrapperTemplate);
 
+
 	hbs.registerHelper('mod', function(name) {
 
 		var  options
+			// the last argument always is a hash of key/value parameters passed into the helper
 			,argLen = arguments.length
 			,hash = arguments[argLen-1].hash
 			,args = {}
@@ -46,6 +49,7 @@ module.exports = function(app) {
 			,skins          : hash.skins && hash.skins.replace(' ', '').split(',') || undefined
 			,connectors     : hash.connectors
 			,_isLayout      : hash._isLayout
+			,noWrapper      : hash.noWrapper
 			,data           : hash.data ? (new Function('return' + hash.data))() : {}
 		};
 
@@ -93,6 +97,9 @@ module.exports = function(app) {
 
 		options.moduleSrc = modSourceTemplate.fn(mergedData);
 
+		// if noWrapper is requested we're done here
+		if (options.noWrapper) return options.moduleSrc;
+
 		// if we have a persisted read error, add the error class to the module.
 		modSourceTemplate.err && (options.htmlClasses = options.htmlClasses ? options.htmlClasses + ' tc-error' : 'tc-error');
 
@@ -104,7 +111,7 @@ module.exports = function(app) {
 		}
 
 		// render the wrapper template
-		return  wrapperTemplate(options);
+		return wrapperTemplate(options);
 	};
 
 
