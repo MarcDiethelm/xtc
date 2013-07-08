@@ -41,7 +41,6 @@ module.exports = function(grunt) {
 		,dest_js: '<%=destPrefix%>'
 		,dest_css: '<%=destPrefix%>'
 		,dest_sprites_css: 'frontend/_terrific/_base/css/sprites' // technically this should go in tmp, but we want the generated classes in our base css for easy lookup.
-		,dest: 'frontend/_static/dist'
 		,dest_sprites_img: '<%=destPrefix%>'
 		,staticUriPrefix: '/static'
 
@@ -56,8 +55,7 @@ module.exports = function(grunt) {
 		}
 		,less_imports: {
 			inline: {
-				options: {}
-				,src: '<%=sources.inline_css%>'
+				src: '<%=sources.inline_css%>'
 				,dest: '<%=tmp%>/inline-imports.less'
 			},
 			external: {
@@ -66,9 +64,38 @@ module.exports = function(grunt) {
 				,dest: '<%=tmp%>/external-imports.less'
 			}
 		}
+		,jshint: {
+			options: {
+				// report but don't fail
+				force: true
+				// enforce
+				,latedef: true
+				,undef: true
+				//relax
+				,laxcomma: true
+				,smarttabs: true
+				,expr: true
+				,asi: true
+				,loopfunc: true
+				// environment
+				,browser: true
+				,globals: {
+					 $: true
+					,Tc: true
+					,ModuleTest: true
+					,log: true
+				}
+			}
+			,inline: ['<%=sources.jshint_inline%>']
+			,external: ['<%=sources.jshint_external%>']
+			//,module_tests: ['<%=sources.jshint_module_test%>']
+		}
 		,concat: {
 			inline_scripts: {
-				 src: '<%=sources.inline_js%>'
+				options: {
+					banner: '/*! Inline script dependencies for page bootstrapping */\n'
+				}
+				,src: '<%=sources.inline_js%>'
 				,dest: '<%=dest_js%>/inline.js'
 			}
 			,external_scripts: {
@@ -82,7 +109,10 @@ module.exports = function(grunt) {
 		},
 		uglify: {
 			inline: {
-				src: '<%=dest_js%>/inline.js'
+				options: {
+					preserveComments: 'some'
+				}
+				,src: '<%=dest_js%>/inline.js'
 				,dest: '<%=dest_js%>/inline.min.js'
 			},
 			external: {
