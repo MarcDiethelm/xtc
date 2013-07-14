@@ -1,0 +1,1 @@
+These config files are only used as test files for the configure module tests.

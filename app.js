@@ -6,14 +6,24 @@ var  path = require('path')
 	,cfg
 ;
 
+if (!process.env.NODE_ENV) {
+	process.env.NODE_ENV = 'development';
+}
 
-app.helpers = require('./app_modules/helpers.js')(app);
-app.helpers.mergeConfigs(__dirname, '_config');
-app.helpers.configAbsolutePaths();
-app.helpers.setLocals();
+// Merge configuration data
+cfg = require('./app_modules/configure')
+	.merge('_config/', [
+		 'default'
+		,'project'
+		,'secret'
+		,'local'
+	])
+	.get();
+app.helpers = require('./app_modules/helpers.js')(cfg);
+// Set up template data that is always available
+app.locals(app.helpers.makeLocals());
 app.helpers.registerTemplateHelpers();
-app.terrific = require('./app_modules/terrific.js')(app);
-cfg = app.config;
+app.terrific = require('./app_modules/terrific.js')(cfg);
 
 app.configure(function() {
 	app.set('port', process.env.PORT || cfg.devPort);
@@ -45,6 +55,10 @@ require(cfg.pathsAbsolute.routes)(app);
 app.use(app.render404);
 
 
-http.createServer(app).listen(app.get('port'), function() {
-	console.log('Express server in %s mode listening on port %d', app.get('env'), app.get('port'));
-});
+
+module.exports = app;
+if (!module.parent) { // if parent exists we are in testing mode
+	http.createServer(app).listen(app.get('port'), function() {
+		console.log('Express server in %s mode listening on port %d', app.get('env'), app.get('port'));
+	});
+}

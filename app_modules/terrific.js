@@ -1,15 +1,15 @@
-module.exports = function(app) {
+module.exports = function(cfg) {
 
 	var hbs = require('hbs')
 		,fs = require('fs')
 		,path = require('path')
 		,utils = require('./utils')
 		,cache = {} // cache the modules sources
-		,NODE_ENV = app.get('env')
-		,annotateModules = app.config.annotateModules[NODE_ENV]
+		,NODE_ENV = process.env.NODE_ENV
+		,annotateModules
 		,wrapperTemplate =
 			'<{{tag}} class="mod mod-{{name}}{{#if htmlClasses}} {{htmlClasses}}{{/if}}{{#each skins}} skin-{{../name}}-{{this}}{{/each}}"{{#if id}} id="{{id}}"{{/if}}{{#if connectors}} data-connectors="{{connectors}}"{{/if}}>\n' +
-			'   {{{moduleSrc}}}\n' +
+			'\t{{{moduleSrc}}}\n' +
 			'</{{tag}}>\n'
 		,defaults = {
 			tag: 'section'
@@ -17,6 +17,12 @@ module.exports = function(app) {
 		}
 		,renderModule
 	;
+
+	if (NODE_ENV == 'test') {
+		NODE_ENV = 'development';
+	}
+
+	annotateModules = cfg.annotateModules[NODE_ENV]
 
 	if (annotateModules) {
 		 // descriptive comment, where to find the module
@@ -79,7 +85,7 @@ module.exports = function(app) {
 
 		// merge the request context and data in the module include, with the latter trumping the former.
 
-		mergedData = utils.extend(utils.clone(context), options.data);
+		mergedData = utils.deepExtend(context, options.data);
 
 		// create a unique identifier for the module/template combination
 
@@ -121,7 +127,8 @@ module.exports = function(app) {
 			,content
 			,err
 			,template = templateName == moduleName ? moduleName : moduleName + '-' + templateName
-			,modDir = app.config.paths.modulesBaseDir + app.config.moduleDirName.replace('{{name}}', moduleName)
+			,modDirName = cfg.moduleDirName.replace('{{name}}', moduleName)
+			,modDir = path.join( cfg.paths.modulesBaseDir, modDirName)
 			,file = path.join(modDir, template + '.hbs')
 			,retVal
 		;
@@ -129,7 +136,7 @@ module.exports = function(app) {
 		try {
 			content = fs.readFileSync(file, 'utf8');
 		} catch (e) {
-			err = app.error('Can\'t read template file. Module: ' + moduleName + ', Template: ' + templateName + '.hbs.', e);
+			err = utils.error('Can\'t read template file. Module: ' + moduleName + ', Template: ' + templateName + '.hbs.', e);
 			console.error(err.c);
 			options.error = true;
 		}
@@ -142,8 +149,8 @@ module.exports = function(app) {
 		if (annotateModules) {
 			retVal.name = moduleName;
 			retVal.file = template + '.hbs';
-			retVal.path = modDir.replace(app.config.dirname, '');
-			app.config.repository && (retVal.repository = app.config.repository + retVal.path);
+			retVal.path = modDir.replace(cfg.dirname, '');
+			cfg.repository && (retVal.repository = cfg.repository + retVal.path);
 		}
 		return retVal;
 	};
