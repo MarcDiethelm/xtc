@@ -1,10 +1,10 @@
-# xtc
+# xtc <small>– frontend development server and framework</small>
 
 This project brings the Terrific.js clever, yet simple frontend modularization pattern to Node and Express and
-[implements][modules] some of the features of Terrific Composer, like server-side module includes. And much more...
+[implements](#modules) some of the features of Terrific Composer, like server-side module includes. And much more...
 It provides an awesome server, framework and template for most frontend projects.
 
-The Terrific.js pattern prevent collisions between different areas of code, makes hassle-free collaboration and code
+The Terrific.js pattern prevents collisions between different areas of code, makes hassle-free collaboration and code
 reuse in the frontend possible.
 
 Express + Terrific + awesome = xtc
@@ -123,7 +123,7 @@ any modules specific to the page.
 Modules can also define multiple templates for their markup.
 
 
-### Terrific Folder: Order matters [resources]
+### <a id="resources"></a>Terrific Folder: Order matters
 
 A simple but important concept is to understand how the default folders in /terrific are included. Any files you throw
 in there are included and executed like so:
@@ -137,11 +137,11 @@ some global JS code like Modernizr or other utilities and libraries and plugins.
 - `_application` folder: The code that actually starts your app: Terrific bootstrap and any other global logic that
 depends on modules being available. If you need to build themeing into your app, this is the place too.
 
-All these resources are available to your templates as [assets] in concatenated and minified form
+All these resources are available to your templates as [assets](#assets) in concatenated and minified form
 (except stuff in /lib folders).
 
 
-### Terrific Modules [modules]
+### <a id="modules"></a>Terrific Modules
 
 Terrific modules can consist of Handlebars templates, LessCSS styles and a Terrific JS module.
 Additionally you may create LessCSS and JS skins inside a `skin` folder. These skins can be used to 'decorate' the
@@ -200,7 +200,7 @@ is tested atomically and the results are printed to the console. It's somewhat l
 and doesn't provide for inter-module (i.e. connectors) testing. But it's still very useful to see if something breaks on
 any given page.
 
-### Static Assets [assets]
+### <a id="assets"></a>Static Assets
 
 If you look at config.js you will find that you can define the file system locations of your assets very flexibly.
 This allows you to model file structures to your liking or to the requirements of a particular backend where your code
@@ -267,7 +267,7 @@ include.
 - The default tag of a generated wrapper for a markup module is SECTION instead of DIV.
 
 
-## What xtc does not (yet)
+## What xtc does not do (yet)
 
 
 - shared logic to create correct state
