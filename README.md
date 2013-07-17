@@ -1,4 +1,4 @@
-# Node Terrific
+# xtc
 
 This project brings the Terrific.js clever, yet simple frontend modularization pattern to Node and Express and
 [implements][modules] some of the features of Terrific Composer, like server-side module includes. And much more...
@@ -7,23 +7,20 @@ It provides an awesome server, framework and template for most frontend projects
 The Terrific.js pattern prevent collisions between different areas of code, makes hassle-free collaboration and code
 reuse in the frontend possible.
 
+Express + Terrific + awesome = xtc
+
 
 ## Features
 
 
 - Light-weight, fast and hackable JavaScript backend
+- Frontend modularization with includes integrated on the server
 - Can be used for single page apps.
-- Server-side module includes.
 - Handlebars templates.
-- Modularization
 - Flexible asset pipeline using Grunt.js, with file watcher // tbd: with sections for inlined, linked and on-demand assets.
 - Todo: Automated testing
 - Project setup takes minutes
 - todo: Grunt.js templates for efficient and consistent project and module creation.
-
-At risk:
-
-- NPM packaging this project as a tool for super-easy project creation
 
 
 ## DOCS
@@ -270,7 +267,7 @@ include.
 - The default tag of a generated wrapper for a markup module is SECTION instead of DIV.
 
 
-## What this does not (yet)
+## What xtc does not (yet)
 
 
 - shared logic to create correct state
@@ -281,4 +278,4 @@ include.
 	- 'Ajax crawling' support: non-JS clients can get a semantically sensible representation of any page URI.
 	- Handlebars templates precompilation
 - Easy appcache manifest generation through Grunt
-- database access from server and browser
+- database access from server and browser (not that it's difficult)
