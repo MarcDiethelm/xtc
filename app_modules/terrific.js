@@ -137,7 +137,7 @@ module.exports = function(cfg) {
 			content = fs.readFileSync(file, 'utf8');
 		} catch (e) {
 			err = utils.error('Can\'t read template file. Module: ' + moduleName + ', Template: ' + templateName + '.hbs.', e);
-			console.error(err.c);
+			process.env.NODE_ENV != 'test' && console.error(err.c);
 			options.error = true;
 		}
 
