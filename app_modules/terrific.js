@@ -56,7 +56,7 @@ module.exports = function(cfg) {
 			,connectors     : hash.connectors
 			,_isLayout      : hash._isLayout
 			,noWrapper      : hash.noWrapper
-			,data           : hash.data ? (new Function('return' + hash.data))() : {}
+			,data           : hash.data ? JSON.parse(hash.data) : {}
 		};
 
 		return new hbs.SafeString( renderModule(this, options) );
