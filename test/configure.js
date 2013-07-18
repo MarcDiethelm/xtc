@@ -9,14 +9,18 @@ var assert = require('assert')
 ;
 
 describe('configure', function() {
+		
+	var configure, config;
 
-	describe('basics', function() {
-
-		it('configure: should be chainable', function() {
-			var configure = require('../app_modules/configure').merge('test/fixtures/config', ['default']);
-			configure.merge('test/fixtures/configure', ['default']);
-			assert.ok(configure.merge);
-		});
+	it('should be chainable', function() {
+		configure = require('../app_modules/configure').merge('test/fixtures/config', ['default']);
+		configure.merge('test/fixtures/configure', ['default']);
+		assert.ok(configure.merge);
+	});
+	it('configure.get() should return a plain object', function() {
+		config = configure.get();
+		// underscore only tests if it is an object not if it's a plain object
+		assert.ok(_.isObject(config));
 	});
 
 
@@ -35,11 +39,6 @@ describe('configure', function() {
 					,'project'
 				])
 				.get();
-		});
-
-		it('configure: get() should return a plain object', function() {
-			// underscore only test if it is an object not if it's a plain object
-			assert.ok(_.isObject(config));
 		});
 
 		it('configure: default only value should equal default', function() {
