@@ -63,10 +63,12 @@ in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never
 
 ### Asset Building: Grunt
 
-Before you can start the server you need to generate the assets for the frontend. Use the terminal in your project
-folder and enter `grunt`. That's it. Grunt will watch all your JS and Less/CSS source files as configured in
-Gruntfile.js and re-generate the assets automatically when you edit them. You will have to re-start Grunt for it to
-register [any files in new folders](https://github.com/gruntjs/grunt-contrib-watch/issues/70) though!
+Before you can start the server you need to generate the assets for the frontend. Use the terminal to install grunt-cli
+globally with `npm install -g grunt-cli`. Then in your project enter `grunt`. That's it. Grunt will build your assets
+and also watch all your JS and Less/CSS source files as configured in Gruntfile.js. When you edit them it re-generates
+the assets automatically. You will have to re-start Grunt for it to register
+[any files in new folders](https://github.com/gruntjs/grunt-contrib-watch/issues/70) though! (This will be fixed very
+soon)
 
 If you want to use the automatic sprites generation there are some more steps on your todo list. You only need to do
 this once though. Your next project will be able to use the functionality out of the box.
