@@ -35,10 +35,10 @@ module.exports = function(cfg) {
 					// generated assets
 					,build: {
 						js: {
-							external: path.join(cfg.staticUriPrefix, cfg.static.build.js.external[NODE_ENV])
+							external: path.join(cfg.staticUriPrefix, cfg.static.build.baseDirName, cfg.static.build.js.external[NODE_ENV])
 						}
 						,css: {
-							external: path.join(cfg.staticUriPrefix, cfg.static.build.css.external[NODE_ENV])
+							external: path.join(cfg.staticUriPrefix, cfg.static.build.baseDirName, cfg.static.build.css.external[NODE_ENV])
 						}
 					}
 				}
@@ -49,7 +49,7 @@ module.exports = function(cfg) {
 			var cache = {};
 
 			hbs.registerHelper('inline', function(inlineAssetName) {
-				var  file = path.join(cfg.pathsAbsolute.staticBaseDir, cfg.static.build[inlineAssetName].inline[NODE_ENV])
+				var  file = path.join(cfg.pathsAbsolute.staticBaseDir, cfg.static.build.baseDirName, cfg.static.build[inlineAssetName].inline[NODE_ENV])
 					,cached = cache[inlineAssetName]
 					,err
 				;

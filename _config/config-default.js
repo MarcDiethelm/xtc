@@ -15,22 +15,22 @@ module.exports = {
 	// file system paths relative to app.js, a property called app.config.pathsAbsolute will be generated from them
 	,paths: {
 		//helpers: hardcoded in apps.js
-		//,inline: 'frontend/_inline'
-		//,base: 'frontend/_terrific/_base'
-		//,application: 'frontend/_terrific/_application'
-		 routes: 'app_modules/routes.js'
+		inline:             'frontend/_terrific/_inline'
+		,base:              'frontend/_terrific/_base'
+		,application:       'frontend/_terrific/_application'
+		,routes:            'app_modules/routes.js'
 		// path to the view and templates directories
-		,templateBaseDir: 'frontend'
+		,templateBaseDir:   'frontend'
 		// path to the Terrific modules directories
-		,modulesBaseDir: 'frontend/_terrific'
+		,modulesBaseDir:    'frontend/_terrific'
 		// path to the static assets, used by Express and by the 'asset' template helper
-		,staticBaseDir: 'frontend/_static'
+		,staticBaseDir:     'frontend/_static'
 	}
 	// relative to templateBaseDir
-	,viewsDirName: 'views'
-	,templatesDirName: 'templates'
-	,defaultTemplateName: 'default'
-	,moduleDirName: 'mod-{{name}}'
+	,viewsDirName:          'views'
+	,templatesDirName:      'templates'
+	,defaultTemplateName:   'default'
+	,moduleDirName:         'mod-{{name}}'
 
 	// URIs for use in templates are constructed from the following data
 		// URI prefix for static assets, e.g. '/static'
@@ -40,28 +40,31 @@ module.exports = {
 		 img: 'img'
 		// URIs to generated assets
 		,build: {
-			js: {
+			// baseDirName is relative to paths.staticBaseDir
+			baseDirName: 'dist'
+			// js and css are relative to baseDirName
+			,js: {
 				// to inline scripts in a template, usage: {{inline "js"}}
 				inline: {
-					 development:       'dist/inline.js'
-					,production:        'dist/inline.min.js'
+					 development:       'inline.js'
+					,production:        'inline.min.js'
 				}
 				// URI of the generated main js file, usage: {{static.build.js.external}}
 				,external: {
-					 development:       'dist/external.js'
-					,production:        'dist/external.min.js'
+					 development:       'external.js'
+					,production:        'external.min.js'
 				}
 			},
 			css: {
 				// to inline styles in a template, usage: {{inline "css"}}
 				inline: {
-					 development:       'dist/inline.css'
-					,production:        'dist/inline.min.css'
+					 development:       'inline.css'
+					,production:        'inline.min.css'
 				},
 				// URI of the generated main css file, usage: {{static.build.css.external}}
 				external: {
-					 development:       'dist/external.css'
-					,production:        'dist/external.min.css'
+					 development:       'external.css'
+					,production:        'external.min.css'
 				}
 			}
 		}
