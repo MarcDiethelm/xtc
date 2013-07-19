@@ -15,7 +15,8 @@ describe('terrific::renderModule', function() {
 		//this.server = app.listen(3000);
 
 		config = require('../app_modules/configure')
-			.merge('test/_config/', ['default'])
+			.merge('_config/', ['default'])
+			.merge('test/_config/', ['test'])
 			.merge('test/fixtures/terrific-modules/', ['basic'])
 			.get();
 		terrific = require('../app_modules/terrific')(config);
@@ -74,7 +75,8 @@ describe('terrific::renderModule', function() {
 	});
 	it('should render an annotated module', function() {
 		config = require('../app_modules/configure')
-			.merge('test/_config/', ['default'])
+			.merge('_config/', ['default'])
+			.merge('test/_config/', ['test'])
 			.merge('test/fixtures/terrific-modules/', ['annotate'])
 			.get();
 		terrific = require('../app_modules/terrific')(config);
