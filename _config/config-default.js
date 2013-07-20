@@ -1,29 +1,34 @@
 // Never commit authentication data to a public repository!
 module.exports = {
+	// Default HTML title is constructed from this
 	siteName: 'XTC Project'
+	// Local port for the server
 	,devPort: 3000
 	,i18n: {
+		// Sets the HTML lang attribute
 		langDefault: 'en-US'
 	}
 	,annotateModules: {
 		development: true
 		,production: false
 	}
-	 // to construct links to views and modules
+	 // To construct links to views and modules
 	,repository: 'https://github.com/MarcDiethelm/node-terrific/tree/develop/'
+	// Should asset building include sprites generation? Dependencies: Glue (Python) and OptiPNG (binary executable)
+	,enableSpritesBuilding: false
 
-	// file system paths relative to app.js, a property called app.config.pathsAbsolute will be generated from them
+	// File system paths relative to app.js, a property called app.config.pathsAbsolute will be generated from them
 	,paths: {
-		//helpers: hardcoded in apps.js
+		// helpers: hardcoded in apps.js
 		inline:             'frontend/_terrific/_inline'
 		,base:              'frontend/_terrific/_base'
 		,application:       'frontend/_terrific/_application'
 		,routes:            'app_modules/routes.js'
-		// path to the view and templates directories
+		// Path to the view and templates directories
 		,templateBaseDir:   'frontend'
-		// path to the Terrific modules directories
+		// Path to the Terrific modules directories
 		,modulesBaseDir:    'frontend/_terrific'
-		// path to the static assets, used by Express and by the 'asset' template helper
+		// Path to the static assets, used by Express and by the 'asset' template helper
 		,staticBaseDir:     'frontend/_static'
 	}
 	// relative to templateBaseDir

@@ -238,17 +238,21 @@ module.exports = function(grunt) {
 	grunt.registerTask('build-inline-css',           ['less_imports:inline',   'less:inline',   'cssmin:inline']);
 	grunt.registerTask('build-external-css',         ['less_imports:external', 'less:external', 'cssmin:external']);
 	grunt.registerTask('build-module-tests',         [/*'jshint:module_tests',*/ 'concat:module_tests']);
-
-	// aggregate default task
-	grunt.registerTask('default',
-	[
-		 'build-inline-js'
+	
+	var defaultTask = [
+		 'build-sprites'
+		,'build-external-css'
 		,'build-external-js'
 		,'build-inline-css'
-		,'build-sprites'
-		,'build-external-css'
+		,'build-inline-js'
 		,'build-module-tests'
 		,'watch'
-	]);
+	];
+	
+	// If sprites building is not enabled in the app config, remove it. 
+	!cfg.enableSpritesBuilding && defaultTask.shift();
+
+	// aggregate default task
+	grunt.registerTask('default', defaultTask);
 
 };
