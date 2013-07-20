@@ -8,23 +8,21 @@
 		"start": "node app.js"
 	},
 	"dependencies": {
-		"express": "~3.2.4",
-		"hbs": "~2.1.0",
+		"express": "~3.3.0",
+		"hbs": "~2.3.0",
 		"express3-handlebars": "~0.4.1",
 		"wrench": "~1.5.1"
 	},
 	"devDependencies": {
-		"less": "~1.3.3",
 		"grunt": "~0.4.0",
 		"grunt-less-imports": "~0.8.4",
 		"assemble-less": "~0.4.8",
 		"grunt-glue": "~0.1.1",
-		"grunt-rename": "~0.1.2",
-		"grunt-contrib-concat": "~0.2.0",
+		"grunt-contrib-jshint": "~0.6.0",
+		"grunt-contrib-concat": "~0.3.0",
 		"grunt-contrib-cssmin": "~0.6.0",
 		"grunt-contrib-uglify": "~0.2.0",
-		"grunt-contrib-watch": "~0.3.1",
-		"grunt-contrib-handlebars": "~0.5.8",
+		"grunt-contrib-watch": "~0.5.0",
 		"underscore": "~1.5.1"
 	},
 	"repository": {
