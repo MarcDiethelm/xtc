@@ -17,6 +17,7 @@ Express + Terrific + awesome = xtc
 - Frontend modularization with includes integrated on the server
 - Can be used for single page apps.
 - Handlebars templates.
+- LessCSS (1.5.0-wip branch)
 - Flexible asset pipeline using Grunt.js, with file watcher // tbd: with sections for inlined, linked and on-demand assets.
 - Todo: Automated testing
 - Project setup takes minutes
