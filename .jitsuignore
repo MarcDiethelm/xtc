@@ -1,3 +1,3 @@
 config-local.js
 !frontend/_static/dist/
-!frontend/_terrific/_base/css/sprites/*.less
+!frontend/_base/css/sprites/*.less

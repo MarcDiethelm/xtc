@@ -20,14 +20,14 @@ module.exports = {
 	// File system paths relative to app.js, a property called app.config.pathsAbsolute will be generated from them
 	,paths: {
 		// helpers: hardcoded in apps.js
-		inline:             'frontend/_terrific/_inline'
-		,base:              'frontend/_terrific/_base'
-		,application:       'frontend/_terrific/_application'
+		inline:             'frontend/_inline'
+		,base:              'frontend/_base'
+		,application:       'frontend/_application'
 		,routes:            'app_modules/routes.js'
 		// Path to the view and templates directories
 		,templateBaseDir:   'frontend'
 		// Path to the Terrific modules directories
-		,modulesBaseDir:    'frontend/_terrific'
+		,modulesBaseDir:    'frontend/modules'
 		// Path to the static assets, used by Express and by the 'asset' template helper
 		,staticBaseDir:     'frontend/_static'
 	}
@@ -35,7 +35,7 @@ module.exports = {
 	,viewsDirName:          'views'
 	,templatesDirName:      'templates'
 	,defaultTemplateName:   'default'
-	,moduleDirName:         'mod-{{name}}'
+	,moduleDirName:         '{{name}}'
 
 	// URIs for use in templates are constructed from the following data
 		// URI prefix for static assets, e.g. '/static'
