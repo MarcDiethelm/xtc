@@ -5,13 +5,13 @@
 // I thought about rewriting this code OOP-style, but it just wasn't a good match.
 // Functional programming works nicely here.
 
-var wrench = require('wrench')
-	,fs = require('fs')
+var  fs = require('fs')
 	,path = require('path')
 	,cfg
 	,modulePath
 	,moduleFolderPrefix
 	,views
+	,templates
 	,moduleCandidates
 	,modules
 ;
@@ -21,19 +21,31 @@ module.exports = function(appConfig) {
 	cfg = appConfig;
 	modulePath = cfg.paths.modulesBaseDir;
 	moduleFolderPrefix = cfg.moduleDirName.replace('{{name}}', '').replace('/', '');
-	views = wrench.readdirSyncRecursive(cfg.pathsAbsolute.views);
+	views = fs.readdirSync(cfg.pathsAbsolute.views);
+	templates = fs.readdirSync(cfg.pathsAbsolute.templates);
 	moduleCandidates = fs.readdirSync(modulePath);
 
 	return {
-		 views: views.filter(isUserView).map(file2View)
+		 views: views.filter(isUserView).map(file2ViewInfo)
+		,templates: templates.filter(isUserTemplate).map(file2TemplateInfo)
 		,modules: moduleCandidates.filter(isModuleFolder).map(directory2Module)
 	}
 };
 
-// todo: check if view is a file: fs.statSync( path.join(cfg.pathsAbsolute.views, dirItem) ).isFile();
+function isUserView(fileName) {
+	
+	return (fileName.indexOf('_') === 0 ? false : true)
+	       &&
+	       fs.statSync( path.join(cfg.pathsAbsolute.views, fileName) ).isFile()
+	;
+}
 
-function isUserView(viewName) {
-	return viewName.indexOf('_') === 0 ? false : true;
+function isUserTemplate(fileName) {
+	
+	return (fileName.indexOf('_') === 0 ? false : true)
+	       &&
+	       fs.statSync( path.join(cfg.pathsAbsolute.templates, fileName) ).isFile()
+	;
 }
 
 function isModuleFolder(folderName) {
@@ -46,14 +58,21 @@ function isModuleFolder(folderName) {
 	}
 }
 
-function isTemplateFile(fileName) {
+function isHbsFile(fileName) {
 	return fileName.indexOf('.hbs') != -1;
 }
 
-function file2View(file) {
+function file2ViewInfo(file) {
 	return {
 		name: file.replace('.hbs', '')
 		,repoUri: repositoryUri(cfg.paths.views + file)
+	}
+}
+
+function file2TemplateInfo(file) {
+	return {
+		name: file.replace('.hbs', '')
+		,repoUri: repositoryUri(cfg.paths.templates + file)
 	}
 }
 
@@ -74,7 +93,7 @@ function directory2Module(dir) {
 }
 
 function getModuleTemplates(dir, modName) {
-	return fs.readdirSync(path.join(cfg.paths.modulesBaseDir, dir)).filter(isTemplateFile).map(function(file) {
+	return fs.readdirSync(path.join(cfg.paths.modulesBaseDir, dir)).filter(isHbsFile).map(function(file) {
 		return file2Template(file, dir, modName);
 	});
 }

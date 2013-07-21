@@ -20,6 +20,7 @@ module.exports = function(app) {
 				,docTitle: docTitle('Components Overview')
 				,title: 'Components Overview'
 				,views: overview.views
+				,templates: overview.templates
 				,modules: overview.modules
 			});
 		}
