@@ -238,9 +238,7 @@ You can conditionally render markup using the environment block helper...
 
 	{{#env "production"}}<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>{{/env}}
 	{{#env "development"}}<script src="{{static.prefix}}/lib/jquery-1.10.1.js"></script>{{/env}}
-
-If you need more flexibility or a different feature, you can edit the `Gruntfile.js` where the build tasks are defined.
-With [Grunt](#asset-building-grunt) there's almost no limit to what you can do.
+	
 
 ### Building sprites with Glue
 
@@ -249,6 +247,12 @@ With [Grunt](#asset-building-grunt) there's almost no limit to what you can do.
 * todo: disable sprite generation in config.js (default)
 
 http://glue.readthedocs.org/en/latest/options.html
+
+
+### Build customization
+
+If you need more flexibility or a different feature, you can edit the `Gruntfile.js` where the build tasks are defined.
+With [Grunt](#asset-building-grunt) there's almost no limit to what you can do.
 
 
 ## Template Development and Integration into other backends
