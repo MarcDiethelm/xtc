@@ -13,6 +13,14 @@ if (!process.env.NODE_ENV) {
 	process.env.NODE_ENV = 'development';
 }
 
+if ('development' == app.get('env')) {
+	app.use(express.errorHandler());
+	app.use(express.responseTime());
+}
+
+if ('production' == app.get('env')) {}
+
+
 // Merge configuration data
 cfg = require('./app_modules/configure').merge('_config/', [
 		 'default'
@@ -48,26 +56,18 @@ app.set('views', cfg.paths.views);
 // The express3-handlebars instance has our template helpers. Make it available elsewhere.
 app.hbs = hbs;
 
+// Store the port in the settings (Why?)
+app.set('port', process.env.PORT || cfg.devPort);
 
-app.configure(function() {
-	app.set('port', process.env.PORT || cfg.devPort);
-	app.use(express.logger('dev'));
-	app.use(express.favicon());
-	app.use(express.bodyParser());
-	app.use(express.methodOverride());
-	app.use(express.compress());
-	app.use(cfg.staticUriPrefix, express.static(cfg.pathsAbsolute.staticBaseDir));
-	app.use(app.router);
-});
+// Set up middlewares
+app.use(express.logger('dev'));
+app.use(express.favicon());
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(express.compress());
+app.use(cfg.staticUriPrefix, express.static(cfg.pathsAbsolute.staticBaseDir));
+app.use(app.router);
 
-// development only
-app.configure('development', function() {
-	app.use(express.errorHandler());
-	app.use(express.responseTime());
-});
-
-// production only
-app.configure('production', function() {});
 
 // Load our routes from routes.js
 require(cfg.pathsAbsolute.routes)(app);
@@ -75,8 +75,7 @@ require(cfg.pathsAbsolute.routes)(app);
 // If no other middleware responds, send a 404. Defined in routes.js.
 app.use(app.render404);
 
-
-
+// Export the app if this case this file was called from another script, i.e. a test
 module.exports = app;
 if (!module.parent) { // if parent exists we are in testing mode
 	http.createServer(app).listen(app.get('port'), function() {
