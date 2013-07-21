@@ -114,29 +114,30 @@ comment style to Handlebars comments once you have the plugin.
 
 ### Templates and views
 
-In node-terrific the distinction between templates and views are as follows:
+In xtc the distinction between views and templates is as follows:
 
-- Templates (`/templates`): Your basic document(s), typically a HTML document that contains all the things that are
-always needed: HEAD, scripts, tracking and so on. Your template base template can be set in each route controller using
-the layout property or disabled altogether with `layout: false`. A template that has a `{{{body}}}` variable will
-include a
 - View (`/frontend/views`): A view typically corresponds to an individual page with an URL. This is where you include
 any modules specific to the page.
+- Templates (`/templates`): Your basic document(s), typically a HTML document that contains all the things that are
+always needed: HEAD, scripts, tracking and so on. Your template base template can be set in each route controller using
+the layout property or disabled altogether with `layout: false`. The view is included with the `{{{body}}}` variable.
 
-Modules can also define multiple templates for their markup.
+In Express templates are called layouts.
+
+Modules can also define (multiple) templates for their own markup.
 
 
 ### Terrific Folder: Order matters
 
-A simple but important concept is to understand how the default folders in /terrific are included. Any files you throw
+A simple but important concept is to understand how the default folders in /frontend are included. Any files you throw
 in there are included and executed like so:
 
 - `_inline` folder: Any style or JS sources in here are available in the files `inline.js` (todo: and `inline.css`).
 This is a good place for basic bootstrapping code and dependencies like an asset loader or possibly some initial data
 for use in a model. Use wisely and sparingly.
-- `base` folder: anything that needs to be defined before including any modules: LessCSS variables, mixins, grids,
+- `_base` folder: anything that needs to be defined before including any modules: LessCSS variables, mixins, grids,
 some global JS code like Modernizr or other utilities and libraries and plugins.
-- `mod-something` folders: All your module code and styles, basically everything visible that's not pure layout.
+- `modules/moduleName` folders: All your module code and styles, basically everything visible that's not pure layout.
 - `_application` folder: The code that actually starts your app: Terrific bootstrap and any other global logic that
 depends on modules being available. If you need to build themeing into your app, this is the place too.
 
@@ -170,7 +171,7 @@ The wrapper classes serve as attachment points for the module's logic and stylin
 You can enable **annotations** around modules in the html output, in config.js. The annotation displays the module name,
 the template file name and the file system path to the module.
 
-You can use a `data` attribute on a module include to **inject data** (a JS object literal) into the context of the
+You can use a `data` attribute on a module include to **inject data** (as a JS object literal) into the context of the
 module template.
 
 Using the `noWrapper=true` attribute on a module include will prevent creation of the wrapper element and module annotation.

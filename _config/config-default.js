@@ -24,21 +24,19 @@ module.exports = {
 		,base:              'frontend/_base'
 		,application:       'frontend/_application'
 		,routes:            'app_modules/routes.js'
-		// Path to the view and templates directories
-		,templateBaseDir:   'frontend'
+		,views:             'frontend/views'
+		,templates:         'frontend/views/templates'
 		// Path to the Terrific modules directories
 		,modulesBaseDir:    'frontend/modules'
 		// Path to the static assets, used by Express and by the 'asset' template helper
 		,staticBaseDir:     'frontend/_static'
 	}
 	// relative to templateBaseDir
-	,viewsDirName:          'views'
-	,templatesDirName:      'templates'
 	,defaultTemplateName:   'default'
 	,moduleDirName:         '{{name}}'
 
 	// URIs for use in templates are constructed from the following data
-		// URI prefix for static assets, e.g. '/static'
+		// URI prefix for static assets, e.g. '/static', empty string for none
 	,'staticUriPrefix': ''
 		// static assets URIs are relative to 'staticUriPrefix'
 	,'static': {

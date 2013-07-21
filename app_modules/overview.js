@@ -17,11 +17,11 @@ var wrench = require('wrench')
 ;
 
 
-module.exports = function(app) {
-	cfg = app.config;
+module.exports = function(appConfig) {
+	cfg = appConfig;
 	modulePath = cfg.paths.modulesBaseDir;
 	moduleFolderPrefix = cfg.moduleDirName.replace('{{name}}', '').replace('/', '');
-	views = wrench.readdirSyncRecursive(path.join(cfg.pathsAbsolute.templateBaseDir, cfg.viewsDirName));
+	views = wrench.readdirSyncRecursive(cfg.pathsAbsolute.views);
 	moduleCandidates = fs.readdirSync(modulePath);
 
 	return {
@@ -29,6 +29,8 @@ module.exports = function(app) {
 		,modules: moduleCandidates.filter(isModuleFolder).map(directory2Module)
 	}
 };
+
+// todo: check if view is a file: fs.statSync( path.join(cfg.pathsAbsolute.views, dirItem) ).isFile();
 
 function isUserView(viewName) {
 	return viewName.indexOf('_') === 0 ? false : true;
@@ -72,7 +74,7 @@ function directory2Module(dir) {
 }
 
 function getModuleTemplates(dir, modName) {
-	return fs.readdirSync(cfg.paths.modulesBaseDir + dir).filter(isTemplateFile).map(function(file) {
+	return fs.readdirSync(path.join(cfg.paths.modulesBaseDir, dir)).filter(isTemplateFile).map(function(file) {
 		return file2Template(file, dir, modName);
 	});
 }

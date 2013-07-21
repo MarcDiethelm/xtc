@@ -1,6 +1,6 @@
 module.exports = function(cfg) {
 
-	var hbs = require('hbs')
+	var  handlebars = require('express3-handlebars').create({}).handlebars
 		,fs = require('fs')
 		,path = require('path')
 		,utils = require('./utils')
@@ -15,6 +15,7 @@ module.exports = function(cfg) {
 			tag: 'section'
 			,connectors: null
 		}
+		,modHelper
 		,renderModule
 	;
 
@@ -33,10 +34,9 @@ module.exports = function(cfg) {
 		;
 	}
 
-	wrapperTemplate = hbs.compile(wrapperTemplate);
+	wrapperTemplate = handlebars.compile(wrapperTemplate);
 
-
-	hbs.registerHelper('mod', function(name) {
+	modHelper = function modHelper(name) {
 
 		var  options
 			// the last argument always is a hash of key/value parameters passed into the helper
@@ -59,8 +59,8 @@ module.exports = function(cfg) {
 			,data           : hash.data ? (new Function('return' + hash.data))() : {}
 		};
 
-		return new hbs.SafeString( renderModule(this, options) );
-	});
+		return new handlebars.SafeString( renderModule(this, options) );
+	};
 
 
 	renderModule = function renderModule(context, options) {
@@ -142,7 +142,7 @@ module.exports = function(cfg) {
 		}
 
 		retVal = {
-			fn: hbs.compile(content || err.web)
+			fn: handlebars.compile(content || err.web)
 			,err: err
 		};
 
@@ -156,7 +156,8 @@ module.exports = function(cfg) {
 	};
 
 	return {
-		renderModule: renderModule
+		 modHelper: modHelper
+		,renderModule: renderModule
 	};
 
 }
