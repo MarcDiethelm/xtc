@@ -65,11 +65,11 @@ in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never
 ### Asset Building: Grunt
 
 Before you can start the server you need to generate the assets for the frontend. Use the terminal to install grunt-cli
-globally with `npm install -g grunt-cli`. Then in your project enter `grunt`. That's it. Grunt will build your assets
-and also watch all your JS and Less/CSS source files as configured in Gruntfile.js. When you edit them it re-generates
-the assets automatically. You will have to re-start Grunt for it to register
+globally with `npm install -g grunt-cli`. Then in your project enter `grunt`. That's it. [Grunt](http://gruntjs.com/)
+will build your assets and also watch all your JS and Less/CSS source files as configured in Gruntfile.js. When you edit
+them it re-generates the assets automatically. You will have to re-start Grunt for it to register
 [any files in new folders](https://github.com/gruntjs/grunt-contrib-watch/issues/70) though! (This will be fixed very
-soon)
+soon.)
 
 If you want to use the automatic sprites generation there are some more steps on your todo list. You only need to do
 this once though. Your next project will be able to use the functionality out of the box.
@@ -239,6 +239,8 @@ You can conditionally render markup using the environment block helper...
 	{{#env "production"}}<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>{{/env}}
 	{{#env "development"}}<script src="{{static.prefix}}/lib/jquery-1.10.1.js"></script>{{/env}}
 
+If you need more flexibility or a different feature, you can edit the `Gruntfile.js` where the build tasks are defined.
+With [Grunt](#asset-building-grunt) there's almost no limit to what you can do.
 
 ### Building sprites with Glue
 
