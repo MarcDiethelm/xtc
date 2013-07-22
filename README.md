@@ -9,7 +9,7 @@ reuse in the frontend possible.
 
 Express + Terrific + awesome = xtc
 
-[![Build Status](https://travis-ci.org/MarcDiethelm/xtc.png?branch=master,staging,production)](https://travis-ci.org/MarcDiethelm/xtc)
+[![Build Status](https://travis-ci.org/MarcDiethelm/xtc.png?branch=develop)](https://travis-ci.org/MarcDiethelm/xtc)
 
 
 ## Features
