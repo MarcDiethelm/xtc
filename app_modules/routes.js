@@ -1,14 +1,3 @@
-/**
- * Routes
- */
-
-var  express = require('express')
-	,auth = express.basicAuth
-	// todo: improve this great example of bad security
-	,authUser = 'admin'
-	,authPsw = '03666aab1ef552643be03d238d446'
-;
-
 module.exports = function(app) {
 
 	/**
@@ -20,7 +9,7 @@ module.exports = function(app) {
 	app.get('/', index.home);
 	app.get('/subpage', index.aSubpage);
 	app.get('/subpage-alternate', index.aSubpageAlternate);
-	app.get('/data/:someParam', auth(authUser, authPsw), index.data);
+	app.get('/data/:someParam', app.authBasic('user'), index.data);
 
 	/**
 	 * default routes

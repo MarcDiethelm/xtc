@@ -37,6 +37,7 @@ app.terrific = require('./app_modules/terrific.js')(cfg);
 // Set up template data that is always available
 app.locals(helpers.makeLocals());
 app.docTitle = helpers.docTitle;
+app.authBasic = helpers.authBasic;
 
 // Create a configured express3-handlebars instance with our Handlbars template helpers
 handlebarsHelpers = helpers.getHandlebarsHelpers();

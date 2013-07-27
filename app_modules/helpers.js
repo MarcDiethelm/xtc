@@ -1,6 +1,7 @@
 module.exports = function(cfg) {
 
 	var path = require('path')
+		,express = require('express')
 		,handlebars = require('express3-handlebars').create({}).handlebars
 		,fs = require('fs')
 		,utils = require('./utils')
@@ -12,6 +13,10 @@ module.exports = function(cfg) {
 	}
 
 	return {
+		
+		authBasic: function(userName) {
+			return express.basicAuth(userName, cfg.auth.basic[userName]);
+		},
 
 		docTitle: function(pageName) {
 			return pageName + ' – ' + cfg.siteName;
@@ -81,7 +86,7 @@ module.exports = function(cfg) {
 				 * return the rendered block content if the block argument matches the NODE_ENV variable
 				 * @param name {String} The block argument, 'development' or 'production'
 				 * @param options {Object} The block options. Contains block content as a compiled Handlebars template function.
-				 * @returns {String: empty or rendered block content}
+				 * @returns {String} Empty or rendered block content
 				 */
 				env: function(name, options) {
 					//  return the template only if the name matches NODE_ENV ('development', 'production', etc.)

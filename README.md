@@ -53,17 +53,19 @@ installed.
 
 ### Configuration
 
-After cloning you should set up your configuration files in `_config`. Initially there are just two that are actually
-read: `config-default.js` and `config-project.js`. Use `config-project.js` to configure your app. Any property you add
-is merged with the defaults, overriding default properties as needed.
-You can create two more config files from the templates provided in the same folder: `config-secret.js` and
-`config-local.js`. They are merged into the app config in the order mentioned.
+After cloning you should set up your configuration files in `_config`. 
 
-Use `config-local` to override a configuration locally when in development mode.
-Use `config-secret.js` for authentication data, SSL certs and so on.
+- `config-default.js` defines sensible defaults for all configurable properties.
+- `config-project.js` is where you configure your app.
+- `config-secret.js` is for basic auth credentials, db authentication info, SSL certs and so on.
+- `config-local.js` is used to override a configuration locally for development.
 
-Both additional files are listed in `.gitignore` and won't be committed to your repository. `config-local` is also listed
-in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be deployed.
+The files are merged into the app config in the order mentioned. Any property you add is merged with the previous,
+overriding default properties as needed.
+
+`config-secret.js` and `config-local.js` are listed in `.gitignore` and won't be committed to your repository.
+`config-local.js` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be
+deployed.
 
 
 ### Asset Building: Grunt
