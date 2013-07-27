@@ -68,15 +68,9 @@ module.exports = function(app) {
 					,body: module
 					,exclusive: req.params.name
 					,skipModules: true
-				})
-				
-				// can't use res.locals directly. express3-handlebars' public render api can't handle it, because it's a function.
-				// copy over to an object
-				for (key in res.locals) {
-					val = res.locals[key];
-					context[key] = val;
-				}
-				app.hbs.render(path.join(cfg.paths.templates, cfg.defaultTemplateName + '.hbs'), context,
+				});
+
+				app.hbs.render(path.join(cfg.paths.templates, cfg.defaultTemplateName + '.hbs'), res.locals,
 					function(err, html) {
 						if (err) {
 							var error = utils.error('Unable to render the module in the default template', err);
