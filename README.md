@@ -54,8 +54,10 @@ installed.
 ### Configuration
 
 After cloning you should set up your configuration files in `_config`. Initially there are just two that are actually
-read: `config-default.js` and `config-project.js`. However you can create two more from the templates provided in the
-same folder: `config-secret.js` and `config-local.js`. They are merged into the app config in the order mentioned.
+read: `config-default.js` and `config-project.js`. Use `config-project.js` to configure your app. Any property you add
+is merged with the defaults, overriding default properties as needed.
+You can create two more config files from the templates provided in the same folder: `config-secret.js` and
+`config-local.js`. They are merged into the app config in the order mentioned.
 
 Use `config-local` to override a configuration locally when in development mode.
 Use `config-secret.js` for authentication data, SSL certs and so on.
@@ -118,9 +120,9 @@ comment style to Handlebars comments once you have the plugin.
 
 In xtc the distinction between views and templates is as follows:
 
-- View (`/frontend/views`): A view typically corresponds to an individual page with an URL. This is where you include
+- View (`frontend/views`): A view typically corresponds to an individual page with an URL. This is where you include
 any modules specific to the page.
-- Templates (`/templates`): Your basic document(s), typically a HTML document that contains all the things that are
+- Templates (`frontend/templates`): Your basic document(s), typically a HTML document that contains all the things that are
 always needed: HEAD, scripts, tracking and so on. Your template base template can be set in each route controller using
 the layout property or disabled altogether with `layout: false`. The view is included with the `{{{body}}}` variable.
 
@@ -134,7 +136,7 @@ Modules can also define (multiple) templates for their own markup.
 A simple but important concept is to understand how the default folders in /frontend are included. Any files you throw
 in there are included and executed like so:
 
-- `_inline` folder: Any style or JS sources in here are available in the files `inline.js` (todo: and `inline.css`).
+- `_inline` folder: Any style or JS sources in here are available in the files `inline.js` and `inline.css`.
 This is a good place for basic bootstrapping code and dependencies like an asset loader or possibly some initial data
 for use in a model. Use wisely and sparingly.
 - `_base` folder: anything that needs to be defined before including any modules: LessCSS variables, mixins, grids,
