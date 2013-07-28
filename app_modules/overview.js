@@ -79,7 +79,7 @@ function file2TemplateInfo(file) {
 function file2Template(file, dir, modName) {
 	return {
 		name: file.replace(modName+'-', '').replace('.hbs', '')
-		,repoUri: repositoryUri(cfg.paths.module + dir +'/'+ file)
+		,repoUri: repositoryUri(cfg.paths.modulesBaseDir + dir +'/'+ file)
 	}
 }
 
@@ -87,7 +87,7 @@ function directory2Module(dir) {
 	var name = dir.replace(moduleFolderPrefix, '');
 	return {
 		name: name
-		,repoUri: repositoryUri(modulePath + dir)
+		,repoUri: repositoryUri(modulePath +'/'+ dir)
 		,templates: getModuleTemplates(dir, name)
 	};
 }
