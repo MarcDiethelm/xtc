@@ -7,7 +7,6 @@ module.exports = function(app) {
 
 		/**
 		 * User-defined route controllers
-		 * View and template locations are relative to app.config.templateBaseDir
 		 */
 
 		 // render home.hbs and include it in the default template (defined in config.js)
