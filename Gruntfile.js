@@ -60,6 +60,7 @@ module.exports = function(grunt) {
 			]
 			,external_js: [
 				 '<%=tcBase%>/js/lib/*.js'
+				,'<%=tcBase%>/js/*.js'
 				,'<%=tcModules%>/*.js'
 				,'<%=tcModules%>/skin/*.js'
 				,'<%=tcApplication%>/js/*.js'
@@ -121,6 +122,7 @@ module.exports = function(grunt) {
 				,loopfunc: true
 				// environment
 				,browser: true
+				,jquery: true
 				,globals: {
 					 $: true
 					,Tc: true
@@ -166,7 +168,7 @@ module.exports = function(grunt) {
 			inline: {
 				options: {
 					// cssmin will not create file if the output is empty. a special comment fixes this.
-					banner: '/*! */'
+					banner: '/*! Inline style dependencies for page bootstrapping */'
 				}
 				,src: '<%=tmp%>/inline-imports.less'
 				,dest: '<%=destCss%>/inline.css'
@@ -232,11 +234,11 @@ module.exports = function(grunt) {
 	// create build tasks                            // use actual task name (first part before colon)!
 	grunt.registerTask('build-sprites',              ['glue']);
 	
-	grunt.registerTask('build-inline-js',            ['jshint:inline',   'concat:inline_scripts',   'uglify:inline']);
-	grunt.registerTask('build-external-js',          ['jshint:external', 'concat:external_scripts', 'uglify:external']);
+	grunt.registerTask('build-inline-js',            ['concat:inline_scripts', 'uglify:inline', 'jshint:inline']);
+	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'uglify:external', 'jshint:external',]);
 	grunt.registerTask('build-inline-css',           ['less_imports:inline',   'less:inline',   'cssmin:inline']);
 	grunt.registerTask('build-external-css',         ['less_imports:external', 'less:external', 'cssmin:external']);
-	grunt.registerTask('build-module-tests',         [/*'jshint:module_tests',*/ 'concat:module_tests']);
+	grunt.registerTask('build-module-tests',         [ 'concat:module_tests' /*, 'jshint:module_tests'*/]);
 	
 	var defaultTask = [
 		 'build-sprites'
