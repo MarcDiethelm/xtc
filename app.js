@@ -1,3 +1,6 @@
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+console.log('node %s – xtc server in %s mode', process.version, process.env.NODE_ENV);
+
 var  path = require('path')
 	,express = require('express')
 	,http = require('http')
@@ -9,9 +12,6 @@ var  path = require('path')
 	,cfg
 ;
 
-if (!process.env.NODE_ENV) {
-	process.env.NODE_ENV = 'development';
-}
 
 if ('development' == app.get('env')) {
 	app.use(express.errorHandler());
@@ -80,6 +80,6 @@ app.use(app.render404);
 module.exports = app;
 if (!module.parent) { // if parent exists we are in testing mode
 	http.createServer(app).listen(app.get('port'), function() {
-		console.log('Express server in %s mode listening on port %d', app.get('env'), app.get('port'));
+		console.log('listening on port %d', app.get('port'));
 	});
 }
