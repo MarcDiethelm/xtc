@@ -29,7 +29,7 @@ module.exports = {
 		// Path to the Terrific modules directories
 		,modulesBaseDir:    'frontend/modules'
 		// Path to the static assets, used by Express and by the 'asset' template helper
-		,staticBaseDir:     'frontend/_static'
+		,staticBaseDir:     'frontend/_public'
 	}
 	// relative to templateBaseDir
 	,defaultTemplateName:   'default'
