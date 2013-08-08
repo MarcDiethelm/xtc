@@ -1,6 +1,7 @@
 module.exports = function(cfg) {
 
-	var path = require('path')
+	var  assert = require('assert')
+		,path = require('path')
 		,express = require('express')
 		,handlebars = require('express3-handlebars').create({}).handlebars
 		,fs = require('fs')
@@ -15,6 +16,7 @@ module.exports = function(cfg) {
 	return {
 		
 		authBasic: function(userName) {
+			assert(cfg.auth.basic[userName], 'Auth user "'+ userName + '" not defined in cfg.auth.basic');
 			return express.basicAuth(userName, cfg.auth.basic[userName]);
 		},
 
