@@ -14,13 +14,12 @@ module.exports = function(grunt) {
 		,modulesPattern = path.join(cfg.paths.modulesBaseDir, cfg.moduleDirName.replace('{{name}}', '*'))
 		,buildBaseDir = path.join(cfg.paths.staticBaseDir, cfg.static.build.baseDirName); // build.baseDirName may be empty
 	;
-	
-	
+
 	grunt.initConfig({
 		
 		pkg: grunt.file.readJSON('package.json')
 		
-		,staticUriPrefix:   cfg.staticUriPrefix
+		,staticUriPrefix:   (cfg.staticUriPrefix || '') + '/'
 		
 		// Sources base paths
 		
@@ -32,7 +31,8 @@ module.exports = function(grunt) {
 		
 		// Output destinations
 		
-		,buildBaseDir: buildBaseDir
+		,baseDirName:       cfg.static.build.baseDirName
+		,buildBaseDir:      buildBaseDir
 		,tmp:               '<%=buildBaseDir%>/tmp'
 		,destJs:            '<%=buildBaseDir%>'
 		,destCss:           '<%=buildBaseDir%>'
@@ -93,7 +93,7 @@ module.exports = function(grunt) {
 			icons: {
 				src: '<%=sources.sprites%>'
 				//,dest: '<%=destSpritesCss%>/00-sprites.less'
-				,options: '--css=<%=destSpritesCss%> --img=<%=destSpritesImg%> --less --url=<%=staticUriPrefix%> --namespace= --sprite-namespace= --recursive --crop --optipng'
+				,options: '--css=<%=destSpritesCss%> --img=<%=destSpritesImg%> --less --url=<%=staticUriPrefix%><%=baseDirName%> --namespace=s --sprite-namespace= --recursive --crop --optipng'
 			}
 		}
 		,less_imports: {
