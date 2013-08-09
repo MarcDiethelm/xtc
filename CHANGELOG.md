@@ -2,6 +2,7 @@
 
 2013-xx-xx
 
+ - Fix path to sprite file.
  - README now contains links to mentioned tools
  - Log node version on startup.
  - Give meaningful error when required auth user is not defined.
