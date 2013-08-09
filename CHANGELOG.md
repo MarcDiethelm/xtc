@@ -1,3 +1,11 @@
+# next
+
+2013-xx-xx
+
+ - README now contains links to mentioned tools
+ - Log node version on startup.
+ - Give meaningful error when required auth user is not defined.
+
 # 0.6.0
 
 2013-08-08
