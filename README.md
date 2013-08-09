@@ -1,7 +1,8 @@
 # xtc <small>– frontend development server and framework</small>
 
-This project brings the Terrific.js clever, yet simple frontend modularization pattern to Node and Express and
-[implements](#terrific-modules) some of the features of Terrific Composer, like server-side module includes. And much more...
+This project brings the [Terrific.js](http://terrifically.org/) clever, yet simple frontend modularization pattern to
+[Node](http://nodejs.org/) and [Express](http://expressjs.com/) and [implements](#terrific-modules) some of the features
+of [Terrific Composer](http://terrifically.org/composer/), like server-side module includes. And much more...
 It provides an awesome server, framework and template for most frontend projects.
 
 The Terrific.js pattern prevents collisions between different areas of code, makes hassle-free collaboration and code
@@ -19,12 +20,13 @@ Express + Terrific + awesome = xtc
 - Light-weight, fast and hackable JavaScript backend
 - Frontend modularization with includes integrated on the server
 - Can be used for single page apps.
-- Handlebars templates.
-- LessCSS (1.5.0-wip branch)
-- Flexible asset pipeline using Grunt.js, with file watcher // tbd: with sections for inlined, linked and on-demand assets.
+- [Handlebars](http://handlebarsjs.com/) templates.
+- [LessCSS](http://lesscss.org/) (1.5.0-wip branch)
+- Flexible automatic asset building using [Grunt.js](http://gruntjs.com/), with file watcher
+- External, inline (todo: and dynamically loaded assets)
 - Todo: Automated testing
 - Project setup takes minutes
-- todo: Grunt.js templates for efficient and consistent project and module creation.
+- [Generators](#terrific-module-creation) for efficient and consistent (todo: project) and Terrific module creation.
 
 
 ## DOCS
@@ -49,7 +51,7 @@ fine.
 ### Node Modules dependencies
 
 After that you can just do `npm install` in the project folder and all dependencies of the server part will be
-installed.
+installed. [NPM](https://npmjs.org/) is the [node package manager](https://npmjs.org/doc/cli/npm.html).
 
 
 ### Configuration
@@ -72,11 +74,11 @@ deployed.
 ### Asset Building: Grunt
 
 Before you can start the server you need to generate the assets for the frontend. Use the terminal to install grunt-cli
-globally with `npm install -g grunt-cli`. Then in your project enter `grunt`. That's it. [Grunt](http://gruntjs.com/)
-will build your assets and also watch all your JS and Less/CSS source files as configured in Gruntfile.js. When you edit
-them it re-generates the assets automatically. You will have to re-start Grunt for it to register
-[any files in new folders](https://github.com/gruntjs/grunt-contrib-watch/issues/70) though! (This will be fixed very
-soon.)
+globally with `npm install -g grunt-cli`. Then in your project enter `grunt`. That's it.
+[Grunt](http://gruntjs.com/getting-started) will build your assets and also watch all your JS and Less/CSS source files
+as configured in [Gruntfile.js](http://gruntjs.com/sample-gruntfile). When you edit them it re-generates the assets
+automatically. You will have to restart Grunt for it to register
+[any files in new folders](https://github.com/gruntjs/grunt-contrib-watch/issues/70) though! (This will be fixed very soon.)
 
 If you want to use the automatic sprites generation there are some more steps on your todo list. You only need to do
 this once though. Your next project will be able to use the functionality out of the box.
@@ -131,7 +133,7 @@ the layout property or disabled altogether with `layout: false`. The view is inc
 
 In Express templates are called layouts.
 
-Modules can also define (multiple) templates for their own markup.
+Terrific Modules too can define (multiple) templates for their own markup.
 
 
 ### Terrific Folder: Order matters
@@ -188,7 +190,7 @@ think of it like using **a partial but using modules** instead of yet another me
 
 ### Terrific Module Creation
 
-To create new Terrific modules you can conveniently use a Yeoman generator. Install it with
+To create new Terrific modules you can conveniently use a [Yeoman](http://yeoman.io/index.html) generator. Install it with
 
 	npm install -g yo generator-xtc
 
