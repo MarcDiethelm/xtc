@@ -23,7 +23,7 @@ module.exports = function(cfg) {
 
 			if (cfg.allowAuthBypassForIpRanges) {
 				rangeCheck = require('range_check');
-				return new SmartAuth(basicAuth);
+				return smartAuth(basicAuth);
 			}
 			else {
 				return basicAuth;
@@ -133,14 +133,14 @@ module.exports = function(cfg) {
 	};
 
 
-	function SmartAuth(basicAuth) {var log = console.log
+	function smartAuth(basicAuth) {
 
 		var  ip = cfg.auth.ip
 			,authNeeded = true
 			,isValidIp
 		;
 
-		return function(req, res, next) {console.log('checking ip and stuff')
+		return function(req, res, next) {
 
 			// If there are defined IP ranges, that are allowed to bypass authentication, do an IP check
 			if (ip.length) {
