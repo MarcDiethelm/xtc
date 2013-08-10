@@ -8,6 +8,13 @@
  - Give meaningful error when required auth user is not defined.
  - Add option to allow bypassing auth for configurable IP ranges.
 
+# 0.6.1
+
+2013-08-11
+
+ - Fix path to sprite file.
+ - Fix #41: Catchall route not handling some non-existing resources
+
 # 0.6.0
 
 2013-08-08
