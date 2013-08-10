@@ -80,7 +80,6 @@ module.exports = function(app) {
 						res.send(html);
 					});
 			}
-
 		}
 
 		 // Look for a view with the name supplied by the catch-all route
@@ -91,8 +90,9 @@ module.exports = function(app) {
 					,uri: req.originalUrl
 				});
 			} catch (e) {
-				// we never get here. either render succeeds or next() is called apparently. which is fine, because
-				// the last defined middleware is render404.
+				if (e.message == 'missing path')
+					app.render404(req, res, next);
+				else next(e);
 			}
 		}
 
