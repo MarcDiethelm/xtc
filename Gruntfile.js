@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 	var path = require('path')
 	
 		// Merge configuration data
-		,cfg = require('./app_modules/configure')
+		,cfg = require('./lib/configure')
 			.merge('_config/', [
 				 'default'
 				,'project'

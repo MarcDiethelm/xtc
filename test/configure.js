@@ -13,7 +13,7 @@ describe('configure', function() {
 	var configure, config;
 
 	it('should be chainable', function() {
-		configure = require('../app_modules/configure').merge('test/fixtures/config', ['default']);
+		configure = require('../lib/configure').merge('test/fixtures/config', ['default']);
 		configure.merge('test/fixtures/configure', ['default']);
 		assert.ok(configure.merge);
 	});
@@ -33,7 +33,7 @@ describe('configure', function() {
 			path = require('path');
 			appPath = fs.realpathSync('.'); // resolves to the app dir probably because mocha was called from there
 
-			config = require('../app_modules/configure')
+			config = require('../lib/configure')
 				.merge('test/fixtures/configure', [
 					 'default'
 					,'project'

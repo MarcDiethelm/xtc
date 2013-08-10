@@ -14,12 +14,12 @@ describe('terrific::renderModule', function() {
 	before(function() {
 		//this.server = app.listen(3000);
 
-		config = require('../app_modules/configure')
+		config = require('../lib/configure')
 			.merge('_config/', ['default'])
 			.merge('test/_config/', ['test'])
 			.merge('test/fixtures/terrific-modules/', ['basic'])
 			.get();
-		terrific = require('../app_modules/terrific')(config);
+		terrific = require('../lib/terrific')(config);
 		//this.browser = new Browser({ site: 'http://localhost:'+ config.devPort });
 	});
 
@@ -74,12 +74,12 @@ describe('terrific::renderModule', function() {
 		assert.equal(actual, expected);
 	});
 	it('should render an annotated module', function() {
-		config = require('../app_modules/configure')
+		config = require('../lib/configure')
 			.merge('_config/', ['default'])
 			.merge('test/_config/', ['test'])
 			.merge('test/fixtures/terrific-modules/', ['annotate'])
 			.get();
-		terrific = require('../app_modules/terrific')(config);
+		terrific = require('../lib/terrific')(config);
 
 		var actual = terrific.renderModule({}, { name: 'basic', template: 'alternate' });
 		var expected = grunt.file.read('test/expected/terrific-modules/basic/basic-annotated.html');

@@ -22,7 +22,7 @@ if ('production' == app.get('env')) {}
 
 
 // Merge configuration data
-cfg = require('./app_modules/configure').merge('_config/', [
+cfg = require('./lib/configure').merge('_config/', [
 		 'default'
 		,'project'
 		,'secret'
@@ -32,8 +32,8 @@ cfg = require('./app_modules/configure').merge('_config/', [
 // Share the configuration data
 app.cfg = cfg;
 
-helpers = require('./app_modules/helpers.js')(cfg);
-app.terrific = require('./app_modules/terrific.js')(cfg);
+helpers = require('./lib/helpers.js')(cfg);
+app.terrific = require('./lib/terrific.js')(cfg);
 // Set up template data that is always available
 app.locals(helpers.makeLocals());
 app.docTitle = helpers.docTitle;

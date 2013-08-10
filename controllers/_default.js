@@ -1,9 +1,9 @@
 module.exports = function(app) {
 
-	var  path = require('path')
-		,utils = require('../app_modules/utils')
+	var  cfg = app.cfg
+		,path = require('path')
+		,utils = require(path.join(cfg.dirname, '/lib/utils.js'))
 		,docTitle = app.docTitle
-		,cfg = app.cfg
 	;
 
 	return {
@@ -13,7 +13,7 @@ module.exports = function(app) {
 		 */
 
 		_home: function(req, res, next) {
-			var overview = require(path.join(cfg.dirname, 'app_modules/overview.js'))(cfg);
+			var overview = require(path.join(cfg.dirname, 'lib/overview.js'))(cfg);
 
 			res.render('_app-home', {
 				 layout: false

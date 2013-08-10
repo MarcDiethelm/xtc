@@ -1,8 +1,16 @@
-# next
+
+# 0.7.0
 
 2013-xx-xx
 
  - Add option to allow bypassing auth for configurable IP ranges.
+ - Renamed app_modules to lib.
+
+# 0.6.2
+
+2013-xx-xx
+
+ - remove initial-scale=1.0 from viewport meta, see https://github.com/h5bp/html5-boilerplate/issues/824 (todo: cherrypick)
 
 # 0.6.1
 

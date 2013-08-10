@@ -18,7 +18,7 @@ module.exports = {
 		//,inline: 'frontend/_inline'
 		//,base: 'frontend/_terrific/_base'
 		//,application: 'frontend/_terrific/_application'
-		 routes: 'app_modules/routes.js'
+		 routes: 'lib/routes.js'
 		// path to the view and templates directories
 		,templateBaseDir: 'frontend/'
 		// path to the Terrific modules directories
