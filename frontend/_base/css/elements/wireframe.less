@@ -15,13 +15,22 @@
 }
 .wf-box {
 	.wf-box-sizing();
-	border: 1px dashed #999;
+	outline: 1px dashed #999;
 	background-color: #eaeaea;
+
+	margin-top: 3px;
+	padding: .5rem;
+	.wf-box {
+		background-color: #f8f8f8;
+		outline: 1px solid #fff;
+		outline-style: dotted;
+	}
 }
-.wf-box-sub {
-	.wf-box-sizing();
-	background-color: #f8f8f8;
-	outline: 1px solid #fff;
+.wf-box-dark:extend(.wf-box) {
+	background-color: #444;
+	.wf-box-dark {
+		background-color: #555;
+	}
 }
 .wf-text {
 	color: #ddd;

@@ -39,7 +39,7 @@ app.locals(helpers.makeLocals());
 app.docTitle = helpers.docTitle;
 app.authBasic = helpers.authBasic;
 
-// Create a configured express3-handlebars instance with our Handlbars template helpers
+// Create a configured express3-handlebars instance with our Handlebars template helpers
 handlebarsHelpers = helpers.getHandlebarsHelpers();
 handlebarsHelpers.mod = app.terrific.modHelper;
 hbs = exphbs.create({
