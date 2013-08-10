@@ -27,6 +27,7 @@ Express + Terrific + awesome = xtc
 - Todo: Automated testing
 - Project setup takes minutes
 - [Generators](#terrific-module-creation) for efficient and consistent (todo: project) and Terrific module creation.
+- Basic styles for wireframing
 
 
 ## DOCS
@@ -203,7 +204,13 @@ in the project root folder. The module name can be added as the first argument.
 
 ### Skin Creation
 
-coming soon
+Terrific modules can be extended or 'decorated' with JS or CSS [skins](http://terrifically.org/api/skin/).
+To create a new module skin simply type
+
+	yo xtc:skin [name]
+
+in the project root folder. The skin name can be added as the first argument. You'll be asked to choose a module to
+create the skin for.
 
 
 ### Module Testing
