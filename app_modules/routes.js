@@ -26,4 +26,14 @@ module.exports = function(app) {
 
 	// final middleware
 	app.render404 = _default.render404;
+
+
+	if (app.cfg.allowAuthBypassForIpRanges) {
+
+		// Populate the request IP with X-FORWARDED-FOR header if a proxy added one, or else the IP will be wrong.
+		// Needed for authBasic helper to allow bypassing authentication for configurable IPs.
+		// NOTE: This header is easily forged!
+
+		app.enable('trust proxy');
+	}
 };

@@ -2,9 +2,10 @@ module.exports = function(cfg) {
 
 	var  assert = require('assert')
 		,path = require('path')
+		,fs = require('fs')
 		,express = require('express')
 		,handlebars = require('express3-handlebars').create({}).handlebars
-		,fs = require('fs')
+		,rangeCheck
 		,utils = require('./utils')
 		,NODE_ENV = process.env.NODE_ENV
 	;
@@ -17,7 +18,16 @@ module.exports = function(cfg) {
 		
 		authBasic: function(userName) {
 			assert(cfg.auth.basic[userName], 'Auth user "'+ userName + '" not defined in cfg.auth.basic');
-			return express.basicAuth(userName, cfg.auth.basic[userName]);
+
+			var basicAuth = express.basicAuth(userName, cfg.auth.basic[userName]);
+
+			if (cfg.allowAuthBypassForIpRanges) {
+				rangeCheck = require('range_check');
+				return new SmartAuth(basicAuth);
+			}
+			else {
+				return basicAuth;
+			}
 		},
 
 		docTitle: function(pageName) {
@@ -121,5 +131,39 @@ module.exports = function(cfg) {
 			}
 		}
 	};
+
+
+	function SmartAuth(basicAuth) {var log = console.log
+
+		var  ip = cfg.auth.ip
+			,authNeeded = true
+			,isValidIp
+		;
+
+		return function(req, res, next) {console.log('checking ip and stuff')
+
+			// If there are defined IP ranges, that are allowed to bypass authentication, do an IP check
+			if (ip.length) {
+				isValidIp = rangeCheck.valid_ip(req.ip);
+
+				if ( isValidIp ) {
+					if ( rangeCheck.in_range(req.ip, ip) ) {
+						authNeeded = false;
+					}
+				} else {
+					console.log('ip invalid:', req.ip);
+				}
+			}
+
+			if (authNeeded) {
+				basicAuth(req, res, function(err) {
+					next();
+				});
+			} else {
+				next();
+			}
+		}
+
+	}
 
 }

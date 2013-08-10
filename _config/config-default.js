@@ -8,6 +8,7 @@ module.exports = {
 		// Sets the HTML lang attribute
 		langDefault: 'en-US'
 	}
+	,allowAuthBypassForIpRanges: false
 	,annotateModules: {
 		development: true
 		,production: false

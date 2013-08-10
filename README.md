@@ -288,6 +288,28 @@ include.
 	/_view/example?solo
 
 
+## Basic authentication and bypass for IP ranges
+
+Password protecting content couldn't be easier. To restrict access you add BasicAuth to the route that accesses the
+sensitive resource.
+
+```javascript
+app.get('/data/:someParam', app.authBasic('user'), index.data);
+```
+
+Just insert the authentication middleware as shown in the snippet above. The argument to `app.authBasic` is the required
+username. The username/password combination is defined in `config/config-secret.js` as a key/value pair.
+
+You can open the restricted routes to certain IP ranges if you so desire. For security reasons you need to enable this
+feature by adding the property `allowAuthBypassForIpRanges: true` in `_config/config-project.js`.
+
+In `config/config-secret.js` you can then specify the IP ranges that have unrestricted access to your routes.
+
+Note that intermediate proxies change the source IP of a request. Therefore enabling `allowAuthBypassForIpRanges` also
+does instructs Express to trust the `X-FORWARDED-FOR` HTTP header typically added by proxies. This header can easily be
+forged however.
+
+
 ## Differences to Terrific Composer
 
 - The default tag of a generated wrapper for a markup module is SECTION instead of DIV.
