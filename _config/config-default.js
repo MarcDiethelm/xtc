@@ -24,7 +24,7 @@ module.exports = {
 		inline:             'frontend/_inline'
 		,base:              'frontend/_base'
 		,application:       'frontend/_application'
-		,routes:            'lib/routes.js'
+		,routes:            'controllers/routes.js'
 		,views:             'frontend/views'
 		,templates:         'frontend/views/templates'
 		// Path to the Terrific modules directories

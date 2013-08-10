@@ -4,7 +4,7 @@ module.exports = function(app) {
 	 * user-defined routes
  	 */
 
-	var index = require('./../controllers/index')(app);
+	var index = require('./index')(app);
 
 	app.get('/', index.home);
 	app.get('/subpage', index.aSubpage);
@@ -15,7 +15,7 @@ module.exports = function(app) {
 	 * default routes
  	 */
 
-	var _default = require('./../controllers/_default')(app);
+	var _default = require('./_default')(app);
 
 	app.get('/_home', _default._home);
 	app.get('/_view/:name', _default._getView);

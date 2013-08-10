@@ -5,6 +5,7 @@
 
  - Add option to allow bypassing auth for configurable IP ranges.
  - Renamed app_modules to lib.
+ - Move routes.js from lib to controllers.
 
 # 0.6.2
 
