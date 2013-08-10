@@ -163,11 +163,15 @@ main definitions of the module.
 
 To include a module in a Handlebars template use this syntax:
 
-	{{mod "example"}}
+```Handlebars
+{{mod "example"}}
+```
 
 A module include with all the options configured looks like this:
 
-	{{mod "example" template="alternate" skins="alternate, baz" tag="section" id="foo" htmlClasses="test-class" connectors="stats, filter" data="{var1: 'foo'}"}}
+```Handlebars
+{{mod "example" template="alternate" skins="alternate, baz" tag="section" id="foo" htmlClasses="test-class" connectors="stats, filter" data="{var1: 'foo'}"}}
+```
 
 Please refer to the official docs at [Terrifically.org](http://terrifically.org/) to learn more about the Terrific
 pattern. Just ignore the part about "Composer". :)
@@ -193,11 +197,15 @@ think of it like using **a partial but using modules** instead of yet another me
 
 To create new Terrific modules you can conveniently use a [Yeoman](http://yeoman.io/index.html) generator. Install it with
 
-	npm install -g yo generator-xtc
+```Shell
+npm install -g yo generator-xtc
+```
 
 To create a new module simply type
 
-	yo xtc:module [name]
+```Shell
+yo xtc:module [name]
+```
 
 in the project root folder. The module name can be added as the first argument.
 
@@ -207,7 +215,9 @@ in the project root folder. The module name can be added as the first argument.
 Terrific modules can be extended or 'decorated' with JS or CSS [skins](http://terrifically.org/api/skin/).
 To create a new module skin simply type
 
-	yo xtc:skin [name]
+```Shell
+yo xtc:skin [name]
+```
 
 in the project root folder. The skin name can be added as the first argument. You'll be asked to choose a module to
 create the skin for.
@@ -228,19 +238,25 @@ might need to be integrated.
 
 The URIs to your static assets are all available under the `static` variable in your templates:
 
-	static.prefix // The base URI to the static assets
-	static.img // The base URI to your images
-	static.build.js.external // The URI to the generated main JS file
-	static.build.css.external // The URI to the generated main CSS file
+```JavaScript
+static.prefix // The base URI to the static assets
+static.img // The base URI to your images
+static.build.js.external // The URI to the generated main JS file
+static.build.css.external // The URI to the generated main CSS file
+```
 
 The static prefix URI is available in your LessCSS files as the variable
 
-	@static-prefix
+```Less
+@static-prefix
+```
 
 Inline assets are available through a template helper, like so
 
-	{{inline "js"}}
-	{{inline "css"}}
+```Handlebars
+{{inline "js"}}
+{{inline "css"}}
+```
 
 If you run the server in production mode the minified versions of these assets will be used.
 
@@ -252,9 +268,11 @@ frontend can be picked up. Also, in dev mode unminified asset versions are used 
 
 You can conditionally render markup using the environment block helper...
 
-	{{#env "production"}}<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>{{/env}}
-	{{#env "development"}}<script src="{{static.prefix}}/lib/jquery-1.10.1.js"></script>{{/env}}
-	
+```Handlebars
+{{#env "production"}}<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>{{/env}}
+{{#env "development"}}<script src="{{static.prefix}}/lib/jquery-1.10.1.js"></script>{{/env}}
+```
+
 
 ### Building sprites with Glue
 
@@ -293,7 +311,7 @@ include.
 Password protecting content couldn't be easier. To restrict access you add BasicAuth to the route that accesses the
 sensitive resource.
 
-```javascript
+```JavaScript
 app.get('/data/:someParam', app.authBasic('user'), index.data);
 ```
 
