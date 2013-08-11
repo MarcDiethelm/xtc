@@ -13,9 +13,11 @@ describe('configure', function() {
 	var configure, config;
 
 	it('should be chainable', function() {
+		// chain directly
 		configure = require('../lib/configure').merge('test/fixtures/config', ['default']);
+		// can we still use merge?
 		configure.merge('test/fixtures/configure', ['default']);
-		assert.ok(configure.merge);
+		assert.ok(configure.get);
 	});
 	it('configure.get() should return a plain object', function() {
 		config = configure.get();
