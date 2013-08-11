@@ -1,19 +1,25 @@
 module.exports = function(grunt) {
 	
-	var path = require('path')
-	
-		// Merge configuration data
-		,cfg = require('./lib/configure')
-			.merge('_config/', [
-				 'default'
-				,'project'
-				,'secret'
-				,'local'
-			]).get()
-	
-		,modulesPattern = path.join(cfg.paths.modulesBaseDir, cfg.moduleDirName.replace('{{name}}', '*'))
-		,buildBaseDir = path.join(cfg.paths.staticBaseDir, cfg.static.build.baseDirName); // build.baseDirName may be empty
+	var  path = require('path')
+		,configPath = '_config/'
+		,configFiles = [
+			 'default'
+			,'project'
+			,'secret'
+			,'local'
+		]
+		,cfg ,modulesPattern ,buildBaseDir
 	;
+	
+	// For testing we need to override the default config, if options from the CLI were specified.
+	configPath = grunt.option('config-path') || configPath;
+	configFiles = grunt.option('config-files') && grunt.option('config-files').split(',') || configFiles;
+	
+	// Merge configuration data
+	cfg = require('./lib/configure').merge(configPath, configFiles).get();
+	
+	modulesPattern = path.join(cfg.paths.modulesBaseDir, cfg.moduleDirName.replace('{{name}}', '*'))
+	buildBaseDir = path.join(cfg.paths.staticBaseDir, cfg.static.build.baseDirName); // build.baseDirName may be empty
 
 	grunt.initConfig({
 		
@@ -238,7 +244,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'uglify:external', 'jshint:external',]);
 	grunt.registerTask('build-inline-css',           ['less_imports:inline',   'less:inline',   'cssmin:inline']);
 	grunt.registerTask('build-external-css',         ['less_imports:external', 'less:external', 'cssmin:external']);
-	grunt.registerTask('build-module-tests',         [ 'concat:module_tests' /*, 'jshint:module_tests'*/]);
+	grunt.registerTask('build-module-tests',         ['concat:module_tests' /*, 'jshint:module_tests'*/]);
 	
 	var defaultTask = [
 		 'build-sprites'

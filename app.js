@@ -1,5 +1,5 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-console.log('node %s – xtc server in %s mode', process.version, process.env.NODE_ENV);
+process.env.NODE_ENV != 'test' && console.log('node %s – xtc server in %s mode', process.version, process.env.NODE_ENV);
 
 var  path = require('path')
 	,express = require('express')

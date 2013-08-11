@@ -14,9 +14,9 @@ describe('configure', function() {
 
 	it('should be chainable', function() {
 		// chain directly
-		configure = require('../lib/configure').merge('test/fixtures/config', ['default']);
+		configure = require('../../lib/configure').merge('test/_config', ['default']);
 		// can we still use merge?
-		configure.merge('test/fixtures/configure', ['default']);
+		configure.merge('test/configure/fixtures', ['default']);
 		assert.ok(configure.get);
 	});
 	it('configure.get() should return a plain object', function() {
@@ -35,8 +35,8 @@ describe('configure', function() {
 			path = require('path');
 			appPath = fs.realpathSync('.'); // resolves to the app dir probably because mocha was called from there
 
-			config = require('../lib/configure')
-				.merge('test/fixtures/configure', [
+			config = require('../../lib/configure')
+				.merge('test/configure/fixtures', [
 					 'default'
 					,'project'
 				])

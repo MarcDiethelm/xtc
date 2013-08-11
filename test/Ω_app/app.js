@@ -1,13 +1,14 @@
 // force the test environment to 'test'
 process.env.NODE_ENV = 'test';
-// get the application server module
-var app = require('../app');
+var app
 // load Node.js assertion module
 var assert = require('assert');
 
 describe('app', function() {
 
 	before(function() {
+		// get the application server module
+		app = require('../../app');
 		this.server = app.listen(3333);
 	});
 
