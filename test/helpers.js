@@ -10,3 +10,5 @@ describe('helpers', function() {
 		assert.ok(app.helpers);
 	});*/
 });
+
+// todo: write actual tests

@@ -17,7 +17,7 @@ describe('terrific::renderModule', function() {
 		config = require('../lib/configure')
 			.merge('_config/', ['default'])
 			.merge('test/_config/', ['test'])
-			.merge('test/fixtures/terrific-modules/', ['basic'])
+			.merge('test/fixtures/terrific-modules/', ['terrific'])
 			.get();
 		terrific = require('../lib/terrific')(config);
 		//this.browser = new Browser({ site: 'http://localhost:'+ config.devPort });
@@ -77,7 +77,7 @@ describe('terrific::renderModule', function() {
 		config = require('../lib/configure')
 			.merge('_config/', ['default'])
 			.merge('test/_config/', ['test'])
-			.merge('test/fixtures/terrific-modules/', ['annotate'])
+			.merge('test/fixtures/terrific-modules/', ['terrific-annotate'])
 			.get();
 		terrific = require('../lib/terrific')(config);
 
