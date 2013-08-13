@@ -2,7 +2,7 @@
 process.env.NODE_ENV = 'test';
 // load Node.js assertion module
 var assert = require('assert')
-	,_ = require('underscore')
+	,_ = require('lodash')
 	,fs
 	,path
 	,appPath
@@ -21,8 +21,7 @@ describe('configure', function() {
 	});
 	it('configure.get() should return a plain object', function() {
 		config = configure.get();
-		// underscore only tests if it is an object not if it's a plain object
-		assert.ok(_.isObject(config));
+		assert.ok(_.isPlainObject(config));
 	});
 
 

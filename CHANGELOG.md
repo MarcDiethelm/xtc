@@ -1,12 +1,13 @@
 
-# 0.7.0
+# 0.7.0 / develop
 
-2013-xx-xx
+xxxx-xx-xx
 
  - Add option to allow bypassing auth for configurable IP ranges.
  - Renamed app_modules to lib.
  - Move routes.js from lib to controllers.
  - Test grunt tasks: build-external-js, build-external-css, tests now contained in subdirs
+ - Replace Underscore.js with Lo-Dash. Eliminates need for utils.deepExtend.
 
 # 0.6.2
 
