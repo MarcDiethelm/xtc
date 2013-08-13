@@ -30,7 +30,7 @@ Express + Terrific + awesome = xtc
 - Basic styles for wireframing
 
 
-## DOCS
+## Setup
 
 
 ### Installing Node.js
@@ -158,35 +158,46 @@ All these resources are available to your templates as [assets](#static-assets) 
 ### Terrific Modules
 
 Terrific modules can consist of Handlebars templates, LessCSS styles and a Terrific JS module.
-Additionally you may create LessCSS and JS skins inside a `skin` folder. These skins can be used to 'decorate' the
-main definitions of the module.
+Additionally you may use 'skins' to 'decorate' the main definitions of the module. Skins consist of LessCSS and JS files
+inside a `skin` folder.
 
-To include a module in a Handlebars template use this syntax:
+To include a module in a view or other module template use this syntax:
 
 ```Handlebars
 {{mod "example"}}
 ```
 
-A module include with all the options configured looks like this:
+A module's markup by default is wrapped in a generated SECTION tag, that at the minimum looks like this:
+
+```HTML
+<section class="mod mod-modulename"></section>
+```
+
+The HTML classes on the wrapper serve as 'binding sites' for the module's logic and styling.
+
+A module include with all known options configured looks like this:
 
 ```Handlebars
-{{mod "example" template="alternate" skins="alternate, baz" tag="section" id="foo" htmlClasses="test-class" connectors="stats, filter" data="{var1: 'foo'}"}}
+{{mod "example" template="alternate" skins="alternate, baz" tag="article" id="foo" htmlClasses="test-class" connectors="stats, filter" data="{var1: 'foo'}"}}
+```
+
+This will generate the following wrapper:
+
+```HTML
+<article class="mod mod-example test-class skin-example-alternate skin-example-baz" id="foo" connectors="stats, filter"></article>
 ```
 
 Please refer to the official docs at [Terrifically.org](http://terrifically.org/) to learn more about the Terrific
-pattern. Just ignore the part about "Composer". :)
+pattern. Just may safely ignore the part about "Composer".
 
-A module's markup will by default be wrapped in a SECTION tag, which also has the following class value:
-
-	mod mod-modulename [skin-modulename-skinname]
-
-The wrapper classes serve as attachment points for the module's logic and styling.
-
-You can enable **annotations** around modules in the html output, in config.js. The annotation displays the module name,
-the template file name and the file system path to the module.
-
-You can use a `data` attribute on a module include to **inject data** (as a JS object literal) into the context of the
+You can use the `data` attribute on a module include to **inject data** (as a JS object literal) into the context of the
 module template.
+
+You can set any attribute on the module wrapper you want. Attributes not mentioned so far in this section will simply be added to the
+markup. This includes HTML5 `data-` attributes.
+
+You can enable **annotations** in the HTML output around modules in the config. The annotation displays the module name,
+the template file name, the filesystem path and repository URL to the module.
 
 Using the `noWrapper=true` attribute on a module include will prevent creation of the wrapper element and module annotation.
 This is useful when creating markup-only modules in base layouts, e.g a HTML HEAD module including the doctype. You can

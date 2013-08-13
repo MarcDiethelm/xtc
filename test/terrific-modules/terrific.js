@@ -58,6 +58,11 @@ describe('terrific::renderModule', function() {
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-id.html');
 		assert.equal(actual, expected);
 	});
+	it('should render a basic module, with specified attributes', function() {
+		var actual = terrific.renderModule({}, { name: 'basic', id: 'unique', attributes: [{key: 'lang', value:'de-CH'}, {key:'data-1', value: "{'key': 'val'}"}] });
+		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-attributes.html');
+		assert.equal(actual, expected);
+	});
 	it('should render a basic module, with HTML classes', function() {
 		var actual = terrific.renderModule({}, { name: 'basic', htmlClasses: 'vis-hidden form' });
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-html-classes.html');
