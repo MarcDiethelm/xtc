@@ -221,7 +221,7 @@ yo xtc:module [name]
 in the project root folder. The module name can be added as the first argument.
 
 
-### Skin Creation
+#### Skin Creation
 
 Terrific modules can be extended or 'decorated' with JS or CSS [skins](http://terrifically.org/api/skin/).
 To create a new module skin simply type

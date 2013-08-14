@@ -8,6 +8,7 @@ xxxx-xx-xx
  - Move routes.js from lib to controllers.
  - Test grunt tasks: build-external-js, build-external-css, tests now contained in subdirs
  - Replace Underscore.js with Lo-Dash. Eliminates need for utils.deepExtend.
+ - Set any attribute on the Terrific module wrapper.
 
 # 0.6.2
 
