@@ -1,8 +1,22 @@
-# next
 
-2013-xx-xx
+# 0.7.0 / develop
+
+xxxx-xx-xx
 
  - Add option to allow bypassing auth for configurable IP ranges.
+ - Renamed app_modules to lib.
+ - Move routes.js from lib to controllers.
+ - Test grunt tasks: build-external-js, build-external-css, tests now contained in subdirs
+ - Replace Underscore.js with Lo-Dash. Eliminates need for utils.deepExtend.
+ - Set any attribute on the Terrific module wrapper.
+ - Ready to deploy to Heroku using Strongloop.
+
+# 0.6.2
+
+2013-09-06
+
+ - Remove initial-scale=1.0 from viewport meta, see https://github.com/h5bp/html5-boilerplate/issues/824
+ - Fix static URI prefix for LessCSS.
 
 # 0.6.1
 

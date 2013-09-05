@@ -20,6 +20,7 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json')
 		
 		,staticUriPrefix:   (cfg.staticUriPrefix || '') + '/'
+		,staticUriPrefixCss:cfg.staticUriPrefix && cfg.staticUriPrefix + '/' || ''
 		
 		// Sources base paths
 		
@@ -175,7 +176,7 @@ module.exports = function(grunt) {
 			},
 			external: {
 				options: {
-					banner: "@static-prefix: '<%=staticUriPrefix%>';"
+					banner: "@static-prefix: '<%=staticUriPrefixCss%>';"
 				}
 				,src: '<%=tmp%>/external-imports.less'
 				,dest: '<%=destCss%>/external.css'
