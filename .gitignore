@@ -4,3 +4,4 @@ frontend/_public/dist/
 frontend/_base/css/sprites/*.less
 node_modules/
 .idea/
+__meta
