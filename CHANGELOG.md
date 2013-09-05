@@ -13,9 +13,9 @@ xxxx-xx-xx
 
 # 0.6.2
 
-2013-xx-xx
+2013-09-06
 
- - Remove initial-scale=1.0 from viewport meta, see https://github.com/h5bp/html5-boilerplate/issues/824 (todo: cherrypick)
+ - Remove initial-scale=1.0 from viewport meta, see https://github.com/h5bp/html5-boilerplate/issues/824
  - Fix static URI prefix for LessCSS.
 
 # 0.6.1
