@@ -73,7 +73,7 @@ app.use(app.router);
 // Load our routes from routes.js
 require(cfg.pathsAbsolute.routes)(app);
 
-// If no other middleware responds, send a 404. Defined in routes.js.
+// If no other middleware responds, this last callback sends a 404. Defined in routes.js.
 app.use(app.render404);
 
 // Export the app if this case this file was called from another script, i.e. a test
