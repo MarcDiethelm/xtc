@@ -28,6 +28,7 @@ Express + Terrific + awesome = xtc
 - Project setup takes minutes
 - [Generators](#terrific-module-creation) for efficient and consistent (todo: project) and Terrific module creation.
 - Basic styles for wireframing
+- Ready for deploying to Heroku and Nodejitsu
 
 
 ## Setup
