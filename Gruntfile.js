@@ -126,11 +126,12 @@ module.exports = function(grunt) {
 				,expr: true
 				,asi: true
 				,loopfunc: true
+				,nonew: true
 				// environment
 				,browser: true
 				,jquery: true
 				,globals: {
-					 $: true
+					$: true
 					,Tc: true
 					,ModuleTest: true
 					,log: true
