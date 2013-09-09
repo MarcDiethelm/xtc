@@ -184,6 +184,9 @@ module.exports = function(grunt) {
 			external: {
 				options: {
 					banner: "@static-prefix: '<%=staticUriPrefixCss%>';"
+					/*variables: {
+						'static-prefix': '<%=staticUriPrefixCss%>'
+					}*/
 				}
 				,src: '<%=tmp%>/external-imports.less'
 				,dest: '<%=destCss%>/external.css'
