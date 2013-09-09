@@ -129,7 +129,7 @@ In xtc the distinction between views and templates is as follows:
 
 - View (`frontend/views`): A view typically corresponds to an individual page with an URL. This is where you include
 any modules specific to the page.
-- Templates (`frontend/templates`): Your basic document(s), typically a HTML document that contains all the things that are
+- Templates (`frontend/views/templates`): Your basic document(s), typically a HTML document that contains all the things that are
 always needed: HEAD, scripts, tracking and so on. Your template base template can be set in each route controller using
 the layout property or disabled altogether with `layout: false`. The view is included with the `{{{body}}}` variable.
 
