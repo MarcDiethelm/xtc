@@ -340,6 +340,11 @@ does instructs Express to trust the `X-FORWARDED-FOR` HTTP header typically adde
 forged however.
 
 
+## Tests
+
+To run tests for xtc enter `npm test`. This will start the mocha test runner.
+
+
 ## Differences to Terrific Composer
 
 - The default tag of a generated wrapper for a markup module is SECTION instead of DIV.
