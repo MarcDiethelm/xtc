@@ -21,8 +21,10 @@ describe('asset building', function() {
 			};
 	
 			grunt.util.spawn(options, function(error, result, code) {
-				if (error) console.log(error);
-				//console.log('stdout', result.stdout)
+				if (error) {
+					console.log(result.stdout)
+					throw(error);
+				}
 				done();
 			});
 		});
@@ -45,13 +47,15 @@ describe('asset building', function() {
 		before(function(done) {
 	
 			var options = {
-			  cmd: 'grunt',
-			  args: ['build-external-css', '-config-path=test/assets', '-config-files=default,assets']
+				cmd: 'grunt',
+				args: ['build-external-css', '-config-path=test/assets', '-config-files=default,assets']
 			};
 	
 			grunt.util.spawn(options, function(error, result, code) {
-				if (error) console.log(error);
-				//console.log('stdout', result.stdout)
+				if (error) {
+					console.log(result.stdout)
+					throw(error);
+				}
 				done();
 			});
 		});
@@ -71,7 +75,8 @@ describe('asset building', function() {
 	
 
 	after(function() {
-		if (grunt.file.exists('test/assets/build'))
+		if (grunt.file.exists('test/assets/build')) {
 			grunt.file.delete('test/assets/build');
+		}
 	});
 });

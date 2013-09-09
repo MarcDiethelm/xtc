@@ -3,6 +3,7 @@
 }
 .base1 {
   display: none;
+  background-image: url("/img/acme.png");
 }
 /**
  * module: module1
