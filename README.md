@@ -160,7 +160,7 @@ All these resources are available to your templates as [assets](#static-assets) 
 
 Terrific modules can consist of Handlebars templates, LessCSS styles and a Terrific JS module.
 Additionally you may use 'skins' to 'decorate' the main definitions of the module. Skins consist of LessCSS and JS files
-inside a `skin` folder.
+inside a `skins` folder.
 
 To include a module in a view or other module template use this syntax:
 
@@ -348,6 +348,7 @@ To run tests for xtc enter `npm test`. This will start the mocha test runner.
 ## Differences to Terrific Composer
 
 - The default tag of a generated wrapper for a markup module is SECTION instead of DIV.
+- Dierctories containing module skins are called 'skins' instead of 'skin'. This default can be changed however.
 
 
 ## What xtc does not do (yet)

@@ -16,8 +16,8 @@ describe('asset building', function() {
 		before(function(done) {
 	
 			var options = {
-			  cmd: 'grunt',
-			  args: ['build-external-js', '-config-path=test/assets', '-config-files=default,assets']
+				cmd: 'grunt',
+				args: ['build-external-js', '-config-path=test/assets', '-config-files=default,assets']
 			};
 	
 			grunt.util.spawn(options, function(error, result, code) {

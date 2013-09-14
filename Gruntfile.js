@@ -45,6 +45,10 @@ module.exports = function(grunt) {
 		,destCss:           '<%=buildBaseDir%>'
 		,destSpritesCss:    '<%=tcBase%>/css/sprites' // technically this should go in tmp, but we want the generated classes in our base css for easy lookup.
 		,destSpritesImg:    '<%=buildBaseDir%>'
+
+		// Directory names
+
+		,skinsDirName:      cfg.skinsDirName
 		
 		// Sources patterns
 		
@@ -58,7 +62,7 @@ module.exports = function(grunt) {
 				,'<%=tcBase%>/css/lib/*.css'
 				,'<%=tcBase%>/css/elements/*.less'
 				,'<%=tcModules%>/*.less'
-				,'<%=tcModules%>/skin/*.less'
+				,'<%=tcModules%>/<%=skinsDirName%>/*.less'
 				,'<%=tcApplication%>/css/*.less'
 			]
 			,inline_js: [
@@ -69,7 +73,7 @@ module.exports = function(grunt) {
 				 '<%=tcBase%>/js/lib/*.js'
 				,'<%=tcBase%>/js/*.js'
 				,'<%=tcModules%>/*.js'
-				,'<%=tcModules%>/skin/*.js'
+				,'<%=tcModules%>/<%=skinsDirName%>/*.js'
 				,'<%=tcApplication%>/js/*.js'
 			]
 			,module_test_js: [
@@ -81,7 +85,7 @@ module.exports = function(grunt) {
 			]
 			,jshint_external: [
 				 '<%=tcModules%>/*.js'
-				,'<%=tcModules%>/skin/*.js'
+				,'<%=tcModules%>/<%=skinsDirName%>/*.js'
 				,'<%=tcApplication%>/js/*.js'
 			]
 			,jshint_module_test: [

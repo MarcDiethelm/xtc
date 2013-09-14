@@ -10,6 +10,7 @@ xxxx-xx-xx
  - Replace Underscore.js with Lo-Dash. Eliminates need for utils.deepExtend.
  - Set any attribute on the Terrific module wrapper.
  - Ready to deploy to Heroku using Strongloop.
+ - Change skins directory name from 'skin' to 'skins'. Can be changed in config.
 
 # 0.6.2
 
