@@ -3,7 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{{docTitle}}</title>
-	<link rel="stylesheet" type="text/css" href="{{assets.css.external}}">
+	<link rel="stylesheet" type="text/css" href="{{static.build.css.external}}">
+	<link rel="icon" type="image/png" href="{{static.img}}/68.png" />
 	<style>
 		ul, li {
 			margin: 0;
@@ -16,50 +17,94 @@
 		.subitem {
 			padding-top: .7em;
 			padding-left: 1.7em;
+			font-weight: normal;
+			color: #999;
 		}
-		.name {
+		.name, a.name {
 			font-weight: bold;
+			color: #eee;
+		}
+		.subname, a.subname {
+			font-weight: bold;
+		}
+		.table {
+			display: table;
+			width: 85%;
+			min-width: 480px;
+			max-width: 800px;
+		}
+		.table-cell {
+			display: table-cell;
+			border-right: 7px solid #282828;
+		}
+		.table-cell + .table-cell {
+			padding-left: 2%;
 		}
 	</style>
 </head>
 <body>
 	<h1>{{title}}</h1>
-	<h2>Views</h2>
-
-	<ul>
-	{{#each views}}
-		<li class="item">
-			<a class="name" href="/_view/{{this.name}}">{{this.name}}</a>
-			<small>
-				| <a href="/_view/{{this.name}}?solo">solo</a>
-				| <a href="/_view/{{this.name}}?raw">raw</a>
-				{{#if this.repoUri}} | <a href="{{this.repoUri}}">git</a>{{/if}}
-			</small>
-		</li>
-	{{/each}}
-	</ul>
-
-
-	<h2>Modules</h2>
-
-	<ul>
-	{{#each modules}}
-		<li class="item">
-			{{this.name}}
-			<small>
-				{{#if this.repoUri}} | <a href="{{this.repoUri}}">git</a>{{/if}}
-				<ul>
-				{{#each this.templates}}
-					<li class="subitem">
-						<a class="name" href="/_module/{{../this.name}}/{{this.name}}">{{this.name}}</a>
-						| <a href="/_module/{{../this.name}}/{{this.name}}?raw">raw</a>
+	
+	<div class="table">
+	
+		<div class="table-cell">
+			<h2>Views</h2>
+			<ul>
+			{{#each views}}
+				<li class="item">
+					<a class="name" href="/_view/{{this.name}}">{{this.name}}</a>
+					<small>
+						| <a href="/_view/{{this.name}}?solo">solo</a>
+						| <a href="/_view/{{this.name}}?raw">raw</a>
 						{{#if this.repoUri}} | <a href="{{this.repoUri}}">git</a>{{/if}}
-					</li>
-				{{/each}}
-				</ul>
-			</small>
-		</li>
-	{{/each}}
-	</ul>
+					</small>
+				</li>
+			{{/each}}
+			</ul>
+		</div>
+
+
+		<div class="table-cell">
+			<h2>Modules</h2>
+			<ul>
+			{{#each modules}}
+				<li class="item name">
+					{{this.name}}
+					<small>
+						{{#if this.repoUri}} | <a href="{{this.repoUri}}">git</a>{{/if}}
+						<ul>
+						{{#each this.templates}}
+							<li class="subitem">
+								<a class="subname" href="/_module/{{../this.name}}/{{this.name}}">{{this.name}}</a>
+								| <a href="/_module/{{../this.name}}/{{this.name}}?raw">raw</a>
+								{{#if this.repoUri}} | <a href="{{this.repoUri}}">git</a>{{/if}}
+							</li>
+						{{/each}}
+						</ul>
+					</small>
+				</li>
+			{{/each}}
+			</ul>
+		</div>
+		
+		
+		<div class="table-cell">
+			<h2>Templates</h2>
+			<ul>
+			{{#each templates}}
+				<li class="item">
+					<a class="name" href="/_template/{{this.name}}">{{this.name}}</a>
+					<small>
+						| <a href="/_template/{{this.name}}?solo">solo</a>
+						| <a href="/_template/{{this.name}}?raw">raw</a>
+						{{#if this.repoUri}} | <a href="{{this.repoUri}}">git</a>{{/if}}
+					</small>
+				</li>
+			{{/each}}
+			</ul>
+		</div>
+		
+	</div>
+
 </body>
 </html>

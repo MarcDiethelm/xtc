@@ -1,8 +1,9 @@
 module.exports = function(app) {
 
-	var path = require('path')
-		,docTitle = app.helpers.docTitle
-		,cfg = app.config
+	var  cfg = app.cfg
+		,path = require('path')
+		,utils = require(path.join(cfg.dirname, '/lib/utils.js'))
+		,docTitle = app.docTitle
 	;
 
 	return {
@@ -12,25 +13,26 @@ module.exports = function(app) {
 		 */
 
 		_home: function(req, res, next) {
-			var overview = require(path.join(cfg.dirname, 'app_modules/overview.js'))(app);
+			var overview = require(path.join(cfg.dirname, 'lib/overview.js'))(cfg);
 
-			res.render(path.join(cfg.viewsDirName, '_app-home'), {
+			res.render('_app-home', {
 				 layout: false
 				,docTitle: docTitle('Components Overview')
 				,title: 'Components Overview'
 				,views: overview.views
+				,templates: overview.templates
 				,modules: overview.modules
 			});
 		}
 
 		,_getView: function(req, res, next) {
-			var layout = cfg.defaultTemplate;
+			var layout = cfg.defaultTemplateName;
 
 			if ('raw' in req.query) {
 				res.setHeader('Content-Type', 'text/plain');
 				layout = false;
 			}
-			res.render(path.join(cfg.viewsDirName, req.params.name), {
+			res.render(req.params.name, {
 				 layout: layout
 				,docTitle: docTitle('View: '+ req.params.name)
 				,uri: req.originalUrl
@@ -39,7 +41,9 @@ module.exports = function(app) {
 		}
 
 		,_getModule: function(req, res, next) {
-			var module = app.terrific.renderModule(
+			var context = {}
+				,key, val
+				,module = app.terrific.renderModule(
 					app.locals,
 					{
 						 name: req.params.name
@@ -57,50 +61,76 @@ module.exports = function(app) {
 				res.setHeader('Content-Type', 'text/plain');
 				res.send(module);
 			} else {
-				res.render(path.join(cfg.templatesDirName, cfg.defaultTemplateName), {
+				res.locals(app.locals);
+				res.locals({
 					layout: false
 					,docTitle: docTitle('Module: '+ req.params.name +', Template: '+ req.params.template)
 					,body: module
 					,exclusive: req.params.name
 					,skipModules: true
 				});
+
+				app.hbs.render(path.join(cfg.paths.templates, cfg.defaultTemplateName + '.hbs'), res.locals,
+					function(err, html) {
+						if (err) {
+							var error = utils.error('Unable to render the module in the default template', err);
+							console.error(error.c);
+							html = error.web;
+						}
+						res.send(html);
+					}
+				);
 			}
 		}
 
 		,_getModuleTest: function(req, res, next) {
-			var module = app.terrific.renderModule(
-					app.locals,
-					{
-						 name: req.params.name
-						,template: req.params.template || req.params.name
-						,isTest: true
-					}
-				)
-			;
+			var test = req.query.url;
 
-			if (module.error) {
-				res.send(module.error.web);
-				return;
-			}
-			res.render(path.join(cfg.viewsDirName, '_app-test-module'), {
-				layout: false
-				,docTitle: docTitle('Module: '+ req.params.name +', Template: '+ req.params.template)
-				,body: module
-				,exclusive: req.params.name
-				,skipModules: true
+			var output = ''
+				,modules = []
+			;
+			app.tests[test].forEach(function(options) {
+				output += app.terrific.renderModule({}, options);
+				modules.push({
+					 name:      options.name
+					,template:  options.template
+					,skins:     options.skins
+					,connectors:options.connectors
+				})
 			});
+
+			res.locals(app.locals);
+			res.locals({
+				layout: false
+				,body: '<script>var xtc = {isTest: true, testModules: '+ JSON.stringify(modules) +'}</script>\n\n'+ output
+				 // Prevent initializing testing in the test frame by overwriting the handlebars helper 'test'.
+				,helpers: { test: null }
+			});
+
+			app.hbs.render(path.join(cfg.pathsAbsolute.templates, cfg.defaultTemplateName + '.hbs'), res.locals,
+				function(err, html) {
+					if (err) {
+						var error = utils.error('Unable to render the modules in the default template', err);
+						console.error(error.c);
+						html = error.web;
+					}
+					res.send(html);
+				}
+			);
 		}
+
 
 		 // Look for a view with the name supplied by the catch-all route
 		,_subPage: function(req, res, next) {
 			try {
-				res.render(path.join(cfg.viewsDirName,  req.params.pageName), {
+				res.render(req.params.pageName, {
 					 docTitle: docTitle(req.params.pageName)
 					,uri: req.originalUrl
 				});
 			} catch (e) {
-				// we never get here. either render succeeds or next() is called apparently. which is fine, because
-				// the last defined middleware is render404.
+				if (e.message == 'missing path')
+					app.render404(req, res, next);
+				else next(e);
 			}
 		}
 
@@ -110,7 +140,7 @@ module.exports = function(app) {
 		,render404: function(req, res, next) {
 			res.status(404)
 				.render(
-				'views/404'
+				'404'
 				,{
 					 docTitle: docTitle('404')
 					,uri: req.originalUrl

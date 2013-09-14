@@ -1,57 +1,115 @@
 module.exports = function(grunt) {
+	
+	var  path = require('path')
+		,configPath = '_config/'
+		,configFiles = [
+			 'default'
+			,'project'
+			,'secret'
+			,'local'
+		]
+		,cfg ,modulesPattern ,buildBaseDir
+	;
+	
+	// For testing we need to override the default config, if options from the CLI were specified.
+	configPath = grunt.option('config-path') || configPath;
+	configFiles = grunt.option('config-files') && grunt.option('config-files').split(',') || configFiles;
+	
+	// Merge configuration data
+	cfg = require('./lib/configure').merge(configPath, configFiles).get();
+	
+	modulesPattern = path.join(cfg.paths.modulesBaseDir, cfg.moduleDirName.replace('{{name}}', '*'))
+	buildBaseDir = path.join(cfg.paths.staticBaseDir, cfg.static.build.baseDirName); // build.baseDirName may be empty
 
 	grunt.initConfig({
+		
 		pkg: grunt.file.readJSON('package.json')
+		
+		,staticUriPrefix:   (cfg.staticUriPrefix || '') + '/'
+		,staticUriPrefixCss:cfg.staticUriPrefix && cfg.staticUriPrefix + '/' || ''
+		
+		// Sources base paths
+		
+		,tcInline:          cfg.paths.inline
+		,tcBase:            cfg.paths.base
+		,tcModules:         modulesPattern
+		,tcApplication:     cfg.paths.application
+		,staticDir:         cfg.paths.staticBaseDir
+		
+		// Output destinations
+		
+		,baseDirName:       cfg.static.build.baseDirName
+		,buildBaseDir:      buildBaseDir
+		,tmp:               '<%=buildBaseDir%>/tmp'
+		,destJs:            '<%=buildBaseDir%>'
+		,destCss:           '<%=buildBaseDir%>'
+		,destSpritesCss:    '<%=tcBase%>/css/sprites' // technically this should go in tmp, but we want the generated classes in our base css for easy lookup.
+		,destSpritesImg:    '<%=buildBaseDir%>'
 
+		// Directory names
+
+		,skinsDirName:      cfg.skinsDirName
+		
+		// Sources patterns
+		
 		,sources: {
 			inline_css: [
-				 'frontend/_terrific/_inline/css/lib/*.css'
-				,'frontend/_terrific/_inline/css/*.less'
+				 '<%=tcInline%>/css/lib/*.css'
+				,'<%=tcInline%>/css/*.less'
 			]
 			,external_css: [
-				 'frontend/_terrific/_base/css/sprites/*.less'
-				,'frontend/_terrific/_base/css/lib/*.css'
-				,'frontend/_terrific/_base/css/elements/*.less'
-				,'frontend/_terrific/mod-*/*.less'
-				,'frontend/_terrific/mod-*/skin/*.less'
-				,'frontend/_terrific/_application/css/*.less'
+				 '<%=tcBase%>/css/sprites/*.less'
+				,'<%=tcBase%>/css/lib/*.css'
+				,'<%=tcBase%>/css/elements/*.less'
+				,'<%=tcModules%>/*.less'
+				,'<%=tcModules%>/<%=skinsDirName%>/*.less'
+				,'<%=tcApplication%>/css/*.less'
 			]
 			,inline_js: [
-				 'frontend/_terrific/_inline/js/lib/*.js'
-				,'frontend/_terrific/_inline/js/*.js'
+				 '<%=tcInline%>/js/lib/*.js'
+				,'<%=tcInline%>/js/*.js'
 			]
 			,external_js: [
-				 'frontend/_terrific/_base/js/lib/*.js'
-				,'frontend/_terrific/mod-*/*.js'
-				,'frontend/_terrific/mod-*/skin/*.js'
-				,'frontend/_terrific/_application/js/*.js'
+				 '<%=tcBase%>/js/lib/*.js'
+				,'<%=tcBase%>/js/*.js'
+				,'<%=tcModules%>/*.js'
+				,'<%=tcModules%>/<%=skinsDirName%>/*.js'
+				,'<%=tcApplication%>/js/*.js'
 			]
 			,module_test_js: [
-				 'frontend/_static/test/*.js'
-				,'frontend/_terrific/mod-*/test/*.js'
+				 '<%=staticDir%>/test/*.js'
+				,'<%=tcModules%>/test/*.js'
+			]
+			,jshint_inline: [
+				 '<%=tcInline%>/js/*.js'
+			]
+			,jshint_external: [
+				 '<%=tcModules%>/*.js'
+				,'<%=tcModules%>/<%=skinsDirName%>/*.js'
+				,'<%=tcApplication%>/js/*.js'
+			]
+			,jshint_module_test: [
+				 '<%=staticDir%>/_static/test/*.js'
+				,'<%=tcModules%>/test/*.js'
 			]
 			,sprites: [
-				'frontend/_terrific/_base/css/sprites/'
-				//,'frontend/_terrific/mod-*/sprites/'
+				'<%=tcBase%>/css/sprites/'
+				//,'<%=tcModules%>/sprites/'
 			]
 		}
-		,tmp: 'frontend/_static/dist/tmp'
-		,dest: 'frontend/_static/dist'
-		,dest_sprites_css: 'frontend/_terrific/_base/css/sprites/' // technically this should go in <%=dest%>/tmp, but we want the generated classes in our base css for easy lookup.
 
 		//////////////////////////////////////////////////////////////
 
 		,glue: {
 			icons: {
 				src: '<%=sources.sprites%>'
-				//,dest: '<%=dest_sprites_css%>/00-sprites.less'
-				,options: '--css=<%=dest_sprites_css%> --img=<%=dest%> --less --url=/dist --namespace= --sprite-namespace= --recursive --crop --optipng'
+				//,dest: '<%=destSpritesCss%>/00-sprites.less'
+				,options: '--css=<%=destSpritesCss%> --img=<%=destSpritesImg%> --less --url=<%=staticUriPrefix%><%=baseDirName%> --namespace=s --sprite-namespace= --recursive --crop --optipng'
 			}
 		}
 		,less_imports: {
 			inline: {
-				options: {}
-				,src: '<%=sources.inline_css%>'
+				src: '<%=sources.inline_css%>'
 				,dest: '<%=tmp%>/inline-imports.less'
 			},
 			external: {
@@ -60,51 +118,109 @@ module.exports = function(grunt) {
 				,dest: '<%=tmp%>/external-imports.less'
 			}
 		}
+		,jshint: {
+			options: {
+				// report but don't fail
+				force: true
+				// enforce
+				,latedef: true
+				,undef: true
+				//relax
+				,laxcomma: true
+				,smarttabs: true
+				,expr: true
+				,asi: true
+				,loopfunc: true
+				,nonew: true
+				// environment
+				,browser: true
+				,jquery: true
+				,globals: {
+					$: true
+					,Tc: true
+					,xtc: true
+					,log: true
+					// QUnit ಠ_ಠ
+					,asyncTest      : true
+					,deepEqual      : true
+					,equal          : true
+					,expect         : true
+					,module         : true
+					,notDeepEqual   : true
+					,notEqual       : true
+					,notStrictEqual : true
+					,ok             : true
+					,QUnit          : true
+					,raises         : true
+					,start          : true
+					,stop           : true
+					,strictEqual    : true
+					,test           : true
+				}
+			}
+			,inline: ['<%=sources.jshint_inline%>']
+			,external: ['<%=sources.jshint_external%>']
+			,module_tests: ['<%=sources.jshint_module_test%>']
+		}
 		,concat: {
 			inline_scripts: {
-				 src: '<%=sources.inline_js%>'
-				,dest: '<%=dest%>/inline.js'
+				options: {
+					banner: '/*! Inline script dependencies for page bootstrapping */\n'
+				}
+				,src: '<%=sources.inline_js%>'
+				,dest: '<%=destJs%>/inline.js'
 			}
 			,external_scripts: {
 				 src: '<%=sources.external_js%>'
-				,dest: '<%=dest%>/external.js'
+				,dest: '<%=destJs%>/external.js'
 			}
 			,module_tests: {
 				 src: '<%=sources.module_test_js%>'
-				,dest: '<%=dest%>/test.js'
+				,dest: '<%=destJs%>/test.js'
 			}
 		},
 		uglify: {
 			inline: {
-				src: '<%=dest%>/inline.js'
-				,dest: '<%=dest%>/inline.min.js'
+				options: {
+					preserveComments: 'some'
+				}
+				,src: '<%=destJs%>/inline.js'
+				,dest: '<%=destJs%>/inline.min.js'
 			},
 			external: {
-				src: '<%=dest%>/external.js'
-				,dest: '<%=dest%>/external.min.js'
+				src: '<%=destJs%>/external.js'
+				,dest: '<%=destJs%>/external.min.js'
 			}
 		}
 		,less: {
 			inline: {
-				options: {}
+				options: {
+					// cssmin will not create file if the output is empty. a special comment fixes this.
+					banner: '/*! Inline style dependencies for page bootstrapping */'
+				}
 				,src: '<%=tmp%>/inline-imports.less'
-				,dest: '<%=dest%>/inline.css'
+				,dest: '<%=destCss%>/inline.css'
 			},
 			external: {
-				options: {}
+				options: {
+					banner: "@static-prefix: '<%=staticUriPrefixCss%>';"
+					/*variables: {
+						'static-prefix': '<%=staticUriPrefixCss%>'
+					}*/
+				}
 				,src: '<%=tmp%>/external-imports.less'
-				,dest: '<%=dest%>/external.css'
+				,dest: '<%=destCss%>/external.css'
 			}
 		},
 		cssmin: {
 			inline: {
 				files: {
-					'<%=dest%>/inline.min.css': ['<%=dest%>/inline.css']
+					'<%=destCss%>/inline.min.css': ['<%=destCss%>/inline.css']
 				}
 			},
 			external: {
 				files: {
-					'<%=dest%>/external.min.css': ['<%=dest%>/external.css']
+					'<%=destCss%>/external.min.css': ['<%=destCss%>/external.css']
 				}
 			}
 		}
@@ -136,34 +252,40 @@ module.exports = function(grunt) {
 		}
 	});
 
+	// get dependencies
 	grunt.loadNpmTasks('grunt-glue');
 	grunt.loadNpmTasks('assemble-less');
 	grunt.loadNpmTasks('grunt-less-imports');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-handlebars');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	// create pipelines                              // use actual task name (first part before colon)!
+
+	// create build tasks                            // use actual task name (first part before colon)!
 	grunt.registerTask('build-sprites',              ['glue']);
 	
-	grunt.registerTask('build-inline-js',            ['concat:inline_scripts',   'uglify:inline']);
-	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'uglify:external']);
+	grunt.registerTask('build-inline-js',            ['concat:inline_scripts', 'uglify:inline', 'jshint:inline']);
+	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'uglify:external', 'jshint:external',]);
 	grunt.registerTask('build-inline-css',           ['less_imports:inline',   'less:inline',   'cssmin:inline']);
 	grunt.registerTask('build-external-css',         ['less_imports:external', 'less:external', 'cssmin:external']);
-	grunt.registerTask('build-module-tests',         ['concat:module_tests']);
+	grunt.registerTask('build-module-tests',         ['concat:module_tests' , 'jshint:module_tests']);
 
-	// aggregate pipelines
-	grunt.registerTask('default',
-	[
-		 'build-inline-js'
+	var defaultTask = [
+		 'build-sprites'
+		,'build-external-css'
 		,'build-external-js'
 		,'build-inline-css'
-		,'build-sprites'
-		,'build-external-css'
+		,'build-inline-js'
 		,'build-module-tests'
 		,'watch'
-	]);
+	];
+	
+	// If sprites building is not enabled in the app config, remove it. 
+	!cfg.enableSpritesBuilding && defaultTask.shift();
+
+	// aggregate default task
+	grunt.registerTask('default', defaultTask);
 
 };

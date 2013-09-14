@@ -1,0 +1,54 @@
+
+
+/* WIREFRAME STYLES */
+
+.wf-box-sizing() {
+	-moz-box-sizing: border-box;
+ -webkit-box-sizing: border-box;
+     -ms-box-sizing: border-box;
+         box-sizing: border-box;
+}
+
+.wf-row {
+	.wf-box-sizing();
+	margin-bottom: 25px;
+}
+.wf-box {
+	.wf-box-sizing();
+	outline: 1px dashed #999;
+	background-color: #eaeaea;
+
+	margin-top: 3px;
+	padding: .5rem;
+	.wf-box {
+		background-color: #f8f8f8;
+		outline: 1px solid #fff;
+		outline-style: dotted;
+	}
+}
+.wf-box-dark:extend(.wf-box) {
+	background-color: #444;
+	.wf-box-dark {
+		background-color: #555;
+	}
+}
+.wf-text {
+	color: #ddd;
+	letter-spacing: -.13em;
+	word-spacing: -.2em;
+}
+.wf-label {
+	padding: 0 2px 2px;
+	font-weight: 200;
+	font-size: 20px;
+	line-height: 30px;
+	font-family: "Helvetica Neue", sans-serif;
+	color: #999;
+	background-color: #eeeeff;
+	&:before,
+	&:after {
+		content: '';
+		background-color: pink;
+		vertical-align: -.5rem;
+	}
+}

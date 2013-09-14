@@ -1,26 +1,37 @@
-# Node Terrific
+# xtc <small>– frontend development server and framework</small>
 
-This project brings the Terrific.js pattern to Node and Express. It provides a solid template for most web projects.
-It implements some of the features of Terrific Composer, like server-side module includes.
+This project brings the [Terrific.js](http://terrifically.org/) clever, yet simple frontend modularization pattern to
+[Node](http://nodejs.org/) and [Express](http://expressjs.com/) and [implements](#terrific-modules) some of the features
+of [Terrific Composer](http://terrifically.org/composer/), like server-side module includes. And much more...
+It provides an awesome server, framework and template for most frontend projects.
+
+The Terrific.js pattern prevents collisions between different areas of code, makes hassle-free collaboration and code
+reuse in the frontend possible.
+
+Express + Terrific + awesome = xtc
+
+[![Build Status](https://travis-ci.org/MarcDiethelm/xtc.png?branch=master)](https://travis-ci.org/MarcDiethelm/xtc) master<br>
+[![Build Status](https://travis-ci.org/MarcDiethelm/xtc.png?branch=develop)](https://travis-ci.org/MarcDiethelm/xtc) develop
 
 
 ## Features
 
 
-- Light-weight and hackable JavaScript backend
+- Light-weight, fast and hackable JavaScript backend
+- Frontend modularization with includes integrated on the server
 - Can be used for single page apps.
-- Server-side module includes.
-- Handlebars templates.
-- Modularization
-- Flexible asset pipeline using Grunt.js, with file watcher // tbd: with sections for inlined, linked and on-demand assets.
-- Automated testing
+- [Handlebars](http://handlebarsjs.com/) templates.
+- [LessCSS](http://lesscss.org/) (1.5.0-wip branch)
+- Flexible automatic asset building using [Grunt.js](http://gruntjs.com/), with file watcher
+- External, inline (todo: and dynamically loaded assets)
+- Automatic testing of the current page (todo: test automation in multiple browsers, simultaneously)
+- Project setup takes minutes
+- [Generators](#terrific-module-creation) for efficient and consistent (todo: project) and Terrific module creation.
+- Basic styles for wireframing
+- Ready for deploying to Heroku and Nodejitsu
 
-At risk:
-- Grunt.js templates for efficient and consistent project and module creation.
-- NPM packaging this project as a tool for super-easy project creation
 
-
-## DOCS
+## Setup
 
 
 ### Installing Node.js
@@ -31,42 +42,48 @@ Eventually you'll have multiple Node projects, depending on different versions o
 global modules. With nave you can create named environments in a snap.
 
 So, install [Nave](https://github.com/isaacs/nave) from Github and install the latest stable Node.js version with
-`nave use stable`. Nave will open a new shell for you where node is a local install.
+`nave use stable`. Nave will open a new shell for you where `node` points to your user space install.
 
-However strictly speaking you don't NEED a node version manager. Downloading the installer from the website will work
+However, strictly speaking you don't NEED a node version manager. Downloading the installer from the website will work
 fine.
 
-<small>Windows users: reopen the CMD after installing to get the updated path for npm.</small>
+<small>Windows users:  after installing reopen the CMD to get the updated path, so you can use npm.</small>
 
 
 ### Node Modules dependencies
 
 After that you can just do `npm install` in the project folder and all dependencies of the server part will be
-installed.
+installed. [NPM](https://npmjs.org/) is the [node package manager](https://npmjs.org/doc/cli/npm.html).
 
 
 ### Configuration
 
-After cloning you should set up your configuration files in `_config`. Initially there is just one that's actually read:
-`config.js`. However you can create two more from the templates provided in the same folder: `config-secret.js` and
-`config-local.js`. They are merged into the app config in the order mentioned just now.
+After cloning you should set up your configuration files in `_config`. 
 
-Use `config-local` to override a configuration locally when in development mode.
-Use `config-secret.js` for authentication data, SSL certs and so on.
+- `config-default.js` defines sensible defaults for all configurable properties.
+- `config-project.js` is where you configure your app.
+- `config-secret.js` is for basic auth credentials, db authentication info, SSL certs and so on.
+- `config-local.js` is used to override a configuration locally for development.
 
-Both additional files are listed in `.gitignore` and won't be committed to your repository. `config-local` is also listed
-in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be deployed.
+The files are merged into the app config in the order mentioned. Any property you add is merged with the previous,
+overriding default properties as needed.
+
+`config-secret.js` and `config-local.js` are listed in `.gitignore` and won't be committed to your repository.
+`config-local.js` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be
+deployed.
 
 
 ### Asset Building: Grunt
 
-Before you can start the server you need to generate the assets for the frontend. Use the terminal in your project
-folder and enter `grunt`. That's it. Grunt will watch all your JS and Less/CSS source files as configured in
-Gruntfile.js and re-generate the assets automatically when you edit them. You will have to re-start Grunt for it to
-register any new files though!
+Before you can start the server you need to generate the assets for the frontend. Use the terminal to install grunt-cli
+globally with `npm install -g grunt-cli`. Then in your project enter `grunt`. That's it.
+[Grunt](http://gruntjs.com/getting-started) will build your assets and also watch all your JS and Less/CSS source files
+as configured in [Gruntfile.js](http://gruntjs.com/sample-gruntfile). When you edit them it re-generates the assets
+automatically. You will have to restart Grunt for it to register
+[any files in new folders](https://github.com/gruntjs/grunt-contrib-watch/issues/70) though! (This will be fixed very soon.)
 
 If you want to use the automatic sprites generation there are some more steps on your todo list. You only need to do
-this once though. Your next project will be able to use te functionality out of the box.
+this once though. Your next project will be able to use the functionality out of the box.
 
 First make sure you have an up to date Python installation. Refer to the section "Properly Install Python" for your
 platform, [from the official guide](http://docs.python-guide.org/en/latest/index.html). Mostly you need Homebrew and Pip.
@@ -88,7 +105,7 @@ Use a different terminal in your project folder (do you know `screen`?) and star
 
 There are some things you can do that will make development so much more easy:
 
-* You can run Grunt directly in the IDE. Any errors during asset parsing will be immediately pointed out to you. I you
+* You can run Grunt directly in the IDE. Any errors during asset parsing will be immediately pointed out to you. If you
 have the Command Line Tools plugin installed, open the Tools menu and select 'Run Command...'. Enter `grunt` in the
 input line. Just make sure you have installed Grunt CLI globally with `npm install -g grunt-cli`.
 * You can run/restart Node directly in the IDE. If you have the Node.js plugin installed create a Run configuration
@@ -102,84 +119,171 @@ comment style to Handlebars comments once you have the plugin.
 
 ### Naming Convention
 
-- use - (hyphen for pretty much everything: module names, skins, template files)
-- 'lib' is for any third-party code that we don't touch: libraries, jquery plugins
+- use - (hyphen) for pretty much everything: module names, skins, template files
+- 'lib' folders are for any third-party code that we don't touch: libraries, jquery plugins
 
 
 ### Templates and views
 
-In node-terrific the distinction between templates and views are as follows:
+In xtc the distinction between views and templates is as follows:
 
-- Templates (`/templates`): Your basic document(s), typically a HTML document that contains all the things that are
-always needed: HEAD, scripts, tracking and so on. Your template base template can be set in each route controller using
-the layout property or disabled altogether with `layout: false`. A template that has a `{{{body}}}` variable will
-include a
-- View (`/frontend/views`): A view typically corresponds to an individual page with an URL. This is where you include
+- View (`frontend/views`): A view typically corresponds to an individual page with an URL. This is where you include
 any modules specific to the page.
+- Templates (`frontend/views/templates`): Your basic document(s), typically a HTML document that contains all the things that are
+always needed: HEAD, scripts, tracking and so on. Your template base template can be set in each route controller using
+the layout property or disabled altogether with `layout: false`. The view is included with the `{{{body}}}` variable.
 
-Modules can also define multiple templates for their markup.
+In Express templates are called layouts.
+
+Terrific Modules too can define (multiple) templates for their own markup.
 
 
 ### Terrific Folder: Order matters
 
-A simple but important concept is to understand how the default folders in /terrific are included. Any files you throw
+A simple but important concept is to understand how the default folders in /frontend are included. Any files you throw
 in there are included and executed like so:
 
-- `_inline` folder: Any style or JS sources in here are available in the files `inline.js` (todo: and `inline.css`).
+- `_inline` folder: Any style or JS sources in here are available in the files `inline.js` and `inline.css`.
 This is a good place for basic bootstrapping code and dependencies like an asset loader or possibly some initial data
 for use in a model. Use wisely and sparingly.
-- `base` folder: anything that needs to be defined before including any modules: LessCSS variables, mixins, grids,
+- `_base` folder: anything that needs to be defined before including any modules: LessCSS variables, mixins, grids,
 some global JS code like Modernizr or other utilities and libraries and plugins.
-- `mod-something` folders: All your module code and styles, basically everything visible that's not pure layout.
+- `modules/moduleName` folders: All your module code and styles, basically everything visible that's not pure layout.
 - `_application` folder: The code that actually starts your app: Terrific bootstrap and any other global logic that
 depends on modules being available. If you need to build themeing into your app, this is the place too.
+
+All these resources are available to your templates as [assets](#static-assets) in concatenated and minified form
+(except stuff in /lib folders).
 
 
 ### Terrific Modules
 
 Terrific modules can consist of Handlebars templates, LessCSS styles and a Terrific JS module.
-Additionally you may create LessCSS and JS skins inside a `skin` folder. These skins can be used to 'decorate' the
-main definitions of the module.
+Additionally you may use 'skins' to 'decorate' the main definitions of the module. Skins consist of LessCSS and JS files
+inside a `skins` folder.
 
-To include a module in a Handlebars template use this syntax:
+To include a module in a view or other module template use this syntax:
 
-	{{mod "example"}}
+```Handlebars
+{{mod "example"}}
+```
 
-A module include with all the options configured looks like this:
+A module's markup by default is wrapped in a generated SECTION tag, that at the minimum looks like this:
 
-	{{mod "example" template="alternate" skins="alternate, baz" tag="section" id="foo" htmlClasses="test-class" connectors="stats, filter" data="{var1: 'foo'}"}}
+```HTML
+<section class="mod mod-modulename"></section>
+```
 
-Please refer to the official docs at (Terrifically.org)[http://terrifically.org/] to learn more about the Terrific
-pattern. Just ignore the part about "Composer". :)
+The HTML classes on the wrapper serve as 'binding sites' for the module's logic and styling.
 
-You can enable annotations around modules in the html output, in config.js. The annotation displays the module name,
-the template file name and the file system path to the module.
+A module include with all known options configured looks like this:
+
+```Handlebars
+{{mod "example" template="alternate" skins="alternate, baz" tag="article" id="foo" htmlClasses="test-class" connectors="stats, filter" data="{var1: 'foo'}"}}
+```
+
+This will generate the following wrapper:
+
+```HTML
+<article class="mod mod-example test-class skin-example-alternate skin-example-baz" id="foo" connectors="stats, filter"></article>
+```
+
+Please refer to the official docs at [Terrifically.org](http://terrifically.org/) to learn more about the Terrific
+pattern. Just may safely ignore the part about "Composer".
+
+You can use the `data` attribute on a module include to **inject data** (as a JS object literal) into the context of the
+module template.
+
+You can set any attribute on the module wrapper you want. Attributes not mentioned so far in this section will simply be added to the
+markup. This includes HTML5 `data-` attributes.
+
+You can enable **annotations** in the HTML output around modules in the config. The annotation displays the module name,
+the template file name, the filesystem path and repository URL to the module.
+
+Using the `noWrapper=true` attribute on a module include will prevent creation of the wrapper element and module annotation.
+This is useful when creating markup-only modules in base layouts, e.g a HTML HEAD module including the doctype. You can
+think of it like using **a partial but using modules** instead of yet another mechanism.
 
 
 ### Terrific Module Creation
 
-To create new Terrific modules you can use a Yeoman generator. To install use:
+To create new Terrific modules you can conveniently use a [Yeoman](http://yeoman.io/index.html) generator. Install it with
 
-	npm install -g yo generator-xtc
+```Shell
+npm install -g yo generator-xtc
+```
 
 To create a new module simply type
 
-	yo xtc:module [name]
+```Shell
+yo xtc:module [name]
+```
 
 in the project root folder. The module name can be added as the first argument.
 
 
-### Skin Creation
+#### Skin Creation
 
-coming soon
+Terrific modules can be extended or 'decorated' with JS or CSS [skins](http://terrifically.org/api/skin/).
+To create a new module skin simply type
+
+```Shell
+yo xtc:skin [name]
+```
+
+in the project root folder. The skin name can be added as the first argument. You'll be asked to choose a module to
+create the skin for.
 
 
 ### Module Testing
 
-You can write client-side tests for your Terrific modules. For any page your currently working on each contained module
+Todo: You can write client-side tests for your Terrific modules. For any page your currently working on each contained module
 is tested atomically and the results are printed to the console. It's somewhat limited because it's not application-wide
 and doesn't provide for inter-module (i.e. connectors) testing. But it's still very useful to see if something breaks on
 any given page.
+
+### Static Assets
+
+If you look at config.js you will find that you can define the file system locations of your assets very flexibly.
+This allows you to model file structures to your liking or to the requirements of a particular backend where your code
+might need to be integrated.
+
+The URIs to your static assets are all available under the `static` variable in your templates:
+
+```JavaScript
+static.prefix // The base URI to the static assets
+static.img // The base URI to your images
+static.build.js.external // The URI to the generated main JS file
+static.build.css.external // The URI to the generated main CSS file
+```
+
+The static prefix URI is available in your LessCSS files as the variable
+
+```Less
+@static-prefix
+```
+
+Inline assets are available through a template helper, like so
+
+```Handlebars
+{{inline "js"}}
+{{inline "css"}}
+```
+
+If you run the server in production mode the minified versions of these assets will be used.
+
+### Development and Production Mode
+
+Express determines which mode to use through an system environment variable `NODE_ENV` which either has the value `development`
+or `production`. Generally speaking in dev mode resources aren't cached so that any changes that are made in the
+frontend can be picked up. Also, in dev mode unminified asset versions are used for easier debugging.
+
+You can conditionally render markup using the environment block helper...
+
+```Handlebars
+{{#env "production"}}<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>{{/env}}
+{{#env "development"}}<script src="{{static.prefix}}/lib/jquery-1.10.1.js"></script>{{/env}}
+```
 
 
 ### Building sprites with Glue
@@ -189,6 +293,12 @@ any given page.
 * todo: disable sprite generation in config.js (default)
 
 http://glue.readthedocs.org/en/latest/options.html
+
+
+### Build customization
+
+If you need more flexibility or a different feature, you can edit the `Gruntfile.js` where the build tasks are defined.
+With [Grunt](#asset-building-grunt) there's almost no limit to what you can do.
 
 
 ## Template Development and Integration into other backends
@@ -208,7 +318,40 @@ include.
 	/_view/example?solo
 
 
-## What this does not (yet)
+## Basic authentication and bypass for IP ranges
+
+Password protecting content couldn't be easier. To restrict access you add BasicAuth to the route that accesses the
+sensitive resource.
+
+```JavaScript
+app.get('/data/:someParam', app.authBasic('user'), index.data);
+```
+
+Just insert the authentication middleware as shown in the snippet above. The argument to `app.authBasic` is the required
+username. The username/password combination is defined in `config/config-secret.js` as a key/value pair.
+
+You can open the restricted routes to certain IP ranges if you so desire. For security reasons you need to enable this
+feature by adding the property `allowAuthBypassForIpRanges: true` in `_config/config-project.js`.
+
+In `config/config-secret.js` you can then specify the IP ranges that have unrestricted access to your routes.
+
+Note that intermediate proxies change the source IP of a request. Therefore enabling `allowAuthBypassForIpRanges` also
+does instructs Express to trust the `X-FORWARDED-FOR` HTTP header typically added by proxies. This header can easily be
+forged however.
+
+
+## Tests
+
+To run tests for xtc enter `npm test`. This will start the mocha test runner.
+
+
+## Differences to Terrific Composer
+
+- The default tag of a generated wrapper for a markup module is SECTION instead of DIV.
+- Dierctories containing module skins are called 'skins' instead of 'skin'. This default can be changed however.
+
+
+## What xtc does not do (yet)
 
 
 - shared logic to create correct state
@@ -219,4 +362,4 @@ include.
 	- 'Ajax crawling' support: non-JS clients can get a semantically sensible representation of any page URI.
 	- Handlebars templates precompilation
 - Easy appcache manifest generation through Grunt
-- database access from server and browser
+- database access from server and browser (not that it's difficult)
