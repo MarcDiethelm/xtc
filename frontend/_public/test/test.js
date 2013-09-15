@@ -48,6 +48,7 @@ xtc.tests = {};
 		}
 
 		,onRunTests: function() {
+			QUnit.start();
 			this.runTests();
 		}
 
@@ -168,21 +169,24 @@ xtc.tests = {};
 	}
 
 
+	if (!window.console) { return }
+
 	// Set up QUnit output
-	var  log = console.log
-		,info = console.info
-		,warn = console.warn
+	var  log = $.proxy(console.log, console)
+		,info = $.proxy(console.info, console)
+		,warn = $.proxy(console.warn, console)
 	if (!console.group) { // IE
 		log = console.info;
 		warn = console.error;
+		info = console.info;
 	}
 
 	QUnit.begin(function( details ) {
-		console.groupCollapsed && console.groupCollapsed('Module Tests') || log('Module Tests');
+		console.groupCollapsed ? console.groupCollapsed('Module Tests') : log('Module Tests');
 	});
 
 	QUnit.moduleStart(function( details ) {
-		console.group && console.group(details.name) || log( 'Module: '+ details.name );
+		console.group ? console.group(details.name) : log( 'Module: '+ details.name );
 	});
 
 	QUnit.moduleDone(function( details ) {
@@ -191,7 +195,7 @@ xtc.tests = {};
 
 	QUnit.testStart(function( details ) {
 		var testName = 'Test: '+ details.name;
-		console.group && console.group(testName) || log('└─ '+ testName);
+		console.group ? console.group(testName) : log('└─ '+ testName);
 	});
 
 	QUnit.testDone(function( details ) {
