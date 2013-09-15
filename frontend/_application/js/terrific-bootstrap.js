@@ -39,6 +39,5 @@ $(document.documentElement).removeClass('no-js');
 		announceTcReady && announceTcReady(function(runTests) {
 			runTests();
 		});
-		//dir(app)
 	});
 })(window, Tc);
