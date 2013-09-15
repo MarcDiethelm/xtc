@@ -237,10 +237,9 @@ create the skin for.
 
 ### Module Testing
 
-Todo: You can write client-side tests for your Terrific modules. For any page your currently working on each contained module
-is tested atomically and the results are printed to the console. It's somewhat limited because it's not application-wide
-and doesn't provide for inter-module (i.e. connectors) testing. But it's still very useful to see if something breaks on
-any given page.
+You can write client-side tests with [QUnit](http://qunitjs.com/) for your Terrific modules. When your working on a page
+on each refresh every module contained in the page has its tests run and the results printed to the console. This is
+very useful to immediately see if something breaks during development.
 
 ### Static Assets
 

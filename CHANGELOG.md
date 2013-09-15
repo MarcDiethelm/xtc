@@ -11,6 +11,7 @@ xxxx-xx-xx
  - Set any attribute on the Terrific module wrapper.
  - Ready to deploy to Heroku using Strongloop.
  - Change skins directory name from 'skin' to 'skins'. Can be changed in config.
+ - Module tests for the current page run in the browser.
 
 # 0.6.2
 
