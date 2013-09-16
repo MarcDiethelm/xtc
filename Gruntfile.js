@@ -109,7 +109,7 @@ module.exports = function(grunt) {
 		}
 		,less_imports: {
 			inline: {
-				src: '<%=sources.inline_css%>'
+				 src: '<%=sources.inline_css%>'
 				,dest: '<%=tmp%>/inline-imports.less'
 			},
 			external: {
@@ -188,7 +188,7 @@ module.exports = function(grunt) {
 				,dest: '<%=destJs%>/inline.min.js'
 			},
 			external: {
-				src: '<%=destJs%>/external.js'
+				 src: '<%=destJs%>/external.js'
 				,dest: '<%=destJs%>/external.min.js'
 			}
 		}
@@ -211,22 +211,20 @@ module.exports = function(grunt) {
 				,src: '<%=tmp%>/external-imports.less'
 				,dest: '<%=destCss%>/external.css'
 			}
-		},
-		cssmin: {
+		}
+		,cssmin: {
 			inline: {
-				files: {
-					'<%=destCss%>/inline.min.css': ['<%=destCss%>/inline.css']
-				}
+				 src: '<%=destCss%>/inline.css'
+				,dest: '<%=destCss%>/inline.min.css'
 			},
 			external: {
-				files: {
-					'<%=destCss%>/external.min.css': ['<%=destCss%>/external.css']
-				}
+				 src: '<%=destCss%>/external.css'
+				,dest: '<%=destCss%>/external.min.css'
 			}
 		}
 		,watch: {
 			sprites: {
-				files: ['<%=sources.sprites%>*.png', '<%=sources.sprites%>*.jpg']
+				files: ['<%=sources.sprites%>*.{png,jpg}']
 				,tasks: ['build-sprites', 'build-external-css']
 			},
 			inline_styles: {
@@ -254,12 +252,12 @@ module.exports = function(grunt) {
 
 	// get dependencies
 	grunt.loadNpmTasks('grunt-glue');
-	grunt.loadNpmTasks('assemble-less');
 	grunt.loadNpmTasks('grunt-less-imports');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('assemble-less');
 	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 
