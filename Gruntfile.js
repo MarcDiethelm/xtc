@@ -54,12 +54,13 @@ module.exports = function(grunt) {
 		
 		,sources: {
 			inline_css: [
-				 '<%=tcInline%>/css/lib/*.css'
+				 '<%=tcInline%>/css/vendor/*.{less,css}'
 				,'<%=tcInline%>/css/*.less'
 			]
 			,external_css: [
 				 '<%=tcBase%>/css/sprites/*.less'
-				,'<%=tcBase%>/css/lib/*.css'
+				,'<%=tcBase%>/css/lib/vendor/*.{less,css}'
+				,'<%=tcBase%>/css/lib/*.less'
 				,'<%=tcBase%>/css/elements/*.less'
 				,'<%=tcModules%>/*.less'
 				,'<%=tcModules%>/<%=skinsDirName%>/*.less'
