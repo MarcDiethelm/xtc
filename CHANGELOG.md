@@ -11,6 +11,12 @@ xxxx-xx-xx
  - Set any attribute on the Terrific module wrapper.
  - Ready to deploy to Heroku using Strongloop.
 
+# 0.6.3
+
+2013-09-17
+
+ - Fix: Nesting of modules was broken.
+
 # 0.6.2
 
 2013-09-06
