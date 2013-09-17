@@ -80,7 +80,6 @@ describe('terrific::renderModule', function() {
 	});
 	it('should render a basic module, with a nested module', function() {
 		var actual = terrific.renderModule({}, { name: 'basic', template: 'nested' });
-		console.log(actual)
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-nested.html');
 		assert.equal(actual, expected);
 	});
