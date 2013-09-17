@@ -15,6 +15,12 @@ xxxx-xx-xx
  - Inline CSS folder's lib subfolder is replaced by vendor subfolder for 3rd-party styles.
  - Base CSS folder's lib subfolder now contains vendor subfolder for 3rd-party styles.
 
+# 0.6.3
+
+2013-09-17
+
+ - Fix: Nesting of modules was broken.
+
 # 0.6.2
 
 2013-09-06
