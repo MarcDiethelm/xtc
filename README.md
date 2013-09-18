@@ -245,6 +245,10 @@ You can write client-side tests with [QUnit](http://qunitjs.com/) for your Terri
 on each refresh every module contained in the page has its tests run and the results printed to the console. This is
 very useful to immediately see if something breaks during development.
 
+To disable module testing set `enableModuleTesting` to false in the config.<br>
+To use the classic QUnit display in the page set `QUnitFE.showUi` to true.<br>
+QUnit adds a symbol to the HTML title indicating the test status. To disable set `QUnitFE.alterTitle` to false.
+
 ### Static Assets
 
 If you look at config.js you will find that you can define the file system locations of your assets very flexibly.

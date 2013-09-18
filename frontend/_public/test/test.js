@@ -7,9 +7,6 @@ So this is working nicely. EXCEPT, we basically need to test in the same layout 
 	==> We'll just render it in the default template for now.
  */
 
-xtc = window.xtc || {};
-xtc.tests = {};
-
 (function() {
 
 	xtc.ModuleTests = function(TcApp) {
@@ -169,53 +166,54 @@ xtc.tests = {};
 	}
 
 
-	if (!window.console) { return }
+	if (window.console && xtc.tests.consoleOutput) {
 
-	// Set up QUnit output
-	var  log = $.proxy(console.log, console)
-		,info = $.proxy(console.info, console)
-		,warn = $.proxy(console.warn, console)
-	if (!console.group) { // IE
-		log = console.info;
-		warn = console.error;
-		info = console.info;
+		// Set up QUnit output
+		var  log = $.proxy(console.log, console)
+			,info = $.proxy(console.info, console)
+			,warn = $.proxy(console.warn, console)
+		if (!console.group) { // IE
+			log = console.info;
+			warn = console.error;
+			info = console.info;
+		}
+	
+		QUnit.begin(function( details ) {
+			console.groupCollapsed ? console.groupCollapsed('Module Tests') : log('Module Tests');
+		});
+	
+		QUnit.moduleStart(function( details ) {
+			console.group ? console.group(details.name) : log( 'Module: '+ details.name );
+		});
+	
+		QUnit.moduleDone(function( details ) {
+			console.groupEnd && console.groupEnd();
+		});
+	
+		QUnit.testStart(function( details ) {
+			var testName = 'Test: '+ details.name;
+			console.group ? console.group(testName) : log('└─ '+ testName);
+		});
+	
+		QUnit.testDone(function( details ) {
+			console.groupEnd && console.groupEnd();
+		});
+	
+		QUnit.log(function( details ) {
+			var  pre = console.group ? '' : '  └─ ';
+			if (details.result) {
+				log( pre +'Pass: ' + details.message);
+			}
+			else {
+				warn( pre +'Fail: ' + details.message);
+			}
+		});
+	
+		QUnit.done(function( details ) {
+			var consoleFn = details.failed === 0 ? info : warn;
+			console.groupEnd && console.groupEnd();
+			consoleFn('Passed: '+ details.passed +'/'+ details.total + ' | ', 'Failed: '+ details.failed );
+		});
 	}
-
-	QUnit.begin(function( details ) {
-		console.groupCollapsed ? console.groupCollapsed('Module Tests') : log('Module Tests');
-	});
-
-	QUnit.moduleStart(function( details ) {
-		console.group ? console.group(details.name) : log( 'Module: '+ details.name );
-	});
-
-	QUnit.moduleDone(function( details ) {
-		console.groupEnd && console.groupEnd();
-	});
-
-	QUnit.testStart(function( details ) {
-		var testName = 'Test: '+ details.name;
-		console.group ? console.group(testName) : log('└─ '+ testName);
-	});
-
-	QUnit.testDone(function( details ) {
-		console.groupEnd && console.groupEnd();
-	});
-
-	QUnit.log(function( details ) {
-		var  pre = console.group ? '' : '  └─ ';
-		if (details.result) {
-			log( pre +'Pass: ' + details.message);
-		}
-		else {
-			warn( pre +'Fail: ' + details.message);
-		}
-	});
-
-	QUnit.done(function( details ) {
-		var consoleFn = details.failed === 0 ? info : warn;
-		console.groupEnd && console.groupEnd();
-		consoleFn('Passed: '+ details.passed +'/'+ details.total + ' | ', 'Failed: '+ details.failed );
-	});
 
 })();

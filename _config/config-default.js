@@ -80,8 +80,9 @@ module.exports = {
 	,QUnitFE: {
 		// QUnit updates document.title to add a checkmark or x-mark to indicate if a testsuite passed or failed.
 		alterTitle: true
-		// A summary of all executed tests and any failed tests are logged to the browser console.
-		// In addition you can activate the standard QUnit UI.
+		// A summary of all executed tests is logged to the browser console.
+		,consoleOutput: true
+		// Activate the standard QUnit UI.
 		,showUi: false
 	}
 }
