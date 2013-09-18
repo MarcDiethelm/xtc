@@ -90,7 +90,7 @@ module.exports = function(app) {
 				,modules = []
 			;
 			app.tests[test].forEach(function(options) {
-				output += app.terrific.renderModule({}, options);
+				output += app.terrific.renderModule(app.locals, options);
 				modules.push({
 					 name:      options.name
 					,template:  options.template
