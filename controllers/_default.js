@@ -3,6 +3,7 @@ module.exports = function(app) {
 	var  cfg = app.cfg
 		,path = require('path')
 		,utils = require(path.join(cfg.dirname, '/lib/utils.js'))
+		,fs = require('fs')
 		,docTitle = app.docTitle
 	;
 
@@ -144,16 +145,21 @@ module.exports = function(app) {
 
 		 // Look for a view with the name supplied by the catch-all route
 		,_subPage: function(req, res, next) {
-			try {
-				res.render(req.params.pageName, {
-					 docTitle: docTitle(req.params.pageName)
-					,uri: req.originalUrl
-				});
-			} catch (e) {
-				if (e.message == 'missing path')
-					app.render404(req, res, next);
-				else next(e);
-			}
+			fs.exists(path.join(cfg.pathsAbsolute.views, req.params.pageName + '.hbs'), function(exists) {
+				if ( exists ) {
+					try {
+						res.render(req.params.pageName, {
+							 docTitle: docTitle(req.params.pageName)
+							,uri: req.originalUrl
+						});
+					} catch (e) {
+						return next(e);
+					}
+				}
+				else {
+					return app.render404(req, res, next);
+				}
+			});
 		}
 
 		/////////////////////////////////////////////////////////////////////
