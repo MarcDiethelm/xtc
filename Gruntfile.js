@@ -231,11 +231,11 @@ module.exports = function(grunt) {
 				,tasks: ['build-sprites', 'build-external-css']
 			},
 			inline_styles: {
-				files: ['<%=sources.inline_css%>']
+				files: ['<%=sources.inline_css%>', '<%=tcInline%>/css/lib/reference/*.less']
 				,tasks: ['build-inline-css']
 			},
 			external_styles: {
-				files: ['<%=sources.external_css%>']
+				files: ['<%=sources.external_css%>', '<%=tcBase%>/css/lib/reference/*.less']
 				,tasks: ['build-external-css']
 			}
 			,inline_scripts: {
