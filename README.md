@@ -17,11 +17,11 @@ Express + Terrific + awesome = xtc
 
 - [Features](#features)
 - [Setup](#setup)
-	- [Installing Node.js](#installing-node.js)
+	- [Installing Node.js](#installing-nodejs)
 	- [Installing Dependencies](#installing-dependencies)
 	- [Configuration](#configuration)
 	- [Asset Building: Grunt](#asset-building-grunt)
-	- [Start the Server: Grunt](#asset-building-grunt)
+	- [Start the Server](#asset-building-grunt)
 	- [WebStorm / PHPStorm Users](#webstorm--phpstorm-users)
 - [Manual](#manual)
 	- [Naming Convention](#naming-convention)
@@ -31,6 +31,7 @@ Express + Terrific + awesome = xtc
 	- [Module Creation](#module-creation)
 	- [Module Testing](#module-testing)
 	- [Static Assets](#static-assets)
+		- [LessCSS 1.5.0](#lesscss-150)
 	- [Development and Production Mode](#development-and-production-mode)
 	- [Building Sprites with Glue](#building-sprites-with-glue)
 	- [Build Customization](#build-customization)
@@ -41,7 +42,6 @@ Express + Terrific + awesome = xtc
 - [What xtc does not do (yet)](#what-xtc-does-not-do-yet)
 
 
-
 ## Features
 
 
@@ -49,7 +49,7 @@ Express + Terrific + awesome = xtc
 - Frontend modularization, modules are included by the server.
 - Nice for single page apps.
 - [Handlebars](http://handlebarsjs.com/) templates.
-- [LessCSS](http://lesscss.org/) 1.5.0-b3
+- [LessCSS](https://github.com/less/less.js) 1.5.0-b3
 - Flexible automatic asset building using [Grunt.js](http://gruntjs.com/), with file watcher
 - External, inline (todo: and dynamically loaded assets)
 - [Automatic testing](#module-testing) of the current page (todo: test automation in multiple browsers, simultaneously)
@@ -64,7 +64,8 @@ Want more features? There are more.
 - Less @import (reference): Only includes what is actually used in your project. Great for libraries with mixins, helpers.
 - Generated [project overview](#template-development-and-integration-into-other-backends) lists all views, modules and templates, with links to stand-alone, rendered source and repository.
 - Lazy routing: just create a new view and use its filename as the URI.
-- Basic styles for wireframing
+- Basic styles for wireframing.
+
 
 ## Setup
 
@@ -136,7 +137,7 @@ folder in your path).
 Use a different terminal in your project folder (do you know `screen`?) and start the server with `node app.js`.
 
 
-### PHPStorm / WebStorm Users
+### WebStorm / PHPStorm Users
 
 There are some things you can do that will make development so much more easy:
 
@@ -156,6 +157,7 @@ comment style to Handlebars comments once you have the plugin.
 
 - use - (hyphen) for pretty much everything: module names, skins, template files
 - 'lib' folders are for any third-party code that we don't touch: libraries, jquery plugins
+- Files that start with an underscore are resources required for xtc's functionality.
 
 
 ### Templates and Views
@@ -181,14 +183,15 @@ in there are included and executed like so:
 - `_inline` folder: Any style or JS sources in here are available in the files `inline.js` and `inline.css`.
 This is a good place for basic bootstrapping code and dependencies like an asset loader or possibly some initial data
 for use in a model. Use wisely and sparingly.
-- `_base` folder: anything that needs to be defined before including any modules: LessCSS variables, mixins, grids,
-some global JS code like Modernizr or other utilities and libraries and plugins.
+- `_base` folder: Anything that needs to be defined before including any modules: LessCSS variables, mixins, grids,
+some global JS code like Modernizr or other utilities and libraries and plugins. You can use [Less' @import (reference)](#lesscss-150)
 - `modules/moduleName` folders: All your module code and styles, basically everything visible that's not pure layout.
 - `_application` folder: The code that actually starts your app: Terrific bootstrap and any other global logic that
 depends on modules being available. If you need to build themeing into your app, this is the place too.
+- `public` folder: Anything that needs to be avialable to the world goes here, including the generated assets.
 
-All these resources are available to your templates as [assets](#static-assets) in concatenated and minified form
-(except stuff in /lib folders).
+All these resources [are available to your templates](#static-assets) in concatenated and minified form
+(except stuff that you put in the /public folder).
 
 
 ### Terrific Modules
@@ -310,6 +313,13 @@ Inline assets are available through a template helper, like so
 ```
 
 If you run the server in production mode the minified versions of these assets will be used.
+
+#### LessCSS 1.5.0
+
+Less files in `reference` folders (in `inline` and `base`) are included with Less 1.5.0's @import (reference):
+Only mixins and variables that are actually used are imported. This is great for libraries of helper and mixins or UI
+frameworks like Bootstrap.
+
 
 ### Development and Production Mode
 
