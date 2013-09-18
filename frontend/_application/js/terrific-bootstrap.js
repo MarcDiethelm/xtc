@@ -1,23 +1,19 @@
-
 // WP7 can't be detected with conditional comments.
 (navigator.userAgent.indexOf('Windows Phone') != -1 || navigator.userAgent.indexOf('WP7') != -1) && (document.documentElement.className += ' wp7');
+
 $(document.documentElement).removeClass('no-js');
 
 /**
  * Terrific Bootstrapping
  */
 (function (window, Tc) {
+	// If running inside a test frame, bail out.
 	if (window.xtc && window.xtc.isTest) { return; }
+	
 	$(function() {
-		var app
+		var  app
 			,$body = $('body')
-			,config = {
-				dependencyPath: {
-					library: window.assetsUrl + '/scripts/libs-dyn/',
-					plugin:  window.assetsUrl + '/scripts/plugins-dyn/',
-					util:    window.assetsUrl + '/scripts/utils-dyn/'
-				}
-			}
+			,config = {}
 			,announceTcReady
 		;
 
