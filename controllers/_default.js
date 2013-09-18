@@ -41,9 +41,7 @@ module.exports = function(app) {
 		}
 
 		,_getModule: function(req, res, next) {
-			var context = {}
-				,key, val
-				,module = app.terrific.renderModule(
+			var module = app.terrific.renderModule(
 					app.locals,
 					{
 						 name: req.params.name
@@ -81,6 +79,30 @@ module.exports = function(app) {
 					}
 				);
 			}
+		}
+
+		,_getTemplate: function(req, res, next) {
+			res.locals(app.locals);
+			res.locals({
+				layout: false
+				,docTitle: docTitle('Template: '+ req.params.name)
+				,body: ''
+			});
+
+			app.hbs.render(path.join(cfg.paths.templates, req.params.name + '.hbs'), res.locals,
+				function(err, html) {
+					if (err) {
+						var error = utils.error('Unable to render the template', err);
+						console.error(error.c);
+						html = error.web;
+					}
+
+					'raw' in req.query
+						&& res.setHeader('Content-Type', 'text/plain');
+					
+					res.send(html);
+				}
+			);
 		}
 
 		,_getModuleTest: function(req, res, next) {

@@ -20,6 +20,7 @@ module.exports = function(app) {
 	app.get('/_home', _default._home);
 	app.get('/_view/:name', _default._getView);
 	app.get('/_module/:name/:template', _default._getModule);
+	app.get('/_template/:name', _default._getTemplate);
 	app.get('/_test', _default._getModuleTest);
 
 	// catch-all routes
