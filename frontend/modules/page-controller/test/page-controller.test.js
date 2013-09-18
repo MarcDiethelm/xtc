@@ -1,21 +1,20 @@
-Tc.tests.PageController = function( modName, $node, testApp ) {
+xtc.tests.PageController = function(mod, options) {
+
 	 // Start a QUnit module for this Terrific module
-	module(modName, {
+	module(this.name, {
 		 // prepare something for each following tests
-		setup: function () {
-			 // Create a new instance of the Terrific module for each test() below.
-			var $ctx = $node.clone(true, true);
-			this.mod = testApp.registerModule($ctx, modName);
-			this.mod.start();
-		},
+		setup: function () {},
 		 // clean up after each test()
-		teardown: function () {
-			testApp.unregisterModules(this.mod);
-		}
+		teardown: function () {}
 	});
 
-	test( 'dummy tests', function() {
+	test( 'Dummy #1', function() {
 
-		strictEqual( this.mod.$$('.debug').length, 1, 'Appends debug text.' );
+		ok( true, 'Basic testing works.' );
+	});
+
+	test( 'Dummy #2', function() {
+
+		strictEqual( mod.$$('.debug-pc').length, 1, 'Appends debug text.' );
 	});
 };

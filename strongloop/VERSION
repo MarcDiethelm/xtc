@@ -1,0 +1,13 @@
+#  Uncomment one of the version lines to select the node version to use.
+#  The last "non-blank" version line is the one picked up and used by
+#  default unless its overridden by the user's application.
+#  Default: 1.0.0-0.3_beta
+
+#  1.0.0-0.1.beta
+#  1.0.0-0.2.beta
+#  1.0.0-0.3.beta
+#  1.0.0-1
+#  1.0.1-1
+#  1.1.0-1
+#  1.1.3-1
+1.1.4-1

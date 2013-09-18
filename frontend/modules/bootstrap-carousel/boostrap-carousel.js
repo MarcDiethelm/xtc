@@ -37,8 +37,9 @@
 			// bootstrap-carousel.js
 			$('.carousel').carousel({interval: false});
 
-			callback();
 			this.$ctx.append('\n<br><span class="debug">JS Module BootstrapCarousel started</span>');
+
+			callback();
 		},
 
 		/**

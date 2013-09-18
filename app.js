@@ -1,5 +1,5 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-console.log('node %s – xtc server in %s mode', process.version, process.env.NODE_ENV);
+process.env.NODE_ENV != 'test' && console.log('node %s – xtc server in %s mode', process.version, process.env.NODE_ENV);
 
 var  path = require('path')
 	,express = require('express')
@@ -22,7 +22,7 @@ if ('production' == app.get('env')) {}
 
 
 // Merge configuration data
-cfg = require('./app_modules/configure').merge('_config/', [
+cfg = require('./lib/configure').merge('_config/', [
 		 'default'
 		,'project'
 		,'secret'
@@ -32,8 +32,8 @@ cfg = require('./app_modules/configure').merge('_config/', [
 // Share the configuration data
 app.cfg = cfg;
 
-helpers = require('./app_modules/helpers.js')(cfg);
-app.terrific = require('./app_modules/terrific.js')(cfg);
+helpers = require('./lib/helpers.js')(cfg);
+app.terrific = require('./lib/terrific.js')(cfg);
 // Set up template data that is always available
 app.locals(helpers.makeLocals());
 app.docTitle = helpers.docTitle;
@@ -69,11 +69,13 @@ app.use(express.compress());
 app.use(cfg.staticUriPrefix, express.static(cfg.pathsAbsolute.staticBaseDir));
 app.use(app.router);
 
+// Set up tracking the Terrific modules included for any URIs, for module testing in the browser.
+'development' == app.get('env') && helpers.registerModuleTestTrackingMiddleware(app);
 
 // Load our routes from routes.js
 require(cfg.pathsAbsolute.routes)(app);
 
-// If no other middleware responds, send a 404. Defined in routes.js.
+// If no other middleware responds, this last callback sends a 404. Defined in routes.js.
 app.use(app.render404);
 
 // Export the app if this case this file was called from another script, i.e. a test

@@ -8,10 +8,12 @@ module.exports = {
 		// Sets the HTML lang attribute
 		langDefault: 'en-US'
 	}
+	,allowAuthBypassForIpRanges: false
 	,annotateModules: {
 		development: true
 		,production: false
 	}
+	,enableModuleTesting: true
 	 // To construct links to views and modules
 	,repository: 'https://github.com/MarcDiethelm/node-terrific/tree/develop/'
 	// Should asset building include sprites generation? Dependencies: Glue (Python) and OptiPNG (binary executable)
@@ -23,7 +25,7 @@ module.exports = {
 		inline:             'frontend/_inline'
 		,base:              'frontend/_base'
 		,application:       'frontend/_application'
-		,routes:            'app_modules/routes.js'
+		,routes:            'controllers/routes.js'
 		,views:             'frontend/views'
 		,templates:         'frontend/views/templates'
 		// Path to the Terrific modules directories
@@ -34,6 +36,7 @@ module.exports = {
 	// relative to templateBaseDir
 	,defaultTemplateName:   'default'
 	,moduleDirName:         '{{name}}'
+	,skinsDirName:         'skins'
 
 	// URIs for use in templates are constructed from the following data
 		// URI prefix for static assets, e.g. '/static', empty string for none
@@ -77,8 +80,9 @@ module.exports = {
 	,QUnitFE: {
 		// QUnit updates document.title to add a checkmark or x-mark to indicate if a testsuite passed or failed.
 		alterTitle: true
-		// A summary of all executed tests and any failed tests are logged to the browser console.
-		// In addition you can activate the standard QUnit UI.
+		// A summary of all executed tests is logged to the browser console.
+		,consoleOutput: true
+		// Activate the standard QUnit UI.
 		,showUi: false
 	}
 }

@@ -19,7 +19,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
 	<![endif]-->
 </head>
-<body class="{{#if bodyClass}}{{bodyClass}}{{/if}}">
+<body>
 	<header role="banner">
 	{{!-- This is a good place for a main navigation module.
 	      Setting _isLayout="true" allows to skip this module when solo viewing a view for development.
@@ -39,9 +39,9 @@
 	<script>
 		{{inline "js"}}{{!-- inline js. the key is defined in config.js --}}
 	</script>
-	{{#env "production"}}<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>{{/env}}
-	{{#env "development"}}<script src="{{static.prefix}}/lib/jquery-1.10.1.js"></script>{{/env}}
+	{{#env "production"}}<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>{{/env}}
+	{{#env "development"}}<script src="{{static.prefix}}/lib/jquery-1.10.2.js"></script>{{/env}}
 	<script src="{{static.build.js.external}}"></script>
-	{{!--{{test modules}}--}}
+	{{test}}
 </body>
 </html>

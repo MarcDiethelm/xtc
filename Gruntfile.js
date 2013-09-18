@@ -1,19 +1,25 @@
 module.exports = function(grunt) {
 	
-	var path = require('path')
-	
-		// Merge configuration data
-		,cfg = require('./app_modules/configure')
-			.merge('_config/', [
-				 'default'
-				,'project'
-				,'secret'
-				,'local'
-			]).get()
-	
-		,modulesPattern = path.join(cfg.paths.modulesBaseDir, cfg.moduleDirName.replace('{{name}}', '*'))
-		,buildBaseDir = path.join(cfg.paths.staticBaseDir, cfg.static.build.baseDirName); // build.baseDirName may be empty
+	var  path = require('path')
+		,configPath = '_config/'
+		,configFiles = [
+			 'default'
+			,'project'
+			,'secret'
+			,'local'
+		]
+		,cfg ,modulesPattern ,buildBaseDir
 	;
+	
+	// For testing we need to override the default config, if options from the CLI were specified.
+	configPath = grunt.option('config-path') || configPath;
+	configFiles = grunt.option('config-files') && grunt.option('config-files').split(',') || configFiles;
+	
+	// Merge configuration data
+	cfg = require('./lib/configure').merge(configPath, configFiles).get();
+	
+	modulesPattern = path.join(cfg.paths.modulesBaseDir, cfg.moduleDirName.replace('{{name}}', '*'))
+	buildBaseDir = path.join(cfg.paths.staticBaseDir, cfg.static.build.baseDirName); // build.baseDirName may be empty
 
 	grunt.initConfig({
 		
@@ -39,20 +45,24 @@ module.exports = function(grunt) {
 		,destCss:           '<%=buildBaseDir%>'
 		,destSpritesCss:    '<%=tcBase%>/css/sprites' // technically this should go in tmp, but we want the generated classes in our base css for easy lookup.
 		,destSpritesImg:    '<%=buildBaseDir%>'
+
+		// Directory names
+
+		,skinsDirName:      cfg.skinsDirName
 		
 		// Sources patterns
 		
 		,sources: {
 			inline_css: [
-				 '<%=tcInline%>/css/lib/*.css'
+				 '<%=tcInline%>/css/lib/*.{less,css}'
 				,'<%=tcInline%>/css/*.less'
 			]
 			,external_css: [
 				 '<%=tcBase%>/css/sprites/*.less'
-				,'<%=tcBase%>/css/lib/*.css'
+				,'<%=tcBase%>/css/lib/*.{less,css}'
 				,'<%=tcBase%>/css/elements/*.less'
 				,'<%=tcModules%>/*.less'
-				,'<%=tcModules%>/skin/*.less'
+				,'<%=tcModules%>/<%=skinsDirName%>/*.less'
 				,'<%=tcApplication%>/css/*.less'
 			]
 			,inline_js: [
@@ -63,7 +73,7 @@ module.exports = function(grunt) {
 				 '<%=tcBase%>/js/lib/*.js'
 				,'<%=tcBase%>/js/*.js'
 				,'<%=tcModules%>/*.js'
-				,'<%=tcModules%>/skin/*.js'
+				,'<%=tcModules%>/<%=skinsDirName%>/*.js'
 				,'<%=tcApplication%>/js/*.js'
 			]
 			,module_test_js: [
@@ -75,12 +85,12 @@ module.exports = function(grunt) {
 			]
 			,jshint_external: [
 				 '<%=tcModules%>/*.js'
-				,'<%=tcModules%>/skin/*.js'
+				,'<%=tcModules%>/<%=skinsDirName%>/*.js'
 				,'<%=tcApplication%>/js/*.js'
 			]
 			,jshint_module_test: [
-				 //'<%=staticDir%>/_static/test/*.js'
-				//,'<%=tcModules%>/test/*.js'
+				 '<%=staticDir%>/_static/test/*.js'
+				,'<%=tcModules%>/test/*.js'
 			]
 			,sprites: [
 				'<%=tcBase%>/css/sprites/'
@@ -99,7 +109,7 @@ module.exports = function(grunt) {
 		}
 		,less_imports: {
 			inline: {
-				src: '<%=sources.inline_css%>'
+				 src: '<%=sources.inline_css%>'
 				,dest: '<%=tmp%>/inline-imports.less'
 			},
 			external: {
@@ -121,19 +131,36 @@ module.exports = function(grunt) {
 				,expr: true
 				,asi: true
 				,loopfunc: true
+				,nonew: true
 				// environment
 				,browser: true
 				,jquery: true
 				,globals: {
-					 $: true
+					$: true
 					,Tc: true
-					,ModuleTest: true
+					,xtc: true
 					,log: true
+					// QUnit ಠ_ಠ
+					,asyncTest      : true
+					,deepEqual      : true
+					,equal          : true
+					,expect         : true
+					,module         : true
+					,notDeepEqual   : true
+					,notEqual       : true
+					,notStrictEqual : true
+					,ok             : true
+					,QUnit          : true
+					,raises         : true
+					,start          : true
+					,stop           : true
+					,strictEqual    : true
+					,test           : true
 				}
 			}
 			,inline: ['<%=sources.jshint_inline%>']
 			,external: ['<%=sources.jshint_external%>']
-			//,module_tests: ['<%=sources.jshint_module_test%>']
+			,module_tests: ['<%=sources.jshint_module_test%>']
 		}
 		,concat: {
 			inline_scripts: {
@@ -161,50 +188,54 @@ module.exports = function(grunt) {
 				,dest: '<%=destJs%>/inline.min.js'
 			},
 			external: {
-				src: '<%=destJs%>/external.js'
+				 src: '<%=destJs%>/external.js'
 				,dest: '<%=destJs%>/external.min.js'
 			}
 		}
 		,less: {
 			inline: {
 				options: {
-					// cssmin will not create file if the output is empty. a special comment fixes this.
-					banner: '/*! Inline style dependencies for page bootstrapping */'
+					 // cssmin will not create file if the output is empty. a special comment fixes this.
+					 banner: '/*! Inline style dependencies for page bootstrapping */'
+					,imports: {
+						reference: ['<%=tcInline%>/css/lib/reference/*.less']
+					}
 				}
 				,src: '<%=tmp%>/inline-imports.less'
 				,dest: '<%=destCss%>/inline.css'
-			},
-			external: {
+			}
+			,external: {
 				options: {
-					banner: "@static-prefix: '<%=staticUriPrefixCss%>';"
+					 banner: "@static-prefix: '<%=staticUriPrefixCss%>';"
+					,imports: {
+						reference: ['<%=tcBase%>/css/lib/reference/*.less']
+					}
 				}
 				,src: '<%=tmp%>/external-imports.less'
 				,dest: '<%=destCss%>/external.css'
 			}
-		},
-		cssmin: {
+		}
+		,cssmin: {
 			inline: {
-				files: {
-					'<%=destCss%>/inline.min.css': ['<%=destCss%>/inline.css']
-				}
+				 src: '<%=destCss%>/inline.css'
+				,dest: '<%=destCss%>/inline.min.css'
 			},
 			external: {
-				files: {
-					'<%=destCss%>/external.min.css': ['<%=destCss%>/external.css']
-				}
+				 src: '<%=destCss%>/external.css'
+				,dest: '<%=destCss%>/external.min.css'
 			}
 		}
 		,watch: {
 			sprites: {
-				files: ['<%=sources.sprites%>*.png', '<%=sources.sprites%>*.jpg']
+				files: ['<%=sources.sprites%>*.{png,jpg}']
 				,tasks: ['build-sprites', 'build-external-css']
 			},
 			inline_styles: {
-				files: ['<%=sources.inline_css%>']
+				files: ['<%=sources.inline_css%>', '<%=tcInline%>/css/lib/reference/*.less']
 				,tasks: ['build-inline-css']
 			},
 			external_styles: {
-				files: ['<%=sources.external_css%>']
+				files: ['<%=sources.external_css%>', '<%=tcBase%>/css/lib/reference/*.less']
 				,tasks: ['build-external-css']
 			}
 			,inline_scripts: {
@@ -224,13 +255,14 @@ module.exports = function(grunt) {
 
 	// get dependencies
 	grunt.loadNpmTasks('grunt-glue');
-	grunt.loadNpmTasks('assemble-less');
 	grunt.loadNpmTasks('grunt-less-imports');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('assemble-less');
 	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+
 
 	// create build tasks                            // use actual task name (first part before colon)!
 	grunt.registerTask('build-sprites',              ['glue']);
@@ -239,8 +271,8 @@ module.exports = function(grunt) {
 	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'uglify:external', 'jshint:external',]);
 	grunt.registerTask('build-inline-css',           ['less_imports:inline',   'less:inline',   'cssmin:inline']);
 	grunt.registerTask('build-external-css',         ['less_imports:external', 'less:external', 'cssmin:external']);
-	grunt.registerTask('build-module-tests',         [ 'concat:module_tests' /*, 'jshint:module_tests'*/]);
-	
+	grunt.registerTask('build-module-tests',         ['concat:module_tests' , 'jshint:module_tests']);
+
 	var defaultTask = [
 		 'build-sprites'
 		,'build-external-css'

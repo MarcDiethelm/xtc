@@ -1,9 +1,10 @@
 module.exports = function(app) {
 
-	var  path = require('path')
-		,utils = require('../app_modules/utils')
+	var  cfg = app.cfg
+		,path = require('path')
+		,utils = require(path.join(cfg.dirname, '/lib/utils.js'))
+		,fs = require('fs')
 		,docTitle = app.docTitle
-		,cfg = app.cfg
 	;
 
 	return {
@@ -13,9 +14,9 @@ module.exports = function(app) {
 		 */
 
 		_home: function(req, res, next) {
-			var overview = require(path.join(cfg.dirname, 'app_modules/overview.js'))(cfg);
+			var overview = require(path.join(cfg.dirname, 'lib/overview.js'))(cfg);
 
-			res.render('_app-home', {
+			res.render('_app-overview', {
 				 layout: false
 				,docTitle: docTitle('Components Overview')
 				,title: 'Components Overview'
@@ -41,9 +42,7 @@ module.exports = function(app) {
 		}
 
 		,_getModule: function(req, res, next) {
-			var context = {}
-				,key, val
-				,module = app.terrific.renderModule(
+			var module = app.terrific.renderModule(
 					app.locals,
 					{
 						 name: req.params.name
@@ -78,22 +77,89 @@ module.exports = function(app) {
 							html = error.web;
 						}
 						res.send(html);
-					});
+					}
+				);
 			}
 		}
 
+		,_getTemplate: function(req, res, next) {
+			res.locals(app.locals);
+			res.locals({
+				layout: false
+				,docTitle: docTitle('Template: '+ req.params.name)
+				,body: ''
+			});
+
+			app.hbs.render(path.join(cfg.paths.templates, req.params.name + '.hbs'), res.locals,
+				function(err, html) {
+					if (err) {
+						var error = utils.error('Unable to render the template', err);
+						console.error(error.c);
+						html = error.web;
+					}
+
+					'raw' in req.query
+						&& res.setHeader('Content-Type', 'text/plain');
+					
+					res.send(html);
+				}
+			);
+		}
+
+		,_getModuleTest: function(req, res, next) {
+			var test = req.query.url;
+
+			var output = ''
+				,modules = []
+			;
+			app.tests[test].forEach(function(options) {
+				output += app.terrific.renderModule(app.locals, options);
+				modules.push({
+					 name:      options.name
+					,template:  options.template
+					,skins:     options.skins
+					,connectors:options.connectors
+				})
+			});
+
+			res.locals(app.locals);
+			res.locals({
+				layout: false
+				,body: '<script>var xtc = {isTest: true, testModules: '+ JSON.stringify(modules) +'}</script>\n\n'+ output
+				 // Prevent initializing testing in the test frame by overwriting the handlebars helper 'test'.
+				,helpers: { test: null }
+			});
+
+			app.hbs.render(path.join(cfg.pathsAbsolute.templates, cfg.defaultTemplateName + '.hbs'), res.locals,
+				function(err, html) {
+					if (err) {
+						var error = utils.error('Unable to render the modules in the default template', err);
+						console.error(error.c);
+						html = error.web;
+					}
+					res.send(html);
+				}
+			);
+		}
+
+
 		 // Look for a view with the name supplied by the catch-all route
 		,_subPage: function(req, res, next) {
-			try {
-				res.render(req.params.pageName, {
-					 docTitle: docTitle(req.params.pageName)
-					,uri: req.originalUrl
-				});
-			} catch (e) {
-				if (e.message == 'missing path')
-					app.render404(req, res, next);
-				else next(e);
-			}
+			fs.exists(path.join(cfg.pathsAbsolute.views, req.params.pageName + '.hbs'), function(exists) {
+				if ( exists ) {
+					try {
+						res.render(req.params.pageName, {
+							 docTitle: docTitle(req.params.pageName)
+							,uri: req.originalUrl
+						});
+					} catch (e) {
+						return next(e);
+					}
+				}
+				else {
+					return app.render404(req, res, next);
+				}
+			});
 		}
 
 		/////////////////////////////////////////////////////////////////////
