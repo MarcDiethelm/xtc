@@ -1,7 +1,7 @@
 
-# 0.7.0 / develop
+# 0.7.0
 
-xxxx-xx-xx
+2013-09-18
 
  - Add option to allow bypassing auth for configurable IP ranges.
  - Renamed app_modules to lib.
