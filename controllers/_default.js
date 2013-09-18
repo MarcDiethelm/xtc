@@ -15,7 +15,7 @@ module.exports = function(app) {
 		_home: function(req, res, next) {
 			var overview = require(path.join(cfg.dirname, 'lib/overview.js'))(cfg);
 
-			res.render('_app-home', {
+			res.render('_app-overview', {
 				 layout: false
 				,docTitle: docTitle('Components Overview')
 				,title: 'Components Overview'
