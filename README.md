@@ -21,7 +21,7 @@ Express + Terrific + awesome = xtc
 - Frontend modularization with includes integrated on the server
 - Can be used for single page apps.
 - [Handlebars](http://handlebarsjs.com/) templates.
-- [LessCSS](http://lesscss.org/) (1.5.0-wip branch)
+- [LessCSS](http://lesscss.org/) 1.5.0-b3
 - Flexible automatic asset building using [Grunt.js](http://gruntjs.com/), with file watcher
 - External, inline (todo: and dynamically loaded assets)
 - Automatic testing of the current page (todo: test automation in multiple browsers, simultaneously)
@@ -30,6 +30,10 @@ Express + Terrific + awesome = xtc
 - Basic styles for wireframing
 - Ready for deploying to Heroku and Nodejitsu
 
+Want more features? There are more.
+
+- Easy to configure. (Almost) everything in one place.
+- Less @import (reference): Only includes what is actually used in your project. Great for libraries with mixins, helpers.
 
 ## Setup
 

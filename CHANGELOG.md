@@ -12,8 +12,8 @@ xxxx-xx-xx
  - Ready to deploy to Heroku using Strongloop.
  - Change skins directory name from 'skin' to 'skins'. Can be changed in config.
  - Module tests for the current page run in the browser.
- - Inline CSS folder's lib subfolder is replaced by vendor subfolder for 3rd-party styles.
- - Base CSS folder's lib subfolder now contains vendor subfolder for 3rd-party styles.
+ - Less files in `reference` folders are included with @import (reference): Only imports what is actually used.
+
 
 # 0.6.3
 

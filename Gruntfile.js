@@ -54,13 +54,12 @@ module.exports = function(grunt) {
 		
 		,sources: {
 			inline_css: [
-				 '<%=tcInline%>/css/vendor/*.{less,css}'
+				 '<%=tcInline%>/css/lib/*.{less,css}'
 				,'<%=tcInline%>/css/*.less'
 			]
 			,external_css: [
 				 '<%=tcBase%>/css/sprites/*.less'
-				,'<%=tcBase%>/css/lib/vendor/*.{less,css}'
-				,'<%=tcBase%>/css/lib/*.less'
+				,'<%=tcBase%>/css/lib/*.{less,css}'
 				,'<%=tcBase%>/css/elements/*.less'
 				,'<%=tcModules%>/*.less'
 				,'<%=tcModules%>/<%=skinsDirName%>/*.less'
@@ -196,18 +195,21 @@ module.exports = function(grunt) {
 		,less: {
 			inline: {
 				options: {
-					// cssmin will not create file if the output is empty. a special comment fixes this.
-					banner: '/*! Inline style dependencies for page bootstrapping */'
+					 // cssmin will not create file if the output is empty. a special comment fixes this.
+					 banner: '/*! Inline style dependencies for page bootstrapping */'
+					,imports: {
+						reference: ['<%=tcInline%>/css/lib/reference/*.less']
+					}
 				}
 				,src: '<%=tmp%>/inline-imports.less'
 				,dest: '<%=destCss%>/inline.css'
-			},
-			external: {
+			}
+			,external: {
 				options: {
-					banner: "@static-prefix: '<%=staticUriPrefixCss%>';"
-					/*variables: {
-						'static-prefix': '<%=staticUriPrefixCss%>'
-					}*/
+					 banner: "@static-prefix: '<%=staticUriPrefixCss%>';"
+					,imports: {
+						reference: ['<%=tcBase%>/css/lib/reference/*.less']
+					}
 				}
 				,src: '<%=tmp%>/external-imports.less'
 				,dest: '<%=destCss%>/external.css'
