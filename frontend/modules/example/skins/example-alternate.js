@@ -17,7 +17,7 @@
 			// calling parent method
 			parent.on(callback);
 
-			parent.$ctx.append('\n<br><span>JS skin &quot;Example.Alternate&quot; started</span>');
+			parent.$ctx.append('\n<br><span class="debug">JS skin &quot;Example.Alternate&quot; started</span>');
 		};
 
 		this.after = function() {

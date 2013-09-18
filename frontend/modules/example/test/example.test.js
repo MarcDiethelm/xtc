@@ -9,8 +9,13 @@ xtc.tests.Example = function(mod, options) {
 	});
 
 	test( 'Dummy', function() {
-
-		strictEqual( mod.$ctx.is('.skin-alternate'), false, 'Isn\'t CSS skin-alternate.' );
-		strictEqual( mod.$$('.debug').length, 1, 'Appends debug text.' );
+		
+		if (!mod.$ctx.is('.skin-example-alternate')) {
+			strictEqual( mod.$$('.debug').length, 1, 'Appends debug text.' );
+		}
+		else {
+			ok( mod.$ctx.is('.skin-example-alternate'), 'Is .skin-example-alternate.' );
+			strictEqual( mod.$$('.debug').length, 2, 'Appends debug texts.' );
+		}
 	});
 };

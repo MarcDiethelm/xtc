@@ -10,7 +10,6 @@ xtc.tests.BootstrapCarousel = function(mod, options) {
 
 	test( 'Dummy', function() {
 
-		strictEqual( mod.$ctx.is('.skin-alternate'), false, 'Isn\'t CSS skin-alternate.' );
 		strictEqual( mod.$$('.debug').length, 1, 'Appends debug text.' );
 	});
 };

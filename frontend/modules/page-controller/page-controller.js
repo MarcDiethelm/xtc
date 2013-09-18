@@ -31,7 +31,7 @@
 		 * @return void
 		 */
 		on: function(callback) {
-			this.$ctx.append('\n<span class="debug-pc">JS Module &quot;PageController&quot; started</span>');
+			this.$ctx.append('\n<span class="debug debug-pc">JS Module &quot;PageController&quot; started</span>');
 			callback();
 		},
 
