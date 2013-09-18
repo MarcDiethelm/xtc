@@ -13,27 +13,58 @@ Express + Terrific + awesome = xtc
 [![Build Status](https://travis-ci.org/MarcDiethelm/xtc.png?branch=master)](https://travis-ci.org/MarcDiethelm/xtc) master<br>
 [![Build Status](https://travis-ci.org/MarcDiethelm/xtc.png?branch=develop)](https://travis-ci.org/MarcDiethelm/xtc) develop
 
+## Table of Contents
+
+- [Features](#features)
+- [Setup](#setup)
+	- [Installing Node.js](#installing-node.js)
+	- [Installing Dependencies](#installing-dependencies)
+	- [Configuration](#configuration)
+	- [Asset Building: Grunt](#asset-building-grunt)
+	- [Start the Server: Grunt](#asset-building-grunt)
+	- [WebStorm / PHPStorm Users](#webstorm--phpstorm-users)
+- [Manual](#manual)
+	- [Naming Convention](#naming-convention)
+	- [Templates and Views](#templates-and-views)
+	- [Frontend Folder: Order matters](#frontend-folder-order-matters)
+	- [Terrific Modules](#terrific-modules)
+	- [Module Creation](#module-creation)
+	- [Module Testing](#module-testing)
+	- [Static Assets](#static-assets)
+	- [Development and Production Mode](#development-and-production-mode)
+	- [Building Sprites with Glue](#building-sprites-with-glue)
+	- [Build Customization](#build-customization)
+- [Template Development and Integration Into Other Backends](#template-development-and-integration-into-other-backends)
+- [Basic Authentication and Bypass for IP Ranges](#basic-authentication-and-bypass-for-ip-ranges)
+- [Framework Testing](#framework-testing)
+- [Differences to Terrific Composer](#differences-to-terrific-composer)
+- [What xtc does not do (yet)](#what-xtc-does-not-do-yet)
+
+
 
 ## Features
 
 
 - Light-weight, fast and hackable JavaScript backend
-- Frontend modularization with includes integrated on the server
-- Can be used for single page apps.
+- Frontend modularization, modules are included by the server.
+- Nice for single page apps.
 - [Handlebars](http://handlebarsjs.com/) templates.
 - [LessCSS](http://lesscss.org/) 1.5.0-b3
 - Flexible automatic asset building using [Grunt.js](http://gruntjs.com/), with file watcher
 - External, inline (todo: and dynamically loaded assets)
-- Automatic testing of the current page (todo: test automation in multiple browsers, simultaneously)
-- Project setup takes minutes
-- [Generators](#terrific-module-creation) for efficient and consistent (todo: project) and Terrific module creation.
-- Basic styles for wireframing
-- Ready for deploying to Heroku and Nodejitsu
+- [Automatic testing](#module-testing) of the current page (todo: test automation in multiple browsers, simultaneously)
+- Project setup takes minutes.
+- Interactive [generator](#terrific-module-creation) for modules, skins (todo: and projects).
+- Ready for deploying to Heroku and Nodejitsu.
 
 Want more features? There are more.
 
 - Easy to configure. (Almost) everything in one place.
+- The whole frontend is contained in one folder, called... frontend.
 - Less @import (reference): Only includes what is actually used in your project. Great for libraries with mixins, helpers.
+- Generated [project overview](#template-development-and-integration-into-other-backends) lists all views, modules and templates, with links to stand-alone, rendered source and repository.
+- Lazy routing: just create a new view and use its filename as the URI.
+- Basic styles for wireframing
 
 ## Setup
 
@@ -54,9 +85,9 @@ fine.
 <small>Windows users:  after installing reopen the CMD to get the updated path, so you can use npm.</small>
 
 
-### Node Modules dependencies
+### Installing Dependencies
 
-After that you can just do `npm install` in the project folder and all dependencies of the server part will be
+After that you can just do `npm install` in the project folder and all dependencies of the server will be
 installed. [NPM](https://npmjs.org/) is the [node package manager](https://npmjs.org/doc/cli/npm.html).
 
 
@@ -100,7 +131,7 @@ recompresses image files to a smaller size. You may have to manually symlink opt
 folder in your path).
 
 
-### Start the server!
+### Start the Server!
 
 Use a different terminal in your project folder (do you know `screen`?) and start the server with `node app.js`.
 
@@ -127,7 +158,7 @@ comment style to Handlebars comments once you have the plugin.
 - 'lib' folders are for any third-party code that we don't touch: libraries, jquery plugins
 
 
-### Templates and views
+### Templates and Views
 
 In xtc the distinction between views and templates is as follows:
 
@@ -142,9 +173,9 @@ In Express templates are called layouts.
 Terrific Modules too can define (multiple) templates for their own markup.
 
 
-### Terrific Folder: Order matters
+### Frontend Folder: Order matters
 
-A simple but important concept is to understand how the default folders in /frontend are included. Any files you throw
+A simple but important concept is to understand how the default folders in `/frontend` are included. Any files you throw
 in there are included and executed like so:
 
 - `_inline` folder: Any style or JS sources in here are available in the files `inline.js` and `inline.css`.
@@ -209,9 +240,10 @@ This is useful when creating markup-only modules in base layouts, e.g a HTML HEA
 think of it like using **a partial but using modules** instead of yet another mechanism.
 
 
-### Terrific Module Creation
+### Module Creation
 
-To create new Terrific modules you can conveniently use a [Yeoman](http://yeoman.io/index.html) generator. Install it with
+To create new Terrific modules there's a convenient [Yeoman](http://yeoman.io/index.html) generator called
+[generator-xtc](https://github.com/MarcDiethelm/generator-xtc). Install it with
 
 ```Shell
 npm install -g yo generator-xtc
@@ -229,7 +261,7 @@ in the project root folder. The module name can be added as the first argument.
 #### Skin Creation
 
 Terrific modules can be extended or 'decorated' with JS or CSS [skins](http://terrifically.org/api/skin/).
-To create a new module skin simply type
+To create a new module skin type
 
 ```Shell
 yo xtc:skin [name]
@@ -293,7 +325,7 @@ You can conditionally render markup using the environment block helper...
 ```
 
 
-### Building sprites with Glue
+### Building Sprites with Glue
 
 * todo: doc sprites generation with node-glue
 * todo: doc file locations and other options
@@ -302,13 +334,13 @@ You can conditionally render markup using the environment block helper...
 http://glue.readthedocs.org/en/latest/options.html
 
 
-### Build customization
+### Build Customization
 
 If you need more flexibility or a different feature, you can edit the `Gruntfile.js` where the build tasks are defined.
 With [Grunt](#asset-building-grunt) there's almost no limit to what you can do.
 
 
-## Template Development and Integration into other backends
+## Template Development and Integration Into Other Backends
 
 Node-terrific implements some features to help with template integration in different backend systems.
 
@@ -320,12 +352,12 @@ If you add the parameter `raw` to the URI, you get the pure HTML of that resourc
 	/_module/example?raw
 
 Adding the parameter `solo` to a view request, will skip any modules that have the attribute `isLayout="true"` on their
-include.
+include tag.
 
 	/_view/example?solo
 
 
-## Basic authentication and bypass for IP ranges
+## Basic Authentication and Bypass for IP Ranges
 
 Password protecting content couldn't be easier. To restrict access you add BasicAuth to the route that accesses the
 sensitive resource.
@@ -347,7 +379,7 @@ does instructs Express to trust the `X-FORWARDED-FOR` HTTP header typically adde
 forged however.
 
 
-## Tests
+## Framework Testing
 
 To run tests for xtc enter `npm test`. This will start the mocha test runner.
 
@@ -361,12 +393,12 @@ To run tests for xtc enter `npm test`. This will start the mocha test runner.
 ## What xtc does not do (yet)
 
 
-- shared logic to create correct state
+- Shared logic (client, server) to create correct state.
 - Dependency management
 - Code and template re-use between browser and server.
-- No client-side rendering is built in, so info below is out of context:
+- No client-side rendering is built in (yet), so info below is out of context:
 	- Initial rendering is done at the server, subsequent changes are rendered directly in the browser.
 	- 'Ajax crawling' support: non-JS clients can get a semantically sensible representation of any page URI.
 	- Handlebars templates precompilation
-- Easy appcache manifest generation through Grunt
-- database access from server and browser (not that it's difficult)
+- Easy appcache manifest generation with Grunt (Coming...)
+- Database access from server and browser (Not that it's difficult)
