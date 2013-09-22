@@ -6,6 +6,13 @@ xxxx-xx-xx
 
  - ...
 
+# 0.7.1
+
+xxxx-xx-xx
+
+ - Empty accidentally commited config-project.js, it was enabling sprites building which should be off by default.
+
+
 # 0.7.0
 
 2013-09-18
