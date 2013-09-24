@@ -10,7 +10,8 @@ xxxx-xx-xx
 
 xxxx-xx-xx
 
- - Empty accidentally commited config-project.js, it was enabling sprites building which should be off by default.
+ - Empty accidentally committed config-project.js, it was enabling sprites building which should be off by default.
+ - Fix asset paths for Windows.
 
 
 # 0.7.0
