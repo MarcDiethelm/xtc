@@ -1,4 +1,19 @@
 
+# 0.8.0 / develop
+
+xxxx-xx-xx
+
+ - ...
+
+
+# 0.7.1
+
+2013-09-25
+
+ - Empty accidentally committed config-project.js, it was enabling sprites building which should be off by default.
+ - Fix asset paths for Windows.
+
+
 # 0.7.0
 
 2013-09-18

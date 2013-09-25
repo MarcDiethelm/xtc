@@ -16,12 +16,14 @@ Express + Terrific + awesome = xtc
 ## Table of Contents
 
 - [Features](#features)
-- [Setup](#setup)
-	- [Installing Node.js](#installing-nodejs)
-	- [Installing Dependencies](#installing-dependencies)
+- [Installing Prerequisites](#installing-prerequisites)
+	- [Node.js](#nodejs)
+	- [Install xtc Dependencies](#install-xtc-dependencies)
+	- [Optional: Sprites](#optional-sprites)
+- [Project Setup](#project-setup)
 	- [Configuration](#configuration)
 	- [Asset Building: Grunt](#asset-building-grunt)
-	- [Start the Server](#asset-building-grunt)
+	- [Start the Server!](#asset-building-grunt)
 	- [WebStorm / PHPStorm Users](#webstorm--phpstorm-users)
 - [Manual](#manual)
 	- [Naming Convention](#naming-convention)
@@ -55,7 +57,7 @@ Express + Terrific + awesome = xtc
 - [Automatic testing](#module-testing) of the current page (todo: test automation in multiple browsers, simultaneously)
 - Project setup takes minutes.
 - Interactive [generator](#terrific-module-creation) for modules, skins (todo: and projects).
-- Ready for deploying to Heroku and Nodejitsu.
+- Ready for [deploying to Heroku](https://gist.github.com/MarcDiethelm/6321844) and Nodejitsu.
 
 Want more features? There are more.
 
@@ -67,37 +69,77 @@ Want more features? There are more.
 - Basic styles for wireframing.
 
 
-## Setup
+## Installing Prerequisites
+
+Like any framework xtc depends on some other software to run. Installing the dependencies is easy and quick however.
+And your next project will be able to use most functionality out of the box.
 
 
-### Installing Node.js
+### Node.js
 
-It is highly recommended that you use a Node version manager for two reasons: NVMs install Node binaries AND any
+Download the Node.js [installer](http://nodejs.org/) or use a node version manager.
+
+> It is recommended that you use a Node version manager for two reasons: NVMs install Node binaries AND any
 global node modules in a hidden folder in your home directory. No need to use sudo and mess with your system.
-Eventually you'll have multiple Node projects, depending on different versions of Node.js and
+Eventually you'll have multiple Node projects, possibly depending on different versions of Node.js and
 global modules. With nave you can create named environments in a snap.
 
-So, install [Nave](https://github.com/isaacs/nave) from Github and install the latest stable Node.js version with
+> So, install [Nave](https://github.com/isaacs/nave) from Github and install the latest stable Node.js version with
 `nave use stable`. Nave will open a new shell for you where `node` points to your user space install.
 
-However, strictly speaking you don't NEED a node version manager. Downloading the installer from the website will work
-fine.
+Strictly speaking you don't NEED a node version manager. Downloading the installer from the Node.js website will work
+just fine.
 
-<small>Windows users:  after installing reopen the CMD to get the updated path, so you can use npm.</small>
+#### Windows users
+
+<small>
+I highly recommend you use [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash) as your command
+line. The Windows cmd.exe is just too limited to be useful. Among other things you'll experience problems
+installing git dependncies with npm and Nave does not work in the cmd. 
+</small>
 
 
-### Installing Dependencies
+### Install xtc Dependencies
 
-After that you can just do `npm install` in the project folder and all dependencies of the server will be
-installed. [NPM](https://npmjs.org/) is the [node package manager](https://npmjs.org/doc/cli/npm.html).
+With the Node installation comes [NPM](https://npmjs.org/) the [node package manager](https://npmjs.org/doc/cli/npm.html).
+We'll use it to first install some command line tools that need to be installed globally:
+
+```Bash
+npm install -g grunt-cli yo generator-xtc
+```
+
+#### Optional: Sprites
+
+If you want to use the automatic sprites generation you need to also install Glue and OptiPNG.
+
+First make sure you have an up to date Python installation. Refer to the section "Properly Install Python" for your
+platform, [from the official guide](http://docs.python-guide.org/en/latest/index.html). Mostly you need Homebrew and Pip.
+After that, [install Glue](http://glue.readthedocs.org/en/latest/installation.html).
+
+It worked if you can `glue -v` to get the installed version.
+
+After that, [install OptiPNG](http://glue.readthedocs.org/en/latest/optipng.html). OptiPNG is a PNG optimizer that
+recompresses image files to a smaller size. You may have to manually symlink optipng into /usr/local/bin (or another
+folder in your path).
+
+
+## Project Setup
+
+Download [the latest xtc version](https://github.com/MarcDiethelm/xtc/archive/master.zip) and copy the files into your project folder.
+
+Now install all the local node modules that xtc needs to function. In the project folder execute 
+
+```Bash
+npm install
+```
 
 
 ### Configuration
 
-After cloning you should set up your configuration files in `_config`. 
+Set up your configuration in the folder  `_config`. 
 
 - `config-default.js` defines sensible defaults for all configurable properties.
-- `config-project.js` is where you configure your app.
+- **`config-project.js`** is where you configure your app, overriding defaults.
 - `config-secret.js` is for basic auth credentials, db authentication info, SSL certs and so on.
 - `config-local.js` is used to override a configuration locally for development.
 
@@ -111,25 +153,12 @@ deployed.
 
 ### Asset Building: Grunt
 
-Before you can start the server you need to generate the assets for the frontend. Use the terminal to install grunt-cli
-globally with `npm install -g grunt-cli`. Then in your project enter `grunt`. That's it.
+Before you can start the server you need to generate the assets for the frontend. You have already installed grunt-cli
+globally. Now in your project enter `grunt`. That's it.
 [Grunt](http://gruntjs.com/getting-started) will build your assets and also watch all your JS and Less/CSS source files
 as configured in [Gruntfile.js](http://gruntjs.com/sample-gruntfile). When you edit them it re-generates the assets
 automatically. You will have to restart Grunt for it to register
 [any files in new folders](https://github.com/gruntjs/grunt-contrib-watch/issues/70) though! (This will be fixed very soon.)
-
-If you want to use the automatic sprites generation there are some more steps on your todo list. You only need to do
-this once though. Your next project will be able to use the functionality out of the box.
-
-First make sure you have an up to date Python installation. Refer to the section "Properly Install Python" for your
-platform, [from the official guide](http://docs.python-guide.org/en/latest/index.html). Mostly you need Homebrew and Pip.
-After that, [install Glue](http://glue.readthedocs.org/en/latest/installation.html).
-
-It worked if you can `glue -v` to get the installed version.
-
-After that, [install OptiPNG](http://glue.readthedocs.org/en/latest/optipng.html). OptiPNG is a PNG optimizer that
-recompresses image files to a smaller size. You may have to manually symlink optipng into /usr/local/bin (or another
-folder in your path).
 
 
 ### Start the Server!
@@ -137,16 +166,17 @@ folder in your path).
 Use a different terminal in your project folder (do you know `screen`?) and start the server with `node app.js`.
 
 
-### WebStorm / PHPStorm Users
+#### WebStorm / PHPStorm Users
 
 There are some things you can do that will make development so much more easy:
 
 * You can run Grunt directly in the IDE. Any errors during asset parsing will be immediately pointed out to you. If you
 have the Command Line Tools plugin installed, open the Tools menu and select 'Run Command...'. Enter `grunt` in the
 input line. Just make sure you have installed Grunt CLI globally with `npm install -g grunt-cli`.
+(In WS 7 just the new terminal window.)
 * You can run/restart Node directly in the IDE. If you have the Node.js plugin installed create a Run configuration
 pointing to app.js. There's more than one way do get there. If in doubt refer to the documentation of your IDE.
-* Install the Handlebars/Mustache plugin. It will give you syntax highlighting for .hbs files. Also you can set the
+* Install the Handlebars/Mustache plugin (included in WS 7). It will give you syntax highlighting for .hbs files. Also you can set the
 comment style to Handlebars comments once you have the plugin.
 
 
@@ -243,7 +273,7 @@ This is useful when creating markup-only modules in base layouts, e.g a HTML HEA
 think of it like using **a partial but using modules** instead of yet another mechanism.
 
 
-### Module Creation
+#### Module Creation
 
 To create new Terrific modules there's a convenient [Yeoman](http://yeoman.io/index.html) generator called
 [generator-xtc](https://github.com/MarcDiethelm/generator-xtc). Install it with
@@ -261,7 +291,7 @@ yo xtc:module [name]
 in the project root folder. The module name can be added as the first argument.
 
 
-#### Skin Creation
+##### Skin Creation
 
 Terrific modules can be extended or 'decorated' with JS or CSS [skins](http://terrifically.org/api/skin/).
 To create a new module skin type
@@ -274,7 +304,7 @@ in the project root folder. The skin name can be added as the first argument. Yo
 create the skin for.
 
 
-### Module Testing
+#### Module Testing
 
 You can write client-side tests with [QUnit](http://qunitjs.com/) for your Terrific modules. When your working on a page
 on each refresh every module contained in the page has its tests run and the results printed to the console. This is
