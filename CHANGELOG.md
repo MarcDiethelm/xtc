@@ -2,7 +2,7 @@
 
 ## 0.7.2 — xxxx-xx-xx
 
-- ...
+- Connector attributes are handled as regular attributes since 0.7.0. Update and clean up tests, documentation and example.
 
 
 ## 0.7.1 — 2013-09-25
