@@ -67,6 +67,7 @@ Want more features? There are more.
 - Generated [project overview](#template-development-and-integration-into-other-backends) lists all views, modules and templates, with links to stand-alone, rendered source and repository.
 - Lazy routing: just create a new view and use its filename as the URI.
 - Basic styles for wireframing.
+- Filler text template helper [Hipsum.js](https://github.com/MarcDiethelm/Hipsum.js).
 
 
 ## Installing Prerequisites
@@ -203,6 +204,11 @@ the layout property or disabled altogether with `layout: false`. The view is inc
 In Express templates are called layouts.
 
 Terrific Modules too can define (multiple) templates for their own markup.
+
+#### Filler Text
+
+xtc includes [Hipsum.js](https://github.com/MarcDiethelm/Hipsum.js) so you can quickly generate filler text in your
+templates. Check out the documentation there if needed.
 
 
 ### Frontend Folder: Order matters
