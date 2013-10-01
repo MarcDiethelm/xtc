@@ -58,8 +58,8 @@ describe('terrific::renderModule', function() {
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-id.html');
 		assert.equal(actual, expected);
 	});
-	it('should render a basic module, with specified attributes', function() {
-		var actual = terrific.renderModule({}, { name: 'basic', id: 'unique', attributes: [{key: 'lang', value:'de-CH'}, {key:'data-1', value: "{'key': 'val'}"}] });
+	it('should render a basic module, with specified attributes, incl. data-connectors', function() {
+		var actual = terrific.renderModule({}, { name: 'basic', id: 'unique', attributes: [{key:'data-connectors', value:'stats, filter'}, {key:'lang', value:'de-CH'}, {key:'data-1', value: "{'key': 'val'}"}] });
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-attributes.html');
 		assert.equal(actual, expected);
 	});
@@ -71,11 +71,6 @@ describe('terrific::renderModule', function() {
 	it('should render a basic module, with injected data merged with context', function() {
 		var actual = terrific.renderModule({ fee: 100, foo: 'bar' }, { name: 'basic', data: {fee: 'fi', fo: 'fum'}, template: 'data' });
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-data.html');
-		assert.equal(actual, expected);
-	});
-	it('should render a basic module, with a data-connector attribute', function() {
-		var actual = terrific.renderModule({}, { name: 'basic', connectors: 'stats, filter' });
-		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-connectors.html');
 		assert.equal(actual, expected);
 	});
 	it('should render a basic module, with a nested module', function() {

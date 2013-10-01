@@ -1,6 +1,3 @@
-// Note: We're unnecessarily processing multiple, identical module instances if they exist.
-// However QUnit ignores 'QUnit modules' with a name that was already used.
-
 /*
 So this is working nicely. EXCEPT, we basically need to test in the same layout as the original view is rendered in.
 - How do we know which layout to use (we are listening to requests before other routes so they don't have to next anything)
@@ -128,10 +125,15 @@ So this is working nicely. EXCEPT, we basically need to test in the same layout 
 		}
 
 		,optionsToTestModuleName: function(options) {
-			var  template = options.template != options.name ? ',  Template: '+ options.template : ''
-				,skins = options.skins ? ',  Skins: '+ options.skins : ''
+			var  template   = options.template != options.name  ? ',  Template: '+ options.template : ''
+				,skins      = options.skins                     ? ',  Skins: '+ options.skins : ''
+				,connectors = options.connectors                ? ',  Connectors: '+ options.connectors : ''
 			;
-			return 'Module: ' + options.jsName + template + skins;
+			return 'Module: ' + options.jsName
+				+ template
+				+ skins
+				+ connectors
+			;
 		}
 
 		,runTests: function() {
