@@ -3,6 +3,8 @@
 ## 0.7.2 — xxxx-xx-xx
 
 - Connector attributes are handled as regular attributes since 0.7.0. Update and clean up tests, documentation and example.
+- Show connectors on test output, this results in correct grouping.
+- Make sure we don't test modules with identical options multiple times.
 
 
 ## 0.7.1 — 2013-09-25

@@ -111,15 +111,20 @@ module.exports = function(app) {
 
 			var output = ''
 				,modules = []
+				,done = {}// keep track of handled module, to skip modules with identical options.
 			;
 			app.tests[test].forEach(function(options) {
+				if (options.name+options.template+options.skins+options.connectors in done)
+					return;
+				
 				output += app.terrific.renderModule(app.locals, options);
 				modules.push({
 					 name:      options.name
 					,template:  options.template
 					,skins:     options.skins
 					,connectors:options.connectors
-				})
+				});
+				done[options.name+options.template+options.skins+options.connectors] = 1;
 			});
 
 			res.locals(app.locals);
