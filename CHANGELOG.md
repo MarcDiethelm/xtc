@@ -5,6 +5,7 @@
 - Connector attributes are handled as regular attributes since 0.7.0. Update and clean up tests, documentation and example.
 - Show connectors on test output, this results in correct grouping.
 - Make sure we don't test modules with identical options multiple times.
+- Adds missing sprites helper rule/file, presetting all sprites to inline-block.
 
 
 ## 0.7.1 — 2013-09-25

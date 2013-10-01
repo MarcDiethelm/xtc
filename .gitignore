@@ -2,6 +2,7 @@ config-secret.js
 config-local.js
 frontend/_public/dist/
 frontend/_base/css/sprites/*.less
+!frontend/_base/css/sprites/sprites-helper.less
 node_modules/
 .idea/
 __meta
