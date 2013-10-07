@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.7.2 — xxxx-xx-xx
+## 0.7.3 — 2013-10-07
+
+- Don't fail when rendering empty module. (With express3-handlebars we can now render empty templates without Handlebars complaining)
+
+## 0.7.2 — 2013-10-01
 
 - Connector attributes are handled as regular attributes since 0.7.0. Update and clean up tests, documentation and example.
 - Show connectors on test output, this results in correct grouping.
