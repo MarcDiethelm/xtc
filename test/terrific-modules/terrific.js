@@ -78,6 +78,11 @@ describe('terrific::renderModule', function() {
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-nested.html');
 		assert.equal(actual, expected);
 	});
+	it('should render an empty module', function() {
+		var actual = terrific.renderModule({}, { name: 'basic', template: 'empty' });
+		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-empty.html');
+		assert.equal(actual, expected);
+	});
 	it('should render an annotated module', function() {
 		config = require('../../lib/configure')
 			.merge('_config/', ['default'])
