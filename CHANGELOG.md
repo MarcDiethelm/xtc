@@ -2,12 +2,14 @@
 
 ## 0.7.4 — 2013-10-xx
 
-- Automatically serve favicon.ico from public folder
+- Automatically serve favicon.ico from public folder.
+- Load jQuery before inline JS.
+- Force Glue to always build sprites when sprite task runs. Get output from Glue if there were errors.
 
 
 ## 0.7.3 — 2013-10-07
 
-- Don't fail when rendering empty module. (With express3-handlebars we can now render empty templates without Handlebars complaining)
+- Don't fail when rendering empty module. (With express3-handlebars we can now render empty templates without Handlebars complaining.)
 
 
 ## 0.7.2 — 2013-10-01

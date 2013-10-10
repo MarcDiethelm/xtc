@@ -13,7 +13,9 @@ Express + Terrific + awesome = xtc
 [![Build Status](https://travis-ci.org/MarcDiethelm/xtc.png?branch=master)](https://travis-ci.org/MarcDiethelm/xtc) master<br>
 [![Build Status](https://travis-ci.org/MarcDiethelm/xtc.png?branch=develop)](https://travis-ci.org/MarcDiethelm/xtc) develop
 
+
 ## Table of Contents
+
 
 - [Features](#features)
 - [Installing Prerequisites](#installing-prerequisites)
@@ -42,6 +44,7 @@ Express + Terrific + awesome = xtc
 - [Framework Testing](#framework-testing)
 - [Differences to Terrific Composer](#differences-to-terrific-composer)
 - [What xtc does not do (yet)](#what-xtc-does-not-do-yet)
+- [Contributing](#contributing)
 
 
 ## Features
@@ -53,6 +56,7 @@ Express + Terrific + awesome = xtc
 - [Handlebars](http://handlebarsjs.com/) templates.
 - [LessCSS](https://github.com/less/less.js) 1.5.0-b3
 - Flexible automatic asset building using [Grunt.js](http://gruntjs.com/), with file watcher
+- Automated sprites generation
 - External, inline (todo: and dynamically loaded assets)
 - [Automatic testing](#module-testing) of the current page (todo: test automation in multiple browsers, simultaneously)
 - Project setup takes minutes.
@@ -63,13 +67,15 @@ Want more features? There are more.
 
 - Easy to configure. (Almost) everything in one place.
 - The whole frontend is contained in one folder, called... frontend.
-- Less @import (reference): Only includes what is actually used in your project. Great for libraries with mixins, helpers.
 - Generated [project overview](#template-development-and-integration-into-other-backends) lists all views, modules and templates, with links to stand-alone, rendered source and repository.
 - Lazy routing: just create a new view and use its filename as the URI.
 - Basic styles for wireframing.
+- Super-easy HTTP basic auth protection and access for IP ranges.
+- Less @import (reference): Only includes what is actually used in your project. Great for libraries with mixins, helpers.
 
 
 ## Installing Prerequisites
+
 
 Like any framework xtc depends on some other software to run. Installing the dependencies is easy and quick however.
 And your next project will be able to use most functionality out of the box.
@@ -95,7 +101,7 @@ just fine.
 <small>
 I highly recommend you use [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash) as your command
 line. The Windows cmd.exe is just too limited to be useful. Among other things you'll experience problems
-installing git dependncies with npm and Nave does not work in the cmd. 
+installing git dependencies with npm and Nave does not work in the cmd.
 </small>
 
 
@@ -127,7 +133,7 @@ folder in your path).
 
 Download [the latest xtc version](https://github.com/MarcDiethelm/xtc/archive/master.zip) and copy the files into your project folder.
 
-Now install all the local node modules that xtc needs to function. In the project folder execute 
+Now install all the local node modules that xtc needs to function. In the project folder execute
 
 ```Bash
 npm install
@@ -136,7 +142,7 @@ npm install
 
 ### Configuration
 
-Set up your configuration in the folder  `_config`. 
+Set up your configuration in the folder  `_config`.
 
 - `config-default.js` defines sensible defaults for all configurable properties.
 - **`config-project.js`** is where you configure your app, overriding defaults.
@@ -148,7 +154,8 @@ overriding default properties as needed.
 
 `config-secret.js` and `config-local.js` are listed in `.gitignore` and won't be committed to your repository.
 `config-local.js` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be
-deployed.
+deployed.  
+Make sure these two files are not tracked by git unless you know what you're doing.
 
 
 ### Asset Building: Grunt
@@ -158,7 +165,13 @@ globally. Now in your project enter `grunt`. That's it.
 [Grunt](http://gruntjs.com/getting-started) will build your assets and also watch all your JS and Less/CSS source files
 as configured in [Gruntfile.js](http://gruntjs.com/sample-gruntfile). When you edit them it re-generates the assets
 automatically. You will have to restart Grunt for it to register
-[any files in new folders](https://github.com/gruntjs/grunt-contrib-watch/issues/70) though! (This will be fixed very soon.)
+[any files in new folders](https://github.com/gruntjs/grunt-contrib-watch/issues/70) though! (This will be fixed
+eventually.)
+
+**Note:** The generated asset are not tracked by git as every developer must be able to create them on the fly.
+Committing the files would produce tedious merge conflicts.
+If you deploy your project using git do it from a branch where the assets are not ignored by git. (Just add a `!` before
+a rule in `.gitignore` to negate it.)
 
 
 ### Start the Server!
@@ -203,6 +216,11 @@ the layout property or disabled altogether with `layout: false`. The view is inc
 In Express templates are called layouts.
 
 Terrific Modules too can define (multiple) templates for their own markup.
+
+#### Filler Text
+
+xtc includes [Hipsum.js](https://github.com/MarcDiethelm/Hipsum.js) so you can quickly generate filler text in your
+templates. Check out the documentation there if needed.
 
 
 ### Frontend Folder: Order matters
@@ -369,7 +387,6 @@ You can conditionally render markup using the environment block helper...
 
 * todo: doc sprites generation with node-glue
 * todo: doc file locations and other options
-* todo: disable sprite generation in config.js (default)
 
 http://glue.readthedocs.org/en/latest/options.html
 
@@ -442,3 +459,28 @@ To run tests for xtc enter `npm test`. This will start the mocha test runner.
 	- Handlebars templates precompilation
 - Easy appcache manifest generation with Grunt (Coming...)
 - Database access from server and browser (Not that it's difficult)
+
+
+## Contributing
+
+If you want to contribute and make xtc better, your help is very welcome. Contributing is also a great way to learn
+more about social coding on Github, Node.js and its awesome ecosystem and how to make constructive bug reports, feature
+requests and the noblest of all contributions: clean pull requests.
+
+How to make a clean pull request
+
+- Create a fork of xtc on Github, clone the fork on your local machine. Your remote repo on Github is called `origin`.
+- Add the original xtc repository as a remote called `upstream`.
+- Create a new branch to work on!
+- Implement/fix your feature, comment your code.
+- Follow the code style of the framework. And use tabs.
+- Write or adapt framework tests as needed.
+- Add change the documentation as needed.
+- Squash your commits into one with git's interactive rebase. Use a new branch if necessary.
+- If you have problems doing any of this, ask (e.g. in the original issue on Github)
+- Push your branch to your fork on Github, the remote `origin`.
+- From your fork open a pull request in the correct branch. Target xtc's `develop` branch!
+- ...
+- Profit!
+- Once the pull request is approved and merged you can pull the changes from `upstream` to your local repo and delete
+your extra branch(es).
