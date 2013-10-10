@@ -104,7 +104,7 @@ module.exports = function(grunt) {
 			icons: {
 				src: '<%=sources.sprites%>'
 				//,dest: '<%=destSpritesCss%>/00-sprites.less'
-				,options: '--css=<%=destSpritesCss%> --img=<%=destSpritesImg%> --less --url=<%=staticUriPrefix%><%=baseDirName%> --namespace=s --sprite-namespace= --recursive --crop --optipng'
+				,options: '--css=<%=destSpritesCss%> --img=<%=destSpritesImg%> --less --url=<%=staticUriPrefix%><%=baseDirName%> --namespace=s --sprite-namespace= --recursive --crop --optipng --force --debug'
 			}
 		}
 		,less_imports: {
