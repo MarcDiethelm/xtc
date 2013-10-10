@@ -1,8 +1,14 @@
 # Changelog
 
+## 0.7.4 — 2013-10-xx
+
+- Automatically serve favicon.ico from public folder
+
+
 ## 0.7.3 — 2013-10-07
 
 - Don't fail when rendering empty module. (With express3-handlebars we can now render empty templates without Handlebars complaining)
+
 
 ## 0.7.2 — 2013-10-01
 
