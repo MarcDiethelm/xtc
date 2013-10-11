@@ -61,8 +61,8 @@ app.hbs = hbs;
 app.set('port', process.env.PORT || cfg.devPort);
 
 // Set up middlewares
+app.use(express.favicon(path.join(cfg.pathsAbsolute.staticBaseDir, 'favicon.ico')));
 app.use(express.logger('dev'));
-app.use(express.favicon());
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.compress());

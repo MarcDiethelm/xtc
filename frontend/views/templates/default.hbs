@@ -36,11 +36,11 @@
 		<hr>
 	</footer>
 
+	{{#env "production"}}<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>{{/env}}
+	{{#env "development"}}<script src="{{static.prefix}}/lib/jquery-1.10.2.js"></script>{{/env}}
 	<script>
 		{{inline "js"}}{{!-- inline js. the key is defined in config.js --}}
 	</script>
-	{{#env "production"}}<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>{{/env}}
-	{{#env "development"}}<script src="{{static.prefix}}/lib/jquery-1.10.2.js"></script>{{/env}}
 	<script src="{{static.build.js.external}}"></script>
 	{{test}}
 </body>
