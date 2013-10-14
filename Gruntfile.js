@@ -39,36 +39,36 @@ module.exports = function(grunt) {
 
 		pkg: grunt.file.readJSON('package.json')
 
-		,staticUriPrefix        : (cfg.staticUriPrefix || '') + '/'
-		,staticUriPrefixCss     : cfg.staticUriPrefix && cfg.staticUriPrefix + '/' || ''
+		,staticUriPrefix            : (cfg.staticUriPrefix || '') + '/'
+		,staticUriPrefixCss         : cfg.staticUriPrefix && cfg.staticUriPrefix + '/' || ''
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Sources base paths
 
-		,tcInline               : cfg.paths.inline
-		,tcBase                 : cfg.paths.base
-		,tcModules              : modulesPattern
-		,tcApplication          : cfg.paths.application
-		,staticDir              : cfg.paths.staticBaseDir
+		,tcInline                   : cfg.paths.inline
+		,tcBase                     : cfg.paths.base
+		,tcModules                  : modulesPattern
+		,tcApplication              : cfg.paths.application
+		,staticDir                  : cfg.paths.staticBaseDir
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Output destinations
 
-		,baseDirName            : cfg.static.build.baseDirName
-		,buildBaseDir           : buildBaseDir
-		,tmp                    : '<%=buildBaseDir%>/tmp'
-		,destJs                 : '<%=buildBaseDir%>'
-		,destCss                : '<%=buildBaseDir%>'
-		,destSpritesCss         : '<%=tcBase%>/css/sprites' // technically this should go in tmp, but we want the generated classes in our base css for easy lookup.
-		,destSpritesImg         : '<%=buildBaseDir%>'
+		,baseDirName                : cfg.static.build.baseDirName
+		,buildBaseDir               : buildBaseDir
+		,tmp                        : '<%=buildBaseDir%>/tmp'
+		,destJs                     : '<%=buildBaseDir%>'
+		,destCss                    : '<%=buildBaseDir%>'
+		,destSpritesCss             : '<%=tcBase%>/css/sprites' // technically this should go in tmp, but we want the generated classes in our base css for easy lookup.
+		,destSpritesImg             : '<%=buildBaseDir%>'
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Directory names
 
-		,skinsDirName           : cfg.skinsDirName
+		,skinsDirName               : cfg.skinsDirName
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -126,39 +126,40 @@ module.exports = function(grunt) {
 
 		,glue: {
 			icons: {
-				src: '<%=sources.sprites%>'
-				//,dest: '<%=destSpritesCss%>/00-sprites.less' // not implemented
-				,options: '--css=<%=destSpritesCss%> --img=<%=destSpritesImg%> --less --url=<%=staticUriPrefix%><%=baseDirName%> --namespace=s --sprite-namespace= --recursive --crop --optipng --force --debug'
+				src                 : '<%=sources.sprites%>'
+				//,dest             : '<%=destSpritesCss%>/00-sprites.less' // not implemented
+				,options:
+				'--css=<%=destSpritesCss%> --img=<%=destSpritesImg%> --less --url=<%=staticUriPrefix%><%=baseDirName%> --namespace=s --sprite-namespace= --recursive --crop --optipng --force --debug'
 			}
 		}
 
 		,less_imports: {
 			inline: {
-				 src: '<%=sources.inline_css%>'
-				,dest: '<%=tmp%>/inline-imports.less'
+				 src                : '<%=sources.inline_css%>'
+				,dest               : '<%=tmp%>/inline-imports.less'
 			},
 			external: {
 				options: {}
-				,src: '<%=sources.external_css%>'
-				,dest: '<%=tmp%>/external-imports.less'
+				,src                : '<%=sources.external_css%>'
+				,dest               : '<%=tmp%>/external-imports.less'
 			}
 		}
 
 		,concat: {
 			inline_scripts: {
 				options: {
-					banner: '/*! Inline script dependencies for page bootstrapping */\n'
+					banner          : '/*! Inline script dependencies for page bootstrapping */\n'
 				}
-				,src: '<%=sources.inline_js%>'
-				,dest: '<%=destJs%>/inline.js'
+				,src                : '<%=sources.inline_js%>'
+				,dest               : '<%=destJs%>/inline.js'
 			}
 			,external_scripts: {
-				 src: '<%=sources.external_js%>'
-				,dest: '<%=destJs%>/external.js'
+				 src                : '<%=sources.external_js%>'
+				,dest               : '<%=destJs%>/external.js'
 			}
 			,module_tests: {
-				 src: '<%=sources.module_test_js%>'
-				,dest: '<%=destJs%>/test.js'
+				 src                : '<%=sources.module_test_js%>'
+				,dest               : '<%=destJs%>/test.js'
 			}
 		}
 
@@ -167,79 +168,79 @@ module.exports = function(grunt) {
 				options: {
 					preserveComments: 'some'
 				}
-				,src: '<%=destJs%>/inline.js'
-				,dest: '<%=destJs%>/inline.min.js'
+				,src                : '<%=destJs%>/inline.js'
+				,dest               : '<%=destJs%>/inline.min.js'
 			},
 			external: {
-				 src: '<%=destJs%>/external.js'
-				,dest: '<%=destJs%>/external.min.js'
+				 src                : '<%=destJs%>/external.js'
+				,dest               : '<%=destJs%>/external.min.js'
 			}
 		}
 
 		,less: {
 			inline: {
 				options: {
-					 // cssmin will not create file if the output is empty. a special comment fixes this.
-					 banner: '/*! Inline style dependencies for page bootstrapping */'
+					                // cssmin will not create file if the output is empty. a special comment fixes this.
+					 banner         : '/*! Inline style dependencies for page bootstrapping */'
 					,imports: {
-						reference: ['<%=tcInline%>/css/lib/reference/*.less']
+						reference   : ['<%=tcInline%>/css/lib/reference/*.less']
 					}
 				}
-				,src: '<%=tmp%>/inline-imports.less'
-				,dest: '<%=destCss%>/inline.css'
+				,src                : '<%=tmp%>/inline-imports.less'
+				,dest               : '<%=destCss%>/inline.css'
 			}
 			,external: {
 				options: {
-					 banner: "@static-prefix: '<%=staticUriPrefixCss%>';"
+					 banner         : "@static-prefix: '<%=staticUriPrefixCss%>';"
 					,imports: {
-						reference: ['<%=tcBase%>/css/lib/reference/*.less']
+						reference   : ['<%=tcBase%>/css/lib/reference/*.less']
 					}
 				}
-				,src: '<%=tmp%>/external-imports.less'
-				,dest: '<%=destCss%>/external.css'
+				,src                : '<%=tmp%>/external-imports.less'
+				,dest               : '<%=destCss%>/external.css'
 			}
 		}
 
 		,cssmin: {
 			inline: {
-				 src: '<%=destCss%>/inline.css'
-				,dest: '<%=destCss%>/inline.min.css'
+				 src                : '<%=destCss%>/inline.css'
+				,dest               : '<%=destCss%>/inline.min.css'
 			},
 			external: {
-				 src: '<%=destCss%>/external.css'
-				,dest: '<%=destCss%>/external.min.css'
+				 src                : '<%=destCss%>/external.css'
+				,dest               : '<%=destCss%>/external.min.css'
 			}
 		}
 
 		,jshint: {
 			options: {
 				// report but don't fail
-				force: true
+				force               : true
 				// enforce
-				,latedef: true
-				,undef: true
+				,latedef            : true
+				,undef              : true
 				//relax
-				,laxcomma: true
-				,smarttabs: true
-				,expr: true
-				,asi: true
-				,loopfunc: true
-				,nonew: true
+				,laxcomma           : true
+				,smarttabs          : true
+				,expr               : true
+				,asi                : true
+				,loopfunc           : true
+				,nonew              : true
 				// environment
-				,browser: true
-				,jquery: true
+				,browser            : true
+				,jquery             : true
 				,globals: {
-					$: true
-					,Tc: true
-					,xtc: true
+					$               : true
+					,Tc             : true
+					,xtc            : true
 					// Lawg
-					,log: true
-					,dir: true
-					,info: true
-					,debug: true
-					,warn: true
-					,error: true
-					,table: true
+					,log            : true
+					,dir            : true
+					,info           : true
+					,debug          : true
+					,warn           : true
+					,error          : true
+					,table          : true
 					// QUnit ಠ_ಠ
 					,asyncTest      : true
 					,deepEqual      : true
@@ -258,35 +259,35 @@ module.exports = function(grunt) {
 					,test           : true
 				}
 			}
-			,inline: ['<%=sources.jshint_inline%>']
-			,external: ['<%=sources.jshint_external%>']
-			,module_tests: ['<%=sources.jshint_module_test%>']
+			,inline                 : ['<%=sources.jshint_inline%>']
+			,external               : ['<%=sources.jshint_external%>']
+			,module_tests           : ['<%=sources.jshint_module_test%>']
 		}
 
 		,watch: {
 			sprites: {
-				files: ['<%=sources.sprites%>*.{png,jpg}']
-				,tasks: ['build-sprites', 'build-external-css']
+				 files              : ['<%=sources.sprites%>*.{png,jpg}']
+				,tasks              : ['build-sprites', 'build-external-css']
 			},
 			inline_styles: {
-				files: ['<%=sources.inline_css%>', '<%=tcInline%>/css/lib/reference/*.less']
-				,tasks: ['build-inline-css']
+				 files              : ['<%=sources.inline_css%>', '<%=tcInline%>/css/lib/reference/*.less']
+				,tasks              : ['build-inline-css']
 			},
 			external_styles: {
-				files: ['<%=sources.external_css%>', '<%=tcBase%>/css/lib/reference/*.less']
-				,tasks: ['build-external-css']
+				 files              : ['<%=sources.external_css%>', '<%=tcBase%>/css/lib/reference/*.less']
+				,tasks              : ['build-external-css']
 			}
 			,inline_scripts: {
-				files: ['<%=sources.inline_js%>']
-				,tasks: ['build-inline-js']
+				 files              : ['<%=sources.inline_js%>']
+				,tasks              : ['build-inline-js']
 			}
 			,external_scripts: {
-				files: ['<%=sources.external_js%>']
-				,tasks: ['build-external-js']
+				 files              : ['<%=sources.external_js%>']
+				,tasks              : ['build-external-js']
 			}
 			,module_tests: {
-				files: ['<%=sources.module_test_js%>']
-				,tasks: ['build-module-tests']
+				 files              : ['<%=sources.module_test_js%>']
+				,tasks              : ['build-module-tests']
 			}
 		}
 	});
