@@ -233,6 +233,7 @@ module.exports = function(grunt) {
 					$               : true
 					,Tc             : true
 					,xtc            : true
+					,console        : true
 					// Lawg
 					,log            : true
 					,dir            : true
