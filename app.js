@@ -62,8 +62,10 @@ app.set('port', process.env.PORT || cfg.devPort);
 
 // Set up middlewares. see http://expressjs.com/api.html#middleware and http://www.senchalabs.org/connect/
 app.use(express.favicon(path.join(cfg.pathsAbsolute.staticBaseDir, 'favicon.ico')));
-app.use(express.bodyParser());
 app.use(express.logger( 'development' == app.get('env') && 'dev' )); // Abbreviated logging for development
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.multipart()); // Security tip: Disable this if you don't need file upload.
 app.use(express.methodOverride());
 app.use(express.compress());
 app.use(cfg.staticUriPrefix, express.static(cfg.pathsAbsolute.staticBaseDir));
