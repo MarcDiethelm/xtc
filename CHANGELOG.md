@@ -3,6 +3,7 @@
 ## develop branch (0.8.0)
 
 - Use Hipsum.js for easy filler text. Available in development and production installations.
+- Full logging in production, including date and user agent.
 
 ## 0.7.4 — 2013-10-11
 

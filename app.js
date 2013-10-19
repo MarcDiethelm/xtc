@@ -60,10 +60,10 @@ app.hbs = hbs;
 // Store the port in the settings (Why?)
 app.set('port', process.env.PORT || cfg.devPort);
 
-// Set up middlewares
+// Set up middlewares. see http://expressjs.com/api.html#middleware and http://www.senchalabs.org/connect/
 app.use(express.favicon(path.join(cfg.pathsAbsolute.staticBaseDir, 'favicon.ico')));
-app.use(express.logger('dev'));
 app.use(express.bodyParser());
+app.use(express.logger( 'development' == app.get('env') && 'dev' )); // Abbreviated logging for development
 app.use(express.methodOverride());
 app.use(express.compress());
 app.use(cfg.staticUriPrefix, express.static(cfg.pathsAbsolute.staticBaseDir));
