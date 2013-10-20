@@ -40,7 +40,7 @@ app.docTitle = helpers.docTitle;
 app.authBasic = helpers.authBasic;
 
 // Create a configured express3-handlebars instance with our Handlebars template helpers
-handlebarsHelpers = helpers.getHandlebarsHelpers();
+handlebarsHelpers = require('./lib/helpers-handlebars.js')(cfg);
 handlebarsHelpers.mod = app.terrific.modHelper;
 hbs = exphbs.create({
 	 layoutsDir: cfg.paths.templates

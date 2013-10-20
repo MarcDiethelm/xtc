@@ -5,6 +5,15 @@
 - Use Hipsum.js for easy filler text. Available in development and production installations.
 - Full logging in production, including date and user agent.
 
+
+## 0.7.5 — 2013-10-20
+
+- Make Handlebars helpers available in Terrific modules.
+- Refactored Handlebars helpers to a separate node module.
+- Add `log` Handlebars helper, delegating to `console.log`.
+- Improved sprites helper selector.
+
+
 ## 0.7.4 — 2013-10-11
 
 - Automatically serve favicon.ico from public folder.
