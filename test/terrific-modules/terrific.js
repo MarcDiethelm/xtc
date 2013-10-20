@@ -83,6 +83,12 @@ describe('terrific::renderModule', function() {
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-empty.html');
 		assert.equal(actual, expected);
 	});
+	it('should provide Handlebars helpers in module', function() {
+		var actual = terrific.renderModule({}, { name: 'basic', template: 'helper' });
+		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-helper.html');
+		assert.equal(actual, expected);
+	});
+	// Annotations enabled...
 	it('should render an annotated module', function() {
 		config = require('../../lib/configure')
 			.merge('_config/', ['default'])
