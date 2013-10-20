@@ -11,6 +11,7 @@
 - Make Handlebars helpers available in Terrific modules.
 - Refactored Handlebars helpers to a separate node module.
 - Add `log` Handlebars helper, delegating to `console.log`.
+- Improved sprites helper selector.
 
 
 ## 0.7.4 — 2013-10-11
