@@ -9,6 +9,7 @@
 ## 0.7.6 — 2013-10-xx
 
 - Data injected on module call changed context upstream for following calls.
+- When there's a module rendering problem, present a more useful error than the Handlebars default.
 
 
 ## 0.7.5 — 2013-10-20
