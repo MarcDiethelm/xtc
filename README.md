@@ -154,7 +154,7 @@ overriding default properties as needed.
 
 `config-secret.js` and `config-local.js` are listed in `.gitignore` and won't be committed to your repository.
 `config-local.js` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be
-deployed.  
+deployed.
 Make sure these two files are not tracked by git unless you know what you're doing.
 
 
@@ -341,8 +341,10 @@ might need to be integrated.
 The URIs to your static assets are all available under the `static` variable in your templates:
 
 ```JavaScript
+// prefixes
 static.prefix // The base URI to the static assets
 static.img // The base URI to your images
+// full URIs
 static.build.js.external // The URI to the generated main JS file
 static.build.css.external // The URI to the generated main CSS file
 ```
@@ -351,6 +353,16 @@ The static prefix URI is available in your LessCSS files as the variable
 
 ```Less
 @static-prefix
+```
+
+You should always use a slash after a prefix variable.
+
+```Handlebars
+<script src="{{static.prefix}}/lib/jquery-1.10.2.js"></script>
+```
+
+```Less
+background-image: url("@{static-prefix}/img/bg.png");
 ```
 
 Inline assets are available through a template helper, like so
