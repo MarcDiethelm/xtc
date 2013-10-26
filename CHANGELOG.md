@@ -9,6 +9,7 @@
 ## 0.7.6 — 2013-10-xx
 
 - Data injected on module call changed context upstream for following calls.
+- If static URI prefix was not an empty string it was followed by a double slash in generated CSS.
 - When there's a module rendering problem, present a more useful error than the Handlebars default.
 
 

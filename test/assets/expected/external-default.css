@@ -1,0 +1,49 @@
+.base-lib1 {
+  /* .css */
+  display: table;
+}
+.base-lib2-included {
+  display: inline;
+}
+.base1 {
+  /* mixin from base-vendor-lib1 */
+  display: table;
+  /* mixin from base-lib2 */
+  margin: 0;
+  background-image: url("/img/acme.png");
+}
+/**
+ * module: module1
+ * creator: mdiethelm
+ */
+.mod-module1 {
+  display: block;
+}
+/* END module: module1 */
+/**
+ * module: module2
+ * creator: mdiethelm
+ */
+.mod-module2 {
+  display: block;
+}
+/* END module: module2 */
+/**
+ * skin: skin1, extends module: module1
+ * creator: mdiethelm
+ */
+.skin-module1-skin1 {
+  display: inline-block;
+}
+/* END skin: skin1, extends module: module1 */
+/**
+ * skin: skin1, extends module: module2
+ * creator: mdiethelm
+ */
+.skin-module2-skin1 {
+  display: inline-block;
+}
+/* END skin: skin1, extends module: module2 */
+.application1 {
+  display: list-item;
+}
