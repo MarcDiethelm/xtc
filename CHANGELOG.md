@@ -6,6 +6,11 @@
 - Full logging in production, including date and user agent.
 
 
+## 0.7.6 — 2013-10-xx
+
+- Data injected on module call changed context upstream for following calls.
+
+
 ## 0.7.5 — 2013-10-20
 
 - Make Handlebars helpers available in Terrific modules.

@@ -69,13 +69,18 @@ describe('terrific::renderModule', function() {
 		assert.equal(actual, expected);
 	});
 	it('should render a basic module, with injected data merged with context', function() {
-		var actual = terrific.renderModule({ fee: 100, foo: 'bar' }, { name: 'basic', data: {fee: 'fi', fo: 'fum'}, template: 'data' });
+		var actual = terrific.renderModule({ a: 'a-ctx', b: 'b-ctx' }, { name: 'basic', template: 'data', data: {a: 'a-mod', c: 'c-mod'} });
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-data.html');
 		assert.equal(actual, expected);
 	});
 	it('should render a basic module, with a nested module', function() {
-		var actual = terrific.renderModule({}, { name: 'basic', template: 'nested' });
+		var actual = terrific.renderModule({ fee: 100, foo: 'bar' }, { name: 'basic', template: 'nested', data: {fee: 'fi', fo: 'fum'} });
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-nested.html');
+		assert.equal(actual, expected);
+	});
+	it('should render a nested modules with data', function() {
+		var actual = terrific.renderModule({ a: 'a-ctx', b: 'b-ctx', c: 'c-ctx' }, { name: 'basic', template: 'nested-data', data: {a: 'a-mod1', b: 'b-mod1'} });
+		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-nested-data.html');
 		assert.equal(actual, expected);
 	});
 	it('should render an empty module', function() {
