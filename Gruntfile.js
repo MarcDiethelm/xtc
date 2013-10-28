@@ -40,7 +40,7 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json')
 
 		,staticUriPrefix            : (cfg.staticUriPrefix || '') + '/'
-		,staticUriPrefixCss         : cfg.staticUriPrefix && cfg.staticUriPrefix + '/' || ''
+		,staticUriPrefixCss         : cfg.staticUriPrefix
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////

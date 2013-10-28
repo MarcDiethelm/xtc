@@ -36,7 +36,7 @@ module.exports = {
 	// relative to templateBaseDir
 	,defaultTemplateName:   'default'
 	,moduleDirName:         '{{name}}'
-	,skinsDirName:         'skins'
+	,skinsDirName:          'skins'
 
 	// URIs for use in templates are constructed from the following data
 		// URI prefix for static assets, e.g. '/static', empty string for none

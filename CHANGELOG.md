@@ -6,6 +6,14 @@
 - Full logging in production, including date and user agent.
 
 
+## 0.7.6 — 2013-10-28
+
+- Data injected on module call changed context upstream for following calls.
+- If static URI prefix was not an empty string it was followed by a double slash in generated CSS.
+- If static URI prefix was not an empty string there was no leading slash in rendered HTML.
+- When there's a module rendering problem, present a more useful error than the Handlebars default.
+
+
 ## 0.7.5 — 2013-10-20
 
 - Make Handlebars helpers available in Terrific modules.

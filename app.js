@@ -84,6 +84,6 @@ app.use(app.render404);
 module.exports = app;
 if (!module.parent) { // if parent exists we are in testing mode
 	http.createServer(app).listen(app.get('port'), function() {
-		console.log('listening on port %d', app.get('port'));
+		console.log('listening on port %d\n', app.get('port'));
 	});
 }
