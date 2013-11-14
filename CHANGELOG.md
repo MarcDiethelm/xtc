@@ -3,6 +3,7 @@
 ## develop branch (0.8.0)
 
 - Use Hipsum.js for easy filler text. Available in development and production installations.
+- Use grunt-glue-nu for improved glue spriting the grunt way
 - Full logging in production, including date and user agent.
 
 

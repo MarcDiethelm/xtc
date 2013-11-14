@@ -400,11 +400,16 @@ You can conditionally render markup using the environment block helper...
 
 ### Building Sprites with Glue
 
-* todo: doc sprites generation with node-glue
-* todo: doc file locations and other options
-* todo: disable sprite generation in config.js (default)
+xtc allows you to automate the generation of sprite sheets and their associated styles. This functionality depends on
+the powerful [Glue](https://github.com/jorgebastida/glue) command line tool written in Python. Because of that sprites
+building is not enabled by default. To enable it you need to [install Glue on your system](asset-building-grunt) first
+and set the pref like this: `enableSpritesBuilding: true`
 
-http://glue.readthedocs.org/en/latest/options.html
+The standard location for your sprites is in `frontend/base/css/sprites`. If you have sprites that are unique to a
+module you can put them in a `sprites` folder inside the module.
+
+xtc uses [grunt-glue-nu](https://github.com/MarcDiethelm/grunt-glue-nu) to execute and enhance Glue. If you edit the
+Gruntfile.js you have almost total freedom to build your sprite bundles exactly as you want them.
 
 
 ### Build Customization

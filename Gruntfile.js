@@ -48,6 +48,7 @@ module.exports = function(grunt) {
 
 		,tcInline                   : cfg.paths.inline
 		,tcBase                     : cfg.paths.base
+		,spritesDir                 : '<%=tcBase%>/css/sprites'
 		,tcModules                  : modulesPattern
 		,tcApplication              : cfg.paths.application
 		,staticDir                  : cfg.paths.staticBaseDir
@@ -61,7 +62,7 @@ module.exports = function(grunt) {
 		,tmp                        : '<%=buildBaseDir%>/tmp'
 		,destJs                     : '<%=buildBaseDir%>'
 		,destCss                    : '<%=buildBaseDir%>'
-		,destSpritesCss             : '<%=tcBase%>/css/sprites' // technically this should go in tmp, but we want the generated classes in our base css for easy lookup.
+		,destSpritesCss             : '<%=spritesDir%>' // technically this should go in tmp, but we want the generated classes in our base css for easy lookup.
 		,destSpritesImg             : '<%=buildBaseDir%>'
 
 
@@ -114,9 +115,9 @@ module.exports = function(grunt) {
 				 '<%=staticDir%>/_static/test/*.js'
 				,'<%=tcModules%>/test/*.js'
 			]
-			,sprites: [
-				'<%=tcBase%>/css/sprites/'
-				//,'<%=tcModules%>/sprites/' // not implemented
+			,sprites_watch: [
+				 '<%=spritesDir%>/**/*.{png|jpg|conf}'
+				,'<%=tcModules%>/sprites/*.{png|jpg|conf}'
 			]
 		}
 
@@ -125,11 +126,19 @@ module.exports = function(grunt) {
 		// Configure Grunt plugins
 
 		,glue: {
-			icons: {
-				src                 : '<%=sources.sprites%>'
-				//,dest             : '<%=destSpritesCss%>/00-sprites.less' // not implemented
-				,options:
-				'--css=<%=destSpritesCss%> --img=<%=destSpritesImg%> --less --url=<%=staticUriPrefix%><%=baseDirName%> --namespace=s --sprite-namespace= --recursive --crop --optipng --force --debug'
+			// see: https://github.com/MarcDiethelm/grunt-glue-nu
+			options: {
+				 css                : '<%=destSpritesCss%>'
+				,less               : true
+				,url                : '<%=staticUriPrefix%><%=baseDirName%>'
+				,namespace          : 's'
+				,'sprite-namespace' : ''
+				,optipng            : true
+			}
+			,sprites: {
+				options: {}
+				,src                : ['<%=spritesDir%>/misc', '<%=tcModules%>/sprites']
+				,dest               : '<%=buildBaseDir%>'
 			}
 		}
 
@@ -267,7 +276,7 @@ module.exports = function(grunt) {
 
 		,watch: {
 			sprites: {
-				 files              : ['<%=sources.sprites%>*.{png,jpg}']
+				 files              : ['<%=sources.sprites_watch%>']
 				,tasks              : ['build-sprites', 'build-external-css']
 			},
 			inline_styles: {
@@ -326,7 +335,7 @@ module.exports = function(grunt) {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Load grunt plugins
 
-	grunt.loadNpmTasks('grunt-glue');
+	grunt.loadNpmTasks('grunt-glue-nu');
 	grunt.loadNpmTasks('grunt-less-imports');
 	grunt.loadNpmTasks('assemble-less');
 	grunt.loadNpmTasks('grunt-contrib-concat');
