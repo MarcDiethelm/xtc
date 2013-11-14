@@ -145,8 +145,8 @@ npm install
 
 Set up your configuration in the folder  `_config`.
 
-- `config-default.js` defines sensible defaults for all configurable properties.
-- **`config-project.js`** is where you configure your app, overriding defaults.
+- `config-default.js` defines sensible defaults for all configurable properties. Don't edit it.
+- **`config-project.js`** is where you configure your app, overriding the defaults.
 - `config-secret.js` is for basic auth credentials, db authentication info, SSL certs and so on.
 - `config-local.js` is used to override a configuration locally for development.
 
@@ -200,7 +200,7 @@ comment style to Handlebars comments once you have the plugin.
 ### Naming Convention
 
 - use - (hyphen) for pretty much everything: module names, skins, template files
-- 'lib' folders are for any third-party code that we don't touch: libraries, jquery plugins
+- 'lib' folders are for any third-party code that we don't touch: libraries, jquery plugins. Use unminified files.
 - Files that start with an underscore are resources required for xtc's functionality.
 
 
@@ -477,23 +477,23 @@ To run tests for xtc enter `npm test`. This will start the mocha test runner.
 ## Contributing
 
 If you want to contribute and make xtc better, your help is very welcome. Contributing is also a great way to learn
-more about social coding on Github, Node.js and its awesome ecosystem and how to make constructive bug reports, feature
-requests and the noblest of all contributions: clean pull requests.
+more about social coding on Github, Node.js and its awesome ecosystem and how to make constructive, helpful bug reports,
+feature requests and the noblest of all contributions: a good, clean pull request.
 
 How to make a clean pull request
 
-- Create a fork of xtc on Github, clone the fork on your local machine. Your remote repo on Github is called `origin`.
+- Create a your personal fork of xtc on Github.
+- Clone the fork on your local machine. Your remote repo on Github is called `origin`.
 - Add the original xtc repository as a remote called `upstream`.
 - Create a new branch to work on!
 - Implement/fix your feature, comment your code.
 - Follow the code style of the framework. And use tabs.
 - Write or adapt framework tests as needed.
-- Add change the documentation as needed.
-- Squash your commits into one with git's interactive rebase. Use a new branch if necessary.
+- Add or change the documentation as needed.
+- Squash your commits into a single commit with git's [interactive rebase](https://help.github.com/articles/interactive-rebase). Create a new branch if necessary.
 - If you have problems doing any of this, ask (e.g. in the original issue on Github)
 - Push your branch to your fork on Github, the remote `origin`.
 - From your fork open a pull request in the correct branch. Target xtc's `develop` branch!
 - ...
-- Profit!
 - Once the pull request is approved and merged you can pull the changes from `upstream` to your local repo and delete
 your extra branch(es).
