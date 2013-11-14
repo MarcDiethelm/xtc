@@ -70,6 +70,7 @@ Want more features? There are more.
 - Less @import (reference): Only includes what is actually used in your project. Great for libraries with mixins, helpers.
 - Generated [project overview](#template-development-and-integration-into-other-backends) lists all views, modules and templates, with links to stand-alone, rendered source and repository.
 - Lazy routing: just create a new view and use its filename as the URI.
+- Helpful, friendly error messages if you do something wrong.
 - Basic styles for wireframing.
 - Filler text template helper [Hipsum.js](https://github.com/MarcDiethelm/Hipsum.js).
 - Super-easy HTTP basic auth protection and access for IP ranges.

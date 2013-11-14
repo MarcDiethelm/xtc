@@ -4,7 +4,13 @@ module.exports = function(app) {
 		,path = require('path')
 		,utils = require(path.join(cfg.dirname, '/lib/utils.js'))
 		,fs = require('fs')
+		,utils = require('../lib/utils')
 		,docTitle = app.docTitle
+		// for useful error message when an asset is not found
+		,assetUriPrefix = cfg.staticUriPrefix + '/' + cfg.static.build.baseDirName +'/'
+		,cssUri = assetUriPrefix + cfg.static.build.css.external.development
+		,jsUri  = assetUriPrefix + cfg.static.build.js.external.development
+		,assetsRegExp = new RegExp(cssUri +'|'+ jsUri);
 	;
 
 	return {
@@ -171,14 +177,31 @@ module.exports = function(app) {
 
 		// If no Express middleware sends a response before, this middleware is finally called.
 		,render404: function(req, res, next) {
-			res.status(404)
-				.render(
-				'404'
-				,{
-					 docTitle: docTitle('404')
-					,uri: req.originalUrl
-				}
-			);
+
+			var isAssetUri = assetsRegExp.test(req.url)
+				,err
+			;
+
+			if (isAssetUri) {
+				err = utils.error('404 NOT FOUND '+ req.url, null, '==> Did you forget to run grunt?');
+				console.error( err.c );
+				res
+					.type('text/plain')
+					.send(404, err.web)
+			;
+			}
+			else {
+				res
+					.status(404)
+					.render(
+					'404'
+					,{
+						 docTitle: docTitle('404')
+						,uri: req.originalUrl
+					}
+				);
+			}
+
 		}
 	}
 };
