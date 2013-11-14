@@ -6,6 +6,11 @@
 - Full logging in production, including date and user agent.
 
 
+## 0.7.7 — 2013-11-14
+
+- Fixed missing dependency to utils.error. Better error message if assets were never generated.
+
+
 ## 0.7.6 — 2013-10-28
 
 - Data injected on module call changed context upstream for following calls.
