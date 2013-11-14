@@ -8,7 +8,8 @@
 
 ## 0.7.7 — 2013-11-14
 
-- Fixed missing dependency to utils.error. Better error message if assets were never generated.
+- Fixed missing dependency to utils.error if inline assets file is not found.
+- Better error messages if assets are not found.
 
 
 ## 0.7.6 — 2013-10-28
