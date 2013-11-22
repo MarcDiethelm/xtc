@@ -6,6 +6,7 @@ module.exports = {
 	  // Basic auth credentials to protect routes
 	auth: {
 		basic: {
+			// usr: 'psw'
 			 user: 'password'
 			,admin: 'password'
 		},
