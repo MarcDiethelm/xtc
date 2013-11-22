@@ -117,7 +117,7 @@ module.exports = function(grunt) {
 			]
 			,sprites_watch: [
 				 '<%=spritesDir%>/**/*.{png|jpg|conf}'
-				,'<%=tcModules%>/sprites/*.{png|jpg|conf}'
+				//,'<%=tcModules%>/sprites/*.{png|jpg|conf}' // not implemented yet
 			]
 		}
 
@@ -131,12 +131,14 @@ module.exports = function(grunt) {
 				 css                : '<%=destSpritesCss%>'
 				,less               : true
 				,url                : '<%=staticUriPrefix%><%=baseDirName%>'
-				,namespace          : 's'
+				,namespace          : ''
 				,'sprite-namespace' : ''
 				,optipng            : true
 			}
 			,sprites: {
-				options: {}
+				options: {
+					'sprite-namespace' : 's' // set to inline-block in sprites-helper.less
+				}
 				,src                : ['<%=spritesDir%>/misc', '<%=tcModules%>/sprites']
 				,dest               : '<%=buildBaseDir%>'
 			}
