@@ -5,6 +5,10 @@
 - Use Hipsum.js for easy filler text. Available in development and production installations.
 - Use grunt-glue-nu for improved glue spriting the grunt way
 - Full logging in production, including date and user agent.
+- Templating: Ability to inject specfic objects from the surrounding context into a module call.
+	`{{mod "filter" data=someObject}}` The properties of `someObject` are now available in top level of the module context.
+	So now you can call a module template multiple times with different (but uniform) data. Previously this only worked
+	with literals.
 
 
 ## 0.7.7 — 2013-11-14

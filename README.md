@@ -280,7 +280,7 @@ This will generate the following wrapper:
 Please refer to the official docs at [Terrifically.org](http://terrifically.org/) to learn more about the Terrific
 pattern. Just may safely ignore the part about "Composer".
 
-You can use the `data` attribute on a module include to **inject data** (as a JS object literal) into the context of the
+You can use the `data` attribute on a module include to **inject data** (as a JS object or object literal) into the context of the
 module template.
 
 You can set any attribute on the module wrapper you want. Attributes not mentioned so far in this section will simply be added to the

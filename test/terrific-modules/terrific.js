@@ -79,7 +79,10 @@ describe('renderModule', function() {
 		assert.equal(actual, expected);
 	});
 	it('should render a nested modules with data', function() {
-		var actual = terrific.renderModule({ a: 'a-ctx', b: 'b-ctx', c: 'c-ctx' }, { name: 'basic', template: 'nested-data', data: {a: 'a-mod1', b: 'b-mod1'} });
+		var actual = terrific.renderModule(
+			{ a: 'a-ctx', b: 'b-ctx', c: 'c-ctx', obj: { a: 'ctx-obj' } },
+			{ name: 'basic', template: 'nested-data', data: {a: 'a-mod1', b: 'b-mod1'} }
+		);
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-nested-data.html');
 		assert.equal(actual, expected);
 	});
