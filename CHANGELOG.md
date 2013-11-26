@@ -10,6 +10,11 @@
 	So now you can call a module template multiple times with different (but uniform) data. Previously this only worked
 	with literals.
 
+## 0.7.8 — 2013-11-26
+
+- Fix: After one request with authorized IP, auth was permanently disabled because authNeeded boolean was stored in
+	parent scope.
+
 
 ## 0.7.7 — 2013-11-14
 
