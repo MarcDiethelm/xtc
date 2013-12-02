@@ -4,6 +4,11 @@ module.exports = function(app) {
 		,authBasic = require('../lib/helpers.js')().authBasic
 	;
 
+	// password protect the whole site
+	// app.all('*', authBasic('user'), function(req, res, next) { next('route'); });
+
+
+
 	/**
 	 * user-defined routes
  	 */
