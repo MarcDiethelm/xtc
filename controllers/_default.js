@@ -5,7 +5,7 @@ module.exports = function(app) {
 		,utils = require(path.join(cfg.appPath, '/lib/utils.js'))
 		,fs = require('fs')
 		,utils = require('../lib/utils')
-		,docTitle = app.docTitle
+		,docTitle = require('../lib/helpers.js')().docTitle
 		// for useful error message when an asset is not found
 		,assetUriPrefix = cfg.staticUriPrefix + '/' + cfg.static.build.baseDirName +'/'
 		,cssUri = assetUriPrefix + cfg.static.build.css.external.development

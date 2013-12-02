@@ -28,8 +28,6 @@ helpers = require('./lib/helpers.js')();
 app.terrific = require('./lib/terrific.js')();
 // Set up template data that is always available
 app.locals(helpers.makeLocals());
-app.docTitle = helpers.docTitle;
-app.authBasic = helpers.authBasic;
 
 // Create a configured express3-handlebars instance with our Handlebars template helpers
 handlebarsHelpers = require('./lib/helpers-handlebars.js')();

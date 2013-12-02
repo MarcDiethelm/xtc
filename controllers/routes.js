@@ -1,6 +1,7 @@
 module.exports = function(app) {
 
 	var  cfg = require('../lib/configure').get()
+		,authBasic = require('../lib/helpers.js')().authBasic
 	;
 
 	/**
@@ -12,7 +13,7 @@ module.exports = function(app) {
 	app.get('/', index.home);
 	app.get('/subpage', index.aSubpage);
 	app.get('/subpage-alternate', index.aSubpageAlternate);
-	app.get('/data/:someParam', app.authBasic('user'), index.data);
+	app.get('/data/:someParam', authBasic('user'), index.data);
 
 	/**
 	 * default routes

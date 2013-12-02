@@ -1,6 +1,6 @@
 module.exports = function(app) {
 
-	var docTitle = app.docTitle;
+	var docTitle = require('../lib/helpers.js')().docTitle;
 
 	return {
 
