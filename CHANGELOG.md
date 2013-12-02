@@ -9,6 +9,8 @@
 	`{{mod "filter" data=someObject}}` The properties of `someObject` are now available in top level of the module context.
 	So now you can call a module template multiple times with different (but uniform) data. Previously this only worked
 	with literals.
+- Gruntfile watches itself for changes, initiates a default build when changed.
+
 
 ## 0.7.8 — 2013-11-26
 

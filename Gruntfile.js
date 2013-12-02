@@ -293,6 +293,10 @@ module.exports = function(grunt) {
 				 files              : ['<%=sources.module_test_js%>']
 				,tasks              : ['build-module-tests']
 			}
+			,gruntfile: {
+				 files              : ['Gruntfile.js']
+				,tasks              : defaultTask
+			}
 		}
 	});
 
