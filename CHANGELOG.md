@@ -5,6 +5,10 @@
 - Use Hipsum.js for easy filler text. Available in development and production installations.
 - Full logging in production, including date and user agent.
 
+## 0.7.9 — 2013-12-03
+
+- Fix repo link for module templates in project overview.
+
 ## 0.7.8 — 2013-11-26
 
 - Fix: After one request with authorized IP, auth was permanently disabled because authNeeded boolean was stored in
