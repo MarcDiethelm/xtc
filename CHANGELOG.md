@@ -13,6 +13,10 @@
 - Handlebars helpers are now automatically registered for use in module templates.
 
 
+## 0.7.9 — 2013-12-03
+
+- Fix repo link for module templates in project overview.
+
 ## 0.7.8 — 2013-11-26
 
 - Fix: After one request with authorized IP, auth was permanently disabled because authNeeded boolean was stored in
