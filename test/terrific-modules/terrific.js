@@ -71,9 +71,19 @@ describe('renderModule', function() {
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-data.html');
 		assert.equal(actual, expected);
 	});
-	it('should render a module with a nested module', function() {
-		var actual = terrific.renderModule({ fee: 100, foo: 'bar' }, { name: 'basic', template: 'nested', data: {fee: 'fi', fo: 'fum'} });
+	it('should provide Handlebars helpers in module', function() {
+		var actual = terrific.renderModule({}, { name: 'basic', template: 'helper' });
+		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-helper.html');
+		assert.equal(actual, expected);
+	});
+	it('should render nested modules', function() {
+		var actual = terrific.renderModule({}, { name: 'basic', template: 'nested'});
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-nested.html');
+		assert.equal(actual, expected);
+	});
+	it('should render nested module with helper calls', function() {
+		var actual = terrific.renderModule({}, { name: 'basic', template: 'nested-helpers'});
+		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-nested-helpers.html');
 		assert.equal(actual, expected);
 	});
 	it('should render a nested modules with data', function() {
@@ -87,11 +97,6 @@ describe('renderModule', function() {
 	it('should render an empty module', function() {
 		var actual = terrific.renderModule({}, { name: 'basic', template: 'empty' });
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-empty.html');
-		assert.equal(actual, expected);
-	});
-	it('should provide Handlebars helpers in module', function() {
-		var actual = terrific.renderModule({}, { name: 'basic', template: 'helper' });
-		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-helper.html');
 		assert.equal(actual, expected);
 	});
 	// Annotations enabled...

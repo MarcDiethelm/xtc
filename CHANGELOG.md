@@ -10,6 +10,7 @@
 	So now you can call a module template multiple times with different (but uniform) data. Previously this only worked
 	with literals.
 - Gruntfile watches itself for changes, initiates a default build when changed.
+- Handlebars helpers are now automatically registered for use in module templates.
 
 
 ## 0.7.8 — 2013-11-26
