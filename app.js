@@ -1,15 +1,16 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 process.env.NODE_ENV != 'test' && console.log('node %s – xtc server in %s mode', process.version, process.env.NODE_ENV);
 
-var  path = require('path')
-	,express = require('express')
-	,http = require('http')
-	,exphbs = require('express3-handlebars')
+var  path       = require('path')
+	,express    = require('express')
+	,http       = require('http')
+	,exphbs     = require('express3-handlebars')
 	,hbs
+
+	,cfg        = require('./lib/configure').get()
 	,helpers
 	,handlebarsHelpers
 	,app = express()
-	,cfg
 ;
 
 
@@ -18,29 +19,20 @@ if ('development' == app.get('env')) {
 	app.use(express.responseTime());
 }
 
-if ('production' == app.get('env')) {}
+if ('production' == app.get('env')) {
+
+}
 
 
-// Merge configuration data
-cfg = require('./lib/configure').merge('_config/', [
-		 'default'
-		,'project'
-		,'secret'
-		,'local'
-	]).get();
-
-// Share the configuration data
-app.cfg = cfg;
-
-helpers = require('./lib/helpers.js')(cfg);
-app.terrific = require('./lib/terrific.js')(cfg);
+helpers = require('./lib/helpers.js')();
+app.terrific = require('./lib/terrific.js')();
 // Set up template data that is always available
 app.locals(helpers.makeLocals());
 app.docTitle = helpers.docTitle;
 app.authBasic = helpers.authBasic;
 
 // Create a configured express3-handlebars instance with our Handlebars template helpers
-handlebarsHelpers = require('./lib/helpers-handlebars.js')(cfg);
+handlebarsHelpers = require('./lib/helpers-handlebars.js')();
 handlebarsHelpers.mod = app.terrific.modHelper;
 hbs = exphbs.create({
 	 layoutsDir: cfg.paths.templates

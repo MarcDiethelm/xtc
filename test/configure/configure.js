@@ -6,21 +6,15 @@ var assert = require('assert')
 	,fs
 	,path
 	,appPath
+	,configr = require('../../lib/configure')
 ;
 
 describe('configure', function() {
-		
-	var configure, config;
 
-	it('should be chainable', function() {
-		// chain directly
-		configure = require('../../lib/configure').merge('test/_config', ['default']);
-		// can we still use merge?
-		configure.merge('test/configure/fixtures', ['default']);
-		assert.ok(configure.get);
-	});
+	var config;
+
 	it('configure.get() should return a plain object', function() {
-		config = configure.get();
+		config = configr.get();
 		assert.ok(_.isPlainObject(config));
 	});
 
@@ -32,18 +26,13 @@ describe('configure', function() {
 		before(function() {
 			fs = require('fs');
 			path = require('path');
-			appPath = fs.realpathSync('.'); // resolves to the app dir probably because mocha was called from there
+			appPath = process.cwd();
 
-			config = require('../../lib/configure')
-				.merge('test/configure/fixtures', [
-					 'default'
-					,'project'
-				])
-				.get();
+			config = configr.merge('test/configure/fixtures', ['project']);
 		});
 
 		it('configure: default only value should equal default', function() {
-			assert.equal(config.static.img, '/img');
+			assert.equal(config.static.img, 'img');
 		});
 
 		it('configure: project value should override default value', function() {
@@ -51,7 +40,7 @@ describe('configure', function() {
 		});
 
 		it('configure: creates absolute app paths', function() {
-			assert.equal(config.dirname, appPath);
+			assert.equal(config.appPath, appPath);
 			assert.equal(config.pathsAbsolute.staticBaseDir, path.join(appPath, 'frontend/_static/'));
 		});
 	});

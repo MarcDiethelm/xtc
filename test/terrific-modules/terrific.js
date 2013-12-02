@@ -8,17 +8,15 @@ var assert = require('assert');
 //var Browser = require('zombie');
 var grunt = require('grunt');
 var terrific, config;
+var configr = require('../../lib/configure');
 
 describe('renderModule', function() {
 
 	before(function() {
 		//this.server = app.listen(3000);
 
-		config = require('../../lib/configure')
-			.merge('_config/', ['default'])
-			.merge('test/_config/', ['test'])
-			.merge('test/terrific-modules/', ['terrific'])
-			.get();
+		config = configr.merge('test/_config/', ['test']);
+		config = configr.merge('test/terrific-modules/', ['terrific'], config);
 		terrific = require('../../lib/terrific')(config);
 		//this.browser = new Browser({ site: 'http://localhost:'+ config.devPort });
 	});
@@ -98,11 +96,8 @@ describe('renderModule', function() {
 	});
 	// Annotations enabled...
 	it('should render an annotated module', function() {
-		config = require('../../lib/configure')
-			.merge('_config/', ['default'])
-			.merge('test/_config/', ['test'])
-			.merge('test/terrific-modules/', ['terrific-annotate'])
-			.get();
+		config = configr.merge('test/_config/', ['test'])
+		config = configr.merge('test/terrific-modules/', ['terrific-annotate'], config)
 		terrific = require('../../lib/terrific')(config);
 
 		var actual = terrific.renderModule({}, { name: 'basic', template: 'alternate' });

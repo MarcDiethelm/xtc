@@ -4,26 +4,18 @@ module.exports = function(grunt) {
 	// Read project configuration
 
 	var  path = require('path')
-		,configPath = '_config/'
-		,configFiles = [
-			 'default'
-			,'project'
-			,'secret'
-			,'local'
-		]
+		,configr = require('./lib/configure')
 		,cfg ,modulesPattern ,buildBaseDir
 	;
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Read test configuration (if testing)
+	// Get project configuration
 
-	// Override project config, if command line options contain a config location.
-	configPath = grunt.option('config-path') || configPath;
-	configFiles = grunt.option('config-files') && grunt.option('config-files').split(',') || configFiles;
-
-	// Merge configurations
-	cfg = require('./lib/configure').merge(configPath, configFiles).get();
-
+	// Override project config, if command line options contain config options (for testing)
+	cfg = grunt.option('config-path') && grunt.option('config-files')
+		? configr.merge(grunt.option('config-path'), grunt.option('config-files').split(','))
+		: configr.get()
+	;
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Create vars from config

@@ -1,8 +1,8 @@
 module.exports = function(app) {
 
-	var  cfg = app.cfg
+	var  cfg = require('../lib/configure').get()
 		,path = require('path')
-		,utils = require(path.join(cfg.dirname, '/lib/utils.js'))
+		,utils = require(path.join(cfg.appPath, '/lib/utils.js'))
 		,fs = require('fs')
 		,utils = require('../lib/utils')
 		,docTitle = app.docTitle
@@ -20,7 +20,7 @@ module.exports = function(app) {
 		 */
 
 		_home: function(req, res, next) {
-			var overview = require(path.join(cfg.dirname, 'lib/overview.js'))(cfg);
+			var overview = require(path.join(cfg.appPath, 'lib/overview.js'))(cfg);
 
 			res.render('_app-overview', {
 				 layout: false

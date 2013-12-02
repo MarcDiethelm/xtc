@@ -1,5 +1,8 @@
 module.exports = function(app) {
 
+	var  cfg = require('../lib/configure').get()
+	;
+
 	/**
 	 * user-defined routes
  	 */
@@ -31,7 +34,7 @@ module.exports = function(app) {
 	app.render404 = _default.render404;
 
 
-	if (app.cfg.allowAuthBypassForIpRanges) {
+	if (cfg.allowAuthBypassForIpRanges) {
 
 		// Populate the request IP with X-FORWARDED-FOR header if a proxy added one, or else the IP will be wrong.
 		// Needed for authBasic helper to allow bypassing authentication for configurable IPs.
