@@ -52,11 +52,11 @@
 			<ul>
 			{{#each views}}
 				<li class="item">
-					<a class="name" href="/_view/{{this.name}}">{{this.name}}</a>
+					<a class="name" href="/_view/{{name}}">{{name}}</a>
 					<small>
-						| <a href="/_view/{{this.name}}?solo">solo</a>
-						| <a href="/_view/{{this.name}}?raw">raw</a>
-						{{#if this.repoUri}} | <a href="{{this.repoUri}}">repo</a>{{/if}}
+						| <a href="/_view/{{name}}?solo">solo</a>
+						| <a href="/_view/{{name}}?raw">raw</a>
+						{{#if repoUri}} | <a href="{{repoUri}}">repo</a>{{/if}}
 					</small>
 				</li>
 			{{/each}}
@@ -69,15 +69,15 @@
 			<ul>
 			{{#each modules}}
 				<li class="item name">
-					{{this.name}}
+					{{name}}
 					<small>
-						{{#if this.repoUri}} | <a href="{{this.repoUri}}">git</a>{{/if}}
+						{{#if repoUri}} | <a href="{{repoUri}}">git</a>{{/if}}
 						<ul>
-						{{#each this.templates}}
+						{{#each templates}}
 							<li class="subitem">
-								<a class="subname" href="/_module/{{../this.name}}/{{this.name}}">{{this.name}}</a>
-								| <a href="/_module/{{../this.name}}/{{this.name}}?raw">raw</a>
-								{{#if this.repoUri}} | <a href="{{this.repoUri}}">repo</a>{{/if}}
+								<a class="subname" href="/_module/{{../name}}/{{name}}">{{name}}</a>
+								| <a href="/_module/{{../name}}/{{name}}?raw">raw</a>
+								{{#if repoUri}} | <a href="{{repoUri}}">repo</a>{{/if}}
 							</li>
 						{{/each}}
 						</ul>
@@ -93,10 +93,10 @@
 			<ul>
 			{{#each templates}}
 				<li class="item">
-					<a class="name" href="/_template/{{this.name}}">{{this.name}}</a>
+					<a class="name" href="/_template/{{name}}">{{name}}</a>
 					<small>
-						| <a href="/_template/{{this.name}}?raw">raw</a>
-						{{#if this.repoUri}} | <a href="{{this.repoUri}}">repo</a>{{/if}}
+						| <a href="/_template/{{name}}?raw">raw</a>
+						{{#if repoUri}} | <a href="{{repoUri}}">repo</a>{{/if}}
 					</small>
 				</li>
 			{{/each}}
