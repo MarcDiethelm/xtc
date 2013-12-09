@@ -10,8 +10,8 @@ module.exports = function(app) {
 		,assetUriPrefix = cfg.staticUriPrefix + '/' + cfg.static.build.baseDirName +'/'
 		,cssUri = assetUriPrefix + cfg.static.build.css.external.development
 		,jsUri  = assetUriPrefix + cfg.static.build.js.external.development
-		,assetsRegExp = new RegExp(cssUri +'|'+ jsUri);
-	;
+		,assetsRegExp = new RegExp(cssUri +'|'+ jsUri)
+	 ;
 
 	return {
 
@@ -39,9 +39,9 @@ module.exports = function(app) {
 				res.setHeader('Content-Type', 'text/plain');
 				layout = false;
 			}
-			res.render(req.params.name, {
+			res.render(req.params.view, {
 				 layout: layout
-				,docTitle: docTitle('View: '+ req.params.name)
+				,docTitle: docTitle('View: '+ req.params.view)
 				,uri: req.originalUrl
 				,skipModules: 'solo' in req.query && 'layout'
 			});
@@ -51,7 +51,7 @@ module.exports = function(app) {
 			var module = app.terrific.renderModule(
 					app.locals,
 					{
-						 name: req.params.name
+						 name: req.params.module
 						,template: req.params.template
 					}
 				)
@@ -69,9 +69,9 @@ module.exports = function(app) {
 				res.locals(app.locals);
 				res.locals({
 					layout: false
-					,docTitle: docTitle('Module: '+ req.params.name +', Template: '+ req.params.template)
+					,docTitle: docTitle('Module: '+ req.params.module +', Template: '+ req.params.template)
 					,body: module
-					,exclusive: req.params.name
+					,exclusive: req.params.module
 					,skipModules: true
 				});
 
@@ -92,11 +92,11 @@ module.exports = function(app) {
 			res.locals(app.locals);
 			res.locals({
 				layout: false
-				,docTitle: docTitle('Template: '+ req.params.name)
+				,docTitle: docTitle('Template: '+ req.params.template)
 				,body: ''
 			});
 
-			app.hbs.render(path.join(cfg.paths.templates, req.params.name + '.hbs'), res.locals,
+			app.hbs.render(path.join(cfg.paths.templates, req.params.template + '.hbs'), res.locals,
 				function(err, html) {
 					if (err) {
 						var error = utils.error('Unable to render the template', err);
@@ -156,11 +156,11 @@ module.exports = function(app) {
 
 		 // Look for a view with the name supplied by the catch-all route
 		,_subPage: function(req, res, next) {
-			fs.exists(path.join(cfg.pathsAbsolute.views, req.params.pageName + '.hbs'), function(exists) {
-				if ( exists ) {
+			fs.exists(path.join(cfg.pathsAbsolute.views, req.params.view + '.hbs'), function(exists) {
+				if (exists) {
 					try {
-						res.render(req.params.pageName, {
-							 docTitle: docTitle(req.params.pageName)
+						res.render(req.params.view, {
+							 docTitle: docTitle('View: '+ req.params.view)
 							,uri: req.originalUrl
 						});
 					} catch (e) {
