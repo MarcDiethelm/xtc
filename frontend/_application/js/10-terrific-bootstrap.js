@@ -17,11 +17,6 @@ $(document.documentElement).removeClass('no-js');
 			,announceTcReady
 		;
 
-		// custom function for context selection
-		Tc.Module.prototype.$$ = function $$(selector) {
-			return this.$ctx.find(selector);
-		};
-
 		app = new Tc.Application($body, config);
 		app.registerModules();
 		app.registerModule($body, 'PageController');
