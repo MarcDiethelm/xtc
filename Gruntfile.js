@@ -75,7 +75,7 @@ module.exports = function(grunt) {
 			,external_css: [
 				 '<%=tcBase%>/css/sprites/*.less'
 				,'<%=tcBase%>/css/lib/*.{less,css}'
-				,'<%=tcBase%>/css/elements/*.less'
+				,'<%=tcBase%>/css/*.less'
 				,'<%=tcModules%>/*.less'
 				,'<%=tcModules%>/<%=skinsDirName%>/*.less'
 				,'<%=tcApplication%>/css/*.less'
