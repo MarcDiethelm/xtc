@@ -31,7 +31,7 @@ describe('asset building', function() {
 			});
 		});
 
-		describe('external js', function() {
+		describe('external css', function() {
 
 			before(function(done) {
 				runGrunt(['build-external-css', '-config-path=test/assets', '-config-files=assets'], done);
