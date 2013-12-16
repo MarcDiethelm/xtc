@@ -2,16 +2,22 @@ module.exports = function(app) {
 
 	var  cfg = require('../lib/configure').get()
 		,path = require('path')
-		,utils = require(path.join(cfg.appPath, '/lib/utils.js'))
 		,fs = require('fs')
+
+		,renderModule = require('../lib/mod-render')()
+		,exphbs = require('express3-handlebars')
 		,utils = require('../lib/utils')
 		,docTitle = require('../lib/helpers.js')().docTitle
+		,hbs
+
 		// for useful error message when an asset is not found
 		,assetUriPrefix = cfg.staticUriPrefix + '/' + cfg.static.build.baseDirName +'/'
 		,cssUri = assetUriPrefix + cfg.static.build.css.external.development
 		,jsUri  = assetUriPrefix + cfg.static.build.js.external.development
 		,assetsRegExp = new RegExp(cssUri +'|'+ jsUri)
 	 ;
+
+	hbs = exphbs.create({ handlebars: require('handlebars') });
 
 	return {
 
@@ -48,7 +54,7 @@ module.exports = function(app) {
 		}
 
 		,_getModule: function(req, res, next) {
-			var module = app.terrific.renderModule(
+			var module = renderModule(
 					app.locals,
 					{
 						 name: req.params.module
@@ -75,7 +81,7 @@ module.exports = function(app) {
 					,skipModules: true
 				});
 
-				app.hbs.render(path.join(cfg.paths.templates, cfg.defaultTemplateName + '.hbs'), res.locals,
+				hbs.render(path.join(cfg.paths.templates, cfg.defaultTemplateName + '.hbs'), res.locals,
 					function(err, html) {
 						if (err) {
 							var error = utils.error('Unable to render the module in the default template', err);
@@ -96,7 +102,7 @@ module.exports = function(app) {
 				,body: ''
 			});
 
-			app.hbs.render(path.join(cfg.paths.templates, req.params.template + '.hbs'), res.locals,
+			hbs.render(path.join(cfg.paths.templates, req.params.template + '.hbs'), res.locals,
 				function(err, html) {
 					if (err) {
 						var error = utils.error('Unable to render the template', err);
@@ -106,7 +112,7 @@ module.exports = function(app) {
 
 					'raw' in req.query
 						&& res.setHeader('Content-Type', 'text/plain');
-					
+
 					res.send(html);
 				}
 			);
@@ -122,8 +128,8 @@ module.exports = function(app) {
 			app.tests[test].forEach(function(options) {
 				if (options.name+options.template+options.skins+options.connectors in done)
 					return;
-				
-				output += app.terrific.renderModule(app.locals, options);
+
+				output += renderModule(app.locals, options);
 				modules.push({
 					 name:      options.name
 					,template:  options.template
@@ -141,13 +147,14 @@ module.exports = function(app) {
 				,helpers: { test: null }
 			});
 
-			app.hbs.render(path.join(cfg.pathsAbsolute.templates, cfg.defaultTemplateName + '.hbs'), res.locals,
+			hbs.render(path.join(cfg.pathsAbsolute.templates, cfg.defaultTemplateName + '.hbs'), res.locals,
 				function(err, html) {
 					if (err) {
 						var error = utils.error('Unable to render the modules in the default template', err);
 						console.error(error.c);
 						html = error.web;
 					}
+
 					res.send(html);
 				}
 			);

@@ -4,13 +4,11 @@ process.env.NODE_ENV != 'test' && console.log('node %s – xtc server in %s mode
 var  path       = require('path')
 	,express    = require('express')
 	,http       = require('http')
-	,exphbs     = require('express3-handlebars')
+	,handlebars
 	,hbs
-
 	,cfg        = require('./lib/configure').get()
 	,helpers
-	,handlebarsHelpers
-	,app = express()
+	,app        = express()
 ;
 
 
@@ -25,27 +23,24 @@ if ('production' == app.get('env')) {
 
 
 helpers = require('./lib/helpers.js')();
-app.terrific = require('./lib/terrific.js')();
 // Set up template data that is always available
 app.locals(helpers.makeLocals());
 
-// Create a configured express3-handlebars instance with our Handlebars template helpers
-handlebarsHelpers = require('./lib/helpers-handlebars.js')();
-handlebarsHelpers.mod = app.terrific.modHelper;
-hbs = exphbs.create({
-	 layoutsDir: cfg.paths.templates
+// Create a Handlebars instance with our template helpers
+// We can then require the same instance again in lib/mod-render.js and controllers/_default.js
+handlebars = require('./lib/handlebars-helpers-xtc.js');
+
+var hbs = require('express3-handlebars').create({
+	 handlebars: handlebars
+	,layoutsDir: cfg.paths.templates
 	,defaultLayout: cfg.defaultTemplateName
 	,extname: '.hbs'
-	,helpers: handlebarsHelpers
 });
 
 // Set the express3-handlebars instance as rendering engine
-app.engine('hbs', hbs.engine); // 1) template file extension, 2) engine render callback
+app.engine('hbs', hbs.engine); // 1: template file extension, 2: engine render callback
 app.set('view engine', 'hbs');
 app.set('views', cfg.paths.views);
-
-// The express3-handlebars instance has our template helpers. Make it available elsewhere.
-app.hbs = hbs;
 
 // Store the port in the settings (Why?)
 app.set('port', process.env.PORT || cfg.devPort);
