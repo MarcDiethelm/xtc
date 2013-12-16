@@ -74,7 +74,7 @@ module.exports = function(app) {
 			} else {
 				res.locals(app.locals);
 				res.locals({
-					layout: false
+					 layout: false
 					,docTitle: docTitle('Module: '+ req.params.module +', Template: '+ req.params.template)
 					,body: module
 					,exclusive: req.params.module
@@ -121,7 +121,7 @@ module.exports = function(app) {
 		,_getModuleTest: function(req, res, next) {
 			var test = req.query.url;
 
-			var output = ''
+			var  output = ''
 				,modules = []
 				,done = {}// keep track of handled module, to skip modules with identical options.
 			;
@@ -141,7 +141,7 @@ module.exports = function(app) {
 
 			res.locals(app.locals);
 			res.locals({
-				layout: false
+				 layout: false
 				,body: '<script>var xtc = {isTest: true, testModules: '+ JSON.stringify(modules) +'}</script>\n\n'+ output
 				 // Prevent initializing testing in the test frame by overwriting the handlebars helper 'test'.
 				,helpers: { test: null }
@@ -195,7 +195,7 @@ module.exports = function(app) {
 				res
 					.type('text/plain')
 					.send(404, err.web)
-			;
+				;
 			}
 			else {
 				res
