@@ -27,6 +27,12 @@
 		.subname, a.subname {
 			font-weight: bold;
 		}
+		.pinned + .unpinned::before {
+			display: block;
+			content: '';
+			border-top: 7px dotted #282828;
+			margin-bottom: 1em;
+		}
 		.table {
 			display: table;
 			width: 85%;
@@ -51,7 +57,7 @@
 			<h2>Views</h2>
 			<ul>
 			{{#each views}}
-				<li class="item">
+				<li class="item{{#if isPinned}} pinned{{else}} unpinned{{/if}}">
 					<a class="name" href="/{{name}}">{{name}}</a>
 					<small>
 						| <a href="/_view/{{name}}?solo">solo</a>

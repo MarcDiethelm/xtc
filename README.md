@@ -40,6 +40,7 @@ Express + Terrific + awesome = xtc
 	- [Building Sprites with Glue](#building-sprites-with-glue)
 	- [Build Customization](#build-customization)
 - [Template Development and Integration Into Other Backends](#template-development-and-integration-into-other-backends)
+	- [Project Overview](#project-overview)
 - [Basic Authentication and Bypass for IP Ranges](#basic-authentication-and-bypass-for-ip-ranges)
 - [Framework Testing](#framework-testing)
 - [Differences to Terrific Composer](#differences-to-terrific-composer)
@@ -422,17 +423,24 @@ With [Grunt](#asset-building-grunt) there's almost no limit to what you can do.
 
 Node-terrific implements some features to help with template integration in different backend systems.
 
-`/_home` displays an overview of all user-defined views and modules, i.e. ones whose names don't start with an
-underscore. The page contains links to the views and modules at `/_view/[name]` and `/_module/[name]` respectively.
-If you add the parameter `raw` to the URI, you get the pure HTML of that resource without any surrounding markup, e.g:
+### Project overview
 
-	/_view/example?raw
-	/_module/example?raw
+`/_home` displays an overview of all user-defined views, modules and templates, i.e. ones whose names don't start with
+an underscore. The page contains links to the views and modules at `/[view name]`, `/_module/[module name]` and
+`/_template/[module name]` respectively. If you add the parameter `raw` to the URI, you get the pure HTML of that
+resource without any surrounding markup, e.g:
+
+	/view-name?raw
+	/_module/module-name?raw
+	/_template/template-name?raw
 
 Adding the parameter `solo` to a view request, will skip any modules that have the attribute `isLayout="true"` on their
-include tag.
+include tag. E.g.
 
 	/_view/example?solo
+
+**Views can be pinned** to the top of the list by adding their name to an array in the file `_config/pinned-views.json`.
+The pinned views will be presented in the order they appear in the file.
 
 
 ## Basic Authentication and Bypass for IP Ranges
