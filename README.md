@@ -30,6 +30,7 @@ Express + Terrific + awesome = xtc
 - [Manual](#manual)
 	- [Naming Convention](#naming-convention)
 	- [Templates and Views](#templates-and-views)
+	- [Handlebars Helpers](#handlebars-helpers)
 	- [Frontend Folder: Order matters](#frontend-folder-order-matters)
 	- [Terrific Modules](#terrific-modules)
 	- [Module Creation](#module-creation)
@@ -213,15 +214,19 @@ In xtc the distinction between views and templates is as follows:
 
 - View (`frontend/views`): A view typically corresponds to an individual page with an URL. This is where you include
 any modules specific to the page.
-- Templates (`frontend/views/templates`): Your basic document(s), typically a HTML document that contains all the things that are
-always needed: HEAD, scripts, tracking and so on. Your template base template can be set in each route controller using
-the layout property or disabled altogether with `layout: false`. The view is included with the `{{{body}}}` variable.
+- Templates (`frontend/views/templates`): Your basic document(s), typically a HTML document that contains all the things
+that are always needed: HEAD, scripts, tracking and so on. Your template base template can be set in each route
+controller using the layout property or disabled altogether with `layout: false`. The view is included with the `{{{body}}}` variable.
 
 In Express templates are called layouts.
 
 Terrific Modules too can define (multiple) templates for their own markup.
 
-#### Filler Text
+#### Handlebars Helpers
+
+You can add your own Handlebars helper functions in addition to some existing helpers. Check out
+`lib/handlebars-helpers-custom.js` for examples and to add your own. And take a look at http://handlebarsjs.com/#helpers for more info about
+ Handlebars helpers.
 
 xtc includes [Hipsum.js](https://github.com/MarcDiethelm/Hipsum.js) so you can quickly generate filler text in your
 templates. Check out the documentation there if needed.
