@@ -47,7 +47,8 @@ module.exports = {
 		// URIs to generated assets
 		,build: {
 			// baseDirName is relative to paths.staticBaseDir
-			baseDirName: 'dist'
+			 baseDirNameDev     : 'build'
+			,baseDirNameDist    : 'dist'
 			// js and css are relative to baseDirName
 			,js: {
 				// to inline scripts in a template, usage: {{inline "js"}}

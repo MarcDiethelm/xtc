@@ -21,7 +21,8 @@ module.exports = {
 		// URIs to generated assets
 		build: {
 			// baseDirName is relative to paths.staticBaseDir
-			baseDirName: '../build'
+			 baseDirNameDev: '../build'
+			,baseDirNameDist: '../dist'
 		}
 	}
 };

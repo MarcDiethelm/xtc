@@ -5,7 +5,8 @@ module.exports = function(grunt) {
 
 	var  path = require('path')
 		,configr = require('./lib/configure')
-		,cfg ,modulesPattern ,buildBaseDir
+		,cfg ,modulesPattern ,buildBaseDirDev, buildBaseDirDist
+		,isDistBuild = grunt.option('dist') || false
 	;
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,7 +22,8 @@ module.exports = function(grunt) {
 	// Create vars from config
 
 	modulesPattern = path.join(cfg.paths.modulesBaseDir, cfg.moduleDirName.replace('{{name}}', '*'))
-	buildBaseDir = path.join(cfg.paths.staticBaseDir, cfg.static.build.baseDirName); // build.baseDirName may be empty
+	buildBaseDirDev = path.join(cfg.paths.staticBaseDir, cfg.static.build.baseDirNameDev); // build.baseDirNameDev may be empty
+	buildBaseDirDist = path.join(cfg.paths.staticBaseDir, cfg.static.build.baseDirNameDist); // build.baseDirNameDist may be empty
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,12 +52,18 @@ module.exports = function(grunt) {
 		// Output destinations
 
 		,baseDirName                : cfg.static.build.baseDirName
-		,buildBaseDir               : buildBaseDir
-		,tmp                        : '<%=buildBaseDir%>/tmp'
-		,destJs                     : '<%=buildBaseDir%>'
-		,destCss                    : '<%=buildBaseDir%>'
-		,destSpritesCss             : '<%=spritesDir%>' // technically this should go in tmp, but we want the generated classes in our base css for easy lookup.
-		,destSpritesImg             : '<%=buildBaseDir%>'
+
+		,buildBaseDirDev            : buildBaseDirDev
+		,tmp                        : '<%=buildBaseDirDev%>/tmp'
+		,destJsDev                  : '<%=buildBaseDirDev%>'
+		,destCssDev                 : '<%=buildBaseDirDev%>'
+		,destSpritesCssDev          : '<%=spritesDir%>' // technically this should go in tmp, but we want the generated classes in our base css for easy lookup.
+		,destSpritesImgDev          : '<%=buildBaseDirDev%>'
+
+		,buildBaseDirDist           : buildBaseDirDist
+		,destJsDist                 : '<%=buildBaseDirDist%>'
+		,destCssDist                : '<%=buildBaseDirDist%>'
+		,destSpritesImgDist         : '<%=buildBaseDirDist%>'
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -120,7 +128,7 @@ module.exports = function(grunt) {
 		,glue: {
 			// see: https://github.com/MarcDiethelm/grunt-glue-nu
 			options: {
-				 css                : '<%=destSpritesCss%>'
+				 css                : '<%=destSpritesCssDev%>'
 				,less               : true
 				,url                : '<%=staticUriPrefix%><%=baseDirName%>'
 				,namespace          : ''
@@ -132,7 +140,7 @@ module.exports = function(grunt) {
 					'sprite-namespace' : 's' // set to inline-block in sprites-helper.less
 				}
 				,src                : ['<%=spritesDir%>/misc', '<%=tcModules%>/sprites']
-				,dest               : '<%=buildBaseDir%>'
+				,dest               : '<%=buildBaseDirDev%>'
 			}
 		}
 
@@ -154,15 +162,15 @@ module.exports = function(grunt) {
 					banner          : '/*! Inline script dependencies for page bootstrapping */\n'
 				}
 				,src                : '<%=sources.inline_js%>'
-				,dest               : '<%=destJs%>/inline.js'
+				,dest               : '<%=destJsDev%>/inline.js'
 			}
 			,external_scripts: {
 				 src                : '<%=sources.external_js%>'
-				,dest               : '<%=destJs%>/external.js'
+				,dest               : '<%=destJsDev%>/external.js'
 			}
 			,module_tests: {
 				 src                : '<%=sources.module_test_js%>'
-				,dest               : '<%=destJs%>/test.js'
+				,dest               : '<%=destJsDev%>/test.js'
 			}
 		}
 
@@ -171,12 +179,12 @@ module.exports = function(grunt) {
 				options: {
 					preserveComments: 'some'
 				}
-				,src                : '<%=destJs%>/inline.js'
-				,dest               : '<%=destJs%>/inline.min.js'
+				,src                : '<%=destJsDev%>/inline.js'
+				,dest               : '<%=destJsDist%>/inline.min.js'
 			},
 			external: {
-				 src                : '<%=destJs%>/external.js'
-				,dest               : '<%=destJs%>/external.min.js'
+				 src                : '<%=destJsDev%>/external.js'
+				,dest               : '<%=destJsDist%>/external.min.js'
 			}
 		}
 
@@ -190,7 +198,7 @@ module.exports = function(grunt) {
 					}
 				}
 				,src                : '<%=tmp%>/inline-imports.less'
-				,dest               : '<%=destCss%>/inline.css'
+				,dest               : '<%=destCssDev%>/inline.css'
 			}
 			,external: {
 				options: {
@@ -200,18 +208,18 @@ module.exports = function(grunt) {
 					}
 				}
 				,src                : '<%=tmp%>/external-imports.less'
-				,dest               : '<%=destCss%>/external.css'
+				,dest               : '<%=destCssDev%>/external.css'
 			}
 		}
 
 		,cssmin: {
 			inline: {
-				 src                : '<%=destCss%>/inline.css'
-				,dest               : '<%=destCss%>/inline.min.css'
+				 src                : '<%=destCssDev%>/inline.css'
+				,dest               : '<%=destCssDist%>/inline.min.css'
 			},
 			external: {
-				 src                : '<%=destCss%>/external.css'
-				,dest               : '<%=destCss%>/external.min.css'
+				 src                : '<%=destCssDev%>/external.css'
+				,dest               : '<%=destCssDist%>/external.min.css'
 			}
 		}
 
@@ -295,7 +303,27 @@ module.exports = function(grunt) {
 			}
 			,gruntfile: {
 				 files              : ['Gruntfile.js']
-				,tasks              : defaultTask
+				,tasks              : devBuild
+			}
+		}
+
+		,copy: {
+			spritesDist: {
+				 src                : '<%=buildBaseDirDev%>/*.png'
+				,dest               : '<%=buildBaseDirDist%>'
+			}
+		}
+
+		,log: {
+			options: {
+				 bold: true
+				,color: 'green'
+			}
+			,devCssDone: {
+				msg: 'Dev CSS complete'
+			}
+			,devJsDone: {
+				msg: 'Dev JS complete'
 			}
 		}
 	});
@@ -305,17 +333,17 @@ module.exports = function(grunt) {
 	// Define build tasks                            // use actual task name (first part before colon)!
 
 	grunt.registerTask('build-sprites',              ['glue']);
-	grunt.registerTask('build-inline-js',            ['concat:inline_scripts', 'uglify:inline', 'jshint:inline']);
-	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'uglify:external', 'jshint:external',]);
-	grunt.registerTask('build-inline-css',           ['less_imports:inline',   'less:inline',   'cssmin:inline']);
-	grunt.registerTask('build-external-css',         ['less_imports:external', 'less:external', 'cssmin:external']);
+	grunt.registerTask('build-inline-js',            ['concat:inline_scripts', 'jshint:inline']);
+	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'log:devJsDone', 'jshint:external',]);
+	grunt.registerTask('build-inline-css',           ['less_imports:inline',   'less:inline', 'log:devCssDone']);
+	grunt.registerTask('build-external-css',         ['less_imports:external', 'less:external']);
 	grunt.registerTask('build-module-tests',         ['concat:module_tests' , 'jshint:module_tests']);
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Define a default task
+	// Define the build pipes
 
-	var defaultTask = [
+	var devBuild = [
 		 'build-sprites'
 		,'build-external-css'
 		,'build-external-js'
@@ -325,9 +353,26 @@ module.exports = function(grunt) {
 		,'watch'
 	];
 
+	var distBuild = [
+		 'build-sprites'
+		,'build-external-css'
+		,'build-external-js'
+		,'build-inline-css'
+		,'build-inline-js'
+		,'build-module-tests'
+
+		,'uglify:inline'
+		,'uglify:external'
+		,'cssmin:inline'
+		,'cssmin:external'
+		,'copy:spritesDist'
+	];
+
+	var task = isDistBuild ? distBuild : devBuild;
+
 	// If sprites building is not enabled in the app config, remove it.
-	!cfg.enableSpritesBuilding && defaultTask.shift();
-	grunt.registerTask('default', defaultTask);
+	!cfg.enableSpritesBuilding && task.shift();
+	grunt.registerTask('default', task);
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -341,5 +386,31 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Ad-hoc plugin
+
+	grunt.registerMultiTask('log', 'a console logging task', function() {
+		var options = this.options()
+			,color = options.color || false
+		;
+
+		if (options.bold) {
+			grunt.log.subhead(this.data.msg[color]);
+		}
+		else {
+			grunt.log.writeln(this.data.msg[color]);
+		}
+	});
+
+	grunt.registerMultiTask('copy', 'Copy spritesheets builds to dist destination', function() {
+
+		this.filesSrc.forEach(function(file) {
+			var fileName = file.split('/').pop();
+			grunt.file.copy( file, path.join(buildBaseDirDist, fileName) );
+		});
+
+	});
 
 };

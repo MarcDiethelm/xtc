@@ -13,6 +13,7 @@
 - Handlebars helpers are now automatically registered for use in module templates.
 - Views in the project overview are now rendered using the catch-all route. This prevents conflicts with with ‘raw’ & ‘solo’ `_view` routes if the dev adds custom routes to the views that include queries.
 - "Pin" views to the top in the project overview by writing view names in a json file in _config/.
+- Default asset build now goes writes `build` dir (not tracked by git) and does not minify anymore. Start grunt with `--dist` option to start a production build including minification into `dist` dir (tracked by git).
 
 
 ## 0.7.9 — 2013-12-03

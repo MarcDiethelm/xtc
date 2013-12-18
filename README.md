@@ -24,7 +24,6 @@ Express + Terrific + awesome = xtc
 	- [Optional: Sprites](#optional-sprites)
 - [Project Setup](#project-setup)
 	- [Configuration](#configuration)
-	- [Asset Building: Grunt](#asset-building-grunt)
 	- [Start the Server!](#asset-building-grunt)
 	- [WebStorm / PHPStorm Users](#webstorm--phpstorm-users)
 - [Manual](#manual)
@@ -35,6 +34,7 @@ Express + Terrific + awesome = xtc
 	- [Terrific Modules](#terrific-modules)
 	- [Module Creation](#module-creation)
 	- [Module Testing](#module-testing)
+	- [Asset Building: Grunt](#asset-building-grunt)
 	- [Static Assets](#static-assets)
 		- [LessCSS 1.5.0](#lesscss-150)
 	- [Development and Production Mode](#development-and-production-mode)
@@ -161,22 +161,6 @@ overriding default properties as needed.
 `config-local.js` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be
 deployed.
 Make sure these two files are not tracked by git unless you know what you're doing.
-
-
-### Asset Building: Grunt
-
-Before you can start the server you need to generate the assets for the frontend. You have already installed grunt-cli
-globally. Now in your project enter `grunt`. That's it.
-[Grunt](http://gruntjs.com/getting-started) will build your assets and also watch all your JS and Less/CSS source files
-as configured in [Gruntfile.js](http://gruntjs.com/sample-gruntfile). When you edit them it re-generates the assets
-automatically. You will have to restart Grunt for it to register
-[any files in new folders](https://github.com/gruntjs/grunt-contrib-watch/issues/70) though! (This will be fixed
-eventually.)
-
-**Note:** The generated asset are not tracked by git as every developer must be able to create them on the fly.
-Committing the files would produce tedious merge conflicts.
-If you deploy your project using git do it from a branch where the assets are not ignored by git. (Just add a `!` before
-a rule in `.gitignore` to negate it.)
 
 
 ### Start the Server!
@@ -340,6 +324,21 @@ very useful to immediately see if something breaks during development.
 To disable module testing set `enableModuleTesting` to false in the config.<br>
 To use the classic QUnit display in the page set `QUnitFE.showUi` to true.<br>
 QUnit adds a symbol to the HTML title indicating the test status. To disable set `QUnitFE.alterTitle` to false.
+
+
+### Asset Building: Grunt
+
+After editing your frontend styles and scripts you need to re-generate the assets for the frontend. You have already installed grunt-cli
+globally. Now in your project enter `grunt`. That's it.
+[Grunt](http://gruntjs.com/getting-started) will build your assets and also watch all your JS and Less/CSS source files
+as configured in [Gruntfile.js](http://gruntjs.com/sample-gruntfile). When you edit them it re-generates the assets
+automatically. You will have to restart Grunt for it to register
+[any files in new folders](https://github.com/gruntjs/grunt-contrib-watch/issues/70) though! (This will be fixed
+eventually.)
+
+**Note:** The generated assets are written to `frontend/public/build` which is ignored by git. Every developer on a development team must be able to create the assets on the fly. Committing the files would produce tedious merge conflicts after every pull.
+
+Start grunt with `--dist` option to create minified production assets in `frontend/public/dist` and then commit them. After that you're go for deployment.
 
 ### Static Assets
 
