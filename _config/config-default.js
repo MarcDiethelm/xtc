@@ -40,7 +40,7 @@ module.exports = {
 
 	// URIs for use in templates are constructed from the following data
 		// URI prefix for static assets, e.g. '/static', empty string for none
-	,'staticUriPrefix': ''
+	,staticUriPrefix: ''
 		// static assets URIs are relative to 'staticUriPrefix'
 	,'static': {
 		 img: 'img'
@@ -77,7 +77,7 @@ module.exports = {
 		}
 	}
 
-	// Character to use for indentation of modules and inline assets
+	// Characters to use for indentation of modules and inline assets
 	,indentString: '\t'
 	// default indentation level of modules and inline assets
 	// (currently 0, because views rendered with Handlebars can't be indented)

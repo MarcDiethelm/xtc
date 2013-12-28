@@ -11,9 +11,8 @@ module.exports = function(app) {
 		,hbs
 
 		// for useful error message when an asset is not found
-		,assetUriPrefix = cfg.staticUriPrefix + '/' + cfg.static.build.baseDirName +'/'
-		,cssUri = assetUriPrefix + cfg.static.build.css.external.development
-		,jsUri  = assetUriPrefix + cfg.static.build.js.external.development
+		,cssUri = cfg.buildUriPrefix + cfg.static.build.css.external[app.get('env')]
+		,jsUri  = cfg.buildUriPrefix + cfg.static.build.js.external[app.get('env')]
 		,assetsRegExp = new RegExp(cssUri +'|'+ jsUri)
 	 ;
 
