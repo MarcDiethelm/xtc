@@ -50,7 +50,7 @@ describe('renderModule', function() {
 	});
 	it('should render a module with a custom tag', function() {
 		var actual = renderModule({}, { name: 'basic', tag: 'article' });
-		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-tag.html');
+		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-custom-tag.html');
 		assert.equal(actual, expected);
 	});
 	it('should render a module with an id attribute', function() {
@@ -78,6 +78,11 @@ describe('renderModule', function() {
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-helper.html');
 		assert.equal(actual, expected);
 	});
+	it('should render modules with indentation', function() {
+		var actual = renderModule({ indent: 1 }, { name: 'basic', indent: 2});
+		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-indent.html');
+		assert.equal(actual, expected);
+	});
 	it('should render nested modules', function() {
 		var actual = renderModule({}, { name: 'basic', template: 'nested'});
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-nested.html');
@@ -88,7 +93,7 @@ describe('renderModule', function() {
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-nested-helpers.html');
 		assert.equal(actual, expected);
 	});
-	it('should render a nested modules with data', function() {
+	it('should render nested modules with data', function() {
 		var actual = renderModule(
 			{ a: 'a-ctx', b: 'b-ctx', c: 'c-ctx', obj: { a: 'ctx-obj' } },
 			{ name: 'basic', template: 'nested-data', data: {a: 'a-mod1', b: 'b-mod1'} }
@@ -101,7 +106,9 @@ describe('renderModule', function() {
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-empty.html');
 		assert.equal(actual, expected);
 	});
+
 	// Annotations enabled...
+
 	it('should render an annotated module', function() {
 		config = configr.merge('test/_config/', ['test'])
 		config = configr.merge('test/terrific-modules/', ['terrific-annotate'], config)

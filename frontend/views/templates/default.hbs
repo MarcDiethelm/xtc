@@ -9,7 +9,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<title>{{docTitle}}</title>
 	<style>
-		{{inline "css"}}{{!-- inline css. the key is defined in config.js --}}
+		{{inline "css" indent=2}}{{!-- inline css. the key is defined in config.js --}}
 	</style>
 	<link rel="stylesheet" type="text/css" href="{{static.build.css.external}}">
 	<link rel="icon" type="image/png" href="{{static.img}}/68.png" />
@@ -23,8 +23,8 @@
 	<header role="banner">
 	{{!-- This is a good place for a main navigation module.
 	      Setting _isLayout="true" allows to skip this module when solo viewing a view for development.
-	 --}}
-		{{mod "nav-main" tag="nav" _isLayout="true"}}
+	 --}}{{mod "nav-main" tag="nav" indent=2 _isLayout=true}}
+
 		<hr>
 	</header>
 
@@ -39,7 +39,7 @@
 	{{#env "production"}}<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>{{/env}}
 	{{#env "development"}}<script src="{{static.prefix}}/lib/jquery-1.10.2.js"></script>{{/env}}
 	<script>
-		{{inline "js"}}{{!-- inline js. the key is defined in config.js --}}
+		{{inline "js" indent=2}}{{!-- inline js. the key is defined in config.js --}}
 	</script>
 	<script src="{{static.build.js.external}}"></script>
 	{{test}}

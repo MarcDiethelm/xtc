@@ -77,6 +77,12 @@ module.exports = {
 		}
 	}
 
+	// Character to use for indentation of modules and inline assets
+	,indentString: '\t'
+	// default indentation level of modules and inline assets
+	// (currently 0, because views rendered with Handlebars can't be indented)
+	,indentLevel: 0
+
 	 // Config properties for client-side QUnit
 	,QUnitFE: {
 		// QUnit updates document.title to add a checkmark or x-mark to indicate if a testsuite passed or failed.
