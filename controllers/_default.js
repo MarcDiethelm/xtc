@@ -7,13 +7,9 @@ module.exports = function(app) {
 		,renderModule = require('../lib/mod-render')()
 		,exphbs = require('express3-handlebars')
 		,utils = require('../lib/utils')
-		,docTitle = require('../lib/helpers.js')().docTitle
+		,helpers = require('../lib/helpers.js')
+		,docTitle = helpers.docTitle
 		,hbs
-
-		// for useful error message when an asset is not found
-		,cssUri = cfg.buildUriPrefix + cfg.static.build.css.external[app.get('env')]
-		,jsUri  = cfg.buildUriPrefix + cfg.static.build.js.external[app.get('env')]
-		,assetsRegExp = new RegExp(cssUri +'|'+ jsUri)
 	 ;
 
 	hbs = exphbs.create({ handlebars: require('handlebars') });
@@ -118,12 +114,12 @@ module.exports = function(app) {
 		}
 
 		,_getModuleTest: function(req, res, next) {
-			var test = req.query.url;
-
-			var  output = ''
+			var  test = req.query.url
+				,output = ''
 				,modules = []
 				,done = {}// keep track of handled module, to skip modules with identical options.
 			;
+
 			app.tests[test].forEach(function(options) {
 				if (options.name+options.template+options.skins+options.connectors in done)
 					return;
@@ -174,40 +170,9 @@ module.exports = function(app) {
 					}
 				}
 				else {
-					return app.render404(req, res, next);
+					return helpers.render404(req, res, next);
 				}
 			});
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		// If no Express middleware sends a response before, this middleware is finally called.
-		,render404: function(req, res, next) {
-
-			var isAssetUri = assetsRegExp.test(req.url)
-				,err
-			;
-
-			if (isAssetUri) {
-				err = utils.error('404 NOT FOUND '+ req.url, null, '==> Did you forget to run grunt?');
-				console.error( err.c );
-				res
-					.type('text/plain')
-					.send(404, err.web)
-				;
-			}
-			else {
-				res
-					.status(404)
-					.render(
-					'404'
-					,{
-						 docTitle: docTitle('404')
-						,uri: req.originalUrl
-					}
-				);
-			}
-
 		}
 	}
 };

@@ -15,6 +15,7 @@
 - "Pin" views to the top in the project overview by writing view names in a json file in _config/.
 - Default asset build now goes writes `build` dir (not tracked by git) and does not minify anymore. Start grunt with `--dist` option to start a production build including minification into `dist` dir (tracked by git).
 - Improved formatting of rendered modules. Auto-indent nested modules. You can manually specify the desired indentation on module and inline asset calls.
+- Refactored a lot of application code for clarity and better separation of components.
 
 
 ## 0.7.9 — 2013-12-03

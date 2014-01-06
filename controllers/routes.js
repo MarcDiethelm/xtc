@@ -1,11 +1,12 @@
 module.exports = function(app) {
 
 	var  cfg = require('../lib/configure').get()
-		,authBasic = require('../lib/helpers.js')().authBasic
+		,helpers = require('../lib/helpers.js')
+		,authBasic = helpers.authBasic
 	;
 
 	// password protect the whole site
-	// app.all('*', authBasic('user'), function(req, res, next) { next('route'); });
+	app.all('*', authBasic('user'), function(req, res, next) { next('route'); });
 
 
 
@@ -36,8 +37,7 @@ module.exports = function(app) {
 	app.get('/:view', _default._subPage);
 	app.post('/:view', _default._subPage);
 
-	// final middleware
-	app.render404 = _default.render404;
+	// If no route matches, the final middleware `helpers.render404` is called.
 
 
 	if (cfg.allowAuthBypassForIpRanges) {

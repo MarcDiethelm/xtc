@@ -382,7 +382,7 @@ Inline assets are available through a template helper, like so
 {{inline "css" indent=2}}
 ```
 
-Note that you can control the indentation with the `indent` attribute.
+Note that you can control the indentation with the `indent` attribute. The chars used can be changed in the project config.
 
 If you run the server in **production mode** the minified versions of these assets will be used.  
 
