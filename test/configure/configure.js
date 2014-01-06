@@ -2,7 +2,7 @@
 process.env.NODE_ENV = 'test';
 // load Node.js assertion module
 var assert = require('assert')
-	,_ = require('lodash')
+	,_ = require('lodash-node')
 	,fs
 	,path
 	,appPath
