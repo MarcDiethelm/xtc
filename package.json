@@ -17,7 +17,7 @@
 		"grunt-less-imports": "~0.8.4",
 		"assemble-less": "git://github.com/assemble/assemble-less.git#b0fdf863aa",
 		"grunt-glue-nu": "~0.1.0",
-		"grunt-contrib-jshint": "~0.6.0",
+		"grunt-contrib-jshint": "~0.8.0",
 		"grunt-contrib-concat": "~0.3.0",
 		"grunt-contrib-cssmin": "~0.7.0",
 		"grunt-contrib-uglify": "~0.2.0",
