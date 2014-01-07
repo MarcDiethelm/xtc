@@ -6,7 +6,7 @@ module.exports = function(app) {
 	;
 
 	// password protect the whole site
-	app.all('*', authBasic('user'), function(req, res, next) { next('route'); });
+	// app.all('*', authBasic('user'), function(req, res, next) { next('route'); });
 
 
 
