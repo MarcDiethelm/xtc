@@ -91,10 +91,11 @@ function runGrunt(args, done) {
 	var options = {
 		 cmd: 'grunt'
 		,args: args
-	}
+	};
+
 	grunt.util.spawn(options, function(error, result, code) {
 		if (error) {
-			console.log(result.stdout)
+			console.log(result.stdout);
 			throw(error);
 		}
 		done();
