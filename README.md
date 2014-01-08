@@ -148,17 +148,19 @@ npm install
 ### Configuration
 
 Set up your configuration in the folder  `_config`.
+todo: document node-convict (env, args...), secret via env...
+xtc uses [CJSON](https://npmjs.org/package/cjson) for its config files, which allows JS-style comments.
 
-- `config-default.js` defines sensible defaults for all configurable properties. Don't edit it.
-- **`config-project.js`** is where you configure your app, overriding the defaults.
-- `config-secret.js` is for basic auth credentials, db authentication info, SSL certs and so on.
-- `config-local.js` is used to override a configuration locally for development.
+- `config-default.json` defines sensible defaults for all configurable properties. Don't edit it.
+- **`config-project.json`** is where you configure your app, overriding the defaults.
+- `config-secret.json` is for basic auth credentials, db authentication info, SSL certs and so on.
+- `config-local.json` is used to override a configuration locally for development.
 
 The files are merged into the app config in the order mentioned. Any property you add is merged with the previous,
 overriding default properties as needed.
 
-`config-secret.js` and `config-local.js` are listed in `.gitignore` and won't be committed to your repository.
-`config-local.js` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be
+`config-secret.json` and `config-local.json` are listed in `.gitignore` and won't be committed to your repository.
+`config-local.json` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be
 deployed.
 Make sure these two files are not tracked by git unless you know what you're doing.
 

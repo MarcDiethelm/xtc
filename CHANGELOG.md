@@ -16,11 +16,13 @@
 - Default asset build now goes writes `build` dir (not tracked by git) and does not minify anymore. Start grunt with `--dist` option to start a production build including minification into `dist` dir (tracked by git).
 - Improved formatting of rendered modules. Auto-indent nested modules. You can manually specify the desired indentation on module and inline asset calls.
 - Refactored a lot of application code for clarity and better separation of components.
+- Using [node-convict](https://github.com/mozilla/node-convict) for configuration building and switched to JSON config files. Convict supports validation of config values.
 
 
 ## 0.7.9 — 2013-12-03
 
 - Fix repo link for module templates in project overview.
+
 
 ## 0.7.8 — 2013-11-26
 
