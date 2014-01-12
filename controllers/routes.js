@@ -5,7 +5,7 @@ module.exports = function(app) {
 		,authBasic = helpers.authBasic
 	;
 
-	// password protect the whole site
+	// password protect the whole site (to set credentials: see _config/config-secret.json)
 	// app.all('*', authBasic('user'), function(req, res, next) { next('route'); });
 
 
@@ -19,7 +19,9 @@ module.exports = function(app) {
 	app.get('/', index.home);
 	app.get('/subpage', index.aSubpage);
 	app.get('/subpage-alternate', index.aSubpageAlternate);
-	app.get('/data/:someParam', authBasic('user'), index.data);
+	app.get('/data/:someParam', index.data);
+	// password protect a route (to set credentials: see _config/config-secret.json)
+	//app.get('/admin', authBasic('admin'), index.admin);
 
 	/**
 	 * default routes

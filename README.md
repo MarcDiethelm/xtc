@@ -148,17 +148,18 @@ npm install
 ### Configuration
 
 Set up your configuration in the folder  `_config`.
+xtc uses [CJSON](https://github.com/kof/node-cjson) for its config files, which allows JS-style comments.
 
-- `config-default.js` defines sensible defaults for all configurable properties. Don't edit it.
-- **`config-project.js`** is where you configure your app, overriding the defaults.
-- `config-secret.js` is for basic auth credentials, db authentication info, SSL certs and so on.
-- `config-local.js` is used to override a configuration locally for development.
+- `config-default.json` defines sensible defaults for all configurable properties. Don't edit it.
+- **`config-project.json`** is where you configure your app, overriding the defaults.
+- `config-secret.json` is for basic auth credentials, db authentication info, SSL certs and so on. \[deprecated: see [Basic auth](#basic-authentication-and-bypass-for-ip-ranges)]
+- `config-local.json` is used to override a configuration locally for development.
 
 The files are merged into the app config in the order mentioned. Any property you add is merged with the previous,
 overriding default properties as needed.
 
-`config-secret.js` and `config-local.js` are listed in `.gitignore` and won't be committed to your repository.
-`config-local.js` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be
+`config-secret.json` and `config-local.json` are listed in `.gitignore` and won't be committed to your repository.
+`config-local.json` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be
 deployed.
 Make sure these two files are not tracked by git unless you know what you're doing.
 
@@ -461,12 +462,12 @@ app.get('/data/:someParam', app.authBasic('user'), index.data);
 ```
 
 Just insert the authentication middleware as shown in the snippet above. The argument to `app.authBasic` is the required
-username. The username/password combination is defined in `config/config-secret.js` as a key/value pair.
+username. The username/password combination(s) should be set using the environment variable `AUTH_BASIC`. For instructions see `config/config-secret.js`.
 
 You can open the restricted routes to certain IP ranges if you so desire. For security reasons you need to enable this
 feature by adding the property `allowAuthBypassForIpRanges: true` in `_config/config-project.js`.
 
-In `config/config-secret.js` you can then specify the IP ranges that have unrestricted access to your routes.
+Set the environment variable `AUTH_IP` to specify the IP ranges that have unrestricted access to your routes. For instructions see `config/config-secret.js`.
 
 Note that intermediate proxies change the source IP of a request. Therefore enabling `allowAuthBypassForIpRanges` also
 does instructs Express to trust the `X-FORWARDED-FOR` HTTP header typically added by proxies. This header can easily be
