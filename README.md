@@ -148,12 +148,11 @@ npm install
 ### Configuration
 
 Set up your configuration in the folder  `_config`.
-todo: document node-convict (env, args...), secret via env...
-xtc uses [CJSON](https://npmjs.org/package/cjson) for its config files, which allows JS-style comments.
+xtc uses [CJSON](https://github.com/kof/node-cjson) for its config files, which allows JS-style comments.
 
 - `config-default.json` defines sensible defaults for all configurable properties. Don't edit it.
 - **`config-project.json`** is where you configure your app, overriding the defaults.
-- `config-secret.json` is for basic auth credentials, db authentication info, SSL certs and so on.
+- `config-secret.json` is for basic auth credentials, db authentication info, SSL certs and so on. \[deprecated: see [Basic auth](#basic-authentication-and-bypass-for-ip-ranges)]
 - `config-local.json` is used to override a configuration locally for development.
 
 The files are merged into the app config in the order mentioned. Any property you add is merged with the previous,
@@ -463,12 +462,12 @@ app.get('/data/:someParam', app.authBasic('user'), index.data);
 ```
 
 Just insert the authentication middleware as shown in the snippet above. The argument to `app.authBasic` is the required
-username. The username/password combination is defined in `config/config-secret.js` as a key/value pair.
+username. The username/password combination(s) should be set using the environment variable `AUTH_BASIC`. For instructions see `config/config-secret.js`.
 
 You can open the restricted routes to certain IP ranges if you so desire. For security reasons you need to enable this
 feature by adding the property `allowAuthBypassForIpRanges: true` in `_config/config-project.js`.
 
-In `config/config-secret.js` you can then specify the IP ranges that have unrestricted access to your routes.
+Set the environment variable `AUTH_IP` to specify the IP ranges that have unrestricted access to your routes. For instructions see `config/config-secret.js`.
 
 Note that intermediate proxies change the source IP of a request. Therefore enabling `allowAuthBypassForIpRanges` also
 does instructs Express to trust the `X-FORWARDED-FOR` HTTP header typically added by proxies. This header can easily be
