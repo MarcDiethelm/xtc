@@ -136,10 +136,6 @@ module.exports = function(grunt) {
 				,namespace          : ''
 				,'sprite-namespace' : ''
 				,optipng            : true
-				,retina             : true
-
-				//,debug              : false // glue 0.9
-				,optipng            : false   // glue 0.9
 			}
 			,sprites: {
 				options: {

@@ -412,7 +412,7 @@ You can conditionally render markup using the environment block helper...
 
 xtc allows you to automate the generation of sprite sheets and their associated styles. This functionality depends on
 the powerful [Glue](https://github.com/jorgebastida/glue) command line tool written in Python. Because of that sprites
-building is not enabled by default. To enable it you need to [install Glue on your system](asset-building-grunt) first
+building is not enabled by default. To enable it you need to [install Glue on your system](#optional-sprites) first
 and set the pref like this: `enableSpritesBuilding: true`
 
 The standard location for your sprites is in `frontend/base/css/sprites`. If you have sprites that are unique to a
