@@ -34,8 +34,8 @@ handlebars = require('./lib/handlebars-helpers-xtc.js');
 
 hbs = require('express3-handlebars').create({
 	 handlebars: handlebars
-	,layoutsDir: cfg.paths.templates
-	,defaultLayout: cfg.defaultTemplateName
+	,layoutsDir: cfg.paths.layouts
+	,defaultLayout: cfg.defaultLayoutName
 	,extname: '.hbs'
 });
 

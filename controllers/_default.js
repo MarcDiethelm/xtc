@@ -28,13 +28,13 @@ module.exports = function(app) {
 				,docTitle: docTitle('Components Overview')
 				,title: 'Components Overview'
 				,views: overview.views
-				,templates: overview.templates
+				,layouts: overview.layouts
 				,modules: overview.modules
 			});
 		}
 
 		,_getView: function(req, res, next) {
-			var layout = cfg.defaultTemplateName;
+			var layout = cfg.defaultLayoutName;
 
 			if ('raw' in req.query) {
 				res.setHeader('Content-Type', 'text/plain');
@@ -76,7 +76,7 @@ module.exports = function(app) {
 					,skipModules: true
 				});
 
-				hbs.render(path.join(cfg.paths.templates, cfg.defaultTemplateName + '.hbs'), res.locals,
+				hbs.render(path.join(cfg.paths.layouts, cfg.defaultLayoutName + '.hbs'), res.locals,
 					function(err, html) {
 						if (err) {
 							var error = utils.error('Unable to render the module in the default template', err);
@@ -89,18 +89,18 @@ module.exports = function(app) {
 			}
 		}
 
-		,_getTemplate: function(req, res, next) {
+		,_getLayout: function(req, res, next) {
 			res.locals(app.locals);
 			res.locals({
 				layout: false
-				,docTitle: docTitle('Template: '+ req.params.template)
+				,docTitle: docTitle('Layout: '+ req.params.layout)
 				,body: ''
 			});
 
-			hbs.render(path.join(cfg.paths.templates, req.params.template + '.hbs'), res.locals,
+			hbs.render(path.join(cfg.paths.layouts, req.params.layout + '.hbs'), res.locals,
 				function(err, html) {
 					if (err) {
-						var error = utils.error('Unable to render the template', err);
+						var error = utils.error('Unable to render the layout', err);
 						console.error(error.c);
 						html = error.web;
 					}
@@ -142,7 +142,7 @@ module.exports = function(app) {
 				,helpers: { test: null }
 			});
 
-			hbs.render(path.join(cfg.pathsAbsolute.templates, cfg.defaultTemplateName + '.hbs'), res.locals,
+			hbs.render(path.join(cfg.pathsAbsolute.layouts, cfg.defaultLayoutName + '.hbs'), res.locals,
 				function(err, html) {
 					if (err) {
 						var error = utils.error('Unable to render the modules in the default template', err);

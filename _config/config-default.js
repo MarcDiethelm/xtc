@@ -49,7 +49,7 @@ module.exports = {
 	}
 	,enableModuleTesting: true
 	,repository: {
-		 doc        : 'Used to construct links to views, modules and templates in the project overview'
+		 doc        : 'Used to construct links to views, modules and layouts in the project overview'
 		,format     : 'url'
 		,default    : 'https://github.com/MarcDiethelm/node-terrific/tree/develop/'
 	}
@@ -64,18 +64,18 @@ module.exports = {
 		,application        : 'frontend/_application'
 		,routes             : 'controllers/routes.js'
 		,views              : 'frontend/views'
-		,templates          : 'frontend/views/templates'
+		,layouts            : 'frontend/views/layouts'
 		// Path to the Terrific modules directories
 		,modulesBaseDir     :'frontend/modules'
 		// Path to the static assets, used by Express and by the 'asset' template helper
 		,staticBaseDir      : 'frontend/_public'
 	}
 	// relative to templateBaseDir
-	,defaultTemplateName    : 'default'
+	,defaultLayoutName      : 'default'
 	,moduleDirName          : '{{name}}'
 	,skinsDirName           : 'skins'
 
-	// URIs for use in templates are constructed from the following data
+	// URIs for use in layouts are constructed from the following data
 		// URI prefix for static assets, e.g. '/static', empty string for none
 	,staticUriPrefix: ''
 		// static assets URIs are relative to 'staticUriPrefix'

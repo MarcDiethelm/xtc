@@ -29,7 +29,7 @@ Express + Terrific + awesome = xtc
 - [Manual](#manual)
 	- [Naming Convention](#naming-convention)
 	- [Routing and Rendering](#routing-and-rendering)
-	- [Templates and Views](#templates-and-views)
+	- [Layouts and Views](#layouts-and-views)
 	- [Handlebars Helpers](#handlebars-helpers)
 	- [Frontend Folder: Order matters](#frontend-folder-order-matters)
 	- [Terrific Modules](#terrific-modules)
@@ -71,7 +71,7 @@ Want more features? There are more.
 - Easy to configure. (Almost) everything in one place.
 - The whole frontend is contained in one folder, called... frontend.
 - Less @import (reference): Only includes what is actually used in your project. Great for libraries with mixins, helpers.
-- Generated [project overview](#template-development-and-integration-into-other-backends) lists all views, modules and templates, with links to stand-alone, rendered source and repository.
+- Generated [project overview](#template-development-and-integration-into-other-backends) lists all views, modules and layouts, with links to stand-alone, rendered source and repository.
 - Lazy routing: just create a new view and use its filename as the URI.
 - Helpful, friendly error messages if you do something wrong.
 - Basic styles for wireframing.
@@ -216,7 +216,7 @@ The callback gets three arguments: `req` (request object), `res` (response objec
  }
  ```
 
-This will render the 'home' view (home.hbs) in the default template (or default 'layout'). Here's a slightly more advanced example of a render call:
+This will render the 'home' view (home.hbs) in the default base document. In Express a base document is called a *layou*. Here's a slightly more advanced example of a render call:
 
 ```js
 res.render('subpage', {
@@ -225,21 +225,14 @@ res.render('subpage', {
 });
 ```
 
-This will render the view called 'subpage' inside the template defined in alternate.hbs. The second argument to `res.render` contains instructions (like `layout`) and data for the rendering engine. The `title` property is an example of such data. It is available in the view and layout templates as the `{{title}}` variable.
+This will render the view called 'subpage' inside the layout defined in the file alternate.hbs. The second argument to `res.render` contains instructions (like `layout`) and data for the rendering engine. The `title` property is an example of such data. It is available in the view and layout templates as the `{{title}}` variable.
 
-### Templates and Views
+### Layouts and Views
 
-In xtc the distinction between views and templates is as follows:
+In xtc the distinction between views and layouts is as follows:
 
-- View (`frontend/views`): A view typically corresponds to an individual page with an URL. This is where you include
-any modules specific to the page.
-- Templates (`frontend/views/templates`): Your basic document(s), typically a HTML document that contains all the things
-that are always needed: HEAD, scripts, tracking and so on. Your base template can be set in each route
-controller using the `layout` property or disabled altogether with `layout: false`. The view is included with the `{{{body}}}` variable.
-
-In Express templates are called layouts.
-
-Terrific Modules too can define *templates* for their own markup. More than one even!
+- View (`frontend/views`): A view typically corresponds to an individual page with an URL. This is where you include any modules specific to the page.
+- Layouts (`frontend/views/layouts`): Your basic document(s), typically a HTML document that contains all the things that are always needed: HEAD, scripts, tracking and so on. The desired layout can be defined in each route controller using the `layout` property or disabled altogether with `layout: false`. The view is added to a layout template with the `{{{body}}}` variable.
 
 #### Handlebars Helpers
 
@@ -264,10 +257,9 @@ some global JS code like Modernizr or other utilities and libraries and plugins.
 - `modules/moduleName` folders: All your module code and styles, basically everything visible that's not pure layout.
 - `_application` folder: The code that actually starts your app: Terrific bootstrap and any other global logic that
 depends on modules being available. If you need to build themeing into your app, this is the place too.
-- `public` folder: Anything that needs to be avialable to the world goes here, including the generated assets.
+- `public` folder: Static resources that need to be available to the world go here, including the generated assets.
 
-All these resources [are available to your templates](#static-assets) in concatenated and minified form
-(except stuff that you put in the /public folder).
+All these resources [are available to your templates](#static-assets) will be concatenated and minified (except the static stuff of course).
 
 
 ### Terrific Modules
@@ -417,7 +409,7 @@ Inline assets are available through a template helper, like so
 {{inline "css" indent=2}}
 ```
 
-Note that you can control the indentation with the `indent` attribute. The chars used can be changed in the project config.
+Note that you can control the indentation with the `indent` attribute. The chars used for indenting can be changed with the config property `indentString`.
 
 If you run the server in **production mode** the minified versions of these assets will be used.  
 
@@ -464,18 +456,18 @@ With [Grunt](#asset-building-grunt) there's almost no limit to what you can do.
 
 ## Template Development and Integration Into Other Backends
 
-Node-terrific implements some features to help with template integration in different backend systems.
+Node-terrific implements some features to help with template integration into different backend systems.
 
 ### Project overview
 
-`/_home` displays an overview of all user-defined views, modules and templates, i.e. ones whose names don't start with
+`/_home` displays an overview of all user-defined views, modules and layouts, i.e. ones whose names don't start with
 an underscore. The page contains links to the views and modules at `/[view name]`, `/_module/[module name]` and
-`/_template/[module name]` respectively. If you add the parameter `raw` to the URI, you get the pure HTML of that
+`/_layout/[layout name]` respectively. If you add the parameter `raw` to the URI, you get the pure HTML of that
 resource without any surrounding markup, e.g:
 
 	/view-name?raw
 	/_module/module-name?raw
-	/_template/template-name?raw
+	/layout/layout-name?raw
 
 Adding the parameter `solo` to a view request, will skip any modules that have the attribute `isLayout="true"` on their
 include tag. E.g.
@@ -518,7 +510,7 @@ To run tests for xtc enter `npm test`. This will start the mocha test runner.
 - The default tag of a generated wrapper for a markup module is SECTION instead of DIV.
 - Directories containing module skins are called 'skins' instead of 'skin'. This default can be changed however.
 - The overall file structure is flatter.
-- The term *layout* refers to base templates. For global frontend logic you can use the pre-defined module `page-controller`.
+- The term *layout* refers to base documents. For global frontend logic you can use the pre-defined module `page-controller`.
 
 
 ## What xtc does not do (yet)
