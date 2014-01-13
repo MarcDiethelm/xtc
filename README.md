@@ -175,14 +175,10 @@ Use a different terminal in your project folder (do you know `screen`?) and star
 
 There are some things you can do that will make development so much more easy:
 
-* You can run Grunt directly in the IDE. Any errors during asset parsing will be immediately pointed out to you. If you
-have the Command Line Tools plugin installed, open the Tools menu and select 'Run Command...'. Enter `grunt` in the
-input line. Just make sure you have installed Grunt CLI globally with `npm install -g grunt-cli`.
-(In WS 7 just the new terminal window.)
-* You can run/restart Node directly in the IDE. If you have the Node.js plugin installed create a Run configuration
-pointing to app.js. There's more than one way do get there. If in doubt refer to the documentation of your IDE.
-* Install the Handlebars/Mustache plugin (included in WS 7). It will give you syntax highlighting for .hbs files. Also you can set the
-comment style to Handlebars comments once you have the plugin.
+- You can [run Node directly in your IDE](http://www.jetbrains.com/webstorm/webhelp/node-js.html). Make sure the Node.js plugin is installed and then create a 'Run' configuration (or multiple) pointing to app.js. Set your environment variables as needed.
+- In WS 7 use the new terminal window to run **Grunt** (and npm) directly in the IDE. Any errors during asset parsing will be immediately be visible to you. If you
+ Just make sure you have installed Grunt CLI globally with `npm install -g grunt-cli`. In PHPSTorm you'll also need to install the terminal window plugin.
+- Use the Handlebars/Mustache plugin (included in WS 7). It will give you code insight and syntax highlighting for .hbs files. I also recommend setting the commenting style to Handlebars comments once you have the plugin.
 
 
 ## Manual
