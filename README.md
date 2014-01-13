@@ -89,18 +89,12 @@ And your next project will be able to use most functionality out of the box.
 
 ### Node.js
 
-Download the Node.js [installer](http://nodejs.org/) or use a node version manager.
+Install node using a node version manager. Or download the Node.js [installer](http://nodejs.org/).
 
-> It is recommended that you use a Node version manager for two reasons: NVMs install Node binaries AND any
-global node modules in a hidden folder in your home directory. No need to use sudo and mess with your system.
-Eventually you'll have multiple Node projects, possibly depending on different versions of Node.js and
-global modules. With nave you can create named environments in a snap.
-
-> So, install [Nave](https://github.com/isaacs/nave) from Github and install the latest stable Node.js version with
-`nave use stable`. Nave will open a new shell for you where `node` points to your user space install.
+> It is recommended that you use a Node version manager so you can switch between node versions effortlessly. Eventually you'll have multiple Node projects, possibly depending on different versions of Node.js. I recommend using [n](https://github.com/visionmedia/n). Just clone/download it and `make install`. Oh, and before you do make sure `/usr/local` and its descendants are writable by you. If you're on a Mac, [brew](http://brew.sh/) takes care of that. After that no more `sudo`.
 
 Strictly speaking you don't NEED a node version manager. Downloading the installer from the Node.js website will work
-just fine.
+just fine. If you're on Windows it's what you do.
 
 #### Windows users
 
@@ -113,7 +107,7 @@ installing git dependencies with npm and Nave does not work in the cmd.
 
 ### Install xtc Dependencies
 
-With the Node installation comes [NPM](https://npmjs.org/) the [node package manager](https://npmjs.org/doc/cli/npm.html).
+With the Node installation comes [NPM](https://npmjs.org/) the awesome [node package manager](https://npmjs.org/doc/cli/npm.html).
 We'll use it to first install some command line tools that need to be installed globally:
 
 ```Bash
