@@ -28,6 +28,7 @@ Express + Terrific + awesome = xtc
 	- [WebStorm / PHPStorm Users](#webstorm--phpstorm-users)
 - [Manual](#manual)
 	- [Naming Convention](#naming-convention)
+	- [Routing and Rendering](#routing-and-rendering)
 	- [Templates and Views](#templates-and-views)
 	- [Handlebars Helpers](#handlebars-helpers)
 	- [Frontend Folder: Order matters](#frontend-folder-order-matters)
@@ -56,14 +57,14 @@ Express + Terrific + awesome = xtc
 - Frontend modularization, modules are included by the server.
 - Nice for single page apps.
 - [Handlebars](http://handlebarsjs.com/) templates.
-- [LessCSS](https://github.com/less/less.js) 1.5.0-b3
+- [LessCSS](https://github.com/less/less.js) 1.5.0
 - Flexible automatic asset building using [Grunt.js](http://gruntjs.com/), with file watcher
-- Automated sprites generation
+- Automatic sprites generation
 - External, inline (todo: and dynamically loaded assets)
 - [Automatic testing](#module-testing) of the current page (todo: test automation in multiple browsers, simultaneously)
 - Project setup takes minutes.
 - Interactive [generator](#terrific-module-creation) for modules, skins (todo: and projects).
-- Ready for [deploying to Heroku](https://gist.github.com/MarcDiethelm/6321844) and Nodejitsu.
+- Ready for [deploying to Heroku](https://gist.github.com/MarcDiethelm/6321844), Digital Ocean or Nodejitsu.
 
 Want more features? There are more.
 
@@ -193,6 +194,39 @@ comment style to Handlebars comments once you have the plugin.
 - Files that start with an underscore are resources required for xtc's functionality.
 
 
+### Routing and Rendering
+
+[Express](https://github.com/visionmedia/express) is the server application used in xtc. It is very powerful and I recommend reading through its [guide](http://expressjs.com/guide.html) and [API](http://expressjs.com/api.html).
+
+Below some are very basic examples. For more advanced stuff check out the files in the `controllers` folder and make sure you look at Express' documentation linked above.
+
+In xtc the server routes are defined in `controller/routes.js`. [Editing routes is very straightforward](http://expressjs.com/api.html#app.VERB).
+
+Basically every route has at least one assigned callback.
+
+```js
+app.get('/', index.home);
+```
+
+The callback gets three arguments: `req` (request object), `res` (response object), `next` (the next 'middleware'). Pretty much everything you need is contained in the first two. Route callbacks or *controllers* are defined in `controllers/index.js`. The most basic callback looks like this:
+
+ ```js
+ index.home: function(req, res, next) {
+    res.render('home');
+ }
+ ```
+
+This will render the 'home' view (home.hbs) in the default template (or default 'layout'). Here's a slightly more advanced example of a render call:
+
+```js
+res.render('subpage', {
+	 layout: 'alternate'
+	,title: 'Subpage'
+});
+```
+
+This will render the view called 'subpage' inside the template defined in alternate.hbs. The second argument to `res.render` contains instructions (like `layout`) and data for the rendering engine. The `title` property is an example of such data. It is available in the view and layout templates as the `{{title}}` variable.
+
 ### Templates and Views
 
 In xtc the distinction between views and templates is as follows:
@@ -200,12 +234,12 @@ In xtc the distinction between views and templates is as follows:
 - View (`frontend/views`): A view typically corresponds to an individual page with an URL. This is where you include
 any modules specific to the page.
 - Templates (`frontend/views/templates`): Your basic document(s), typically a HTML document that contains all the things
-that are always needed: HEAD, scripts, tracking and so on. Your template base template can be set in each route
-controller using the layout property or disabled altogether with `layout: false`. The view is included with the `{{{body}}}` variable.
+that are always needed: HEAD, scripts, tracking and so on. Your base template can be set in each route
+controller using the `layout` property or disabled altogether with `layout: false`. The view is included with the `{{{body}}}` variable.
 
 In Express templates are called layouts.
 
-Terrific Modules too can define (multiple) templates for their own markup.
+Terrific Modules too can define *templates* for their own markup. More than one even!
 
 #### Handlebars Helpers
 
@@ -398,7 +432,7 @@ frameworks like Bootstrap.
 
 Express determines which mode to use through an system environment variable `NODE_ENV` which either has the value `development`
 or `production`. Generally speaking in dev mode resources aren't cached so that any changes that are made in the
-frontend can be picked up. Also, in dev mode unminified asset versions are used for easier debugging.
+frontend can be picked up. Also, in dev mode non-minified asset versions are used for easier debugging.
 
 You can conditionally render markup using the environment block helper...
 
@@ -482,7 +516,9 @@ To run tests for xtc enter `npm test`. This will start the mocha test runner.
 ## Differences to Terrific Composer
 
 - The default tag of a generated wrapper for a markup module is SECTION instead of DIV.
-- Dierctories containing module skins are called 'skins' instead of 'skin'. This default can be changed however.
+- Directories containing module skins are called 'skins' instead of 'skin'. This default can be changed however.
+- The overall file structure is flatter.
+- The term *layout* refers to base templates. For global frontend logic you can use the pre-defined module `page-controller`.
 
 
 ## What xtc does not do (yet)
