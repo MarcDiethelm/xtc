@@ -1,7 +1,8 @@
 {
 	"name": "xtc-project",
 	"description": "an xtc project",
-	"version": "0.0.1",
+	"version": "0.0.0",
+	"xtcVersion": "0.8.0",
 	"private": true,
 	"main": "app.js",
 	"dependencies": {
@@ -34,5 +35,6 @@
 		"start": "node app.js",
 		"test": "./node_modules/.bin/mocha"
 	},
-	"engines": { "node" : ">=0.8.0" }
+	"engines": { "node" : ">=0.8.0" },
+	"configPath": "_config/"
 }

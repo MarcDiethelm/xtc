@@ -17,6 +17,7 @@
 - Improved formatting of rendered modules. Auto-indent nested modules. You can manually specify the desired indentation on module and inline asset calls.
 - Refactored a lot of application code for clarity and better separation of components.
 - Using [node-convict](https://github.com/mozilla/node-convict) for configuration building and switched to [CJSON](https://github.com/kof/node-cjson) config files. Convict supports environment variables and validation of config values.
+- The location of the config files can now be configured in package.json.
 - Base templates are now referred to as *layouts*, in line with Express terminology. The folder name is changed from `frontend/views/templates` to `frontend/views/layouts`.
 
 

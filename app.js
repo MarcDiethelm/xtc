@@ -1,5 +1,8 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-process.env.NODE_ENV != 'test' && console.log('node %s – xtc server in %s mode', process.version, process.env.NODE_ENV);
+// log node version, xtc version and server mode
+process.env.NODE_ENV != 'test' && console.log('node %s – xtc v%s – server in %s mode',
+	process.version, require('./package.json').xtcVersion, process.env.NODE_ENV
+);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

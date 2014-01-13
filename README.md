@@ -148,21 +148,22 @@ npm install
 
 ### Configuration
 
-Set up your configuration in the folder  `_config`.
-xtc uses [CJSON](https://github.com/kof/node-cjson) for its config files, which allows JS-style comments.
+xtc uses [CJSON](https://github.com/kof/node-cjson) for its config files, which allows JS-style comments. The files are merged into the app config in the order mentioned below. Any property you add is merged with the previous, overriding default properties as needed.
 
-- `config-default.json` defines sensible defaults for all configurable properties. Don't edit it.
-- **`config-project.json`** is where you configure your app, overriding the defaults.
+The configuration files are located the folder  `_config`.
+
+- `config-default.js` defines a schema and defaults for all configurable properties. You should not normally have to edit it.
+- **`config-project.json`** is where you configure most of your app, by copying over and overriding the properties as needed.
 - `config-secret.json` is for basic auth credentials, db authentication info, SSL certs and so on. \[deprecated: see [Basic auth](#basic-authentication-and-bypass-for-ip-ranges)]
-- `config-local.json` is used to override a configuration locally for development.
+- `config-local.json` serves to override configuration values only for development on your local machine.
 
-The files are merged into the app config in the order mentioned. Any property you add is merged with the previous,
-overriding default properties as needed.
+ Some properties namely the ones in `config-secret.json` can be set with environment variables, env vars have a higher priority than the config files. This is the preferred way of setting sensitive values.
 
 `config-secret.json` and `config-local.json` are listed in `.gitignore` and won't be committed to your repository.
 `config-local.json` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be
-deployed.
-Make sure these two files are not tracked by git unless you know what you're doing.
+deployed. Make sure these two files are not tracked by git unless you know what you're doing.
+
+The location of the config files can be configured in package.json.
 
 
 ### Start the Server!
