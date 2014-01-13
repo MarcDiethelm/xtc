@@ -1,6 +1,6 @@
 {
-	"name": "hello-world",
-	"description": "hello world app",
+	"name": "xtc-project",
+	"description": "an xtc project",
 	"version": "0.0.1",
 	"private": true,
 	"main": "app.js",
