@@ -66,7 +66,7 @@ module.exports = {
 		,views              : 'frontend/views'
 		,layouts            : 'frontend/views/layouts'
 		// Path to the Terrific modules directories
-		,modulesBaseDir     :'frontend/modules'
+		,modulesBaseDir     : 'frontend/modules'
 		// Path to the static assets, used by Express and by the 'asset' template helper
 		,staticBaseDir      : 'frontend/_public'
 	}
