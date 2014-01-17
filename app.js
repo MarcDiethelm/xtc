@@ -70,7 +70,7 @@ app.use(express.compress());
 app.use(cfg.staticUriPrefix, express.static(cfg.pathsAbsolute.staticBaseDir));
 
 // Voodoo! Set up tracking the Terrific modules included for any URIs, for module testing in the browser.
-'development' == app.get('env') && helpers.registerModuleTestTrackingMiddleware(app);
+helpers.registerModuleTestTrackingMiddleware(app);
 
 // Register our routes in routes.js
 require(cfg.pathsAbsolute.routes)(app);
