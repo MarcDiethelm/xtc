@@ -52,12 +52,6 @@ app.set('views', cfg.paths.views);
 // Register server middleware (`app.use`)
 // (see http://expressjs.com/api.html#middleware and http://www.senchalabs.org/connect/)
 
-// Voodoo! Set up tracking the Terrific modules included for any URIs, for module testing in the browser.
-'development' == app.get('env') && helpers.registerModuleTestTrackingMiddleware(app);
-
-// Register our routes in routes.js
-require(cfg.pathsAbsolute.routes)(app);
-
 
 if ('development' == app.get('env')) {
 	app.use(express.errorHandler());
@@ -74,7 +68,13 @@ app.use(express.multipart()); // Security tip: Disable this if you don't need fi
 app.use(express.methodOverride());
 app.use(express.compress());
 app.use(cfg.staticUriPrefix, express.static(cfg.pathsAbsolute.staticBaseDir));
-app.use(app.router);
+
+// Voodoo! Set up tracking the Terrific modules included for any URIs, for module testing in the browser.
+'development' == app.get('env') && helpers.registerModuleTestTrackingMiddleware(app);
+
+// Register our routes in routes.js
+require(cfg.pathsAbsolute.routes)(app);
+
 app.use(helpers.render404); // If no other middleware responds, this last callback sends a 404.
 
 
