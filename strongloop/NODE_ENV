@@ -1,8 +1,0 @@
-#  Uncomment one of the deployment modes to select how your app's
-#  dependencies get installed. The last "non-blank" deployment mode line
-#  is the one picked up and used.
-#
-#  Default: production
-
-# development
-production
