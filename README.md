@@ -1,3 +1,7 @@
+<sup>Master</sup> [![Build Status Master](https://travis-ci.org/MarcDiethelm/xtc.png?branch=master)](https://travis-ci.org/MarcDiethelm/xtc) &nbsp;&nbsp;&nbsp; <sup>Develop</sup> [![Build Status Develop](https://travis-ci.org/MarcDiethelm/xtc.png?branch=develop)](https://travis-ci.org/MarcDiethelm/xtc) &nbsp;&nbsp;&nbsp; <sup>Follow: [@xtcjs](https://twitter.com/xtcjs)</sup>
+
+---
+
 # xtc <small>– frontend development server and framework</small>
 
 This project brings the [Terrific.js](http://terrifically.org/) clever, yet simple frontend modularization pattern to
@@ -9,9 +13,6 @@ The Terrific.js pattern prevents collisions between different areas of code, mak
 reuse in the frontend possible.
 
 Express + Terrific + awesome = xtc
-
-[![Build Status](https://travis-ci.org/MarcDiethelm/xtc.png?branch=master)](https://travis-ci.org/MarcDiethelm/xtc) master<br>
-[![Build Status](https://travis-ci.org/MarcDiethelm/xtc.png?branch=develop)](https://travis-ci.org/MarcDiethelm/xtc) develop
 
 
 ## Table of Contents
@@ -502,6 +503,7 @@ To run tests for xtc enter `npm test`. This will start the mocha test runner.
 - Directories containing module skins are called 'skins' instead of 'skin'. This default can be changed however.
 - The overall file structure is flatter.
 - The term *layout* refers to base documents. For global frontend logic you can use the pre-defined module `page-controller`.
+- Terrific modules have some additional methods: `$$`, `bindAll`, `getName`. Defined in `frontend/application/js/00-terrific-extensions.js`.
 
 
 ## What xtc does not do (yet)
