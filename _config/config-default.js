@@ -4,7 +4,7 @@ var check = require('../lib/validator');
 
 module.exports = {
 
-	// Default HTML title is constructed from this
+	// Default html > head > title is constructed from this
 	 siteName: 'XTC Project'
 	,devPort: {
 		doc: 'Local port for the server'
