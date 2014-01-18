@@ -8,7 +8,7 @@
 	//}
 	//,enableModuleTesting: true
 	//  To construct links to views and modules
-	//,repository: 'https://git.namics.com/project-name/tree/develop/'
+	//,repository: 'https://github.com/UserName/project-name/tree/develop/'
 	//  Should asset building include sprites generation? Dependencies: Glue (Python) and OptiPNG (binary executable)
 	//,enableSpritesBuilding: false
 

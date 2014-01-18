@@ -24,9 +24,7 @@
 	<header role="banner">
 	{{!-- This is a good place for a main navigation module.
 	      Setting _isLayout="true" allows to skip this module when solo viewing a view for development.
-	 --}}{{mod "nav-main" tag="nav" indent=2 _isLayout=true}}
-
-		<hr>
+	 --}}{{!--{{mod "nav-main" tag="nav" indent=2 _isLayout=true}}--}}
 	</header>
 
 	<main role="main">
@@ -34,7 +32,7 @@
 	</main>
 
 	<footer role="contentinfo">
-		<hr>
+
 	</footer>
 
 	{{#env "production"}}<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>{{/env}}

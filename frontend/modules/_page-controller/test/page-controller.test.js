@@ -12,9 +12,4 @@ xtc.tests.PageController = function(mod, options) {
 
 		ok( true, 'Basic testing works.' );
 	});
-
-	test( 'Dummy #2', function() {
-
-		strictEqual( mod.$$('.debug-pc').length, 1, 'Appends debug text.' );
-	});
 };
