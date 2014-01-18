@@ -13,16 +13,23 @@
 		}
 		.item {
 			padding-bottom: 1em;
+			color: #888;
 		}
 		.subitem {
 			padding-top: .7em;
 			padding-left: 1.7em;
 			font-weight: normal;
-			color: #999;
 		}
 		.name, a.name {
 			font-weight: bold;
-			color: #eee;
+		}
+		.item .name {
+			padding-right: 2px;
+		}
+		small a {
+			padding: 1px;
+			font-size: 1.17em;
+			font-size: 0.9rem;
 		}
 		.subname, a.subname {
 			font-weight: bold;
@@ -30,7 +37,7 @@
 		.pinned + .unpinned::before {
 			display: block;
 			content: '';
-			border-top: 7px dotted #282828;
+			border-top: 7px dotted #888;
 			margin-bottom: 1em;
 		}
 		.table {
@@ -41,10 +48,14 @@
 		}
 		.table-cell {
 			display: table-cell;
-			border-right: 7px solid #282828;
+			width: 30%;
+			border-right: 7px solid #888;
 		}
 		.table-cell + .table-cell {
 			padding-left: 2%;
+		}
+		.table-cell:first-child + .table-cell {
+			width: 36%;
 		}
 	</style>
 </head>
@@ -74,10 +85,10 @@
 			<h2>Modules</h2>
 			<ul>
 			{{#each modules}}
-				<li class="item name">
-					{{name}}
+				<li class="item">
+					<span class="name">{{name}}</span>
 					<small>
-						{{#if repoUri}} | <a href="{{repoUri}}">git</a>{{/if}}
+						{{#if repoUri}} | <a href="{{repoUri}}">repo</a>{{/if}}
 						<ul>
 						{{#each templates}}
 							<li class="subitem">
