@@ -16,7 +16,7 @@ describe('asset building', function() {
 		describe('external JS', function() {
 
 			before(function(done) {
-				runGrunt(['build-external-js', '-config-path=test/assets', '-config-files=default,assets-default'], done);
+				runGrunt(['build-external-js', '-config-path=test/assets', '-config-files=assets'], done);
 			});
 
 			it('should create external.js', function() {
@@ -31,10 +31,10 @@ describe('asset building', function() {
 			});
 		});
 
-		describe('external js', function() {
+		describe('external css', function() {
 
 			before(function(done) {
-				runGrunt(['build-external-css', '-config-path=test/assets', '-config-files=default,assets-default'], done);
+				runGrunt(['build-external-css', '-config-path=test/assets', '-config-files=assets'], done);
 			});
 
 			it('should create external.css', function() {
@@ -64,7 +64,7 @@ describe('asset building', function() {
 		describe('external CSS', function() {
 
 			before(function(done) {
-				runGrunt(['build-external-css', '-config-path=test/assets', '-config-files=default,assets,assets-uri'], done);
+				runGrunt(['build-external-css', '-config-path=test/assets', '-config-files=assets,assets-uri'], done);
 			});
 
 			it('should create correct static uri', function() {
@@ -91,10 +91,11 @@ function runGrunt(args, done) {
 	var options = {
 		 cmd: 'grunt'
 		,args: args
-	}
+	};
+
 	grunt.util.spawn(options, function(error, result, code) {
 		if (error) {
-			console.log(result.stdout)
+			console.log(result.stdout);
 			throw(error);
 		}
 		done();

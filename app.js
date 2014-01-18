@@ -1,16 +1,56 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-process.env.NODE_ENV != 'test' && console.log('node %s – xtc server in %s mode', process.version, process.env.NODE_ENV);
+// log node version, xtc version and server mode
+process.env.NODE_ENV != 'test' && console.log('node %s – xtc v%s – server in %s mode',
+	process.version, require('./package.json').xtcVersion, process.env.NODE_ENV
+);
 
-var  path = require('path')
-	,express = require('express')
-	,http = require('http')
-	,exphbs = require('express3-handlebars')
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Load some dependencies
+
+var  path       = require('path')
+	,express    = require('express')
+	,http       = require('http')
+	,cfg        = require('./lib/configure').get()
+	,helpers    = require('./lib/helpers.js')
+
+	,handlebars
 	,hbs
-	,helpers
-	,handlebarsHelpers
-	,app = express()
-	,cfg
+	,app
 ;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Create an Express instance
+
+app = express();
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Set up template rendering
+
+// Create template data that is always available
+app.locals(helpers.makeLocals());
+
+// Create a Handlebars instance with our template helpers
+// We can then require the same instance again in lib/mod-render.js and controllers/_default.js
+handlebars = require('./lib/handlebars-helpers-xtc.js');
+
+hbs = require('express3-handlebars').create({
+	 handlebars: handlebars
+	,layoutsDir: cfg.paths.layouts
+	,defaultLayout: cfg.defaultLayoutName
+	,extname: '.hbs'
+});
+
+// Set the express3-handlebars instance as rendering engine
+app.engine('hbs', hbs.engine); // 1: template file extension, 2: engine render callback
+app.set('view engine', 'hbs');
+app.set('views', cfg.paths.views);
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Register server middleware (`app.use`)
+// (see http://expressjs.com/api.html#middleware and http://www.senchalabs.org/connect/)
 
 
 if ('development' == app.get('env')) {
@@ -20,67 +60,35 @@ if ('development' == app.get('env')) {
 
 if ('production' == app.get('env')) {}
 
+app.use(express.favicon(path.join(cfg.pathsAbsolute.staticBaseDir, 'favicon.ico')));
+app.use(express.logger( 'development' == app.get('env') && 'dev' )); // Abbreviated logging for development
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.multipart()); // Security tip: Disable this if you don't need file upload.
+app.use(express.methodOverride());
+app.use(express.compress());
+app.use(cfg.staticUriPrefix, express.static(cfg.pathsAbsolute.staticBaseDir));
 
-// Merge configuration data
-cfg = require('./lib/configure').merge('_config/', [
-		 'default'
-		,'project'
-		,'secret'
-		,'local'
-	]).get();
+// Voodoo! Set up tracking the Terrific modules included for any URIs, for module testing in the browser.
+helpers.registerModuleTestTrackingMiddleware(app);
 
-// Share the configuration data
-app.cfg = cfg;
+// Register our routes in routes.js
+require(cfg.pathsAbsolute.routes)(app);
 
-helpers = require('./lib/helpers.js')(cfg);
-app.terrific = require('./lib/terrific.js')(cfg);
-// Set up template data that is always available
-app.locals(helpers.makeLocals());
-app.docTitle = helpers.docTitle;
-app.authBasic = helpers.authBasic;
+app.use(helpers.render404); // If no other middleware responds, this last callback sends a 404.
 
-// Create a configured express3-handlebars instance with our Handlebars template helpers
-handlebarsHelpers = require('./lib/helpers-handlebars.js')(cfg);
-handlebarsHelpers.mod = app.terrific.modHelper;
-hbs = exphbs.create({
-	 layoutsDir: cfg.paths.templates
-	,defaultLayout: cfg.defaultTemplateName
-	,extname: '.hbs'
-	,helpers: handlebarsHelpers
-});
 
-// Set the express3-handlebars instance as rendering engine
-app.engine('hbs', hbs.engine); // 1) template file extension, 2) engine render callback
-app.set('view engine', 'hbs');
-app.set('views', cfg.paths.views);
-
-// The express3-handlebars instance has our template helpers. Make it available elsewhere.
-app.hbs = hbs;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Listen to requests
 
 // Store the port in the settings (Why?)
 app.set('port', process.env.PORT || cfg.devPort);
 
-// Set up middlewares
-app.use(express.favicon(path.join(cfg.pathsAbsolute.staticBaseDir, 'favicon.ico')));
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(express.compress());
-app.use(cfg.staticUriPrefix, express.static(cfg.pathsAbsolute.staticBaseDir));
-app.use(app.router);
-
-// Set up tracking the Terrific modules included for any URIs, for module testing in the browser.
-'development' == app.get('env') && helpers.registerModuleTestTrackingMiddleware(app);
-
-// Load our routes from routes.js
-require(cfg.pathsAbsolute.routes)(app);
-
-// If no other middleware responds, this last callback sends a 404. Defined in routes.js.
-app.use(app.render404);
-
-// Export the app if this case this file was called from another script, i.e. a test
-module.exports = app;
-if (!module.parent) { // if parent exists we are in testing mode
+if (module.parent) {
+	// If parent exists we are in testing mode
+	module.exports = app;
+} else {
+	// Server starts listening
 	http.createServer(app).listen(app.get('port'), function() {
 		console.log('listening on port %d\n', app.get('port'));
 	});

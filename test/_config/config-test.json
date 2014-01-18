@@ -1,0 +1,4 @@
+// Config for all tests, overrides defaults
+{
+	"devPort": 3333
+}

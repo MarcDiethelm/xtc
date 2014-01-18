@@ -1,27 +1,31 @@
 {
-	"name": "hello-world",
-	"description": "hello world app",
-	"version": "0.0.1",
+	"name": "xtc-project",
+	"description": "an xtc project",
+	"version": "0.0.0",
+	"xtcVersion": "0.8.0-beta1",
 	"private": true,
 	"main": "app.js",
 	"dependencies": {
 		"express": "~3.3.0",
 		"express3-handlebars": "~0.5.0",
+		"convict": "~0.4.0",
 		"hipsum": ">=0.2.0",
-		"lodash": "~1.3.1",
-		"range_check": "~0.0.4"
+		"lodash-node": "~2.4.0",
+		"range_check": "~0.0.4",
+		"handlebars": "~1.3.0"
 	},
 	"devDependencies": {
 		"grunt": "~0.4.0",
-		"grunt-less-imports": "~0.8.4",
+		"grunt-less-imports": "~0.9.0",
 		"assemble-less": "git://github.com/assemble/assemble-less.git#b0fdf863aa",
-		"grunt-glue": "~0.1.1",
-		"grunt-contrib-jshint": "~0.6.0",
+		"grunt-glue-nu": "~0.1.0",
+		"grunt-contrib-jshint": "~0.8.0",
 		"grunt-contrib-concat": "~0.3.0",
-		"grunt-contrib-cssmin": "~0.6.0",
+		"grunt-contrib-cssmin": "~0.7.0",
 		"grunt-contrib-uglify": "~0.2.0",
 		"grunt-contrib-watch": "~0.5.0",
-		"mocha": "~1.12.0"
+		"grunt-contrib-clean": "~0.5.0",
+		"mocha": "~1.16.0"
 	},
 	"repository": {
 		"type": "git",
@@ -30,5 +34,7 @@
 	"scripts": {
 		"start": "node app.js",
 		"test": "./node_modules/.bin/mocha"
-	}
+	},
+	"engines": { "node" : ">=0.8.0" },
+	"configPath": "_config/"
 }

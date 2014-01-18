@@ -1,0 +1,141 @@
+// BASE TYPOGRAPHY
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#type {
+	@fontFamily: sans-serif;
+	@fontSize: 13px;
+	@lineHeight: 15px;
+	@fontWeight: normal;
+	@colorDefault: #000;
+
+	#title {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		@fontWeight: bold;
+		@colorDefault: grey;
+		@lineHeight: 20px;
+
+		// Default //
+		.style(@_, @color: @colorDefault) {
+			color: @color;
+			font-weight: @fontWeight;
+			line-height: @lineHeight;
+		}
+
+		// Page //
+		.style(page,...) {
+			font-size: large;
+
+			@media @tablet {
+				font-size: x-large;
+			}
+		}
+
+		// Claim //
+		.style(default,...) {
+			font-size: medium;
+
+			@media @tablet {
+				font-size: large;
+			}
+		}
+
+	}
+
+	#copy {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		// Default //
+		.style(@_, @color: @colorDefault) {
+			color: @color;
+			font-size: @fontSize;
+			line-height: @lineHeight;
+			font-weight: @fontWeight;
+			font-family: @fontFamily;
+		}
+
+		// Default //
+		.style() {
+			#type > #copy > .style(null);
+		}
+
+		// Small //
+		.style(small,...) {
+			font-size: x-small;
+		}
+
+	}
+
+	#link {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		@colorDefault: #000;
+
+		// Default //
+		.style(@_, @color: @colorDefault) {
+			color: @color;
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+
+		// Default //
+		.style(@color) {
+			#type > #link > .style(null, @color);
+		}
+	}
+
+	//// for demo only
+	@tablet: ~'(min-width: 601px)';
+}
+
+// Derived Classes
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+.title-page {
+	#type > #title > .style(page);
+}
+
+.title {
+	#type > #title > .style(default);
+}
+
+.copy { // base, can be used to 'reset' typography
+	#type > #copy > .style();
+}
+
+.small {
+	#type > #copy > .style(small);
+}
+
+// Variations (belong in elements.less I think)
+/////////////
+
+/*.copy-hilite {
+	#typo > #copy > .style(null, pink);
+}*/
+
+/**
+
+Usage:
+	As HTML class
+	<h6 class="title-page">Lorem</h6>
+
+	In style sheet
+	.mod-example {
+
+		// extend
+		.header .title:extend(title-claim); // or
+		.header .title { &.extend(.title-claim) };
+
+		// mixin
+		// default claim title
+		.header .title { .title-claim() };
+
+		// mixin
+		// local variation: pink, normal weight
+		#typo > #title > .style(page, pink);
+		// override styles for exceptions in design
+		font-weight: normal; // blame the designer
+	}
+*/

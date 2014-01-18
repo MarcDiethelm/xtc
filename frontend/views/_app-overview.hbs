@@ -13,19 +13,33 @@
 		}
 		.item {
 			padding-bottom: 1em;
+			color: #888;
 		}
 		.subitem {
 			padding-top: .7em;
 			padding-left: 1.7em;
 			font-weight: normal;
-			color: #999;
 		}
 		.name, a.name {
 			font-weight: bold;
-			color: #eee;
+		}
+		.item .name {
+			padding-right: 2px;
+		}
+		small a {
+			padding: 1px;
+			font-size: 1.17em;
+			font-size: 0.9rem;
 		}
 		.subname, a.subname {
 			font-weight: bold;
+		}
+		.pinned + .unpinned::before {
+			display: block;
+			content: '';
+			border-top: 2px dotted #888;
+			border-color: rgba(128,128,128,.3);
+			margin-bottom: 1em;
 		}
 		.table {
 			display: table;
@@ -35,75 +49,83 @@
 		}
 		.table-cell {
 			display: table-cell;
-			border-right: 7px solid #282828;
+			width: 30%;
+			border-right: 2px solid #888;
+			border-color: rgba(128,128,128,.3);
 		}
 		.table-cell + .table-cell {
 			padding-left: 2%;
 		}
+		.table-cell:first-child + .table-cell {
+			width: 36%;
+		}
 	</style>
 </head>
 <body>
-	<h1>{{title}}</h1>
-	
-	<div class="table">
-	
-		<div class="table-cell">
-			<h2>Views</h2>
-			<ul>
-			{{#each views}}
-				<li class="item">
-					<a class="name" href="/_view/{{this.name}}">{{this.name}}</a>
-					<small>
-						| <a href="/_view/{{this.name}}?solo">solo</a>
-						| <a href="/_view/{{this.name}}?raw">raw</a>
-						{{#if this.repoUri}} | <a href="{{this.repoUri}}">repo</a>{{/if}}
-					</small>
-				</li>
-			{{/each}}
-			</ul>
-		</div>
+	<main>
+		<h1 class="title-page">{{title}}</h1>
+
+		<div class="table">
+
+			<div class="table-cell">
+				<h2 class="title">Views</h2>
+				<ul>
+					{{#each views}}
+						<li class="item{{#if isPinned}} pinned{{else}} unpinned{{/if}}">
+							<a class="name" href="/{{name}}">{{name}}</a>
+							<small>
+								| <a href="/_view/{{name}}?solo">solo</a>
+								| <a href="/_view/{{name}}?raw">raw</a>
+								{{#if repoUri}} | <a href="{{repoUri}}">repo</a>{{/if}}
+							</small>
+						</li>
+					{{/each}}
+				</ul>
+			</div>
 
 
-		<div class="table-cell">
-			<h2>Modules</h2>
-			<ul>
-			{{#each modules}}
-				<li class="item name">
-					{{this.name}}
-					<small>
-						{{#if this.repoUri}} | <a href="{{this.repoUri}}">git</a>{{/if}}
-						<ul>
-						{{#each this.templates}}
-							<li class="subitem">
-								<a class="subname" href="/_module/{{../this.name}}/{{this.name}}">{{this.name}}</a>
-								| <a href="/_module/{{../this.name}}/{{this.name}}?raw">raw</a>
-								{{#if this.repoUri}} | <a href="{{this.repoUri}}">repo</a>{{/if}}
-							</li>
-						{{/each}}
-						</ul>
-					</small>
-				</li>
-			{{/each}}
-			</ul>
+			<div class="table-cell">
+				<h2 class="title">Modules</h2>
+				<ul>
+					{{#each modules}}
+						<li class="item">
+							<span class="name">{{name}}</span>
+							<small>
+								{{#if repoUri}} | <a href="{{repoUri}}">repo</a>{{/if}}
+								<ul>
+									{{#each templates}}
+										<li class="subitem">
+											<a class="subname" href="/_module/{{../name}}/{{name}}">{{name}}</a>
+											| <a href="/_module/{{../name}}/{{name}}?raw">raw</a>
+											{{#if repoUri}} | <a href="{{repoUri}}">repo</a>{{/if}}
+										</li>
+									{{/each}}
+								</ul>
+							</small>
+						</li>
+					{{/each}}
+				</ul>
+			</div>
+
+
+			<div class="table-cell">
+				<h2 class="title">Layouts</h2>
+				<ul>
+					{{#each layouts}}
+						<li class="item">
+							<a class="name" href="/_layout/{{name}}">{{name}}</a>
+							<small>
+								| <a href="/_layout/{{name}}?raw">raw</a>
+								{{#if repoUri}} | <a href="{{repoUri}}">repo</a>{{/if}}
+							</small>
+						</li>
+					{{/each}}
+				</ul>
+			</div>
+
 		</div>
-		
-		
-		<div class="table-cell">
-			<h2>Templates</h2>
-			<ul>
-			{{#each templates}}
-				<li class="item">
-					<a class="name" href="/_template/{{this.name}}">{{this.name}}</a>
-					<small>
-						| <a href="/_template/{{this.name}}?raw">raw</a>
-						{{#if this.repoUri}} | <a href="{{this.repoUri}}">repo</a>{{/if}}
-					</small>
-				</li>
-			{{/each}}
-			</ul>
-		</div>
-		
-	</div>
+
+	</main>
 
 </body>
 </html>

@@ -1,9 +1,37 @@
 # Changelog
 
-## develop branch (0.8.0)
+## develop branch (0.8.0-beta2)
+
+
+-
+
+## develop branch (0.8.0-beta1)
 
 - Use Hipsum.js for easy filler text. Available in development and production installations.
+- Use grunt-glue-nu for improved glue spriting the grunt way
 - Full logging in production, including date and user agent.
+- Templating: Ability to inject specfic objects from the surrounding context into a module call.
+	`{{mod "filter" data=someObject}}` The properties of `someObject` are now available in top level of the module context.
+	So now you can call a module template multiple times with different (but uniform) data. Previously this only worked
+	with literals.
+- Gruntfile watches itself for changes, initiates a default build when changed.
+- Handlebars helpers are now automatically registered for use in module templates.
+- Views in the project overview are now rendered using the catch-all route. This prevents conflicts with with ‘raw’ & ‘solo’ `_view` routes if the dev adds custom routes to the views that include queries.
+- "Pin" views to the top in the project overview by writing view names in a json file in _config/.
+- Default asset build now goes writes `build` dir (not tracked by git) and does not minify anymore. Start grunt with `--dist` option to start a production build including minification into `dist` dir (tracked by git).
+- Improved formatting of rendered modules. Auto-indent nested modules. You can manually specify the desired indentation on module and inline asset calls.
+- Refactored a lot of application code for clarity and better separation of components.
+- Using [node-convict](https://github.com/mozilla/node-convict) for configuration building and switched to [CJSON](https://github.com/kof/node-cjson) config files. Convict supports environment variables and validation of config values.
+- The location of the config files can now be configured in package.json.
+- Base templates are now referred to as *layouts*, in line with Express terminology. The folder name is changed from `frontend/views/templates` to `frontend/views/layouts`.
+- `config-local.js` is now ignored when running in production mode.
+- node_modules are now tracked in the repository
+
+
+## 0.7.9 — 2013-12-03
+
+- Fix repo link for module templates in project overview.
+
 
 ## 0.7.9 — 2013-12-03
 

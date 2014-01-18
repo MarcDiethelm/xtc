@@ -1,32 +1,8 @@
-<h1>Home</h1>
+<h1 class="title-page">Home</h1>
 
 <p>
-	Home view using default template. You can change this in <code>/controllers/index.js</code>.<br>
-	The view for this page is located in <code>/views/home.hbs.</code>
+	{{filler 8}}
 </p>
-
 <p>
-	You can include a Terrific frontend module with the following very simple syntax:
+	<a href="/_home">Project Overview</a>
 </p>
-
-<blockquote><code>\{{mod "example"}}</code></blockquote>
-
-{{mod "example"}}
-
-<p>
-	Here's an example showing all available options:
-</p>
-
-<blockquote><code>\{{mod "example" template="alternate" skins="alternate, baz" tag="section" id="foo" htmlClasses="test-class" data="{var1: 'foo'}" data-connectors="stats, filter" any-attribute="value"}}</code></blockquote>
-
-{{mod "example" template="alternate" skins="alternate, baz" tag="section" id="foo" htmlClasses="test-class" data="{var1: 'foo'}" data-connectors="stats, filter" any-attribute="value"}}
-
-<p>Here's an example using a jQuery plugin from Twitter Bootstrap:</p>
-
-{{mod "bootstrap-carousel"}}
-
-<p>Here's the output from the JS-only module <code>page-controller</code> appending some text here:</p>
-
-<div class="imgPathTest" title="I know it's ugly. But it has a purpose. Until I've written tests to replace it.">
-	<img src="{{static.img}}/68.png" width="32" height="32" alt="pill">
-</div>

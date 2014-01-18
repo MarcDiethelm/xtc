@@ -1,3 +1,7 @@
+<sup>Master</sup> [![Build Status Master](https://travis-ci.org/MarcDiethelm/xtc.png?branch=master)](https://travis-ci.org/MarcDiethelm/xtc) &nbsp;&nbsp;&nbsp; <sup>Develop</sup> [![Build Status Develop](https://travis-ci.org/MarcDiethelm/xtc.png?branch=develop)](https://travis-ci.org/MarcDiethelm/xtc) &nbsp;&nbsp;&nbsp; <sup>Follow: [@xtcjs](https://twitter.com/xtcjs)</sup>
+
+---
+
 # xtc <small>– frontend development server and framework</small>
 
 This project brings the [Terrific.js](http://terrifically.org/) clever, yet simple frontend modularization pattern to
@@ -10,9 +14,6 @@ reuse in the frontend possible.
 
 Express + Terrific + awesome = xtc
 
-[![Build Status](https://travis-ci.org/MarcDiethelm/xtc.png?branch=master)](https://travis-ci.org/MarcDiethelm/xtc) master<br>
-[![Build Status](https://travis-ci.org/MarcDiethelm/xtc.png?branch=develop)](https://travis-ci.org/MarcDiethelm/xtc) develop
-
 
 ## Table of Contents
 
@@ -24,22 +25,25 @@ Express + Terrific + awesome = xtc
 	- [Optional: Sprites](#optional-sprites)
 - [Project Setup](#project-setup)
 	- [Configuration](#configuration)
-	- [Asset Building: Grunt](#asset-building-grunt)
 	- [Start the Server!](#asset-building-grunt)
 	- [WebStorm / PHPStorm Users](#webstorm--phpstorm-users)
 - [Manual](#manual)
 	- [Naming Convention](#naming-convention)
-	- [Templates and Views](#templates-and-views)
+	- [Routing and Rendering](#routing-and-rendering)
+	- [Layouts and Views](#layouts-and-views)
+	- [Handlebars Helpers](#handlebars-helpers)
 	- [Frontend Folder: Order matters](#frontend-folder-order-matters)
 	- [Terrific Modules](#terrific-modules)
 	- [Module Creation](#module-creation)
 	- [Module Testing](#module-testing)
+	- [Asset Building: Grunt](#asset-building-grunt)
 	- [Static Assets](#static-assets)
 		- [LessCSS 1.5.0](#lesscss-150)
 	- [Development and Production Mode](#development-and-production-mode)
 	- [Building Sprites with Glue](#building-sprites-with-glue)
 	- [Build Customization](#build-customization)
 - [Template Development and Integration Into Other Backends](#template-development-and-integration-into-other-backends)
+	- [Project Overview](#project-overview)
 - [Basic Authentication and Bypass for IP Ranges](#basic-authentication-and-bypass-for-ip-ranges)
 - [Framework Testing](#framework-testing)
 - [Differences to Terrific Composer](#differences-to-terrific-composer)
@@ -54,23 +58,25 @@ Express + Terrific + awesome = xtc
 - Frontend modularization, modules are included by the server.
 - Nice for single page apps.
 - [Handlebars](http://handlebarsjs.com/) templates.
-- [LessCSS](https://github.com/less/less.js) 1.5.0-b3
+- [LessCSS](https://github.com/less/less.js) 1.5.0
 - Flexible automatic asset building using [Grunt.js](http://gruntjs.com/), with file watcher
-- Automated sprites generation
+- Automatic sprites generation
 - External, inline (todo: and dynamically loaded assets)
 - [Automatic testing](#module-testing) of the current page (todo: test automation in multiple browsers, simultaneously)
 - Project setup takes minutes.
 - Interactive [generator](#terrific-module-creation) for modules, skins (todo: and projects).
-- Ready for [deploying to Heroku](https://gist.github.com/MarcDiethelm/6321844) and Nodejitsu.
+- Ready for [deploying to Heroku](https://gist.github.com/MarcDiethelm/6321844), Digital Ocean or Nodejitsu.
 
 Want more features? There are more.
 
 - Easy to configure. (Almost) everything in one place.
 - The whole frontend is contained in one folder, called... frontend.
-- Generated [project overview](#template-development-and-integration-into-other-backends) lists all views, modules and templates, with links to stand-alone, rendered source and repository.
+- Less @import (reference): Only includes what is actually used in your project. Great for libraries with mixins, helpers.
+- Generated [project overview](#template-development-and-integration-into-other-backends) lists all views, modules and layouts, with links to stand-alone, rendered source and repository.
 - Lazy routing: just create a new view and use its filename as the URI.
 - Helpful, friendly error messages if you do something wrong.
 - Basic styles for wireframing.
+- Filler text template helper [Hipsum.js](https://github.com/MarcDiethelm/Hipsum.js).
 - Super-easy HTTP basic auth protection and access for IP ranges.
 - Less @import (reference): Only includes what is actually used in your project. Great for libraries with mixins, helpers.
 
@@ -84,18 +90,12 @@ And your next project will be able to use most functionality out of the box.
 
 ### Node.js
 
-Download the Node.js [installer](http://nodejs.org/) or use a node version manager.
+Install node using a node version manager. Or download the Node.js [installer](http://nodejs.org/).
 
-> It is recommended that you use a Node version manager for two reasons: NVMs install Node binaries AND any
-global node modules in a hidden folder in your home directory. No need to use sudo and mess with your system.
-Eventually you'll have multiple Node projects, possibly depending on different versions of Node.js and
-global modules. With nave you can create named environments in a snap.
-
-> So, install [Nave](https://github.com/isaacs/nave) from Github and install the latest stable Node.js version with
-`nave use stable`. Nave will open a new shell for you where `node` points to your user space install.
+> It is recommended that you use a Node version manager so you can switch between node versions effortlessly. Eventually you'll have multiple Node projects, possibly depending on different versions of Node.js. I recommend using [n](https://github.com/visionmedia/n). Just clone/download it and `make install`. Oh, and before you do make sure `/usr/local` and its descendants are writable by you. If you're on a Mac, [brew](http://brew.sh/) takes care of that. After that no more `sudo`.
 
 Strictly speaking you don't NEED a node version manager. Downloading the installer from the Node.js website will work
-just fine.
+just fine. If you're on Windows it's what you do.
 
 #### Windows users
 
@@ -108,7 +108,7 @@ installing git dependencies with npm and Nave does not work in the cmd.
 
 ### Install xtc Dependencies
 
-With the Node installation comes [NPM](https://npmjs.org/) the [node package manager](https://npmjs.org/doc/cli/npm.html).
+With the Node installation comes [NPM](https://npmjs.org/) the awesome [node package manager](https://npmjs.org/doc/cli/npm.html).
 We'll use it to first install some command line tools that need to be installed globally:
 
 ```Bash
@@ -143,36 +143,22 @@ npm install
 
 ### Configuration
 
-Set up your configuration in the folder  `_config`.
+xtc uses [CJSON](https://github.com/kof/node-cjson) for its config files, which allows JS-style comments. The files are merged into the app config in the order mentioned below. Any property you add is merged with the previous, overriding default properties as needed.
 
-- `config-default.js` defines sensible defaults for all configurable properties. Don't edit it.
-- **`config-project.js`** is where you configure your app, overriding the defaults.
-- `config-secret.js` is for basic auth credentials, db authentication info, SSL certs and so on.
-- `config-local.js` is used to override a configuration locally for development.
+The configuration files are located the folder  `_config`.
 
-The files are merged into the app config in the order mentioned. Any property you add is merged with the previous,
-overriding default properties as needed.
+- `config-default.js` defines a schema and defaults for all configurable properties. You should not normally have to edit it.
+- **`config-project.json`** is where you configure most of your app, by copying over and overriding the properties as needed.
+- `config-secret.json` is for basic auth credentials, db authentication info, SSL certs and so on. \[deprecated: see [Basic auth](#basic-authentication-and-bypass-for-ip-ranges)]
+- `config-local.json` serves to override configuration values only for development on your local machine.
 
-`config-secret.js` and `config-local.js` are listed in `.gitignore` and won't be committed to your repository.
-`config-local.js` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be
-deployed.
-Make sure these two files are not tracked by git unless you know what you're doing.
+ Some properties namely the ones in `config-secret.json` can be set with environment variables, env vars have a higher priority than the config files. This is the preferred way of setting sensitive values.
 
+`config-secret.json` and `config-local.json` are listed in `.gitignore` and won't be committed to your repository.
+`config-local.json` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be
+deployed. Make sure these two files are not tracked by git unless you know what you're doing.
 
-### Asset Building: Grunt
-
-Before you can start the server you need to generate the assets for the frontend. You have already installed grunt-cli
-globally. Now in your project enter `grunt`. That's it.
-[Grunt](http://gruntjs.com/getting-started) will build your assets and also watch all your JS and Less/CSS source files
-as configured in [Gruntfile.js](http://gruntjs.com/sample-gruntfile). When you edit them it re-generates the assets
-automatically. You will have to restart Grunt for it to register
-[any files in new folders](https://github.com/gruntjs/grunt-contrib-watch/issues/70) though! (This will be fixed
-eventually.)
-
-**Note:** The generated asset are not tracked by git as every developer must be able to create them on the fly.
-Committing the files would produce tedious merge conflicts.
-If you deploy your project using git do it from a branch where the assets are not ignored by git. (Just add a `!` before
-a rule in `.gitignore` to negate it.)
+The location of the config files can be configured in package.json.
 
 
 ### Start the Server!
@@ -184,14 +170,10 @@ Use a different terminal in your project folder (do you know `screen`?) and star
 
 There are some things you can do that will make development so much more easy:
 
-* You can run Grunt directly in the IDE. Any errors during asset parsing will be immediately pointed out to you. If you
-have the Command Line Tools plugin installed, open the Tools menu and select 'Run Command...'. Enter `grunt` in the
-input line. Just make sure you have installed Grunt CLI globally with `npm install -g grunt-cli`.
-(In WS 7 just the new terminal window.)
-* You can run/restart Node directly in the IDE. If you have the Node.js plugin installed create a Run configuration
-pointing to app.js. There's more than one way do get there. If in doubt refer to the documentation of your IDE.
-* Install the Handlebars/Mustache plugin (included in WS 7). It will give you syntax highlighting for .hbs files. Also you can set the
-comment style to Handlebars comments once you have the plugin.
+- You can [run Node directly in your IDE](http://www.jetbrains.com/webstorm/webhelp/node-js.html). Make sure the Node.js plugin is installed and then create a 'Run' configuration (or multiple) pointing to app.js. Set your environment variables as needed.
+- In WS 7 use the new terminal window to run **Grunt** (and npm) directly in the IDE. Any errors during asset parsing will be immediately be visible to you. If you
+ Just make sure you have installed Grunt CLI globally with `npm install -g grunt-cli`. In PHPSTorm you'll also need to install the terminal window plugin.
+- Use the Handlebars/Mustache plugin (included in WS 7). It will give you code insight and syntax highlighting for .hbs files. I also recommend setting the commenting style to Handlebars comments once you have the plugin.
 
 
 ## Manual
@@ -204,21 +186,51 @@ comment style to Handlebars comments once you have the plugin.
 - Files that start with an underscore are resources required for xtc's functionality.
 
 
-### Templates and Views
+### Routing and Rendering
 
-In xtc the distinction between views and templates is as follows:
+[Express](https://github.com/visionmedia/express) is the server application used in xtc. It is very powerful and I recommend reading through its [guide](http://expressjs.com/guide.html) and [API](http://expressjs.com/api.html).
 
-- View (`frontend/views`): A view typically corresponds to an individual page with an URL. This is where you include
-any modules specific to the page.
-- Templates (`frontend/views/templates`): Your basic document(s), typically a HTML document that contains all the things that are
-always needed: HEAD, scripts, tracking and so on. Your template base template can be set in each route controller using
-the layout property or disabled altogether with `layout: false`. The view is included with the `{{{body}}}` variable.
+Below some are very basic examples. For more advanced stuff check out the files in the `controllers` folder and make sure you look at Express' documentation linked above.
 
-In Express templates are called layouts.
+In xtc the server routes are defined in `controller/routes.js`. [Editing routes is very straightforward](http://expressjs.com/api.html#app.VERB).
 
-Terrific Modules too can define (multiple) templates for their own markup.
+Basically every route has at least one assigned callback.
 
-#### Filler Text
+```js
+app.get('/', index.home);
+```
+
+The callback gets three arguments: `req` (request object), `res` (response object), `next` (the next 'middleware'). Pretty much everything you need is contained in the first two. Route callbacks or *controllers* are defined in `controllers/index.js`. The most basic callback looks like this:
+
+ ```js
+ index.home: function(req, res, next) {
+    res.render('home');
+ }
+ ```
+
+This will render the 'home' view (home.hbs) in the default base document. In Express a base document is called a *layou*. Here's a slightly more advanced example of a render call:
+
+```js
+res.render('subpage', {
+	 layout: 'alternate'
+	,title: 'Subpage'
+});
+```
+
+This will render the view called 'subpage' inside the layout defined in the file alternate.hbs. The second argument to `res.render` contains instructions (like `layout`) and data for the rendering engine. The `title` property is an example of such data. It is available in the view and layout templates as the `{{title}}` variable.
+
+### Layouts and Views
+
+In xtc the distinction between views and layouts is as follows:
+
+- View (`frontend/views`): A view typically corresponds to an individual page with an URL. This is where you include any modules specific to the page.
+- Layouts (`frontend/views/layouts`): Your basic document(s), typically a HTML document that contains all the things that are always needed: HEAD, scripts, tracking and so on. The desired layout can be defined in each route controller using the `layout` property or disabled altogether with `layout: false`. The view is added to a layout template with the `{{{body}}}` variable.
+
+#### Handlebars Helpers
+
+You can add your own Handlebars helper functions in addition to some existing helpers. Check out
+`lib/handlebars-helpers-custom.js` for examples and to add your own. And take a look at http://handlebarsjs.com/#helpers for more info about
+ Handlebars helpers.
 
 xtc includes [Hipsum.js](https://github.com/MarcDiethelm/Hipsum.js) so you can quickly generate filler text in your
 templates. Check out the documentation there if needed.
@@ -237,10 +249,9 @@ some global JS code like Modernizr or other utilities and libraries and plugins.
 - `modules/moduleName` folders: All your module code and styles, basically everything visible that's not pure layout.
 - `_application` folder: The code that actually starts your app: Terrific bootstrap and any other global logic that
 depends on modules being available. If you need to build themeing into your app, this is the place too.
-- `public` folder: Anything that needs to be avialable to the world goes here, including the generated assets.
+- `public` folder: Static resources that need to be available to the world go here, including the generated assets.
 
-All these resources [are available to your templates](#static-assets) in concatenated and minified form
-(except stuff that you put in the /public folder).
+All these resources [are available to your templates](#static-assets) will be concatenated and minified (except the static stuff of course).
 
 
 ### Terrific Modules
@@ -278,7 +289,7 @@ This will generate the following wrapper:
 Please refer to the official docs at [Terrifically.org](http://terrifically.org/) to learn more about the Terrific
 pattern. Just may safely ignore the part about "Composer".
 
-You can use the `data` attribute on a module include to **inject data** (as a JS object literal) into the context of the
+You can use the `data` attribute on a module include to **inject data** (as a JS object or object literal) into the context of the
 module template.
 
 You can set any attribute on the module wrapper you want. Attributes not mentioned so far in this section will simply be added to the
@@ -286,6 +297,8 @@ markup. This includes HTML5 `data-` attributes.
 
 You can enable **annotations** in the HTML output around modules in the config. The annotation displays the module name,
 the template file name, the filesystem path and repository URL to the module.
+
+the **indentation** of included modules can be controlled with the `indent` attribute using integer values. Nested child modules are indented automatically. 
 
 Using the `noWrapper=true` attribute on a module include will prevent creation of the wrapper element and module annotation.
 This is useful when creating markup-only modules in base layouts, e.g a HTML HEAD module including the doctype. You can
@@ -333,6 +346,21 @@ To disable module testing set `enableModuleTesting` to false in the config.<br>
 To use the classic QUnit display in the page set `QUnitFE.showUi` to true.<br>
 QUnit adds a symbol to the HTML title indicating the test status. To disable set `QUnitFE.alterTitle` to false.
 
+
+### Asset Building: Grunt
+
+After editing your frontend styles and scripts you need to re-generate the assets for the frontend. You have already installed grunt-cli
+globally. Now in your project enter `grunt`. That's it.
+[Grunt](http://gruntjs.com/getting-started) will build your assets and also watch all your JS and Less/CSS source files
+as configured in [Gruntfile.js](http://gruntjs.com/sample-gruntfile). When you edit them it re-generates the assets
+automatically. You will have to restart Grunt for it to register
+[any files in new folders](https://github.com/gruntjs/grunt-contrib-watch/issues/70) though! (This will be fixed
+eventually.)
+
+**Note:** The generated assets are written to `frontend/public/build` which is ignored by git. Every developer on a development team must be able to create the assets on the fly. Committing the files would produce tedious merge conflicts after every pull.
+
+Start grunt with `--dist` option to create minified production assets in `frontend/public/dist` and then commit them. After that you're go for deployment.
+
 ### Static Assets
 
 If you look at config.js you will find that you can define the file system locations of your assets very flexibly.
@@ -370,10 +398,12 @@ Inline assets are available through a template helper, like so
 
 ```Handlebars
 {{inline "js"}}
-{{inline "css"}}
+{{inline "css" indent=2}}
 ```
 
-If you run the server in production mode the minified versions of these assets will be used.
+Note that you can control the indentation with the `indent` attribute. The chars used for indenting can be changed with the config property `indentString`.
+
+If you run the server in **production mode** the minified versions of these assets will be used.  
 
 #### LessCSS 1.5.0
 
@@ -386,7 +416,7 @@ frameworks like Bootstrap.
 
 Express determines which mode to use through an system environment variable `NODE_ENV` which either has the value `development`
 or `production`. Generally speaking in dev mode resources aren't cached so that any changes that are made in the
-frontend can be picked up. Also, in dev mode unminified asset versions are used for easier debugging.
+frontend can be picked up. Also, in dev mode non-minified asset versions are used for easier debugging.
 
 You can conditionally render markup using the environment block helper...
 
@@ -398,10 +428,16 @@ You can conditionally render markup using the environment block helper...
 
 ### Building Sprites with Glue
 
-* todo: doc sprites generation with node-glue
-* todo: doc file locations and other options
+xtc allows you to automate the generation of sprite sheets and their associated styles. This functionality depends on
+the powerful [Glue](https://github.com/jorgebastida/glue) command line tool written in Python. Because of that sprites
+building is not enabled by default. To enable it you need to [install Glue on your system](#optional-sprites) first
+and set the pref like this: `enableSpritesBuilding: true`
 
-http://glue.readthedocs.org/en/latest/options.html
+The standard location for your sprites is in `frontend/base/css/sprites`. If you have sprites that are unique to a
+module you can put them in a `sprites` folder inside the module.
+
+xtc uses [grunt-glue-nu](https://github.com/MarcDiethelm/grunt-glue-nu) to execute and enhance Glue. If you edit the
+Gruntfile.js you have almost total freedom to build your sprite bundles exactly as you want them.
 
 
 ### Build Customization
@@ -412,19 +448,26 @@ With [Grunt](#asset-building-grunt) there's almost no limit to what you can do.
 
 ## Template Development and Integration Into Other Backends
 
-Node-terrific implements some features to help with template integration in different backend systems.
+Node-terrific implements some features to help with template integration into different backend systems.
 
-`/_home` displays an overview of all user-defined views and modules, i.e. ones whose names don't start with an
-underscore. The page contains links to the views and modules at `/_view/[name]` and `/_module/[name]` respectively.
-If you add the parameter `raw` to the URI, you get the pure HTML of that resource without any surrounding markup, e.g:
+### Project overview
 
-	/_view/example?raw
-	/_module/example?raw
+`/_home` displays an overview of all user-defined views, modules and layouts, i.e. ones whose names don't start with
+an underscore. The page contains links to the views and modules at `/[view name]`, `/_module/[module name]` and
+`/_layout/[layout name]` respectively. If you add the parameter `raw` to the URI, you get the pure HTML of that
+resource without any surrounding markup, e.g:
+
+	/view-name?raw
+	/_module/module-name?raw
+	/layout/layout-name?raw
 
 Adding the parameter `solo` to a view request, will skip any modules that have the attribute `isLayout="true"` on their
-include tag.
+include tag. E.g.
 
 	/_view/example?solo
+
+**Views can be pinned** to the top of the list by adding their name to an array in the file `_config/pinned-views.json`.
+The pinned views will be presented in the order they appear in the file.
 
 
 ## Basic Authentication and Bypass for IP Ranges
@@ -437,12 +480,12 @@ app.get('/data/:someParam', app.authBasic('user'), index.data);
 ```
 
 Just insert the authentication middleware as shown in the snippet above. The argument to `app.authBasic` is the required
-username. The username/password combination is defined in `config/config-secret.js` as a key/value pair.
+username. The username/password combination(s) should be set using the environment variable `AUTH_BASIC`. For instructions see `config/config-secret.js`.
 
 You can open the restricted routes to certain IP ranges if you so desire. For security reasons you need to enable this
 feature by adding the property `allowAuthBypassForIpRanges: true` in `_config/config-project.js`.
 
-In `config/config-secret.js` you can then specify the IP ranges that have unrestricted access to your routes.
+Set the environment variable `AUTH_IP` to specify the IP ranges that have unrestricted access to your routes. For instructions see `config/config-secret.js`.
 
 Note that intermediate proxies change the source IP of a request. Therefore enabling `allowAuthBypassForIpRanges` also
 does instructs Express to trust the `X-FORWARDED-FOR` HTTP header typically added by proxies. This header can easily be
@@ -457,7 +500,10 @@ To run tests for xtc enter `npm test`. This will start the mocha test runner.
 ## Differences to Terrific Composer
 
 - The default tag of a generated wrapper for a markup module is SECTION instead of DIV.
-- Dierctories containing module skins are called 'skins' instead of 'skin'. This default can be changed however.
+- Directories containing module skins are called 'skins' instead of 'skin'. This default can be changed however.
+- The overall file structure is flatter.
+- The term *layout* refers to base documents. For global frontend logic you can use the pre-defined module `page-controller`.
+- Terrific modules have some additional methods: `$$`, `bindAll`, `getName`. Defined in `frontend/application/js/00-terrific-extensions.js`.
 
 
 ## What xtc does not do (yet)

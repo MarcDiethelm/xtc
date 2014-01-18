@@ -7,7 +7,7 @@ before_script:
 branches:
   only:
     - master
-    - stable
+    - develop
 notifications:
   email:
     - marc@web5.me

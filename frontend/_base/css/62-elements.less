@@ -1,0 +1,30 @@
+// I'm never quite sure what belongs here. Project specific classes and styles for tags, probably.
+// This file will probably always be messy. All other files in this folder should be clean.
+
+// LINKS
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Base link style is in typography file. Apply and define any variations and exceptions here...
+a:link,
+a:visited,
+a:hover,
+a:active {
+	#type > #link > .style(@colorLink);
+}
+
+// DEMO STUFF
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// make .mod use .wf-box
+.mod:extend(.wf-box) {
+	>.wf-box {
+		padding: 0;
+		margin: 0;
+		outline: none;
+	}
+}
+
+// grid demo
+.col {
+	&:extend(.wf-box);
+}

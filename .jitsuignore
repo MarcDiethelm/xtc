@@ -1,3 +1,0 @@
-config-local.js
-!frontend/_public/dist/
-!frontend/_base/css/sprites/*.less

@@ -1,5 +1,15 @@
 module.exports = function(app) {
 
+	var  cfg = require('../lib/configure').get()
+		,helpers = require('../lib/helpers.js')
+		,authBasic = helpers.authBasic
+	;
+
+	// password protect the whole site (to set credentials: see _config/config-secret.json)
+	// app.all('*', authBasic('user'), function(req, res, next) { next('route'); });
+
+
+
 	/**
 	 * user-defined routes
  	 */
@@ -7,9 +17,8 @@ module.exports = function(app) {
 	var index = require('./index')(app);
 
 	app.get('/', index.home);
-	app.get('/subpage', index.aSubpage);
-	app.get('/subpage-alternate', index.aSubpageAlternate);
-	app.get('/data/:someParam', app.authBasic('user'), index.data);
+	// password protect a route (to set credentials: see _config/config-secret.json)
+	//app.get('/admin', authBasic('admin'), index.admin);
 
 	/**
 	 * default routes
@@ -18,20 +27,19 @@ module.exports = function(app) {
 	var _default = require('./_default')(app);
 
 	app.get('/_home', _default._home);
-	app.get('/_view/:name', _default._getView);
-	app.get('/_module/:name/:template', _default._getModule);
-	app.get('/_template/:name', _default._getTemplate);
+	app.get('/_view/:view', _default._getView);
+	app.get('/_module/:module/:template', _default._getModule);
+	app.get('/_layout/:layout', _default._getLayout);
 	app.get('/_test', _default._getModuleTest);
 
 	// catch-all routes
-	app.get('/:pageName', _default._subPage);
-	app.post('/:pageName', _default._subPage);
+	app.get('/:view', _default._subPage);
+	app.post('/:view', _default._subPage);
 
-	// final middleware
-	app.render404 = _default.render404;
+	// If no route matches, the final middleware `helpers.render404` is called.
 
 
-	if (app.cfg.allowAuthBypassForIpRanges) {
+	if (cfg.allowAuthBypassForIpRanges) {
 
 		// Populate the request IP with X-FORWARDED-FOR header if a proxy added one, or else the IP will be wrong.
 		// Needed for authBasic helper to allow bypassing authentication for configurable IPs.
