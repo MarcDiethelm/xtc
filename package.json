@@ -16,7 +16,7 @@
 	},
 	"devDependencies": {
 		"grunt": "~0.4.0",
-		"grunt-less-imports": "~0.8.4",
+		"grunt-less-imports": "~0.9.0",
 		"assemble-less": "git://github.com/assemble/assemble-less.git#b0fdf863aa",
 		"grunt-glue-nu": "~0.1.0",
 		"grunt-contrib-jshint": "~0.8.0",
