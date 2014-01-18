@@ -220,7 +220,7 @@ So this is working nicely. EXCEPT, we basically need to test in the same layout 
 
 })();
 
-xtc.tests.BootstrapCarousel = function(mod, options) {
+xtc.tests.PageController = function(mod, options) {
 
 	 // Start a QUnit module for this Terrific module
 	module(this.name, {
@@ -230,9 +230,9 @@ xtc.tests.BootstrapCarousel = function(mod, options) {
 		teardown: function () {}
 	});
 
-	test( 'Dummy', function() {
+	test( 'Dummy #1', function() {
 
-		strictEqual( mod.$$('.debug').length, 1, 'Appends debug text.' );
+		ok( true, 'Basic testing works.' );
 	});
 };
 
@@ -255,25 +255,5 @@ xtc.tests.Example = function(mod, options) {
 			ok( mod.$ctx.is('.skin-example-alternate'), 'Is .skin-example-alternate.' );
 			strictEqual( mod.$$('.debug').length, 2, 'Appends debug texts.' );
 		}
-	});
-};
-xtc.tests.PageController = function(mod, options) {
-
-	 // Start a QUnit module for this Terrific module
-	module(this.name, {
-		 // prepare something for each following test()
-		setup: function () {},
-		 // clean up after each test()
-		teardown: function () {}
-	});
-
-	test( 'Dummy #1', function() {
-
-		ok( true, 'Basic testing works.' );
-	});
-
-	test( 'Dummy #2', function() {
-
-		strictEqual( mod.$$('.debug-pc').length, 1, 'Appends debug text.' );
 	});
 };
