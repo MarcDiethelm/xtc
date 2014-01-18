@@ -24,28 +24,7 @@ a:active {
 	}
 }
 
-// overwrite wireframe boxes with dark wireframe boxes
-.wf-box {
-	&:extend(.wf-box-dark);
-}
 // grid demo
 .col {
 	&:extend(.wf-box);
-}
-
-.imgPathTest {
-	position: fixed;
-	right: 1em;
-	top: 1em;
-	width: 32px;
-	height: 32px;
-	opacity: .5;
-}
-
-.debug {
-	font-family: monospace;
-	opacity: .5;
-	&:before {
-		content: '> ';
-	}
 }

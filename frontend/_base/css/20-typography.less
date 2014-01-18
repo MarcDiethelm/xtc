@@ -4,6 +4,7 @@
 #type {
 	@fontFamily: sans-serif;
 	@fontSize: 13px;
+	@lineHeight: 15px;
 	@fontWeight: normal;
 	@colorDefault: #000;
 
@@ -11,17 +12,13 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		@fontWeight: bold;
 		@colorDefault: grey;
+		@lineHeight: 20px;
 
 		// Default //
 		.style(@_, @color: @colorDefault) {
 			color: @color;
 			font-weight: @fontWeight;
-			font-family: 'Arial';
-
-			@media @tablet {
-				font-family: 'Arial Black';
-				font-weight: normal;
-			}
+			line-height: @lineHeight;
 		}
 
 		// Page //
@@ -34,7 +31,7 @@
 		}
 
 		// Claim //
-		.style(claim,...) {
+		.style(default,...) {
 			font-size: medium;
 
 			@media @tablet {
@@ -51,6 +48,7 @@
 		.style(@_, @color: @colorDefault) {
 			color: @color;
 			font-size: @fontSize;
+			line-height: @lineHeight;
 			font-weight: @fontWeight;
 			font-family: @fontFamily;
 		}
@@ -98,8 +96,8 @@
 	#type > #title > .style(page);
 }
 
-.title-claim {
-	#type > #title > .style(claim);
+.title {
+	#type > #title > .style(default);
 }
 
 .copy { // base, can be used to 'reset' typography
