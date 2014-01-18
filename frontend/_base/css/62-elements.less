@@ -4,15 +4,12 @@
 // LINKS
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// I would prefer to have that in typography too. But it would get messy quickly
-// maybe define base in type but define any variations and exception here...
+// Base link style is in typography file. Apply and define any variations and exceptions here...
 a:link,
 a:visited,
 a:hover,
 a:active {
-	.copy();
-	color: @colorLink;
-	text-decoration: none;
+	#type > #link > .style(@colorLink);
 }
 
 // DEMO STUFF

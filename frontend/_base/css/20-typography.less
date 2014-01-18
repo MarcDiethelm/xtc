@@ -3,7 +3,7 @@
 
 #type {
 	@fontFamily: sans-serif;
-	@fontSize: small;
+	@fontSize: 13px;
 	@fontWeight: normal;
 	@colorDefault: #000;
 
@@ -73,10 +73,8 @@
 
 		// Default //
 		.style(@_, @color: @colorDefault) {
-			font-size: @fontSize;
-			font-weight: @fontWeight;
-			font-family: @fontFamily;
 			color: @color;
+			text-decoration: none;
 
 			&:hover {
 				text-decoration: none;
