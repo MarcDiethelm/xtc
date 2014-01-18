@@ -1,7 +1,18 @@
+# app
 config-secret.js
 config-local.js
 frontend/_public/build/
 frontend/_base/css/sprites/*.less
 !frontend/_base/css/sprites/sprites-helper.less
-node_modules/
+
+# node modules
+node_modules/**/test*
+node_modules/**/docs
+node_modules/**/cli
+node_modules/**/.npmignore
+node_modules/**/.travis.yml
+node_modules/**/.jshintrc
+node_modules/**/README*
+
+# system
 .idea/
