@@ -1,6 +1,11 @@
 # Changelog
 
-## develop branch (0.8.0)
+## develop branch (0.8.0-beta2)
+
+
+-
+
+## develop branch (0.8.0-beta1)
 
 - Use Hipsum.js for easy filler text. Available in development and production installations.
 - Use grunt-glue-nu for improved glue spriting the grunt way
@@ -20,6 +25,7 @@
 - The location of the config files can now be configured in package.json.
 - Base templates are now referred to as *layouts*, in line with Express terminology. The folder name is changed from `frontend/views/templates` to `frontend/views/layouts`.
 - `config-local.js` is now ignored when running in production mode.
+- node_modules are now tracked in the repository
 
 
 ## 0.7.9 — 2013-12-03
