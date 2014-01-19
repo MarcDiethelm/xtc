@@ -1,18 +1,20 @@
-<sup>Master</sup> [![Build Status Master](https://travis-ci.org/MarcDiethelm/xtc.png?branch=master)](https://travis-ci.org/MarcDiethelm/xtc) &nbsp;&nbsp;&nbsp; <sup>Develop</sup> [![Build Status Develop](https://travis-ci.org/MarcDiethelm/xtc.png?branch=develop)](https://travis-ci.org/MarcDiethelm/xtc) &nbsp;&nbsp;&nbsp; <sup>Follow: [@xtcjs](https://twitter.com/xtcjs)</sup>
+<sup>Master</sup> [![Build status (master)](http://b.adge.me/travis/MarcDiethelm/xtc/master.svg)](https://travis-ci.org/MarcDiethelm/xtc) &nbsp; <sup>Develop</sup> [![Build status (develop)](http://b.adge.me/travis/MarcDiethelm/xtc/develop.svg)](https://travis-ci.org/MarcDiethelm/xtc) &nbsp;&nbsp; ![MIT license](http://b.adge.me/:license-MIT-brightgreen.svg) &nbsp;&nbsp; [![Follow @xtcjs](http://b.adge.me/:@xtcjs-follow-green.svg)](https://twitter.com/xtcjs) &nbsp;&nbsp; [![gittip donate](http://b.adge.me/:gittip-donate-lightgrey.svg)](https://www.gittip.com/MarcDiethelm/)
 
 ---
 
 # xtc <small>– frontend development server and framework</small>
 
-This project brings the [Terrific.js](http://terrifically.org/) clever, yet simple frontend modularization pattern to
-[Node](http://nodejs.org/) and [Express](http://expressjs.com/) and [implements](#terrific-modules) some of the features
-of [Terrific Composer](http://terrifically.org/composer/), like server-side module includes. And much more...
-It provides an awesome server, framework and template for most frontend projects.
+This project provides an awesome server and framework for almost any frontend project.
+It is all about building and running web frontends – and making it easy, efficient and fun.
 
-The Terrific.js pattern prevents collisions between different areas of code, makes hassle-free collaboration and code
-reuse in the frontend possible.
+*Hey, how would you like to build websites from clean, encapsulated modules that contain their markup, scripts, styles and even tests?*
 
-Express + Terrific + awesome = xtc
+xtc implements [Terrific.js'](http://terrifically.org/) clever, yet simple frontend modularization pattern in [Node.js](http://nodejs.org/) and [Express](http://expressjs.com/). It lets you use simple [Handlebars](http://handlebarsjs.com/) syntax to construct pages from re-usable modules that you call in your templates. The modules encapsulate different areas of code, preventing collisions and make hassle-free collaboration possible.
+
+xtc sets up Express and uses [Grunt](http://gruntjs.com/) and [Yeoman](http://yeoman.io/) to take as much work away from you as possible. It automatically builds your assets and generates new modules for you. xtc projects can be [deployed](#deploying) in a snap. All *you* have to do is *code*.
+
+**[Simple demo server](http://xtc.starfleet.info)** on the [demo branch](https://github.com/MarcDiethelm/xtc/tree/demo).<br>
+[Releases](https://github.com/MarcDiethelm/xtc/releases)
 
 
 ## Table of Contents
@@ -42,6 +44,7 @@ Express + Terrific + awesome = xtc
 	- [Development and Production Mode](#development-and-production-mode)
 	- [Building Sprites with Glue](#building-sprites-with-glue)
 	- [Build Customization](#build-customization)
+	- [Deploying](#deploying)
 - [Template Development and Integration Into Other Backends](#template-development-and-integration-into-other-backends)
 	- [Project Overview](#project-overview)
 - [Basic Authentication and Bypass for IP Ranges](#basic-authentication-and-bypass-for-ip-ranges)
@@ -132,13 +135,7 @@ folder in your path).
 
 ## Project Setup
 
-Download [the latest xtc version](https://github.com/MarcDiethelm/xtc/archive/master.zip) and copy the files into your project folder.
-
-Now install all the local node modules that xtc needs to function. In the project folder execute
-
-```Bash
-npm install
-```
+Download [the latest xtc version](https://github.com/MarcDiethelm/xtc/archive/master.zip) and copy the files into your project folder. The download already contains all the local node modules that xtc needs to function.
 
 
 ### Configuration
@@ -163,7 +160,7 @@ The location of the config files can be configured in package.json.
 
 ### Start the Server!
 
-Use a different terminal in your project folder (do you know `screen`?) and start the server with `node app.js`.
+In a terminal change to the project folder and start the server with `node app.js`. xtc will build its configuration and start listening on the configured port. Now you can visit `localhost:3000` (if you haven't changed the default port) in browser. That's it. You can start building websites now!
 
 
 #### WebStorm / PHPStorm Users
@@ -446,6 +443,11 @@ If you need more flexibility or a different feature, you can edit the `Gruntfile
 With [Grunt](#asset-building-grunt) there's almost no limit to what you can do.
 
 
+### Deploying
+
+TODO documentation
+
+
 ## Template Development and Integration Into Other Backends
 
 Node-terrific implements some features to help with template integration into different backend systems.
@@ -526,15 +528,17 @@ If you want to contribute and make xtc better, your help is very welcome. Contri
 more about social coding on Github, Node.js and its awesome ecosystem and how to make constructive, helpful bug reports,
 feature requests and the noblest of all contributions: a good, clean pull request.
 
-How to make a clean pull request
+**How to make a clean pull request**
 
 - Create a your personal fork of xtc on Github.
 - Clone the fork on your local machine. Your remote repo on Github is called `origin`.
 - Add the original xtc repository as a remote called `upstream`.
-- Create a new branch to work on!
+- If you created your fork a while ago be sure to pull upstream changes into your local repository.
+- Create a new branch to work on! Branch `develop` if it exists, else from `master`.
 - Implement/fix your feature, comment your code.
 - Follow the code style of the framework. And use tabs.
-- Write or adapt framework tests as needed.
+- Run the xtc's tests with `npm test`.
+- Write or adapt the tests inside the `test` dir as needed.
 - Add or change the documentation as needed.
 - Squash your commits into a single commit with git's [interactive rebase](https://help.github.com/articles/interactive-rebase). Create a new branch if necessary.
 - If you have problems doing any of this, ask (e.g. in the original issue on Github)
