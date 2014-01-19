@@ -1,3 +1,5 @@
+# syntax: http://git-scm.com/docs/gitignore
+
 # app
 config-secret.js
 config-local.js
@@ -6,13 +8,15 @@ frontend/_base/css/sprites/*.less
 !frontend/_base/css/sprites/sprites-helper.less
 
 # node modules
-node_modules/**/test*
-node_modules/**/docs
-node_modules/**/cli
-node_modules/**/.npmignore
-node_modules/**/.travis.yml
-node_modules/**/.jshintrc
-node_modules/**/README*
+/node_modules/**/test*
+!/node_modules/mocha/**/test.js
+/node_modules/**/docs/
+/node_modules/**/cli/*
+!cli.js
+/node_modules/**/.npmignore
+/node_modules/**/.travis.yml
+/node_modules/**/.jshintrc
+/node_modules/**/README*
 
 # system
 .idea/
