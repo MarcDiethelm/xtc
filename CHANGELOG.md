@@ -2,8 +2,8 @@
 
 ## develop branch (0.8.0-beta2)
 
+- Fix missing dependencies that resulted from gitignoring too aggressively.
 
--
 
 ## develop branch (0.8.0-beta1)
 
