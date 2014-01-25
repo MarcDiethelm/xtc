@@ -339,7 +339,7 @@ module.exports = function(grunt) {
 	// Define build tasks                            // use actual task name (first part before colon)!
 
 	grunt.registerTask('build-sprites',              ['glue']);
-	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'jshint:external',]);
+	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'jshint:external']);
 	grunt.registerTask('build-inline-js',            ['concat:inline_scripts', 'log:devJsDone', 'jshint:inline']);
 	grunt.registerTask('build-external-css',         ['less_imports:external', 'less:external']);
 	grunt.registerTask('build-inline-css',           ['less_imports:inline', 'less:inline', 'log:devCssDone']);
