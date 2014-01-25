@@ -51,7 +51,7 @@ module.exports = {
 	,repository: {
 		 doc        : 'Used to construct links to views, modules and layouts in the project overview'
 		,format     : 'url'
-		,default    : 'https://github.com/MarcDiethelm/node-terrific/tree/develop/'
+		,default    : 'https://github.com/MarcDiethelm/xtc/tree/develop/'
 	}
 	// Should asset building include sprites generation? Dependencies: Glue (Python) and OptiPNG (binary executable)
 	,enableSpritesBuilding: false
