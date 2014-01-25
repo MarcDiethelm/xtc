@@ -1,6 +1,5 @@
-<sup>Master</sup> [![Build status (master)](http://b.adge.me/travis/MarcDiethelm/xtc/master.svg)](https://travis-ci.org/MarcDiethelm/xtc) &nbsp; <sup>Develop</sup> [![Build status (develop)](http://b.adge.me/travis/MarcDiethelm/xtc/develop.svg)](https://travis-ci.org/MarcDiethelm/xtc) &nbsp;&nbsp; ![MIT license](http://b.adge.me/:license-MIT-brightgreen.svg) &nbsp;&nbsp; [![Follow @xtcjs](http://b.adge.me/:@xtcjs-follow-green.svg)](https://twitter.com/xtcjs) &nbsp;&nbsp; [![gittip donate](http://b.adge.me/:gittip-donate-lightgrey.svg)](https://www.gittip.com/MarcDiethelm/)
+<sup>Master</sup>&nbsp;[![Build status (master)](http://b.adge.me/travis/MarcDiethelm/xtc/master.svg)](https://travis-ci.org/MarcDiethelm/xtc) &nbsp; <sup>Develop</sup>&nbsp;[![Build status (develop)](http://b.adge.me/travis/MarcDiethelm/xtc/develop.svg)](https://travis-ci.org/MarcDiethelm/xtc) &nbsp;&nbsp; ![MIT license](http://b.adge.me/:license-MIT-brightgreen.svg) &nbsp;&nbsp; [![Follow @xtcjs](http://b.adge.me/:@xtcjs-follow-green.svg)](https://twitter.com/xtcjs) &nbsp;&nbsp; [![gittip donate](http://b.adge.me/:gittip-donate-lightgrey.svg)](https://www.gittip.com/MarcDiethelm/)
 
----
 
 # xtc <small>– frontend development server and framework</small>
 
