@@ -35,8 +35,7 @@ describe('renderModule', function() {
 		} catch (e) {
 			// nothing to do here
 		}
-		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-read-error.html');
-		assert.equal(actual, expected);
+		assert.ok(actual.indexOf("Can't read template file. Module: qwerty, Template: uiop.hbs.<br>Reason: ENOENT, no such file or directory") !== -1);
 	});
 	it('should render a module with alternate template', function() {
 		var actual = renderModule({}, { name: 'basic', template: 'alternate' });

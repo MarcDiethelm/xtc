@@ -1,11 +1,20 @@
 # Changelog
 
-## develop branch (0.8.0-beta2)
+## develop branch (0.9.0)
+
+-
+
+## 0.8.0-beta3
+
+- This release contains breaking changes.
+- Additional config / build rewrite, allows complete flexibility for frontend sources and build destinations, even outside of xtc root. All relative paths are resolved to absolute paths. xtc can now be used as a Terrific build tool in foreign frameworks.
+
+## 0.8.0-beta2
 
 - Fix missing dependencies that resulted from gitignoring too aggressively.
 
 
-## develop branch (0.8.0-beta1)
+## 0.8.0-beta1
 
 - This release contains breaking changes.
 - Use Hipsum.js for easy filler text. Available in development and production installations.

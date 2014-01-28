@@ -154,7 +154,7 @@ The configuration files are located the folder  `_config`.
 `config-local.json` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be
 deployed. Make sure these two files are not tracked by git unless you know what you're doing.
 
-The location of the config files can be configured in package.json.
+Which config files are loaded and their order can be configured in configs.json. The location of the config files can be configured in package.json by changing the `configPath` property.
 
 
 ### Start the Server!
