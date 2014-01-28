@@ -2,8 +2,8 @@
 	"annotateModules": {
 		"development": false
 	}
-	// file system paths relative to app.js, a property called app.config.pathsAbsolute will be generated from them
-	,"paths": {
+	,"sourcesBasePath"  : ""
+	,"sources": {
 		// path to the Terrific modules directories
 		"modulesBaseDir": "test/terrific-modules/fixtures"
 	}

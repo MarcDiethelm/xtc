@@ -1,11 +1,13 @@
 module.exports = function(grunt) {
 
+	process.env.NODE_ENV = grunt.option('dist') ? 'production' : 'development';
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Read project configuration
 
 	var  path = require('path')
 		,configr = require('./lib/configure')
-		,cfg ,modulesPattern, buildBasePath, buildBaseDirName
+		,cfg ,modulesPattern, buildPath, buildBaseDirName
 		,isDistBuild = grunt.option('dist') || false // based on this value we will execute a dev or dist build
 	;
 
@@ -23,12 +25,9 @@ module.exports = function(grunt) {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Create vars from config
 
-	modulesPattern = path.join(cfg.paths.modulesBaseDir, cfg.moduleDirName.replace('{{name}}', '*'))
-	buildBaseDirName = isDistBuild ? cfg.static.build.baseDirNameDist : cfg.static.build.baseDirNameDev;
-	buildBasePath = isDistBuild
-		? path.join(cfg.paths.staticBaseDir, cfg.static.build.baseDirNameDist)  // build.baseDirNameDist can be empty
-		: path.join(cfg.paths.staticBaseDir, cfg.static.build.baseDirNameDev)   // build.baseDirNameDev can be empty
-	;
+	modulesPattern = path.join(cfg.sources.modulesBaseDir, cfg.moduleDirName.replace('{{name}}', '*'))
+	buildBaseDirName = isDistBuild ? cfg.build.baseDirNameDist : cfg.build.baseDirNameDev;
+	buildPath = path.join(cfg.buildBasePath, buildBaseDirName);   // build.baseDirName can be empty
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,35 +35,35 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 
-		pkg                         : grunt.file.readJSON('package.json')
+		pkg                         : require('./package.json')
 
-		,staticUriPrefixCss         : cfg.staticUriPrefix
-		,staticUriPrefix            : (cfg.staticUriPrefix || '') + '/'
+		,staticBaseUriCss           : cfg.staticBaseUri
+		,staticBaseUri              : (cfg.staticBaseUri || '') + '/'
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Sources base paths
 
-		,tcInline                   : cfg.paths.inline
-		,tcBase                     : cfg.paths.base
+		,tcInline                   : cfg.sources.inline
+		,tcBase                     : cfg.sources.base
 		,spritesPath                : '<%=tcBase%>/css/sprites'
 		,tcModules                  : modulesPattern
-		,tcApplication              : cfg.paths.application
-		,staticDir                  : cfg.paths.staticBaseDir
+		,tcApplication              : cfg.sources.application
+		,staticDir                  : cfg.staticPath
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Output destinations
 
-		,baseDirName                : cfg.static.build.baseDirName
-		
-		,buildBasePath              : buildBasePath             // dynamic, depends on build mode (development/production)
-		,buildBaseDirName           : buildBaseDirName          // dynamic, depends on build mode (development/production)
-		,tmpPath                    : '<%=buildBasePath%>/tmp'
+		//,baseDirName                : cfg.build.baseDirName
 
-		,destJs                     : '<%=buildBasePath%>'
-		,destCss                    : '<%=buildBasePath%>'
-		,destSpritesImg             : '<%=buildBasePath%>'
+		,buildPath                  : buildPath             // dynamic, depends on build mode (development/production)
+		//,buildBaseDirName           : buildBaseDirName          // dynamic, depends on build mode (development/production)
+		,tmpPath                    : '<%=buildPath%>/tmp'
+
+		,destJs                     : '<%=buildPath%>'
+		,destCss                    : '<%=buildPath%>'
+		,destSpritesImg             : '<%=buildPath%>'
 		,destSpritesCss             : '<%=spritesPath%>'        // technically this should go in tmp, but we want the generated classes in our base css for easy lookup.
 
 
@@ -102,7 +101,7 @@ module.exports = function(grunt) {
 				,'<%=tcApplication%>/js/*.js'
 			]
 			,module_test_js: [
-				 '<%=staticDir%>/test/*.js'
+				 '<%=staticDir%>/lib/test/*.js'
 				,'<%=tcModules%>/test/*.js'
 			]
 			,jshint_inline: [
@@ -132,7 +131,7 @@ module.exports = function(grunt) {
 			options: {
 				 css                : '<%=destSpritesCss%>'
 				,less               : true
-				,url                : '<%=staticUriPrefix%><%=buildBaseDirName%>'
+				,url                : '<%=staticBaseUri%><%=buildBaseDirName%>'
 				,namespace          : ''
 				,'sprite-namespace' : ''
 				,optipng            : true
@@ -193,7 +192,7 @@ module.exports = function(grunt) {
 		,less: {
 			inline: {
 				options: {
-					                // cssmin will not create file if the output is empty. a special comment fixes this.
+					// cssmin will not create file if the output is empty. a special comment fixes this.
 					 banner         : '/*! Inline style dependencies for page bootstrapping */'
 					,imports: {
 						reference   : ['<%=tcInline%>/css/lib/reference/*.less']
@@ -204,9 +203,10 @@ module.exports = function(grunt) {
 			}
 			,external: {
 				options: {
-					 banner         : "@static-prefix: '<%=staticUriPrefixCss%>';"
+					 banner         : "@static-prefix: '<%=staticBaseUriCss%>';"
 					,imports: {
-						reference   : ['<%=tcBase%>/css/lib/reference/*.less']
+						//reference   : ['<%=tcBase%>/css/lib/reference/*.less']
+						reference   : [path.relative(process.cwd(), cfg.sources.base +'/css/lib/reference')+'/*.less']
 					}
 				}
 				,src                : '<%=tmpPath%>/external-imports.less'
@@ -227,13 +227,18 @@ module.exports = function(grunt) {
 
 		// After dist build remove all non-minified files.
 		,clean: {
-			dist: [
-				 '<%=tmpPath%>'
-				,'<%=destCss%>/inline.css'
-				,'<%=destCss%>/external.css'
-				,'<%=destJs%>/inline.js'
-				,'<%=destJs%>/external.js'
-			]
+			dist: {
+				options: {
+					force: true
+				}
+				,src: [
+					 '<%=tmpPath%>'
+					,'<%=destCss%>/inline.css'
+					,'<%=destCss%>/external.css'
+					,'<%=destJs%>/inline.js'
+					,'<%=destJs%>/external.js'
+				]
+			}
 		}
 
 		,jshint: {
@@ -290,7 +295,11 @@ module.exports = function(grunt) {
 		}
 
 		,watch: {
-			sprites: {
+			options: {
+				//cwd                 : '../..',
+				spawn                 : false
+			}
+			,sprites: {
 				 files              : ['<%=sources.sprites_watch%>']
 				,tasks              : ['build-sprites', 'build-external-css']
 			},
@@ -339,7 +348,7 @@ module.exports = function(grunt) {
 	// Define build tasks                            // use actual task name (first part before colon)!
 
 	grunt.registerTask('build-sprites',              ['glue']);
-	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'jshint:external',]);
+	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'jshint:external']);
 	grunt.registerTask('build-inline-js',            ['concat:inline_scripts', 'log:devJsDone', 'jshint:inline']);
 	grunt.registerTask('build-external-css',         ['less_imports:external', 'less:external']);
 	grunt.registerTask('build-inline-css',           ['less_imports:inline', 'less:inline', 'log:devCssDone']);
@@ -400,7 +409,7 @@ module.exports = function(grunt) {
 
 	grunt.registerMultiTask('log', 'a console logging task', function() {
 		var options = this.options()
-			,color = options.color || false
+		   ,color = options.color || false
 		;
 
 		if (options.bold) {

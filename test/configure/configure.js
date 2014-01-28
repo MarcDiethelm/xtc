@@ -41,7 +41,7 @@ describe('configure', function() {
 
 		it('configure: creates absolute app paths', function() {
 			assert.equal(config.appPath, appPath);
-			assert.equal(config.pathsAbsolute.staticBaseDir, path.join(appPath, 'frontend/_static/'));
+			assert.equal(config.staticPath, path.join(appPath, 'frontend/_static'));
 		});
 	});
 

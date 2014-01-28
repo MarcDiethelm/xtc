@@ -1,12 +1,22 @@
 # Changelog
 
-## develop branch (0.8.0-beta2)
+## develop branch (0.9.0)
+
+-
+
+## 0.8.0-beta3
+
+- This release contains breaking changes.
+- Additional config / build rewrite, allows complete flexibility for frontend sources and build destinations, even outside of xtc root. All relative paths are resolved to absolute paths. xtc can now be used as a Terrific build tool in foreign frameworks.
+
+## 0.8.0-beta2
 
 - Fix missing dependencies that resulted from gitignoring too aggressively.
 
 
-## develop branch (0.8.0-beta1)
+## 0.8.0-beta1
 
+- This release contains breaking changes.
 - Use Hipsum.js for easy filler text. Available in development and production installations.
 - Use grunt-glue-nu for improved glue spriting the grunt way
 - Full logging in production, including date and user agent.
@@ -18,7 +28,7 @@
 - Handlebars helpers are now automatically registered for use in module templates.
 - Views in the project overview are now rendered using the catch-all route. This prevents conflicts with with ‘raw’ & ‘solo’ `_view` routes if the dev adds custom routes to the views that include queries.
 - "Pin" views to the top in the project overview by writing view names in a json file in _config/.
-- Default asset build now goes writes `build` dir (not tracked by git) and does not minify anymore. Start grunt with `--dist` option to start a production build including minification into `dist` dir (tracked by git).
+- Default asset build now writes into `build` dir (not tracked by git) and does not minify anymore. Start grunt with `--dist` option to start a production build, including minification, into `dist` dir (tracked by git).
 - Improved formatting of rendered modules. Auto-indent nested modules. You can manually specify the desired indentation on module and inline asset calls.
 - Refactored a lot of application code for clarity and better separation of components.
 - Using [node-convict](https://github.com/mozilla/node-convict) for configuration building and switched to [CJSON](https://github.com/kof/node-cjson) config files. Convict supports environment variables and validation of config values.

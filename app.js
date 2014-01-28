@@ -37,7 +37,7 @@ handlebars = require('./lib/handlebars-helpers-xtc.js');
 
 hbs = require('express3-handlebars').create({
 	 handlebars: handlebars
-	,layoutsDir: cfg.paths.layouts
+	,layoutsDir: cfg.sources.layouts
 	,defaultLayout: cfg.defaultLayoutName
 	,extname: '.hbs'
 });
@@ -45,7 +45,7 @@ hbs = require('express3-handlebars').create({
 // Set the express3-handlebars instance as rendering engine
 app.engine('hbs', hbs.engine); // 1: template file extension, 2: engine render callback
 app.set('view engine', 'hbs');
-app.set('views', cfg.paths.views);
+app.set('views', cfg.sources.views);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,20 +60,22 @@ if ('development' == app.get('env')) {
 
 if ('production' == app.get('env')) {}
 
-app.use(express.favicon(path.join(cfg.pathsAbsolute.staticBaseDir, 'favicon.ico')));
+app.use(express.favicon(path.join(cfg.staticPath, 'favicon.ico')));
 app.use(express.logger( 'development' == app.get('env') && 'dev' )); // Abbreviated logging for development
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.multipart()); // Security tip: Disable this if you don't need file upload.
 app.use(express.methodOverride());
 app.use(express.compress());
-app.use(cfg.staticUriPrefix, express.static(cfg.pathsAbsolute.staticBaseDir));
+
+app.use(cfg.staticBaseUri, express.static(cfg.staticPath));
+app.use(cfg.staticBaseUri, express.static(cfg.buildBasePath)); // in case buildBasePath is different from staticPath
 
 // Voodoo! Set up tracking the Terrific modules included for any URIs, for module testing in the browser.
 helpers.registerModuleTestTrackingMiddleware(app);
 
 // Register our routes in routes.js
-require(cfg.pathsAbsolute.routes)(app);
+require(cfg.routesPath)(app);
 
 app.use(helpers.render404); // If no other middleware responds, this last callback sends a 404.
 

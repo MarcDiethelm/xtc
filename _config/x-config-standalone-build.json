@@ -1,5 +1,9 @@
 {
-	"enableSpritesBuilding": true
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// App basics
+
+	// Should asset building include sprites generation? Dependencies: Glue (Python) and OptiPNG (binary executable)
+	"enableSpritesBuilding": false
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -7,18 +11,18 @@
 	// Paths to frontend source folders relative to app.js, will be resolved to absolute paths
 
 	// base path to the frontend sources, can be empty
-	,"sourcesBasePath"  : "test/assets/fixtures/uri"
+	,"sourcesBasePath": "../xtc-external-assets/frontend"
 	,"sources": {
 		"inline"            : "_inline"
 		,"base"             : "_base"
 		,"application"      : "_application"
-		//,"views"          : "frontend/views"
-		//,"templates"      : "frontend/views/templates"
+		,"views"            : "../../xtc/frontend/views"
+		,"layouts"          : "../../xtc/frontend/views/layouts"
 		// Path to the Terrific modules directories
 		,"modulesBaseDir"   : "modules"
 	}
 	,"defaultLayoutName"    : "default"
-	,"moduleDirName"        : "{{name}}" // A pattern for module folder names, {{name}} will be replaced.
+	,"moduleDirName"        : "{{name}}"
 	,"skinsDirName"         : "skins"
 
 
@@ -26,9 +30,9 @@
 	// Frontend asset build destinations
 	// Destination paths and file names. Paths relative to app.js, will be resolved to absolute paths.
 
-	,"buildBasePath"    : "test/assets"
+	,"buildBasePath"    : "../xtc-external-assets"
 	,"build": {
-		// baseDirNameX is relative to buildBasePath
+	// baseDirNameX is relative to buildBasePath
 		"baseDirNameDev"    : "build",
 		"baseDirNameDist"   : "dist"
 
@@ -37,27 +41,27 @@
 			"dirName"           : ""
 			// to inline scripts in a template, usage: {{inline "js"}}
 			,"inline": {
-				 "development"      : "inline.js"
-				,"production"       : "inline.min.js"
+				"development"       : "inline.js",
+				"production"        : "inline.min.js"
 			}
 			// URI of the generated main js file, usage: {{static.build.js.external}}
 			,
 			"external": {
-				 "development"      : "external.js"
-				,"production"       : "external.min.js"
+				"development"       : "external.js",
+				"production"        : "external.min.js"
 			}
 		},
 		"css": {
 			"dirName"           : ""
 			// to inline styles in a template, usage: {{inline "css"}}
 			,"inline": {
-				 "development"      : "inline.css"
-				,"production"       : "inline.min.css"
+				"development"       : "inline.css",
+				"production"        : "inline.min.css"
 			},
 			// URI of the generated main css file, usage: {{static.build.css.external}}
 			"external": {
-				 "development"      : "external.css"
-				,"production"       : "external.min.css"
+				"development"       : "external.css",
+				"production"        : "external.min.css"
 			}
 		}
 		,"spriteSheets": {
@@ -69,16 +73,19 @@
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Routing
 
+	,"routesPath"       : "controllers/routes.js"
+
 	// URIs for use in layouts are constructed from the following data
 
-	// URI prefix for static assets, e.g. '/static', empty string for none
-	, "staticBaseUri"       : "/static"
+	// URI prefix for static assets, e.g. '/static', empty string for none. Also used inside generated css files as base path.
+	,"staticBaseUri"    : ""
 
 	// Physical path to the static assets, used by Express and by the 'asset' template helper
-	,"staticPath"           : "test/assets/expected/"
+	,"staticPath"       : "../xtc-external-assets/assets"
 
 	// list static asset sub-paths to create direct references for, for use in templates. Relative to staticPath
 	, "static": {
-		"img"               : "img"
+		"img"           : "img"
 	}
+
 }
