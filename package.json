@@ -33,7 +33,11 @@
 	},
 	"scripts": {
 		"start": "node app.js",
-		"test": "./node_modules/.bin/mocha"
+		"test": "mocha",
+		"build"     : "grunt --gruntfile=Gruntfile.js",
+		"build-dist": "grunt --gruntfile=Gruntfile.js --dist",
+		"module"    : "yo xtc:module --path=.",
+		"skin"      : "yo xtc:skin --path=."
 	},
 	"engines": { "node" : ">=0.8.0" },
 	"configPath": "_config/"
