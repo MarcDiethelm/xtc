@@ -9,6 +9,7 @@
 - This release contains breaking changes.
 - Fix some path issues when calling generator-xtc from outside xtc.
 - Rename the static base var in LessCSS @static-prefix —> @static-base
+- The template extension is configurable. generator-xtc will use this value when creating template files.
 
 
 ## 0.8.0-beta3

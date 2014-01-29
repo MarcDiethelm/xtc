@@ -76,7 +76,7 @@ module.exports = function(app) {
 					,skipModules: true
 				});
 
-				hbs.render(path.join(cfg.sources.layouts, cfg.defaultLayoutName + '.hbs'), res.locals,
+				hbs.render(path.join(cfg.sources.layouts, cfg.defaultLayoutName + cfg.templateExtension), res.locals,
 					function(err, html) {
 						if (err) {
 							var error = utils.error('Unable to render the module in the default template', err);
@@ -97,7 +97,7 @@ module.exports = function(app) {
 				,body: ''
 			});
 
-			hbs.render(path.join(cfg.sources.layouts, req.params.layout + '.hbs'), res.locals,
+			hbs.render(path.join(cfg.sources.layouts, req.params.layout + cfg.templateExtension), res.locals,
 				function(err, html) {
 					if (err) {
 						var error = utils.error('Unable to render the layout', err);
@@ -142,7 +142,7 @@ module.exports = function(app) {
 				,helpers: { test: null }
 			});
 
-			hbs.render(path.join(cfg.sources.layouts, cfg.defaultLayoutName + '.hbs'), res.locals,
+			hbs.render(path.join(cfg.sources.layouts, cfg.defaultLayoutName + cfg.templateExtension), res.locals,
 				function(err, html) {
 					if (err) {
 						var error = utils.error('Unable to render the modules in the default template', err);
@@ -158,7 +158,7 @@ module.exports = function(app) {
 
 		 // Look for a view with the name supplied by the catch-all route
 		,_subPage: function(req, res, next) {
-			fs.exists(path.join(cfg.sources.views, req.params.view + '.hbs'), function(exists) {
+			fs.exists(path.join(cfg.sources.views, req.params.view + cfg.templateExtension), function(exists) {
 				if (exists) {
 					try {
 						res.render(req.params.view, {

@@ -39,7 +39,7 @@ hbs = require('express3-handlebars').create({
 	 handlebars: handlebars
 	,layoutsDir: cfg.sources.layouts
 	,defaultLayout: cfg.defaultLayoutName
-	,extname: '.hbs'
+	,extname: cfg.templateExtension
 });
 
 // Set the express3-handlebars instance as rendering engine
