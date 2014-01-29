@@ -203,7 +203,7 @@ module.exports = function(grunt) {
 			}
 			,external: {
 				options: {
-					 banner         : "@static-prefix: '<%=staticBaseUriCss%>';"
+					 banner         : "@static-base: '<%=staticBaseUriCss%>';"
 					,imports: {
 						//reference   : ['<%=tcBase%>/css/lib/reference/*.less']
 						reference   : [path.relative(process.cwd(), cfg.sources.base +'/css/lib/reference')+'/*.less']
