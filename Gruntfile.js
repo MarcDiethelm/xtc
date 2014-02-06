@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 
 	var  path = require('path')
 		,configr = require('./lib/configure')
-		,cfg ,modulesPattern, buildPath, buildBaseDirName
+		,cfg ,modulesPattern, buildBaseDirName, buildPath, buildPathJs, buildPathCss, buildPathSpriteSheets
 		,isDistBuild = grunt.option('dist') || false // based on this value we will execute a dev or dist build
 	;
 
@@ -27,7 +27,10 @@ module.exports = function(grunt) {
 
 	modulesPattern = path.join(cfg.sources.modulesBaseDir, cfg.moduleDirName.replace('{{name}}', '*'))
 	buildBaseDirName = isDistBuild ? cfg.build.baseDirNameDist : cfg.build.baseDirNameDev;
-	buildPath = path.join(cfg.buildBasePath, buildBaseDirName);   // build.baseDirName can be empty
+	buildPath             = path.join(cfg.buildBasePath, buildBaseDirName);                       // buildBaseDirName can be empty
+	buildPathJs           = path.join(cfg.buildBasePath, buildBaseDirName, cfg.build.js.dirName); // cfg.build.js.dirName can be empty
+	buildPathCss          = path.join(cfg.buildBasePath, buildBaseDirName, cfg.build.css.dirName); // cfg.build.css.dirName can be empty
+	buildPathSpriteSheets = path.join(cfg.buildBasePath, buildBaseDirName, cfg.build.spriteSheets.dirName); // cfg.build.css.dirName can be empty
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,9 +64,9 @@ module.exports = function(grunt) {
 		//,buildBaseDirName           : buildBaseDirName          // dynamic, depends on build mode (development/production)
 		,tmpPath                    : '<%=buildPath%>/tmp'
 
-		,destJs                     : '<%=buildPath%>'
-		,destCss                    : '<%=buildPath%>'
-		,destSpritesImg             : '<%=buildPath%>'
+		,destJs                     : buildPathJs
+		,destCss                    : buildPathCss
+		,destSpritesImg             : buildPathSpriteSheets
 		,destSpritesCss             : '<%=spritesPath%>'        // technically this should go in tmp, but we want the generated classes in our base css for easy lookup.
 
 
