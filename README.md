@@ -73,7 +73,7 @@ Want more features? There are more.
 
 - Easy to configure. (Almost) everything in one place.
 - The whole frontend is contained in one folder, called... frontend.
-- Less @import (reference): Only includes what is actually used in your project. Great for libraries with mixins, helpers.
+- Less [@import (reference)](http://lesscss.org/features/#import-options-reference): Only includes what is actually used in your project. Great for libraries with mixins, helpers.
 - Generated [project overview](#template-development-and-integration-into-other-backends) lists all views, modules and layouts, with links to stand-alone, rendered source and repository.
 - Lazy routing: just create a new view and use its filename as the URI.
 - Helpful, friendly error messages if you do something wrong.
@@ -104,7 +104,7 @@ just fine. If you're on Windows it's what you do.
 <small>
 I highly recommend you use [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash) as your command
 line. The Windows cmd.exe is just too limited to be useful. Among other things you'll experience problems
-installing git dependencies with npm and Nave does not work in the cmd.
+installing git dependencies with npm and Node version managers do not work in the cmd.
 </small>
 
 
@@ -283,7 +283,7 @@ This will generate the following wrapper:
 ```
 
 Please refer to the official docs at [Terrifically.org](http://terrifically.org/) to learn more about the Terrific
-pattern. Just may safely ignore the part about "Composer".
+pattern. You may safely ignore the part about "Composer".
 
 You can use the `data` attribute on a module include to **inject data** (as a JS object or object literal) into the context of the
 module template.
@@ -367,27 +367,27 @@ The URIs to your static assets are all available under the `static` variable in 
 
 ```JavaScript
 // prefixes
-static.prefix // The base URI to the static assets
+static.base // The base URI to the static assets
 static.img // The base URI to your images
 // full URIs
 static.build.js.external // The URI to the generated main JS file
 static.build.css.external // The URI to the generated main CSS file
 ```
 
-The static prefix URI is available in your LessCSS files as the variable
+The static base URI is available in your LessCSS files as the variable
 
 ```Less
-@static-prefix
+@static-base
 ```
 
-You should always use a slash after a prefix variable.
+You should always use a slash after a base variable.
 
 ```Handlebars
-<script src="{{static.prefix}}/lib/jquery-1.10.2.js"></script>
+<script src="{{static.base}}/lib/jquery-1.10.2.js"></script>
 ```
 
 ```Less
-background-image: url("@{static-prefix}/img/bg.png");
+background-image: url("@{static-base}/img/bg.png");
 ```
 
 Inline assets are available through a template helper, like so
@@ -403,7 +403,7 @@ If you run the server in **production mode** the minified versions of these asse
 
 #### LessCSS 1.5.0
 
-Less files in `reference` folders (in `inline` and `base`) are included with Less 1.5.0's @import (reference):
+Less files in `reference` folders (in `inline` and `base`) are included with Less 1.5.0's `@import (reference)`:
 Only mixins and variables that are actually used are imported. This is great for libraries of helper and mixins or UI
 frameworks like Bootstrap.
 
@@ -418,7 +418,7 @@ You can conditionally render markup using the environment block helper...
 
 ```Handlebars
 {{#env "production"}}<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>{{/env}}
-{{#env "development"}}<script src="{{static.prefix}}/lib/jquery-1.10.1.js"></script>{{/env}}
+{{#env "development"}}<script src="{{static.base}}/lib/jquery-1.10.1.js"></script>{{/env}}
 ```
 
 
@@ -511,7 +511,7 @@ To run tests for xtc enter `npm test`. This will start the mocha test runner.
 
 
 - Shared logic (client, server) to create correct state.
-- Dependency management
+- Frontend dependency management
 - Code and template re-use between browser and server.
 - No client-side rendering is built in (yet), so info below is out of context:
 	- Initial rendering is done at the server, subsequent changes are rendered directly in the browser.
