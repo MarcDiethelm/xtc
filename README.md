@@ -170,6 +170,7 @@ There are some things you can do that will make development so much more easy:
 - In WS 7 use the new terminal window to run **Grunt** (and npm) directly in the IDE. Any errors during asset parsing will be immediately be visible to you. If you
  Just make sure you have installed Grunt CLI globally with `npm install -g grunt-cli`. In PHPSTorm you'll also need to install the terminal window plugin.
 - Use the Handlebars/Mustache plugin (included in WS 7). It will give you code insight and syntax highlighting for .hbs files. I also recommend setting the commenting style to Handlebars comments once you have the plugin.
+- Allow comments in CJSON config files. In the IDE preferences search for "validate json" and select "Inspections" in the sidebar, then click on the text "Validate JSON" in the tree. Disable the "Warn about comments in JSON" checkbox in the sub-options.
 
 
 ## Manual
