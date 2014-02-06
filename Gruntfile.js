@@ -113,8 +113,7 @@ module.exports = function(grunt) {
 				,'<%=tcApplication%>/js/*.js'
 			]
 			,jshint_module_test: [
-				 '<%=staticDir%>/lib/test/test.js'
-				,'<%=tcModules%>/test/*.js'
+				'<%=tcModules%>/test/*.js'
 			]
 			,sprites_watch: [
 				 '<%=spritesPath%>/**/*.{png|jpg|conf}'
