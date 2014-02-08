@@ -29,9 +29,9 @@ To include a module in a view or another module you simply write:
 {{mod "example"}}
 ```
 
-That is the shortest form. The module call can take many different options tough.
+That is the shortest form. The module call can take many different [options](documentation.md##terrific-modules) tough.
 
-As mentioned above Terrific modules are self-contained Frontend components. A module basically is a folder with a structure like this:
+As mentioned earlier Terrific modules are self-contained Frontend components. A module basically is a folder with a structure like this:
 
 ```
 my-module/
@@ -56,9 +56,7 @@ A markup module is rendered in a wrapper.
 </section>
 ```
 
-The wrapper serves as an exclusive context or namespace for the module's DOM logic and and style sheets.
-
- A JS-only module can be applied "globally', i.e. to the whole page.
+The wrapper serves as an exclusive context or namespace for the module's DOM logic and and style sheets. A JS-only module can be applied "globally', i.e. to the whole page.
 
 New modules can be generated with an interactive little CLI tool. You start it with:
 
@@ -68,23 +66,25 @@ npm run mkmod
 
 ## Frontend Structure: Phases
 
-The frontend code ist structured into different *phases*.
+The frontend code is structured into different *phases*.
 
 - **Inline**<br>
 	<sup>immediate bootstrapping</sup>
 - **External**<br>
-	<sup>business as usual</sup>
+	<sup>concatenated <sup>[todo: ...into bundles]</sup></sup>
 	- Base
 	- Modules
 	- Application <sup>[under assessment]</sup>
-- **Dynamic** <sup>[todo]</sup><br>
+- **Async**<br>
 	<sup>lazy loaded</sup>
+	- Modules <sup>[todo]</sup>
+	- Static assets
 
-These phases are processed and concatenated in separate build pipelines.
+These phases are processed in separate build pipelines and used as separate resources
 
 ## Such.less CSS
 
-By default xtc contains an extremely helpful CSS framework called [⇗ such.less](https://github.com/MarcDiethelm/such.less). More details coming soon.
+By default xtc contains an extremely helpful CSS framework called [⇗ such.less](https://github.com/MarcDiethelm/such.less). More details coming soon. Wow.
 
 
 ## Features
@@ -105,6 +105,7 @@ By default xtc contains an extremely helpful CSS framework called [⇗ such.less
 
 Want more features? There are more.
 
+- Can be used as a Terrific build tool in foreign frameworks that do their own Terrific module includes.
 - Easy to configure. (Almost) everything in one place.
 - The whole frontend is contained in one folder, called... frontend.
 - Less [@import (reference)](http://lesscss.org/features/#import-options-reference): Only includes what is actually used in your project. Great for libraries with mixins, helpers.
