@@ -150,12 +150,12 @@ module.exports = function(grunt) {
 		,less_imports: {
 			inline: {
 				 src                : '<%=sources.inline_css%>'
-				,dest               : '<%=tmpPath%>/inline-imports.less'
+				,dest               : '<%=tmpPath%>/inline-@import.less'
 			},
 			external: {
 				options: {}
 				,src                : '<%=sources.external_css%>'
-				,dest               : '<%=tmpPath%>/external-imports.less'
+				,dest               : '<%=tmpPath%>/external-@import.less'
 			}
 		}
 
@@ -200,7 +200,7 @@ module.exports = function(grunt) {
 						reference   : ['<%=tcInline%>/css/lib/reference/*.less']
 					}
 				}
-				,src                : '<%=tmpPath%>/inline-imports.less'
+				,src                : '<%=tmpPath%>/inline-@import.less'
 				,dest               : '<%=destCss%>/inline.css'
 			}
 			,external: {
@@ -211,7 +211,7 @@ module.exports = function(grunt) {
 						reference   : [path.relative(process.cwd(), cfg.sources.base +'/css/lib/reference')+'/*.less']
 					}
 				}
-				,src                : '<%=tmpPath%>/external-imports.less'
+				,src                : '<%=tmpPath%>/external-@import.less'
 				,dest               : '<%=destCss%>/external.css'
 			}
 		}
