@@ -400,7 +400,7 @@ TODO documentation
 
 ## Template Development and Integration Into Other Backends
 
-Node-terrific implements some features to help with template integration into different backend systems.
+xtc implements some features to help with template integration into different backend systems.
 
 ### Project overview
 
