@@ -1,27 +1,52 @@
 // ASSET PATHS
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//@static-base: is defined in Gruntfile.js and injected into Less
+// @static-base: is defined in Gruntfile.js and injected into Less
 @path-fonts         : '@{static-base}/fonts';
 @path-img           : '@{static-base}/img';
 
 // COLORS
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@colorBgBody        : #e4e4e4;
-@colorCopy          : #444;
-@colorLink          : teal;
+@color-bg-body      : #e4e4e4;
+@color-copy         : #444;
+@color-link         : teal;
 
 // LAYOUT
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-@maxContentWidth: 940px;
-@gridCols: 12;
-@gutterWidth: 20px;
 
-// ? BREAKPOINTS and MEDIAQUERIES
+@max-content-width  : 940px;
+@grid-cols          : 12;
+@gutter-width       : 20px;
+
+// BREAKPOINTS and MEDIAQUERIES
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- // can we move some stuff to layout? automate creation of some things?
-// todo
+
+// small is up to
+@small-max: 600px;
+@m-small: ~"(max-width: @{small-max})";
+
+// medium starts at
+@medium-min: 601px;
+@m-medium-up: ~"(min-width: @{medium-min})";
+
+// medium ends at
+@medium-max: 900px;
+@m-medium-down: ~"(max-width: @{medium-max})";
+
+// medium is between
+@m-medium: ~"(min-width: @{medium-min}) and (max-width: @{medium-max})";
+
+// large starts at
+@large-min: 901px;
+@m-large: ~"(min-width: @{large-min})";
+
+// Retina Resolution
+@px-ratio: 1.5;
+@default-dpi: 96;
+@hdpi: @default-dpi * @px-ratio;
+// https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-device-pixel-ratio
+@m-retina: ~"(-webkit-min-device-pixel-ratio: @{px-ratio}) /* Webkit-based browsers */, (min--moz-device-pixel-ratio: @{px-ratio}) /* Older Firefox browsers (prior to Firefox 16) */, (min-resolution: @{px-ratio}dppx) /* The standard way */, (min-resolution: @{hdpi}dpi) /* dppx fallback */";
 
 // FOO
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,27 +1,31 @@
 #layout {
-	@widthDefault: 940px;
-	@colorBgDefault: #ddd;
+	// fallback values if mixins get called without params
+	@default-min-width: 0;
+	@default-max-width: 940px;
+	@default-color-bg: #ddd;
 
 	#page {
-		.style(@color: @colorBgDefault) {
+		.style(@color: @default-color-bg) {
 			background-color: @color;
+		}
+
+		.content-boundaries(@min-width: @default-min-width, @max-width: @default-max-width) {
+			min-width: @min-width;
+			max-width: @max-width;
 		}
 	}
 
-	/*#main {
-		.style() {
-			max-width: @widthDefault;
-		}
-	}*/
-
-	.center(@parent, @child, @childMaxWidth: @widthDefault) {
+	.center(@parent, @child) {
+		/**
+		 * make both elements block
+		 * parent: so it takes the whole width of its container
+		 * child: so you can use left/right margin auto to center it
+		 **/
 		@{parent} {
-			width: 100%;
-			margin-left: 2em;
-			margin-right: 2em;
+			display: block;
 		}
 		@{child} {
-			max-width: @childMaxWidth;
+			display: block;
 			margin-left: auto;
 			margin-right: auto;
 		}

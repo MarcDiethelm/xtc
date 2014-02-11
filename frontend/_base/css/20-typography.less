@@ -1,40 +1,49 @@
 // BASE TYPOGRAPHY
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// Dependencies:
+// - 00-variables.less
+
 #type {
-	@fontFamily: sans-serif;
-	@fontSize: 13px;
-	@lineHeight: 15px;
-	@fontWeight: normal;
-	@colorDefault: #000;
+	@font-family: sans-serif;
+	@font-size: 13px;
+	@line-height: 15px;
+	@font-weight: normal;
+	@color-default: #000;
+
+	.rendering(@_) {
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+	}
 
 	#title {
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		@fontWeight: bold;
-		@colorDefault: grey;
-		@lineHeight: 20px;
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		@font-weight: bold;
+		@color-default: gray;
+		@line-height: 20px;
 
-		// Default //
-		.style(@_, @color: @colorDefault) {
+		// all //
+		.style(@_, @color: @color-default) {
 			color: @color;
-			font-weight: @fontWeight;
-			line-height: @lineHeight;
+			font-weight: @font-weight;
 		}
 
-		// Page //
-		.style(page,...) {
+		// default //
+		.style('default'; ...) {
 			font-size: large;
+			line-height: @line-height;
 
-			@media @tablet {
+			@media @m-medium-up {
 				font-size: x-large;
 			}
 		}
 
-		// Claim //
-		.style(default,...) {
+		// sub //
+		.style('sub'; ...) {
 			font-size: medium;
+			line-height: @line-height;
 
-			@media @tablet {
+			@media @m-medium-up {
 				font-size: large;
 			}
 		}
@@ -42,78 +51,66 @@
 	}
 
 	#copy {
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		// Default //
-		.style(@_, @color: @colorDefault) {
+		// all //
+		.style(@_, @color: @color-default) {
 			color: @color;
-			font-size: @fontSize;
-			line-height: @lineHeight;
-			font-weight: @fontWeight;
-			font-family: @fontFamily;
+			font-weight: @font-weight;
+			font-family: @font-family;
 		}
 
-		// Default //
-		.style() {
-			#type > #copy > .style(null);
+		// default //
+		.style('default'; ...) {
+			font-size: @font-size;
+			line-height: @line-height;
 		}
 
-		// Small //
-		.style(small,...) {
+		// small //
+		.style('small'; ...) {
 			font-size: x-small;
+			line-height: @line-height;
 		}
 
 	}
 
 	#link {
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		@colorDefault: #000;
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		// Default //
-		.style(@_, @color: @colorDefault) {
+		// all //
+		.style(@_, @color: @color-default) {
 			color: @color;
 			text-decoration: none;
+		}
 
+		// default //
+		.style('default'; ...) {
 			&:hover {
-				text-decoration: none;
+				text-decoration: underline;
 			}
 		}
-
-		// Default //
-		.style(@color) {
-			#type > #link > .style(null, @color);
-		}
 	}
-
-	//// for demo only
-	@tablet: ~'(min-width: 601px)';
 }
 
 // Derived Classes
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 .title-page {
-	#type > #title > .style(page);
+	#type > #title > .style('page'; inherit);
 }
 
 .title {
-	#type > #title > .style(default);
+	#type > #title > .style('default'; inherit);
 }
 
-.copy { // base, can be used to 'reset' typography
-	#type > #copy > .style();
+.copy {
+	// base, can be used to 'reset' typography
+	#type > #copy > .style('default'; inherit);
 }
 
 .small {
-	#type > #copy > .style(small);
+	#type > #copy > .style('small'; inherit);
 }
-
-// Variations (belong in elements.less I think)
-/////////////
-
-/*.copy-hilite {
-	#typo > #copy > .style(null, pink);
-}*/
 
 /**
 
@@ -138,4 +135,5 @@ Usage:
 		// override styles for exceptions in design
 		font-weight: normal; // blame the designer
 	}
-*/
+	
+**/

@@ -1,5 +1,19 @@
-// I'm never quite sure what belongs here. Project specific classes and styles for tags, probably.
-// This file will probably always be messy. All other files in this folder should be clean.
+// Dependencies:
+// - 00-variables.less
+// - lib/wireframe.less
+
+html {
+	#type > #copy > .style('default'; @color-copy);
+	#type > .rendering('antialiased');
+	#layout > #page > .style(@color-bg-body);
+}
+
+// generate selectors with default styling to center 2nd selector
+#layout > .center(html, body);
+
+body {
+	#layout > #page > .content-boundaries(0, @max-content-width);
+}
 
 // LINKS
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -9,20 +23,11 @@ a:link,
 a:visited,
 a:hover,
 a:active {
-	#type > #link > .style(@colorLink);
+	#type > #link > .style('default'; @color-link);
 }
 
 // DEMO STUFF
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// make .mod use .wf-box
-.mod:extend(.wf-box) {
-	>.wf-box {
-		padding: 0;
-		margin: 0;
-		outline: none;
-	}
-}
 
 // grid demo
 .col {
