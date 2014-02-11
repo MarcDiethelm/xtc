@@ -38,7 +38,7 @@
 
 
 Like any framework xtc depends on some other software to run. Installing the dependencies is easy and quick however.
-And your next project will be able to use most functionality out of the box.
+And your next project will be able to the same functionality out of the box.
 
 
 ### Node.js
@@ -85,7 +85,7 @@ folder in your path).
 
 ## Project Setup
 
-Download [the latest xtc version](https://github.com/MarcDiethelm/xtc/archive/master.zip) and copy the files into your project folder. The download already contains all the local node modules that xtc needs to function.
+Download [the latest stable xtc release](https://github.com/MarcDiethelm/xtc/releases) and copy the files into your project folder. The download already contains all the *local* node modules that xtc needs to function.
 
 
 ### Configuration
@@ -118,8 +118,7 @@ In a terminal change to the project folder and start the server with `npm start`
 There are some things you can do that will make development so much more easy:
 
 - You can [run Node directly in your IDE](http://www.jetbrains.com/webstorm/webhelp/node-js.html). Make sure the Node.js plugin is installed and then create a 'Run' configuration (or multiple) pointing to app.js. Set your environment variables as needed.
-- In WS 7 use the new terminal window to run **Grunt** (and npm) directly in the IDE. Any errors during asset parsing will be immediately be visible to you. If you
- Just make sure you have installed Grunt CLI globally with `npm install -g grunt-cli`. In PHPSTorm you'll also need to install the terminal window plugin.
+- In WS 7 use the new terminal window to run **Grunt** (and npm) directly in the IDE. Any errors during asset parsing will be immediately be visible to you. Just make sure you have installed Grunt CLI globally with `npm install -g grunt-cli`. In PHPStorm you'll also need to install the terminal window plugin.
 - Use the Handlebars/Mustache plugin (included in WS 7). It will give you code insight and syntax highlighting for .hbs files. I also recommend setting the commenting style to Handlebars comments once you have the plugin.
 - Allow comments in CJSON config files. In the IDE preferences search for "validate json" and select "Inspections" in the sidebar, then click on the text "Validate JSON" in the tree. Disable the "Warn about comments in JSON" checkbox in the sub-options.
 
@@ -264,10 +263,10 @@ npm install -g yo generator-xtc
 To create a new module simply type
 
 ```Shell
-yo xtc:module [name]
+npm run mkmod
 ```
 
-in the project root folder. The module name can be added as the first argument.
+in the project root folder. You'll be asked to choose a module name.
 
 
 ##### Skin Creation
@@ -276,11 +275,12 @@ Terrific modules can be extended or 'decorated' with JS or CSS [skins](http://te
 To create a new module skin type
 
 ```Shell
-yo xtc:skin [name]
+npm run mkskin
 ```
 
-in the project root folder. The skin name can be added as the first argument. You'll be asked to choose a module to
-create the skin for.
+in the project root folder. You'll be asked to choose a module to create the skin for.
+
+Note: `npm run xyz` is wrapper command defined in package.json.
 
 
 #### Module Testing
@@ -296,8 +296,7 @@ QUnit adds a symbol to the HTML title indicating the test status. To disable set
 
 ### Asset Building: Grunt
 
-After editing your frontend styles and scripts you need to re-generate the assets for the frontend. You have already installed grunt-cli
-globally. Now in your project enter `grunt`. That's it.
+After editing your frontend styles and scripts you need to re-generate the assets for the frontend. You have already installed grunt-cli globally. Now in your project enter `npm run build`. That's it.
 [Grunt](http://gruntjs.com/getting-started) will build your assets and also watch all your JS and Less/CSS source files
 as configured in [Gruntfile.js](http://gruntjs.com/sample-gruntfile). When you edit them it re-generates the assets
 automatically. You will have to restart Grunt for it to register
@@ -306,7 +305,10 @@ eventually.)
 
 **Note:** The generated assets are written to `frontend/public/build` which is ignored by git. Every developer on a development team must be able to create the assets on the fly. Committing the files would produce tedious merge conflicts after every pull.
 
-Start grunt with `--dist` option to create minified production assets in `frontend/public/dist` and then commit them. After that you're go for deployment.
+Start grunt with `npm run build-dist` to create minified production assets in `frontend/public/dist`. Then commit them. After that you're go for deployment.
+
+Note: `npm run xyz` is a wrapper command defined in package.json.
+
 
 ### Static Assets
 

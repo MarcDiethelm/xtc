@@ -36,8 +36,8 @@
 		"test": "mocha",
 		"build"     : "grunt --gruntfile=Gruntfile.js",
 		"build-dist": "grunt --gruntfile=Gruntfile.js --dist",
-		"module"    : "yo xtc:module --path=.",
-		"skin"      : "yo xtc:skin --path=."
+		"mkmod"     : "yo xtc:module --path=.",
+		"mkskin"    : "yo xtc:skin --path=."
 	},
 	"engines": { "node" : ">=0.8.0" },
 	"configPath": "_config/"
