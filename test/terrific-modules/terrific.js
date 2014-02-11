@@ -35,7 +35,7 @@ describe('renderModule', function() {
 		} catch (e) {
 			// nothing to do here
 		}
-		assert.ok(actual.indexOf("Can't read template file. Module: qwerty, Template: uiop.hbs.<br>Reason: ENOENT, no such file or directory") !== -1);
+		assert.ok(actual.indexOf("Can't read template file. Module: qwerty, Template: uiop.hbs<br>Reason: ENOENT, no such file or directory") !== -1);
 	});
 	it('should render a module with alternate template', function() {
 		var actual = renderModule({}, { name: 'basic', template: 'alternate' });

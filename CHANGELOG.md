@@ -4,10 +4,23 @@
 
 -
 
+## 0.8.0-beta4
+
+- This release contains breaking changes.
+- Fix some path issues when calling generator-xtc from outside xtc.
+- Rename the static base var in LessCSS @static-prefix —> @static-base
+- The template extension is configurable. generator-xtc will use this value when creating template files.
+- Finally created a new Readme and renamed the existing file documentation.md
+- Include/update such.less CSS framework (will be optional in the future).
+- Wrap grunt and generator xtc with `npm run build`, `npm run build-dist`, `npm run mkmod` and `npm run mkskin`. This is now the deafult way to run these tools.
+
+
 ## 0.8.0-beta3
 
 - This release contains breaking changes.
-- Additional config / build rewrite, allows complete flexibility for frontend sources and build destinations, even outside of xtc root. All relative paths are resolved to absolute paths. xtc can now be used as a Terrific build tool in foreign frameworks.
+- Additional config / build rewrite, allows complete flexibility for frontend sources and build destinations, even outside of xtc root. All relative paths are resolved to absolute paths.
+- xtc can now be used as a Terrific build tool in foreign frameworks that do their own module includes.
+
 
 ## 0.8.0-beta2
 

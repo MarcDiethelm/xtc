@@ -105,6 +105,7 @@ module.exports = {
 		// Path to the Terrific modules directories
 		,"modulesBaseDir"   : "modules"
 	}
+	,"templateExtension"    : ".hbs"
 	,"defaultLayoutName"    : "default"
 	,"moduleDirName"        : "{{name}}" // A pattern for module folder names, {{name}} will be replaced.
 	,"skinsDirName"         : "skins"

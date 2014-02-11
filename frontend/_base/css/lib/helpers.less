@@ -7,22 +7,22 @@
 	box-sizing: @boundaries;
 }
 
-.bg-beyond() {
-	margin-left: -500%;
-	margin-right: -500%;
-	padding-left: 500%;
-	padding-right: 500%;
+.bg-beyond(@width: 500%) {
+	margin-left: -@width;
+	margin-right: -@width;
+	padding-left: @width;
+	padding-right: @width;
 	// bg-beyond with .clearfixed rows pushes content down. fix with...
 	// clear: both; // or
 	// overflow: hidden;
 }
 
-.transform(@param) {
-	-webkit-transform: @param; // Safari 3.1+, Chrome
-	-moz-transform: @param; // Firefox 3.5-15
-	-ms-transform: @param; // IE9
-	-o-transform: @param; // Opera 10.5-12.00
-	transform: @param; // Firefox 16+, Opera 12.50+
+.transform(...) {
+	-webkit-transform: @arguments; // Safari 3.1+, Chrome
+	-moz-transform: @arguments; // Firefox 3.5-15
+	-ms-transform: @arguments; // IE9
+	-o-transform: @arguments; // Opera 10.5-12.00
+	transform: @arguments; // Firefox 16+, Opera 12.50+
 	zoom: 1;
 }
 
@@ -32,14 +32,33 @@
 	transition: @animProperties @duration;
 }
 
-.border-radius(@radius: 3px) {
-	.border-radii(@radius, @radius, @radius, @radius);
+// take every amount of arguments and use them as-is to make shorthands possible
+.border-radius(...) {
+	-webkit-border-radius: @arguments;
+	-moz-border-radius: @arguments;
+	border-radius: @arguments;
 }
 
-.border-radii(@topleft: 3px, @topright: 3px, @bottomright: 3px, @bottomleft: 3px) {
-	-webkit-border-radius: @topleft @topright @bottomright @bottomleft;
-	-moz-border-radius: @topleft @topright @bottomright @bottomleft;
-	border-radius: @topleft @topright @bottomright @bottomleft;
+.linear-gradient('vertical', @colorStart: #eee, @colorEnd: #ccc, @start: 0%, @end: 100%) {
+	background: mix(@colorStart, @colorEnd); /* Old browsers */
+	background: -moz-linear-gradient(top, @colorStart @start, @colorEnd @end); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(@start, @colorStart), color-stop(@end, @colorEnd)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, @colorStart @start, @colorEnd @end); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, @colorStart @start, @colorEnd @end); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, @colorStart @start, @colorEnd @end); /* IE10+ */
+	background: linear-gradient(to bottom, @colorStart @start, @colorEnd @end); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@{colorStart}', endColorstr='@{colorEnd}', GradientType=0); /* IE6-9 */
+}
+
+.linear-gradient('horizontal', @colorStart: #eee, @colorEnd: #ccc, @start: 0%, @end: 100%) {
+	background: mix(@colorStart, @colorEnd); /* Old browsers */
+	background: -moz-linear-gradient(left, @colorStart @start, @colorEnd @end); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(@start, @colorStart), color-stop(@end, @colorEnd)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left, @colorStart @start, @colorEnd @end); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left, @colorStart @start, @colorEnd @end); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left, @colorStart @start, @colorEnd @end); /* IE10+ */
+	background: linear-gradient(to right, @colorStart @start, @colorEnd @end); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@{colorStart}', endColorstr='@{colorEnd}', GradientType=1); /* IE6-9 */
 }
 
 

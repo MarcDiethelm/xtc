@@ -81,7 +81,7 @@
 
 	// Resulting function returns true if param is a jQuery object
 	try {
-		$() instanceof $; // abusing try/catch for flow control. Old crappy browsers (I'm lookin at you IE) will throw.
+		$() instanceof $; // abusing try/catch for flow control. Old crappy browsers (I'm looking at you IE) will throw.
 		isjQuery = function(obj) { return obj instanceof $ }
 	} catch (e) {
 		isjQuery = function(obj) { return typeof obj == 'object' && 'jquery' in obj && typeof obj.jquery == 'string' }
@@ -104,12 +104,22 @@
 			w.log = function() {
 				c.log(concatArgs(arguments));
 			}
+
+			w.info = function() {
+				c.log(concatArgs(arguments));
+			}
+
+			w.dir = function() {
+				c.log(concatArgs(arguments));
+			}
 		}
 
 		clear = c.clear; // supported in IE and Fx
 	}
 	else {
 		w.log = function() { alert(concatArgs(arguments)) };
+		w.info = function() { alert(concatArgs(arguments)) };
+		w.dir = function() { alert(concatArgs(arguments)) };
 	}
 
 	w._alert = function() { alert(concatArgs(arguments)) };
@@ -129,5 +139,4 @@
 		w._alert(concatArgs(this));
 	});
 
-	
 })();
