@@ -56,7 +56,7 @@ So this is working nicely. EXCEPT, we basically need to test in the same layout 
 			var  testFrameWindow = this.$frame[0].contentWindow
 				,$testBody = this.$testBody = $(testFrameWindow.document.body)
 				,app = this.testTcApp = new Tc.Application($testBody)
-				,jsOnlyModule, module
+				,jsOnlyModule, modules, module
 				,i, numTests, htmlName, jsName
 			;
 
