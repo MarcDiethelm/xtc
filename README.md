@@ -29,7 +29,7 @@ To include a module in a view or another module you simply write:
 {{mod "example"}}
 ```
 
-That is the shortest form. The module call can take many different [options](documentation.md##terrific-modules) tough.
+That is the shortest form. The module call can take many different [options](https://github.com/MarcDiethelm/xtc/blob/develop/Documentation.md#terrific-modules) tough.
 
 As mentioned earlier Terrific modules are self-contained Frontend components. A module basically is a folder with a structure like this:
 
