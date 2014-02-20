@@ -9,7 +9,8 @@
  * @type {exports}
  */
 
-var check = require('../lib/validator');
+// Resolve the path to the validation module, via xtc's lib/configure.js
+var check = require(require('path').join(module.parent.filename.split('/lib')[0], 'lib/validator'));
 
 module.exports = {
 
