@@ -4,6 +4,13 @@
 
 -
 
+## 0.8.0-beta5
+
+- Bugfix: Update grunt-glue-nu 0.1.0 --> 0.1.1
+- Bugfix: Moving config out of xtc folder now works.
+- Make `pinned-views.json` optional.
+
+
 ## 0.8.0-beta4
 
 - This release contains breaking changes.

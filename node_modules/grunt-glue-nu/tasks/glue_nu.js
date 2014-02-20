@@ -93,6 +93,7 @@ module.exports = function (grunt) {
 		,configure: function(taskTarget) {
 			this.taskData = taskTarget.data;
 			this.taskFilesSrcArray = taskTarget.filesSrc;
+			this.taskData.options = this.taskData.options || {};
 			this.directToGlue = !!this.taskData.options.glueArgs;
 			this.taskTargetName = taskTarget.target;
 

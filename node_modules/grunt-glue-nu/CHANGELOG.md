@@ -5,7 +5,12 @@
 - ...
 
 
-## 0.1.0 — 2013-15-15
+## 0.1.1 — 2014-02-17
+
+- bugfix issue #2: Make sure `[..].taskdata.options` is defined. Thanks appolo for reporting!
+
+
+## 0.1.0 — 2013-11-15
 
 - bugfix: Only add boolean option if value is true.
 
