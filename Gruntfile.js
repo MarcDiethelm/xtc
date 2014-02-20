@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Create vars from config
 
-	modulesPattern = path.join(cfg.sources.modulesBaseDir, cfg.moduleDirName.replace('{{name}}', '*'))
+	modulesPattern = path.join(cfg.sources.modulesBaseDir, cfg.moduleDirName.replace('{{name}}', '*'));
 	buildBaseDirName = isDistBuild ? cfg.build.baseDirNameDist : cfg.build.baseDirNameDev;
 	buildPath             = path.join(cfg.buildBasePath, buildBaseDirName);                       // buildBaseDirName can be empty
 	buildPathJs           = path.join(cfg.buildBasePath, buildBaseDirName, cfg.build.js.dirName); // cfg.build.js.dirName can be empty
