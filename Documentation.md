@@ -421,7 +421,7 @@ include tag. E.g.
 	/_view/example?solo
 
 **Views can be pinned** to the top of the list by adding their name to an array in the file `_config/pinned-views.json`.
-The pinned views will be presented in the order they appear in the file.
+The pinned views will be presented in the order they appear in the file. The file is optional.
 
 
 ## Basic Authentication and Bypass for IP Ranges
