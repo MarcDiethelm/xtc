@@ -143,7 +143,7 @@ module.exports = function(grunt) {
 					'sprite-namespace' : 's' // set to inline-block in sprites-helper.less
 				}
 				,src                : ['<%=spritesPath%>/misc', '<%=tcModules%>/sprites']
-				,dest               : '<%=buildBasePath%>'
+				,dest               : '<%=buildPath%>'
 			}
 		}
 
