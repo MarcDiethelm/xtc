@@ -61,7 +61,7 @@ module.exports = function(grunt) {
 		//,baseDirName                : cfg.build.baseDirName
 
 		,buildPath                  : buildPath             // dynamic, depends on build mode (development/production)
-		//,buildBaseDirName           : buildBaseDirName          // dynamic, depends on build mode (development/production)
+		,buildBaseDirName           : buildBaseDirName          // dynamic, depends on build mode (development/production)
 		,tmpPath                    : '<%=buildPath%>/tmp'
 
 		,destJs                     : buildPathJs
@@ -119,8 +119,8 @@ module.exports = function(grunt) {
 				'<%=tcModules%>/test/*.js'
 			]
 			,sprites_watch: [
-				 '<%=spritesPath%>/**/*.{png|jpg|conf}'
-				,'<%=tcModules%>/sprites/*.{png|jpg|conf}'
+				 '<%=spritesPath%>/**/*.{png,jpg,conf}'
+				,'<%=tcModules%>/sprites/*.{png,jpg,conf}'
 			]
 		}
 
@@ -133,7 +133,7 @@ module.exports = function(grunt) {
 			options: {
 				 css                : '<%=destSpritesCss%>'
 				,less               : true
-				,url                : '<%=staticBaseUri%><%=buildBaseDirName%>'
+				,url                : '<%=staticBaseUri%><%=buildBaseDirName%>/'
 				,namespace          : ''
 				,'sprite-namespace' : ''
 				,retina             : true
