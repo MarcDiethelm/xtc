@@ -136,13 +136,16 @@ module.exports = function(grunt) {
 				,url                : '<%=staticBaseUri%><%=buildBaseDirName%>'
 				,namespace          : ''
 				,'sprite-namespace' : ''
-				,optipng            : true
+				,retina             : true
 			}
 			,sprites: {
 				options: {
-					'sprite-namespace' : 's' // set to inline-block in sprites-helper.less
+					'sprite-namespace' : 's' // styled inline-block in sprites-helper.less
 				}
-				,src                : ['<%=spritesPath%>/misc', '<%=tcModules%>/sprites']
+				,src                : [
+					'<%=spritesPath%>/icons'
+					/*,'<%=tcModules%>/sprites'*/
+				]
 				,dest               : '<%=buildPath%>'
 			}
 		}
