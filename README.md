@@ -25,7 +25,7 @@ xtc sets up Express and uses [Grunt](http://gruntjs.com/) and [Yeoman](http://ye
 
 To include a module in a view or another module you simply write:
 
-```Handlebars
+```hbs
 {{mod "example"}}
 ```
 
@@ -33,20 +33,20 @@ That is the shortest form. The module call can take many different [options](htt
 
 As mentioned earlier Terrific modules are self-contained Frontend components. A module basically is a folder with a structure like this:
 
-```
-my-module/
-	my-module.hbs
-	my-module-variation.hbs
-	my-module.js
-	my-module.less
-	test/
-		my-module.test.js
-	skins/
-		my-module-variation.js
-		my-module-variation.less
-```
+	my-module/
+		my-module.hbs
+		my-module-variation.hbs
+		my-module.js
+		my-module.less
+		test/
+			my-module.test.js
+		skins/
+			my-module-variation.js
+			my-module-variation.less
+		sprites/
+			icon.png
 
-This example is for a full-fledged module. A module however can also just consist exclusively of markup, styling or logic.
+This example is for a full-fledged module (including [sprites](https://github.com/MarcDiethelm/xtc/blob/develop/Documentation.md#building-sprites-with-glue)). A module however can also just consist exclusively of markup or styling or logic.
 
 A markup module is rendered in a wrapper.
 
