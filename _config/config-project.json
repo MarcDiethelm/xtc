@@ -12,4 +12,7 @@
 	//  Should asset building include sprites generation? Dependencies: Glue (Python) and OptiPNG (binary executable)
 	//,"enableSpritesBuilding": false
 
+	// URI prefix for static assets, e.g. '/static', empty string for none. Also used inside generated css files as base path.
+	//,"staticBaseUri"    : ""
+
 }
