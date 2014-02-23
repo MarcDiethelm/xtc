@@ -219,7 +219,7 @@ The HTML classes on the wrapper serve as 'binding sites' for the module's logic 
 A module include with all known options configured looks like this:
 
 ```Handlebars
-{{mod "example" template="alternate" skins="alternate, baz" tag="article" id="foo" htmlClasses="test-class" data-connectors="stats, filter" data="{var1: 'foo'}"}}
+{{mod "example" template="alternate" skins="alternate, baz" tag="article" id="foo" classes="test-class" data-connectors="stats, filter" data="{var1: 'foo'}"}}
 ```
 
 This will generate the following wrapper:
@@ -229,7 +229,7 @@ This will generate the following wrapper:
 ```
 
 Please refer to the official docs at [Terrifically.org](http://terrifically.org/) to learn more about the Terrific
-pattern. You may safely ignore the part about "Composer".
+pattern. You may safely ignore the part about "Composer" though.
 
 You can use the `data` attribute on a module include to **inject data** (as a JS object or object literal) into the context of the
 module template.
