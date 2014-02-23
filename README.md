@@ -60,7 +60,7 @@ The wrapper serves as an exclusive context or namespace for the module's DOM log
 
 New modules can be generated with an interactive little CLI tool. You start it with:
 
-```bash
+```sh
 npm run mkmod
 ```
 
@@ -80,7 +80,7 @@ The frontend code is structured into different *phases*.
 	- Modules <sup>[todo]</sup>
 	- Static assets
 
-These phases are processed in separate build pipelines and used as separate resources
+These phases are processed in separate build pipelines and used as separate resources in the browser.
 
 ## Such.less CSS
 
@@ -122,6 +122,7 @@ Want more features? There are more.
 
 - Install [Node.js](http://nodejs.org/).
 - Download [the latest stable xtc release](https://github.com/MarcDiethelm/xtc/releases) and copy the files into your project folder.
+- Open a terminal execute `npm install -g grunt-cli yo generator-xtc@0.8.0-beta4-1`.
 - Open a terminal, change to the project folder, start the dev build / file watcher: `npm run build`.
 - Open a terminal session in the project folder and start the server with `npm start`.
 - Now you can visit `localhost:3000` in a browser.
