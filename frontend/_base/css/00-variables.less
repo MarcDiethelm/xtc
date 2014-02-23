@@ -1,44 +1,74 @@
-// ASSET PATHS
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ASSET PATHS
 
 // @static-base: is defined in Gruntfile.js and injected into Less
 @path-fonts         : '@{static-base}/fonts';
 @path-img           : '@{static-base}/img';
 
-// COLORS
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// TYPOGRAPHY
+
+@font-default       : Helvetica, sans-serif;
+@font-title         : 'Open Sans Light', Helvetica, sans-serif;
+//@font-icons       : 'Icons';
+@font-monospace     : Consolas, Monaco, 'Andale Mono', monospace; // as on MDN
+
+@font-size-default  : 13px;
+@line-height-default: 15px;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// COLORS
 
 @color-bg-body      : #e4e4e4;
 @color-copy         : #444;
 @color-link         : teal;
 
-// LAYOUT
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// LAYOUT
 
 @max-content-width  : 940px;
 @grid-cols          : 12;
 @gutter-width       : 20px;
 
-// BREAKPOINTS and MEDIAQUERIES
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// BREAKPOINTS and MEDIAQUERIES
 
-// small is up to
-@small-max: 600px;
+//// Content-oriented queries
+
+@reading-length: 40em;
+
+@col-1-max: @reading-length;
+@col-2-min: @reading-length;
+@col-2-max: (@reading-length*2);
+@col-3-min: (@reading-length*2);
+
+@co-1-col: ~"(max-width: @{col-1-max})";
+@co-2-col: ~"(min-width: @{col-2-min}) and (max-width: @{col-2-max})";
+@co-3-col: ~"(min-width: @{col-3-min})";
+
+//// Media-oriented queries
+
+// breakpoints
+@bp-1: 600px;
+@bp-2: 900px;
+
+// small ends at
+@small-max: @bp-1;
 @m-small: ~"(max-width: @{small-max})";
 
 // medium starts at
-@medium-min: 601px;
+@medium-min: (@small-max + 1);
 @m-medium-up: ~"(min-width: @{medium-min})";
 
 // medium ends at
-@medium-max: 900px;
+@medium-max: @bp-2;
 @m-medium-down: ~"(max-width: @{medium-max})";
 
 // medium is between
 @m-medium: ~"(min-width: @{medium-min}) and (max-width: @{medium-max})";
 
 // large starts at
-@large-min: 901px;
+@large-min: (@medium-max + 1);
 @m-large: ~"(min-width: @{large-min})";
 
 // Retina Resolution
@@ -48,5 +78,5 @@
 // https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-device-pixel-ratio
 @m-retina: ~"(-webkit-min-device-pixel-ratio: @{px-ratio}) /* Webkit-based browsers */, (min--moz-device-pixel-ratio: @{px-ratio}) /* Older Firefox browsers (prior to Firefox 16) */, (min-resolution: @{px-ratio}dppx) /* The standard way */, (min-resolution: @{hdpi}dpi) /* dppx fallback */";
 
-// FOO
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// FOO

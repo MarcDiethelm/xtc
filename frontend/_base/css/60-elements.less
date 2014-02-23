@@ -6,6 +6,12 @@ html {
 	#type > #copy > .style('default'; @color-copy);
 	#type > .rendering('antialiased');
 	#layout > #page > .style(@color-bg-body);
+	.visual-viewports(); // Remove for production
+
+	padding: 0 1em;
+	@media @m-medium-up {
+		padding: 0 2em;
+	}
 }
 
 // generate selectors with default styling to center 2nd selector
@@ -30,6 +36,6 @@ a:active {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // grid demo
-.col {
+.demo-grid .col {
 	&:extend(.wf-box);
 }

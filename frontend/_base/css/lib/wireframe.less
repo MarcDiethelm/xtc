@@ -1,4 +1,40 @@
+/*
+ * For early scaffolding to let us know which viewport we're in.
+ */
+.visual-viewports() {
+	&:before {
+		position: fixed;
+		background-color: hotpink;
+		border: 1px solid mediumvioletred;
+		padding: 5px;
+		opacity: .5;
+		font-weight: normal;
+		font-size: x-large;
+		right: 15px;
+		top: 45px;
+		z-index: 999;
+		pointer-events: none;
+	}
 
+	// Todo: can we generate this with less?
+	@media @m-small {
+		&:before {
+			content: "small";
+		}
+	}
+
+	@media @m-medium-up {
+		&:before {
+			content: "medium";
+		}
+	}
+
+	@media @m-large {
+		&:before {
+			content: "large";
+		}
+	}
+}
 
 /* WIREFRAME STYLES */
 
@@ -18,7 +54,7 @@
 	outline: 1px dashed #999;
 	background-color: #eaeaea;
 
-	margin-top: 3px;
+	margin-bottom: 3px;
 	padding: .5rem;
 	.wf-box {
 		background-color: #f8f8f8;
@@ -42,10 +78,9 @@
 	font-weight: 200;
 	font-size: 20px;
 	line-height: 30px;
-	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-family: "Helvetica Neue", "Open Sans Light", Helvetica, sans-serif;
 	color: #777;
 	background-color: #eeeeff;
-	text-shadow: 0.09em 0.07em 0.025em #fff;
 	&:before,
 	&:after {
 		content: '';
