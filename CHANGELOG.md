@@ -10,6 +10,7 @@
 - Bugfix: Moving config out of xtc folder now works.
 - Make `pinned-views.json` optional.
 - Module calls now accept `classes` instead of `htmlClasses`. But `htmlClasses` still works.
+- Update less 1.5.0 --> v1.6.3 / assemble-less 0.7.0.
 
 
 ## 0.8.0-beta4

@@ -195,7 +195,18 @@ module.exports = function(grunt) {
 		}
 
 		,less: {
-			inline: {
+			options: {
+				imports: {
+					// Can't get this to work!
+					//reference   : ['<%=tcBase%>/css/lib/reference/*.less']
+					//reference   : [path.relative(buildPath + '/tmp', cfg.sources.base +'/css/lib/reference')+'/helpers.less']
+					reference   : [path.resolve(process.cwd(), cfg.sources.base +'/css/lib/reference')+'/helpers.less']
+				}
+				,globalVars: {
+					'static-base'   : '"'+cfg.staticBaseUri+'"'
+				}
+			}
+			,inline: {
 				options: {
 					// cssmin will not create file if the output is empty. a special comment fixes this.
 					 banner         : '/*! Inline style dependencies for page bootstrapping */'
@@ -207,13 +218,7 @@ module.exports = function(grunt) {
 				,dest               : '<%=destCss%>/inline.css'
 			}
 			,external: {
-				options: {
-					 banner         : "@static-base: '<%=staticBaseUriCss%>';"
-					,imports: {
-						//reference   : ['<%=tcBase%>/css/lib/reference/*.less']
-						reference   : [path.relative(process.cwd(), cfg.sources.base +'/css/lib/reference')+'/*.less']
-					}
-				}
+				options: {}
 				,src                : '<%=tmpPath%>/external-@import.less'
 				,dest               : '<%=destCss%>/external.css'
 			}

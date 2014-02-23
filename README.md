@@ -115,7 +115,6 @@ Want more features? There are more.
 - Basic styles for wireframing.
 - Filler text template helper [Hipsum.js](https://github.com/MarcDiethelm/Hipsum.js).
 - Super-easy HTTP basic auth protection and access for IP ranges.
-- Less @import (reference): Only includes what is actually used in your project. Great for libraries with mixins, helpers.
 
 
 ## Quick Start
