@@ -12,10 +12,10 @@ xtc implements [Terrific.js'](http://terrifically.org/) clever, yet simple front
 
 xtc sets up Express and uses [Grunt](http://gruntjs.com/) and [Yeoman](http://yeoman.io/) to take as much work away from you as possible. It automatically builds your assets and generates new modules for you. xtc projects can be [deployed](#deploying) in a snap. All *you* have to do is *code*.
 
-- [\# About Modules](#about-modules)
-- [\# Frontend Structure: Phases](#frontend-structure-phases)
-- [\# Features](#features)
-- [\# Quick Start](#quick-start)
+- \# [About Modules](#about-modules)
+- \# [Frontend Structure: Phases](#frontend-structure-phases)
+- \# [Features](#features)
+- \# [Quick Start](#quick-start)
 - [&nbsp;&nbsp; Documentation](Documentation.md)
 - [&nbsp;&nbsp; Releases](https://github.com/MarcDiethelm/xtc/releases)
 - [⇗ **Simple demo server**](http://xtc.starfleet.info) on the [demo branch](https://github.com/MarcDiethelm/xtc/tree/demo).<br>
