@@ -5,7 +5,6 @@
 html {
 	#type > #copy > .style('default'; @color-copy);
 	#type > .rendering('antialiased');
-	#layout > #page > .style(@color-bg-body);
 	.visual-viewports(); // Remove for production
 
 	padding: 0 1em;
@@ -14,11 +13,10 @@ html {
 	}
 }
 
-// generate selectors with default styling to center 2nd selector
-#layout > .center(html, body);
-
 body {
-	#layout > #page > .content-boundaries(0, @max-content-width);
+	#layout > .content-boundaries(0, @max-content-width);
+	#layout > .center();
+	background: @color-bg-body;
 }
 
 // LINKS
@@ -30,12 +28,4 @@ a:visited,
 a:hover,
 a:active {
 	#type > #link > .style('default'; @color-link);
-}
-
-// DEMO STUFF
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// grid demo
-.demo-grid .col {
-	&:extend(.wf-box);
 }

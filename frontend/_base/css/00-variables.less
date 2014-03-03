@@ -37,9 +37,9 @@
 
 @reading-length: 40em;
 
-@col-1-max: @reading-length;
+@col-1-max: (@reading-length - .01);
 @col-2-min: @reading-length;
-@col-2-max: (@reading-length*2);
+@col-2-max: (@reading-length*2 - .01);
 @col-3-min: (@reading-length*2);
 
 @co-1-col: ~"(max-width: @{col-1-max})";
@@ -50,26 +50,24 @@
 
 // breakpoints
 @bp-1: 600px;
+@bp-1-down: (@bp-1 - 1);
 @bp-2: 900px;
+@bp-2-down: (@bp-2 - 1);
 
 // small ends at
-@small-max: @bp-1;
-@m-small: ~"(max-width: @{small-max})";
+@m-small: ~"(max-width: @{bp-1-down})";
 
 // medium starts at
-@medium-min: (@small-max + 1);
-@m-medium-up: ~"(min-width: @{medium-min})";
+@m-medium-up: ~"(min-width: @{bp-1})";
 
 // medium ends at
-@medium-max: @bp-2;
-@m-medium-down: ~"(max-width: @{medium-max})";
+@m-medium-down: ~"(max-width: @{bp-2-down})";
 
 // medium is between
-@m-medium: ~"(min-width: @{medium-min}) and (max-width: @{medium-max})";
+@m-medium: ~"(min-width: @{bp-1}) and (max-width: @{bp-2-down})";
 
 // large starts at
-@large-min: (@medium-max + 1);
-@m-large: ~"(min-width: @{large-min})";
+@m-large: ~"(min-width: @{bp-2})";
 
 // Retina Resolution
 @px-ratio: 1.5;
