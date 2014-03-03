@@ -190,11 +190,14 @@ module.exports = function (grunt) {
 		}
 
 		,mergeOptions: function(defaults, taskTarget) {
-			var filesArray = taskTarget.files;
+			var  filesArray = taskTarget.files
+				,options
+			;
+
 			// setting grunt task dest as default for css and img args, so they can be overridden with specific options.
 			// Glue says: You must choose the output folder using either the output argument or both --img and --css.
 			// So we're using --img and --css
-			defaults.css = filesArray[0].orig.dest;
+			defaults.output = filesArray[0].orig.dest;
 			defaults.img = filesArray[0].orig.dest;
 			defaults.bundleName = taskTarget.target; // used as tmp dir name. glue uses that as sprite name
 

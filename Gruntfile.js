@@ -131,8 +131,7 @@ module.exports = function(grunt) {
 		,glue: {
 			// see: https://github.com/MarcDiethelm/grunt-glue-nu
 			options: {
-				 css                : '<%=destSpritesCss%>'
-				,less               : true
+				 less               : '<%=destSpritesCss%>'
 				,url                : '<%=staticBaseUri%><%=buildBaseDirName%>/'
 				,namespace          : ''
 				,'sprite-namespace' : ''

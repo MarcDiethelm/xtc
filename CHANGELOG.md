@@ -6,7 +6,7 @@
 
 ## 0.8.0-beta5
 
-- Bugfix: Update grunt-glue-nu 0.1.0 --> 0.1.1
+- Bugfix: Update grunt-glue-nu 0.1.0 --> 0.3.0
 - Bugfix: Moving config out of xtc folder now works.
 - Make `pinned-views.json` optional.
 - Module calls now accept `classes` instead of `htmlClasses`. But `htmlClasses` still works.

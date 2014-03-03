@@ -74,7 +74,7 @@ If you want to use the automatic sprites generation you need to also install Glu
 
 First make sure you have an up to date Python installation. Refer to the section "Properly Install Python" for your
 platform, [from the official guide](http://docs.python-guide.org/en/latest/index.html). Mostly you need Homebrew and Pip.
-After that, [install Glue](http://glue.readthedocs.org/en/latest/installation.html).
+After that, [install Glue](http://glue.readthedocs.org/en/latest/installation.html). You need version 0.9 or higher.
 
 It worked if you can `glue -v` to get the installed version.
 
@@ -240,7 +240,7 @@ markup. This includes HTML5 `data-` attributes.
 You can enable **annotations** in the HTML output around modules in the config. The annotation displays the module name,
 the template file name, the filesystem path and repository URL to the module.
 
-the **indentation** of included modules can be controlled with the `indent` attribute using integer values. Nested child modules are indented automatically. 
+the **indentation** of included modules can be controlled with the `indent` attribute using integer values. Nested child modules are indented automatically.
 
 Using the `noWrapper=true` attribute on a module include will prevent creation of the wrapper element and module annotation.
 This is useful when creating markup-only modules in base layouts, e.g a HTML HEAD module including the doctype. You can

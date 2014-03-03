@@ -51,11 +51,11 @@ module.exports = function (grunt) {
 				src: [
 					'test/fixtures/icon/'
 				],
-				dest: 'test/tmp'
+				dest: 'test/tmp/simple-dir'
 			}
 			,glueargs: {
 				options: {
-					glueArgs: '--crop test/fixtures/icon/ test/tmp'
+					glueArgs: '--crop test/fixtures/icon/ test/tmp/glueargs'
 				}
 			}
 			,'default': {
@@ -63,7 +63,7 @@ module.exports = function (grunt) {
 				src: [
 					'test/fixtures/**/*.{png,jpg,conf}'
 				],
-				dest: 'test/tmp'
+				dest: 'test/tmp/default'
 			}
 			,default_folders: {
 				options: {
@@ -75,7 +75,7 @@ module.exports = function (grunt) {
 					 'test/fixtures/icon'
 					,'test/fixtures/retina/*.{png,jpg,conf}'
 				],
-				dest: 'test/tmp'
+				dest: 'test/tmp/folders'
 			}
 			,retina: {
 				options: {
@@ -83,8 +83,25 @@ module.exports = function (grunt) {
 					,url: '/static/'
 					//,imagemagick: true
 				},
-				src:'test/fixtures/icon',
-				dest: 'test/tmp'
+				src:'test/fixtures/retina',
+				dest: 'test/tmp/retina'
+			}
+			,'less': {
+				options: {
+					 less: true // Boolean or since glue 0.9.2 optionally specific path
+					,url: '/static/'
+				},
+				src:'test/fixtures/icon', // outout
+				dest: 'test/tmp/less'
+			}
+			,'retina-less': {
+				options: {
+					 less: true // Boolean or since glue 0.9.2 optionally specific path
+					,retina: true
+					,url: '/static/'
+				},
+				src:'test/fixtures/retina', // outout
+				dest: 'test/tmp/retina-less'
 			}
 		},
 
