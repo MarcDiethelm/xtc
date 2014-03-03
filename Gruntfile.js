@@ -195,11 +195,15 @@ module.exports = function(grunt) {
 
 		,less: {
 			options: {
-				imports: {
+				 sourceMap: true
+				,outputSourceFiles  : true
+				//,sourceMapBasepath  : '<%=staticBaseUri%>'
+				,sourceMapBasepath  : ''
+				,imports: {
 					// Can't get this to work!
 					//reference   : ['<%=tcBase%>/css/lib/reference/*.less']
 					//reference   : [path.relative(buildPath + '/tmp', cfg.sources.base +'/css/lib/reference')+'/helpers.less']
-					reference   : [path.resolve(process.cwd(), cfg.sources.base +'/css/lib/reference')+'/helpers.less']
+					//reference   : [path.resolve(process.cwd(), cfg.sources.base +'/css/lib/reference')+'/helpers.less']
 				}
 				,globalVars: {
 					'static-base'   : '"'+cfg.staticBaseUri+'"'
@@ -209,15 +213,18 @@ module.exports = function(grunt) {
 				options: {
 					// cssmin will not create file if the output is empty. a special comment fixes this.
 					 banner         : '/*! Inline style dependencies for page bootstrapping */'
-					,imports: {
-						reference   : ['<%=tcInline%>/css/lib/reference/*.less']
-					}
+
+					,sourceMapFilename : '<%=destCss%>/inline.css.map'
+					,sourceMapURL   : '<%=staticBaseUri%><%=buildBaseDirName%>/inline.css.map'
 				}
 				,src                : '<%=tmpPath%>/inline-@import.less'
 				,dest               : '<%=destCss%>/inline.css'
 			}
 			,external: {
-				options: {}
+				options: {
+					 sourceMapFilename : '<%=destCss%>/external.css.map'
+					,sourceMapURL   : '<%=staticBaseUri%><%=buildBaseDirName%>/external.css.map'
+				}
 				,src                : '<%=tmpPath%>/external-@import.less'
 				,dest               : '<%=destCss%>/external.css'
 			}

@@ -11,6 +11,8 @@
 - Make `pinned-views.json` optional.
 - Module calls now accept `classes` instead of `htmlClasses`. But `htmlClasses` still works.
 - Update less 1.5.0 --> v1.6.3 / assemble-less 0.7.0.
+- LessCss `import reference` is not supported anymore.
+- Experimental & basic CSS source maps support. View `.less` source files in browsers that support it (e.g. Chrome).
 
 
 ## 0.8.0-beta4

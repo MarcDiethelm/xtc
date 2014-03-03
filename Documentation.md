@@ -20,7 +20,7 @@
 	- [Module Testing](#module-testing)
 	- [Asset Building: Grunt](#asset-building-grunt)
 	- [Static Assets](#static-assets)
-		- [LessCSS 1.5.0](#lesscss-150)
+		- [LessCSS 1.6.0](#lesscss-160)
 	- [Development and Production Mode](#development-and-production-mode)
 	- [Building Sprites with Glue](#building-sprites-with-glue)
 	- [Build Customization](#build-customization)
@@ -350,11 +350,11 @@ Note that you can control the indentation with the `indent` attribute. The chars
 
 If you run the server in **production mode** the minified versions of these assets will be used.  
 
-#### LessCSS 1.5.0
+#### LessCSS 1.6.0
 
-Less files in `reference` folders (in `inline` and `base`) are included with Less 1.5.0's `@import (reference)`:
+~~Less files in `reference` folders (in `inline` and `base`) are included with Less 1.6.0's `@import (reference)`:
 Only mixins and variables that are actually used are imported. This is great for libraries of helper and mixins or UI
-frameworks like Bootstrap.
+frameworks like Bootstrap.~~ This is not currently working and will probably be removed for 0.8.0.
 
 
 ### Development and Production Mode
