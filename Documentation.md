@@ -396,14 +396,24 @@ With [Grunt](#asset-building-grunt) there's almost no limit to what you can do.
 TODO documentation
 
 
-## Template Development and Integration Into Other Backends
+## Frontend Development and Integration Into Other Backends
+
+There are two ways that xtc supports working with other backends.
+
+- xtc as server (production or just templating)
+- xtc as frontend building environment in a different server
+
+### xtc as server (production or just templating)
 
 xtc implements some features to help with template integration into different backend systems.
 
-### Project overview
+- Project overview
+- Rendering single modules, with API
+- Module annotation
 
-`/_home` displays an overview of all user-defined views, modules and layouts, i.e. ones whose names don't start with
-an underscore. The page contains links to the views and modules at `/[view name]`, `/_module/[module name]` and
+#### Project overview
+
+`/_home` displays an overview of all user-defined views, modules and layouts, i.e. ones whose names don't start with an underscore. The page contains links to the views and modules at `/[view name]`, `/_module/[module name]` and
 `/_layout/[layout name]` respectively. If you add the parameter `raw` to the URI, you get the pure HTML of that
 resource without any surrounding markup, e.g:
 
@@ -419,6 +429,13 @@ include tag. E.g.
 **Views can be pinned** to the top of the list by adding their name to an array in the file `_config/pinned-views.json`.
 The pinned views will be presented in the order they appear in the file. The file is optional.
 
+### xtc as Terrific build and frontend tool
+
+xtc is the ideal environment for frontend development in other backends. All the backend has to implement is module includes to satisfy the Terrific pattern. The rest is handled by xtc in a manner that is intimately known to a frontend developer who has worked with xtc before: build tool, generators, familiar and flat file structure, reliable less parsing and many other tools that are part of xtc.
+
+Instead of re-inventing the wheel in other backends and building disparate solutions to try to enable frontend building, which always fall short, you can use xtc as a standardized environment made for frontend development. xtc is completely configurable when it comes to specifying the sources and build output locations.
+
+xtc can be set up as build tool by either a frontend or a backend dev. Drop xtc in, edit the JSON config, start a build. It just works.
 
 ## Basic Authentication and Bypass for IP Ranges
 
