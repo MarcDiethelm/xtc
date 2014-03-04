@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Create vars from config
 
-	modulesPattern = path.join(cfg.sources.modulesBaseDir, cfg.moduleDirName.replace('{{name}}', '*'))
+	modulesPattern = path.join(cfg.sources.modulesBaseDir, cfg.moduleDirName.replace('{{name}}', '*'));
 	buildBaseDirName = isDistBuild ? cfg.build.baseDirNameDist : cfg.build.baseDirNameDev;
 	buildPath             = path.join(cfg.buildBasePath, buildBaseDirName);                       // buildBaseDirName can be empty
 	buildPathJs           = path.join(cfg.buildBasePath, buildBaseDirName, cfg.build.js.dirName); // cfg.build.js.dirName can be empty
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
 		//,baseDirName                : cfg.build.baseDirName
 
 		,buildPath                  : buildPath             // dynamic, depends on build mode (development/production)
-		//,buildBaseDirName           : buildBaseDirName          // dynamic, depends on build mode (development/production)
+		,buildBaseDirName           : buildBaseDirName          // dynamic, depends on build mode (development/production)
 		,tmpPath                    : '<%=buildPath%>/tmp'
 
 		,destJs                     : buildPathJs
@@ -119,8 +119,8 @@ module.exports = function(grunt) {
 				'<%=tcModules%>/test/*.js'
 			]
 			,sprites_watch: [
-				 '<%=spritesPath%>/**/*.{png|jpg|conf}'
-				//,'<%=tcModules%>/sprites/*.{png|jpg|conf}' // not implemented yet
+				 '<%=spritesPath%>/**/*.{png,jpg,conf}'
+				,'<%=tcModules%>/sprites/*.{png,jpg,conf}'
 			]
 		}
 
@@ -131,19 +131,21 @@ module.exports = function(grunt) {
 		,glue: {
 			// see: https://github.com/MarcDiethelm/grunt-glue-nu
 			options: {
-				 css                : '<%=destSpritesCss%>'
-				,less               : true
-				,url                : '<%=staticBaseUri%><%=buildBaseDirName%>'
+				 less               : '<%=destSpritesCss%>'
+				,url                : '<%=staticBaseUri%><%=buildBaseDirName%>/'
 				,namespace          : ''
 				,'sprite-namespace' : ''
-				,optipng            : true
+				,retina             : true
 			}
 			,sprites: {
 				options: {
-					'sprite-namespace' : 's' // set to inline-block in sprites-helper.less
+					'sprite-namespace' : 's' // styled inline-block in sprites-helper.less
 				}
-				,src                : ['<%=spritesPath%>/misc', '<%=tcModules%>/sprites']
-				,dest               : '<%=buildBasePath%>'
+				,src                : [
+					 '<%=spritesPath%>/icons'
+					,'<%=tcModules%>/sprites'
+				]
+				,dest               : '<%=buildPath%>'
 			}
 		}
 
@@ -192,24 +194,36 @@ module.exports = function(grunt) {
 		}
 
 		,less: {
-			inline: {
+			options: {
+				 sourceMap: true
+				,outputSourceFiles  : true
+				//,sourceMapBasepath  : '<%=staticBaseUri%>'
+				,sourceMapBasepath  : ''
+				,imports: {
+					// Can't get this to work!
+					//reference   : ['<%=tcBase%>/css/lib/reference/*.less']
+					//reference   : [path.relative(buildPath + '/tmp', cfg.sources.base +'/css/lib/reference')+'/helpers.less']
+					//reference   : [path.resolve(process.cwd(), cfg.sources.base +'/css/lib/reference')+'/helpers.less']
+				}
+				,globalVars: {
+					'static-base'   : '"'+cfg.staticBaseUri+'"'
+				}
+			}
+			,inline: {
 				options: {
 					// cssmin will not create file if the output is empty. a special comment fixes this.
 					 banner         : '/*! Inline style dependencies for page bootstrapping */'
-					,imports: {
-						reference   : ['<%=tcInline%>/css/lib/reference/*.less']
-					}
+
+					,sourceMapFilename : '<%=destCss%>/inline.css.map'
+					,sourceMapURL   : '<%=staticBaseUri%><%=buildBaseDirName%>/inline.css.map'
 				}
 				,src                : '<%=tmpPath%>/inline-@import.less'
 				,dest               : '<%=destCss%>/inline.css'
 			}
 			,external: {
 				options: {
-					 banner         : "@static-base: '<%=staticBaseUriCss%>';"
-					,imports: {
-						//reference   : ['<%=tcBase%>/css/lib/reference/*.less']
-						reference   : [path.relative(process.cwd(), cfg.sources.base +'/css/lib/reference')+'/*.less']
-					}
+					 sourceMapFilename : '<%=destCss%>/external.css.map'
+					,sourceMapURL   : '<%=staticBaseUri%><%=buildBaseDirName%>/external.css.map'
 				}
 				,src                : '<%=tmpPath%>/external-@import.less'
 				,dest               : '<%=destCss%>/external.css'
@@ -237,6 +251,7 @@ module.exports = function(grunt) {
 					 '<%=tmpPath%>'
 					,'<%=destCss%>/inline.css'
 					,'<%=destCss%>/external.css'
+					,'<%=destCss%>/*.map'
 					,'<%=destJs%>/inline.js'
 					,'<%=destJs%>/external.js'
 				]

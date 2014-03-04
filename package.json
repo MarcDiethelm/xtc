@@ -2,7 +2,7 @@
 	"name": "xtc-project",
 	"description": "an xtc project",
 	"version": "0.0.0",
-	"xtcVersion": "0.8.0-beta4",
+	"xtcVersion": "0.8.0-beta5",
 	"private": true,
 	"main": "app.js",
 	"dependencies": {
@@ -17,8 +17,8 @@
 	"devDependencies": {
 		"grunt": "~0.4.0",
 		"grunt-less-imports": "~0.9.0",
-		"assemble-less": "git://github.com/assemble/assemble-less.git#b0fdf863aa",
-		"grunt-glue-nu": "~0.1.0",
+		"assemble-less": "0.7.0",
+		"grunt-glue-nu": "0.3.0",
 		"grunt-contrib-jshint": "~0.8.0",
 		"grunt-contrib-concat": "~0.3.0",
 		"grunt-contrib-cssmin": "~0.7.0",

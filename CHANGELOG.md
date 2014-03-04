@@ -4,6 +4,18 @@
 
 -
 
+
+## 0.8.0-beta5
+
+- Bugfix: Update grunt-glue-nu 0.1.0 --> 0.3.0
+- Bugfix: Moving config out of xtc folder now works.
+- Make `pinned-views.json` optional.
+- Module calls now accept `classes` instead of `htmlClasses`. But `htmlClasses` still works.
+- Update less 1.5.0 --> v1.6.3 / assemble-less 0.7.0.
+- LessCss `import reference` is not supported anymore.
+- Experimental & basic CSS source maps support. View `.less` source files in browsers that support it (e.g. Chrome).
+
+
 ## 0.8.0-beta4
 
 - This release contains breaking changes.
@@ -12,7 +24,7 @@
 - The template extension is configurable. generator-xtc will use this value when creating template files.
 - Finally created a new Readme and renamed the existing file documentation.md
 - Include/update such.less CSS framework (will be optional in the future).
-- Wrap grunt and generator xtc with `npm run build`, `npm run build-dist`, `npm run mkmod` and `npm run mkskin`. This is now the deafult way to run these tools.
+- Wrap grunt and generator xtc with `npm run build`, `npm run build-dist`, `npm run mkmod` and `npm run mkskin`. This is now the default way to run these tools.
 
 
 ## 0.8.0-beta3

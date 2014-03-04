@@ -5,11 +5,11 @@
 // - 00-variables.less
 
 #type {
-	@font-family: sans-serif;
-	@font-size: 13px;
-	@line-height: 15px;
-	@font-weight: normal;
-	@color-default: #000;
+	@font-family    : @font-default;
+	@font-size      : @font-size-default;
+	@line-height    : @line-height-default;
+	@font-weight    : normal;
+	@color          : @color-copy;
 
 	.rendering(@_) {
 		-moz-osx-font-smoothing: grayscale;
@@ -18,28 +18,19 @@
 
 	#title {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		@font-weight: bold;
-		@color-default: gray;
-		@line-height: 20px;
+		@font-family: @font-title;
+		//@font-weight: bold;
+		@color: gray;
+		@line-height: 22px;
 
-		// all //
-		.style(@_, @color: @color-default) {
+		// applies to all below //
+		.style(@_, @color: @color) {
 			color: @color;
+			font-family: @font-title;
 			font-weight: @font-weight;
 		}
 
-		// default //
 		.style('default'; ...) {
-			font-size: large;
-			line-height: @line-height;
-
-			@media @m-medium-up {
-				font-size: x-large;
-			}
-		}
-
-		// sub //
-		.style('sub'; ...) {
 			font-size: medium;
 			line-height: @line-height;
 
@@ -48,25 +39,33 @@
 			}
 		}
 
+		.style('page'; ...) {
+			font-size: large;
+			line-height: 26px; // old browsers
+			line-height: 2rem;
+
+			@media @m-medium-up {
+				font-size: x-large;
+			}
+		}
+
 	}
 
 	#copy {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		// all //
-		.style(@_, @color: @color-default) {
+		// applied to all below //
+		.style(@_, @color: @color) {
 			color: @color;
 			font-weight: @font-weight;
 			font-family: @font-family;
 		}
 
-		// default //
 		.style('default'; ...) {
 			font-size: @font-size;
 			line-height: @line-height;
 		}
 
-		// small //
 		.style('small'; ...) {
 			font-size: x-small;
 			line-height: @line-height;
@@ -77,13 +76,12 @@
 	#link {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		// all //
-		.style(@_, @color: @color-default) {
+		// applies to all below //
+		.style(@_, @color: @color) {
 			color: @color;
 			text-decoration: none;
 		}
 
-		// default //
 		.style('default'; ...) {
 			&:hover {
 				text-decoration: underline;
@@ -92,7 +90,7 @@
 	}
 }
 
-// Derived Classes
+// Create classes
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 .title-page {

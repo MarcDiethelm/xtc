@@ -63,7 +63,7 @@ describe('renderModule', function() {
 		assert.equal(actual, expected);
 	});
 	it('should render a module with HTML classes', function() {
-		var actual = renderModule({}, { name: 'basic', htmlClasses: 'vis-hidden form' });
+		var actual = renderModule({}, { name: 'basic', classes: 'vis-hidden form' });
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-html-classes.html');
 		assert.equal(actual, expected);
 	});

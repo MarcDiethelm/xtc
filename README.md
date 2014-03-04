@@ -12,10 +12,10 @@ xtc implements [Terrific.js'](http://terrifically.org/) clever, yet simple front
 
 xtc sets up Express and uses [Grunt](http://gruntjs.com/) and [Yeoman](http://yeoman.io/) to take as much work away from you as possible. It automatically builds your assets and generates new modules for you. xtc projects can be [deployed](#deploying) in a snap. All *you* have to do is *code*.
 
-- [\# About Modules](#about-modules)
-- [\# Frontend Structure: Phases](#frontend-structure-phases)
-- [\# Features](#features)
-- [\# Quick Start](#quick-start)
+- \# [About Modules](#about-modules)
+- \# [Frontend Structure: Phases](#frontend-structure-phases)
+- \# [Features](#features)
+- \# [Quick Start](#quick-start)
 - [&nbsp;&nbsp; Documentation](Documentation.md)
 - [&nbsp;&nbsp; Releases](https://github.com/MarcDiethelm/xtc/releases)
 - [⇗ **Simple demo server**](http://xtc.starfleet.info) on the [demo branch](https://github.com/MarcDiethelm/xtc/tree/demo).<br>
@@ -25,28 +25,28 @@ xtc sets up Express and uses [Grunt](http://gruntjs.com/) and [Yeoman](http://ye
 
 To include a module in a view or another module you simply write:
 
-```Handlebars
+```hbs
 {{mod "example"}}
 ```
 
-That is the shortest form. The module call can take many different [options](documentation.md##terrific-modules) tough.
+That is the shortest form. The module call can take many different [options](https://github.com/MarcDiethelm/xtc/blob/develop/Documentation.md#terrific-modules) tough.
 
 As mentioned earlier Terrific modules are self-contained Frontend components. A module basically is a folder with a structure like this:
 
-```
-my-module/
-	my-module.hbs
-	my-module-variation.hbs
-	my-module.js
-	my-module.less
-	test/
-		my-module.test.js
-	skins/
-		my-module-variation.js
-		my-module-variation.less
-```
+	my-module/
+		my-module.hbs
+		my-module-variation.hbs
+		my-module.js
+		my-module.less
+		test/
+			my-module.test.js
+		skins/
+			my-module-variation.js
+			my-module-variation.less
+		sprites/
+			icon.png
 
-This example is for a full-fledged module. A module however can also just consist exclusively of markup, styling or logic.
+This example is for a full-fledged module (including [sprites](https://github.com/MarcDiethelm/xtc/blob/develop/Documentation.md#building-sprites-with-glue)). A module however can also just consist exclusively of markup or styling or logic.
 
 A markup module is rendered in a wrapper.
 
@@ -60,7 +60,7 @@ The wrapper serves as an exclusive context or namespace for the module's DOM log
 
 New modules can be generated with an interactive little CLI tool. You start it with:
 
-```bash
+```sh
 npm run mkmod
 ```
 
@@ -80,7 +80,7 @@ The frontend code is structured into different *phases*.
 	- Modules <sup>[todo]</sup>
 	- Static assets
 
-These phases are processed in separate build pipelines and used as separate resources
+These phases are processed in separate build pipelines and used as separate resources in the browser.
 
 ## Such.less CSS
 
@@ -115,13 +115,13 @@ Want more features? There are more.
 - Basic styles for wireframing.
 - Filler text template helper [Hipsum.js](https://github.com/MarcDiethelm/Hipsum.js).
 - Super-easy HTTP basic auth protection and access for IP ranges.
-- Less @import (reference): Only includes what is actually used in your project. Great for libraries with mixins, helpers.
 
 
 ## Quick Start
 
 - Install [Node.js](http://nodejs.org/).
 - Download [the latest stable xtc release](https://github.com/MarcDiethelm/xtc/releases) and copy the files into your project folder.
+- Open a terminal execute `npm install -g grunt-cli yo generator-xtc@0.8.0-beta4-1`.
 - Open a terminal, change to the project folder, start the dev build / file watcher: `npm run build`.
 - Open a terminal session in the project folder and start the server with `npm start`.
 - Now you can visit `localhost:3000` in a browser.

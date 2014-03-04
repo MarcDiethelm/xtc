@@ -93,6 +93,14 @@
 	}
 }
 
+.text-hide {
+	font: ~"0/0" a;
+	color: transparent;
+	text-shadow: none;
+	background-color: transparent;
+	border: 0;
+}
+
 /*
  * Hide from both screenreaders and browsers: h5bp.com/u
  */
@@ -108,7 +116,7 @@
 	width: auto; //fix for ie
 	height: auto;
 	image-rendering: optimizeQuality;
-	-ms-interpolation-mode: bicubic;
+	-ms-interpolation-mode: bicubic; // ie8-
 }
 
 // links around blocks

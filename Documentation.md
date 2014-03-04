@@ -20,7 +20,7 @@
 	- [Module Testing](#module-testing)
 	- [Asset Building: Grunt](#asset-building-grunt)
 	- [Static Assets](#static-assets)
-		- [LessCSS 1.5.0](#lesscss-150)
+		- [LessCSS 1.6.0](#lesscss-160)
 	- [Development and Production Mode](#development-and-production-mode)
 	- [Building Sprites with Glue](#building-sprites-with-glue)
 	- [Build Customization](#build-customization)
@@ -74,13 +74,9 @@ If you want to use the automatic sprites generation you need to also install Glu
 
 First make sure you have an up to date Python installation. Refer to the section "Properly Install Python" for your
 platform, [from the official guide](http://docs.python-guide.org/en/latest/index.html). Mostly you need Homebrew and Pip.
-After that, [install Glue](http://glue.readthedocs.org/en/latest/installation.html).
+After that, [install Glue](http://glue.readthedocs.org/en/latest/installation.html). You need version 0.9 or higher.
 
 It worked if you can `glue -v` to get the installed version.
-
-After that, [install OptiPNG](http://glue.readthedocs.org/en/latest/optipng.html). OptiPNG is a PNG optimizer that
-recompresses image files to a smaller size. You may have to manually symlink optipng into /usr/local/bin (or another
-folder in your path).
 
 
 ## Project Setup
@@ -223,7 +219,7 @@ The HTML classes on the wrapper serve as 'binding sites' for the module's logic 
 A module include with all known options configured looks like this:
 
 ```Handlebars
-{{mod "example" template="alternate" skins="alternate, baz" tag="article" id="foo" htmlClasses="test-class" data-connectors="stats, filter" data="{var1: 'foo'}"}}
+{{mod "example" template="alternate" skins="alternate, baz" tag="article" id="foo" classes="test-class" data-connectors="stats, filter" data="{var1: 'foo'}"}}
 ```
 
 This will generate the following wrapper:
@@ -233,7 +229,7 @@ This will generate the following wrapper:
 ```
 
 Please refer to the official docs at [Terrifically.org](http://terrifically.org/) to learn more about the Terrific
-pattern. You may safely ignore the part about "Composer".
+pattern. You may safely ignore the part about "Composer" though.
 
 You can use the `data` attribute on a module include to **inject data** (as a JS object or object literal) into the context of the
 module template.
@@ -244,7 +240,7 @@ markup. This includes HTML5 `data-` attributes.
 You can enable **annotations** in the HTML output around modules in the config. The annotation displays the module name,
 the template file name, the filesystem path and repository URL to the module.
 
-the **indentation** of included modules can be controlled with the `indent` attribute using integer values. Nested child modules are indented automatically. 
+the **indentation** of included modules can be controlled with the `indent` attribute using integer values. Nested child modules are indented automatically.
 
 Using the `noWrapper=true` attribute on a module include will prevent creation of the wrapper element and module annotation.
 This is useful when creating markup-only modules in base layouts, e.g a HTML HEAD module including the doctype. You can
@@ -354,11 +350,11 @@ Note that you can control the indentation with the `indent` attribute. The chars
 
 If you run the server in **production mode** the minified versions of these assets will be used.  
 
-#### LessCSS 1.5.0
+#### LessCSS 1.6.0
 
-Less files in `reference` folders (in `inline` and `base`) are included with Less 1.5.0's `@import (reference)`:
+~~Less files in `reference` folders (in `inline` and `base`) are included with Less 1.6.0's `@import (reference)`:
 Only mixins and variables that are actually used are imported. This is great for libraries of helper and mixins or UI
-frameworks like Bootstrap.
+frameworks like Bootstrap.~~ This is not currently working and will probably be removed for 0.8.0.
 
 
 ### Development and Production Mode
@@ -380,7 +376,7 @@ You can conditionally render markup using the environment block helper...
 xtc allows you to automate the generation of sprite sheets and their associated styles. This functionality depends on
 the powerful [Glue](https://github.com/jorgebastida/glue) command line tool written in Python. Because of that sprites
 building is not enabled by default. To enable it you need to [install Glue on your system](#optional-sprites) first
-and set the pref like this: `enableSpritesBuilding: true`
+and set a pref in the config like this: `enableSpritesBuilding: true`
 
 The standard location for your sprites is in `frontend/base/css/sprites`. If you have sprites that are unique to a
 module you can put them in a `sprites` folder inside the module.
@@ -400,14 +396,24 @@ With [Grunt](#asset-building-grunt) there's almost no limit to what you can do.
 TODO documentation
 
 
-## Template Development and Integration Into Other Backends
+## Frontend Development and Integration Into Other Backends
+
+There are two ways that xtc supports working with other backends.
+
+- xtc as server (production or just templating)
+- xtc as frontend building environment in a different server
+
+### xtc as server (production or just templating)
 
 xtc implements some features to help with template integration into different backend systems.
 
-### Project overview
+- Project overview
+- Rendering single modules, with API
+- Module annotation
 
-`/_home` displays an overview of all user-defined views, modules and layouts, i.e. ones whose names don't start with
-an underscore. The page contains links to the views and modules at `/[view name]`, `/_module/[module name]` and
+#### Project overview
+
+`/_home` displays an overview of all user-defined views, modules and layouts, i.e. ones whose names don't start with an underscore. The page contains links to the views and modules at `/[view name]`, `/_module/[module name]` and
 `/_layout/[layout name]` respectively. If you add the parameter `raw` to the URI, you get the pure HTML of that
 resource without any surrounding markup, e.g:
 
@@ -421,8 +427,15 @@ include tag. E.g.
 	/_view/example?solo
 
 **Views can be pinned** to the top of the list by adding their name to an array in the file `_config/pinned-views.json`.
-The pinned views will be presented in the order they appear in the file.
+The pinned views will be presented in the order they appear in the file. The file is optional.
 
+### xtc as Terrific build and frontend tool
+
+xtc is the ideal environment for frontend development in other backends. All the backend has to implement is module includes to satisfy the Terrific pattern. The rest is handled by xtc in a manner that is intimately known to a frontend developer who has worked with xtc before: build tool, generators, familiar and flat file structure, reliable less parsing and many other tools that are part of xtc.
+
+Instead of re-inventing the wheel in other backends and building disparate solutions to try to enable frontend building, which always fall short, you can use xtc as a standardized environment made for frontend development. xtc is completely configurable when it comes to specifying the sources and build output locations.
+
+xtc can be set up as build tool by either a frontend or a backend dev. Drop xtc in, edit the JSON config, start a build. It just works.
 
 ## Basic Authentication and Bypass for IP Ranges
 
