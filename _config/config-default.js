@@ -119,7 +119,7 @@ module.exports = {
 	,"buildBasePath"    : "frontend/_public"
 	,"build": {
 		// baseDirNameX is relative to buildBasePath
-		"baseDirNameDev"    : "build",
+		"baseDirNameDev"    : "build", // Include this dir in .gitignore
 		"baseDirNameDist"   : "dist"
 
 		// js and css are relative to baseDirNameX
@@ -130,7 +130,7 @@ module.exports = {
 				 "development"      : "inline.js"
 				,"production"       : "inline.min.js"
 			}
-			// URI of the generated main js file, usage: {{static.build.js.external}}
+			// URI and file name of the generated main js file, usage: {{static.build.js.external}}
 			,
 			"external": {
 				 "development"      : "external.js"
@@ -144,7 +144,7 @@ module.exports = {
 				 "development"      : "inline.css"
 				,"production"       : "inline.min.css"
 			},
-			// URI of the generated main css file, usage: {{static.build.css.external}}
+			// URI and file name of the generated main css file, usage: {{static.build.css.external}}
 			"external": {
 				 "development"      : "external.css"
 				,"production"       : "external.min.css"
