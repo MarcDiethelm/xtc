@@ -2,7 +2,7 @@
 	"name": "xtc-project",
 	"description": "an xtc project",
 	"version": "0.0.0",
-	"xtcVersion": "0.8.0-beta4",
+	"xtcVersion": "0.8.0-beta5",
 	"private": true,
 	"main": "app.js",
 	"dependencies": {
