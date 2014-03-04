@@ -251,6 +251,7 @@ module.exports = function(grunt) {
 					 '<%=tmpPath%>'
 					,'<%=destCss%>/inline.css'
 					,'<%=destCss%>/external.css'
+					,'<%=destCss%>/*.map'
 					,'<%=destJs%>/inline.js'
 					,'<%=destJs%>/external.js'
 				]
