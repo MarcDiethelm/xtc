@@ -1,14 +1,14 @@
 // Never commit authentication data to a public repository!
 {
 	//  Default html > head > title is constructed from this
-	// "siteName": 'Site Name'
+	// "siteName": "Site Name"
 	//,"allowAuthBypassForIpRanges": true
 	//,"annotateModules": {
 	//	"production": true
 	//}
 	//,"enableModuleTesting": true
 	//  To construct links to views and modules
-	//,"repository": 'https://github.com/UserName/project-name/tree/develop/'
+	//,"repository": "https://github.com/UserName/project-name/tree/develop/"
 	//  Should asset building include sprites generation? Dependencies: Glue (Python) and OptiPNG (binary executable)
 	//,"enableSpritesBuilding": false
 
