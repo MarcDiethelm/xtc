@@ -7,7 +7,7 @@
 	//	"production": true
 	//}
 	//,"enableModuleTesting": true
-	//  To construct links to views and modules
+	//  To construct links to views and modules (include trailing slash)
 	//,"repository": "https://github.com/UserName/project-name/tree/develop/"
 	//  Should asset building include sprites generation? Dependencies: Glue (Python) and OptiPNG (binary executable)
 	//,"enableSpritesBuilding": false

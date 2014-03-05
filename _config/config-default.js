@@ -37,7 +37,7 @@ module.exports = {
 	,"enableSpritesBuilding": false
 
 	,"repository": {
-		 doc            : 'Used to construct links to views, modules and layouts in the project overview'
+		 doc            : 'Used to construct links to views, modules and layouts in the project overview. (include trailing slash)'
 		,format         : 'url'
 		,default        : 'https://github.com/MarcDiethelm/xtc/tree/develop/'
 	}
