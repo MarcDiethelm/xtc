@@ -101,7 +101,7 @@ module.exports = {
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Frontend sources
-	// Paths to frontend source folders relative to app.js, will be resolved to absolute paths
+	// Paths to frontend source folders relative to process start dir, will be resolved to absolute paths
 
 	// base path to the frontend sources, can be empty
 	,"sourcesBasePath"  : "frontend"
@@ -122,7 +122,7 @@ module.exports = {
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Frontend asset build destinations
-	// Destination paths and file names. Paths relative to app.js, will be resolved to absolute paths.
+	// Destination paths and file names. Paths relative to process start dir, will be resolved to absolute paths.
 
 	,"buildBasePath"    : "frontend/_public"
 	,"build": {

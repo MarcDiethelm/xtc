@@ -21,7 +21,7 @@ module.exports = function(app) {
 		 */
 
 		_home: function(req, res, next) {
-			var overview = require(path.join(cfg.appPath, 'lib/overview.js'))(cfg);
+			var overview = require(path.join(cfg.xtcPath, 'lib/overview.js'))(cfg);
 
 			res.render('_app-overview', {
 				 layout: false
