@@ -7,9 +7,11 @@
 	//	"production": true
 	//}
 	//,"enableModuleTesting": true
-	//  To construct links to views and modules (include trailing slash)
-	//,"repository": "https://github.com/UserName/project-name/tree/develop/"
-	//  Should asset building include sprites generation? Dependencies: Glue (Python) and OptiPNG (binary executable)
+	//  To construct links to views, modules and layouts in your repository's web UI ("read-only" https .git URI)
+	//,"repository": "https://github.com/UserName/project-name.git"
+	//,"repositoryBranch": "develop"
+
+	//  Should asset building include sprites generation? Dependencies: Glue (Python)
 	//,"enableSpritesBuilding": false
 
 	// URI prefix for static assets, e.g. '/static', empty string for none. Also used inside generated css files as base path.

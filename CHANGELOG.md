@@ -5,6 +5,13 @@
 -
 
 
+## 0.8.0-beta6
+
+- Breaking: To get links to web view of sources in the repository, just supply the repository's https git URI.
+- Bugfixes: Create correct app paths on Windows
+- Bugfix: Correct repository URLs in project overview if sources are outside xtc root folder.
+
+
 ## 0.8.0-beta5
 
 - Bugfix: Update grunt-glue-nu 0.1.0 --> 0.3.0

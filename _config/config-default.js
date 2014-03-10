@@ -39,9 +39,15 @@ module.exports = {
 	,"enableSpritesBuilding": false
 
 	,"repository": {
-		 doc            : 'Used to construct links to views, modules and layouts in the project overview. (include trailing slash)'
+		 doc            : 'To construct links to views, modules and layouts in your repository\'s web UI ("read-only" https .git URI)'
 		,format         : 'url'
-		,default        : 'https://github.com/MarcDiethelm/xtc/tree/develop/'
+		,default        : 'https://github.com/MarcDiethelm/xtc.git'
+	}
+	,"repositoryBranch" : {
+		 doc            : 'To construct links to views, modules and layouts in your repository\'s web UI'
+		,format         : String
+		,default        : 'develop'
+		,env            : 'REPO_BRANCH'
 	}
 
 
