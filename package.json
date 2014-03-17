@@ -33,10 +33,10 @@
 	"scripts": {
 		"start": "node server.js",
 		"test": "mocha",
-		"build"     : "grunt --gruntfile=Gruntfile.js",
-		"build-dist": "grunt --gruntfile=Gruntfile.js --dist",
-		"mkmod"     : "yo xtc:module --path=.",
-		"mkskin"    : "yo xtc:skin --path=."
+		"build"     : "grunt --base=./",
+		"build-dist": "grunt --base=./ --dist",
+		"mkmod"     : "yo xtc:module --path=./",
+		"mkskin"    : "yo xtc:skin --path=./"
 	},
 	"engines": { "node" : ">=0.8.0" },
 	"configPath": "_config/"
