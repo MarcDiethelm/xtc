@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 	// Read project configuration
 
 	var  path = require('path')
-		,configr = require('./lib/configure')
+		,configr
 		,cfg ,modulesPattern, buildBaseDirName, buildPath, buildPathJs, buildPathCss, buildPathSpriteSheets
 		,isDistBuild = grunt.option('dist') || false // based on this value we will execute a dev or dist build
 	;
@@ -14,6 +14,10 @@ module.exports = function(grunt) {
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Get project configuration
+
+	grunt.file.setBase(__dirname); // Let configure.js work relative to here
+	configr = require(path.join(grunt.option('base'), 'lib/configure'));
+	grunt.file.setBase(grunt.option('base')); // Point grunt back to xtc, so it finds its plugins
 
 	// Override project config, if command line options contain config options (for testing)
 	cfg = grunt.option('config-path') && grunt.option('config-files')

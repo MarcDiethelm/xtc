@@ -8,7 +8,7 @@ describe('app', function() {
 
 	before(function() {
 		// get the application server module
-		app = require('../../app');
+		app = require('../../server');
 		this.server = app.listen(3333);
 	});
 

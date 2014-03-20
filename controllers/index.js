@@ -1,6 +1,6 @@
 module.exports = function(app) {
 
-	var docTitle = require('../lib/helpers.js').docTitle;
+	var docTitle = require(app.xtcPath('lib/helpers.js')).docTitle;
 
 	return {
 
