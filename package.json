@@ -10,9 +10,7 @@
 		"hipsum": ">=0.2.0",
 		"lodash-node": "~2.4.0",
 		"range_check": "~0.0.4",
-		"handlebars": "~1.3.0"
-	},
-	"devDependencies": {
+		"handlebars": "~1.3.0",
 		"grunt": "~0.4.0",
 		"grunt-less-imports": "~0.9.0",
 		"assemble-less": "0.7.0",
@@ -22,7 +20,9 @@
 		"grunt-contrib-cssmin": "~0.7.0",
 		"grunt-contrib-uglify": "~0.2.0",
 		"grunt-contrib-watch": "~0.5.0",
-		"grunt-contrib-clean": "~0.5.0",
+		"grunt-contrib-clean": "~0.5.0"
+	},
+	"devDependencies": {
 		"mocha": "~1.16.0"
 	},
 	"repository": {
