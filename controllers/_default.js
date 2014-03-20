@@ -1,18 +1,20 @@
 module.exports = function(app) {
 
-	var  cfg = require('../lib/configure').get()
+	var  cfg = require(app.xtcPath('lib/configure')).get()
 		,path = require('path')
 		,fs = require('fs')
 
-		,renderModule = require('../lib/mod-render')()
-		,exphbs = require('express3-handlebars')
-		,utils = require('../lib/utils')
-		,helpers = require('../lib/helpers.js')
+		,renderModule = require(app.xtcPath('lib/mod-render'))()
+		,exphbs = require(app.xtcPath('node_modules/express3-handlebars'))
+		,utils = require(app.xtcPath('lib/utils'))
+		,helpers = require(app.xtcPath('lib/helpers.js'))
 		,docTitle = helpers.docTitle
 		,hbs
 	 ;
 
-	hbs = exphbs.create({ handlebars: require('handlebars') });
+	hbs = exphbs.create({
+		handlebars: require(app.xtcPath('node_modules/handlebars'))
+	});
 
 	return {
 
@@ -21,7 +23,7 @@ module.exports = function(app) {
 		 */
 
 		_home: function(req, res, next) {
-			var overview = require(path.join(cfg.xtcPath, 'lib/overview.js'))(cfg);
+			var overview = require(app.xtcPath('lib/overview.js'))(cfg);
 
 			res.render('_app-overview', {
 				 layout: false

@@ -75,6 +75,7 @@ app.use(cfg.staticBaseUri, express.static(cfg.buildBasePath)); // in case buildB
 helpers.registerModuleTestTrackingMiddleware(app);
 
 // Register our routes in routes.js
+app.xtcPath = helpers.xtcPath;
 require(cfg.routesPath)(app);
 
 app.use(helpers.render404); // If no other middleware responds, this last callback sends a 404.
