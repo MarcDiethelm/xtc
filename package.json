@@ -4,26 +4,26 @@
 	"version": "0.8.0-beta6",
 	"private": true,
 	"dependencies": {
-		"express": "~3.3.0",
-		"express3-handlebars": "~0.5.0",
-		"convict": "~0.4.0",
-		"hipsum": ">=0.2.0",
-		"lodash-node": "~2.4.0",
-		"range_check": "~0.0.4",
-		"handlebars": "~1.3.0",
-		"grunt": "~0.4.0",
-		"grunt-less-imports": "~0.9.0",
+		"express": "3.3.8",
+		"express3-handlebars": "0.5.0",
+		"convict": "0.4.2",
+		"hipsum": "0.2.0",
+		"lodash-node": "2.4.1",
+		"range_check": "0.0.4",
+		"handlebars": "1.3.0",
+		"grunt": "0.4.4",
+		"grunt-less-imports": "0.9.1",
 		"assemble-less": "0.7.0",
 		"grunt-glue-nu": "0.3.1",
-		"grunt-contrib-jshint": "~0.8.0",
-		"grunt-contrib-concat": "~0.3.0",
-		"grunt-contrib-cssmin": "~0.7.0",
-		"grunt-contrib-uglify": "~0.2.0",
-		"grunt-contrib-watch": "~0.5.0",
-		"grunt-contrib-clean": "~0.5.0"
+		"grunt-contrib-jshint": "0.9.2",
+		"grunt-contrib-concat": "0.3.0",
+		"grunt-contrib-cssmin": "0.7.0",
+		"grunt-contrib-uglify": "0.4.0",
+		"grunt-contrib-watch": "0.6.1",
+		"grunt-contrib-clean": "0.5.0"
 	},
 	"devDependencies": {
-		"mocha": "~1.16.0"
+		"mocha": "1.18.2"
 	},
 	"repository": {
 		"type": "git",
