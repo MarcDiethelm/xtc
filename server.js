@@ -87,12 +87,31 @@ app.use(helpers.render404); // If no other middleware responds, this last callba
 // Store the port in the settings (Why?)
 app.set('port', process.env.PORT || cfg.devPort);
 
-if (module.parent) {
-	// If parent exists we are in testing mode
-	module.exports = app;
-} else {
+if (!module.parent) {
 	// Server starts listening
 	http.createServer(app).listen(app.get('port'), function() {
 		console.log('listening on port %d\n', app.get('port'));
+	})
+	// Print a nice error message if the port is in use
+	.on('error', function(err) {
+		if (err.code === 'EADDRINUSE') {
+			var util = require('util')
+				,xtcUtils = require('./lib/utils')
+				,xtcErr = xtcUtils.error(
+					 util.format('\n✖︎ Port %d is already being used.', app.get('port'))
+					,err
+					,util.format(
+						'Quit the other process or choose a different port, e.g. by setting the devPort property in %s.'
+						,path.join(cfg.configPath, 'config-local.json'))
+				)
+			;
+			console.error(xtcErr.c);
+		}
+		else {
+			throw err; // Unhandled 'error' event
+		}
 	});
+} else {
+	// If parent exists we are in testing mode
+	module.exports = app;
 }

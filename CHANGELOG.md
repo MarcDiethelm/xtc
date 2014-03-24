@@ -10,6 +10,7 @@
 - Breaking: To get links to web view of sources in the repository, just supply the repository's https git URI.
 - Bugfixes: Create correct app paths on Windows
 - Bugfix: Correct repository URLs in project overview if sources are outside xtc root folder.
+- xtc now prints a nice error message if the server port is already in use.
 
 
 ## 0.8.0-beta5
