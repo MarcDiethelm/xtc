@@ -220,7 +220,7 @@ module.exports = function(grunt) {
 					 banner         : '/*! Inline style dependencies for page bootstrapping */'
 
 					,sourceMapFilename : '<%=destCss%>/inline.css.map'
-					,sourceMapURL   : '<%=staticBaseUri%><%=buildBaseDirName%>/inline.css.map'
+					,sourceMapURL   : 'inline.css.map'
 				}
 				,src                : '<%=tmpPath%>/inline-@import.less'
 				,dest               : '<%=destCss%>/inline.css'
@@ -228,7 +228,7 @@ module.exports = function(grunt) {
 			,external: {
 				options: {
 					 sourceMapFilename : '<%=destCss%>/external.css.map'
-					,sourceMapURL   : '<%=staticBaseUri%><%=buildBaseDirName%>/external.css.map'
+					,sourceMapURL   : 'external.css.map'
 				}
 				,src                : '<%=tmpPath%>/external-@import.less'
 				,dest               : '<%=destCss%>/external.css'
