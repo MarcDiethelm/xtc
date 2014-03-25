@@ -15,6 +15,7 @@
 - Bugfixes: Create correct app paths on Windows
 - Bugfix: Correct repository URLs in project overview if sources are outside xtc root folder.
 - xtc now prints a nice error message if the server port is already in use.
+- Removed support for Node v0.8
 
 
 ## 0.8.0-beta5

@@ -32,7 +32,6 @@ describe('asset building', function() {
 		});
 
 		describe('external css', function() {
-			this.timeout(10000);
 
 			before(function(done) {
 				runGrunt(['build-external-css', '--base=./', '-config-path=test/assets', '-config-files=assets'], done);
@@ -61,7 +60,6 @@ describe('asset building', function() {
 
 
 	describe('static uri config', function() {
-		this.timeout(10000);
 
 		describe('external CSS', function() {
 

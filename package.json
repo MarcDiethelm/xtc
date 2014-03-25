@@ -38,6 +38,6 @@
 		"mkmod"     : "yo xtc:module --path=./",
 		"mkskin"    : "yo xtc:skin --path=./"
 	},
-	"engines": { "node" : ">=0.8.0" },
+	"engines": { "node" : ">=0.10.0" },
 	"configPath": "_config/"
 }
