@@ -172,7 +172,7 @@ In xtc the distinction between views and layouts is as follows:
 #### Handlebars Helpers
 
 You can add your own Handlebars helper functions in addition to some existing helpers. Check out
-`lib/handlebars-helpers-custom.js` for examples and to add your own. And take a look at http://handlebarsjs.com/#helpers for more info about
+`lib/handlebars-helpers.js` for examples and to add your own. And take a look at http://handlebarsjs.com/#helpers for more info about
  Handlebars helpers.
 
 xtc includes [Hipsum.js](https://github.com/MarcDiethelm/Hipsum.js) so you can quickly generate filler text in your
