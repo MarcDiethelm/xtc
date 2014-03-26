@@ -81,7 +81,7 @@ It worked if you can `glue -v` to get the installed version.
 
 ## Project Setup
 
-Download [the latest stable xtc release](https://github.com/MarcDiethelm/xtc/releases) and copy the files into your project folder. The download already contains all the *local* node modules that xtc needs to function.
+In the terminal, change to the project folder and start the project generator: `yo xtc`. Once you have answered some questions the project files will be created and xtc installed as a local node module.
 
 
 ### Configuration
