@@ -94,13 +94,13 @@ By default xtc contains an extremely helpful CSS framework called [⇗ such.less
 - Frontend modularization, modules are included by the server.
 - Nice for single page apps.
 - [Handlebars](http://handlebarsjs.com/) templates.
-- [LessCSS](https://github.com/less/less.js) 1.5.0
+- [LessCSS](https://github.com/less/less.js) 1.6.0
 - Flexible automatic asset building using [Grunt.js](http://gruntjs.com/), with file watcher
 - Automatic sprites generation
 - External, inline (todo: and dynamically loaded assets)
 - [Automatic testing](#module-testing) of the current page (todo: test automation in multiple browsers, simultaneously)
 - Project setup takes minutes.
-- Interactive [generator](#terrific-module-creation) for modules, skins (todo: and projects).
+- Interactive [generator](#terrific-module-creation) for modules, skins and projects.
 - Ready for [deploying to Heroku](https://gist.github.com/MarcDiethelm/6321844), Digital Ocean or Nodejitsu.
 
 Want more features? There are more.
@@ -109,7 +109,7 @@ Want more features? There are more.
 - Easy to configure. (Almost) everything in one place.
 - The whole frontend is contained in one folder, called... frontend.
 - Less [@import (reference)](http://lesscss.org/features/#import-options-reference): Only includes what is actually used in your project. Great for libraries with mixins, helpers.
-- Generated [project overview](#template-development-and-integration-into-other-backends) lists all views, modules and layouts, with links to stand-alone, rendered source and repository.
+- Generated [project overview](https://github.com/MarcDiethelm/xtc/blob/master/Documentation.md#project-overview) lists all views, modules and layouts, with links to stand-alone, rendered source and repository.
 - Lazy routing: just create a new view and use its filename as the URI.
 - Helpful, friendly error messages if you do something wrong.
 - Basic styles for wireframing.
@@ -120,10 +120,10 @@ Want more features? There are more.
 ## Quick Start
 
 - Install [Node.js](http://nodejs.org/).
-- Download [the latest stable xtc release](https://github.com/MarcDiethelm/xtc/releases) and copy the files into your project folder.
-- Open a terminal execute `npm install -g grunt-cli yo generator-xtc@0.8.0-beta4-1`.
-- Open a terminal, change to the project folder, start the dev build / file watcher: `npm run build`.
-- Open a terminal session in the project folder and start the server with `npm start`.
+- Open a terminal and execute `npm install -g grunt-cli yo generator-xtc@0.8.0-beta6`.
+- In the terminal, change to the project folder and start the project generator: `yo xtc`.
+- Start the dev build and file watcher: `npm run build`.
+- Open a new terminal session and start the server with `npm start`.
 - Now you can visit `localhost:3000` in a browser.
 
 That's it. Start building websites!

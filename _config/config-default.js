@@ -10,7 +10,9 @@
  */
 
 // Resolve the path to the validation module, via xtc's lib/configure.js
-var check = require(require('path').join(module.parent.filename.split('/lib')[0], 'lib/validator'));
+var path = require('path')
+   ,check = require(path.join(module.parent.filename.split(path.sep +'lib')[0], 'lib/validator'))
+;
 
 module.exports = {
 
@@ -37,9 +39,15 @@ module.exports = {
 	,"enableSpritesBuilding": false
 
 	,"repository": {
-		 doc            : 'Used to construct links to views, modules and layouts in the project overview'
+		 doc            : 'To construct links to views, modules and layouts in your repository\'s web UI ("read-only" https .git URI)'
 		,format         : 'url'
-		,default        : 'https://github.com/MarcDiethelm/xtc/tree/develop/'
+		,default        : 'https://github.com/MarcDiethelm/xtc.git'
+	}
+	,"repositoryBranch" : {
+		 doc            : 'To construct links to views, modules and layouts in your repository\'s web UI'
+		,format         : String
+		,default        : 'develop'
+		,env            : 'REPO_BRANCH'
 	}
 
 
@@ -93,7 +101,7 @@ module.exports = {
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Frontend sources
-	// Paths to frontend source folders relative to app.js, will be resolved to absolute paths
+	// Paths to frontend source folders relative to process start dir, will be resolved to absolute paths
 
 	// base path to the frontend sources, can be empty
 	,"sourcesBasePath"  : "frontend"
@@ -114,7 +122,7 @@ module.exports = {
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Frontend asset build destinations
-	// Destination paths and file names. Paths relative to app.js, will be resolved to absolute paths.
+	// Destination paths and file names. Paths relative to process start dir, will be resolved to absolute paths.
 
 	,"buildBasePath"    : "frontend/_public"
 	,"build": {

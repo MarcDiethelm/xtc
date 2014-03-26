@@ -1,19 +1,28 @@
 module.exports = function(grunt) {
 
-	process.env.NODE_ENV = grunt.option('dist') ? 'production' : 'development';
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Read project configuration
-
 	var  path = require('path')
-		,configr = require('./lib/configure')
+		,xtcPath = 	grunt.option('base') || __dirname
+		,configr
 		,cfg ,modulesPattern, buildBaseDirName, buildPath, buildPathJs, buildPathCss, buildPathSpriteSheets
 		,isDistBuild = grunt.option('dist') || false // based on this value we will execute a dev or dist build
 	;
 
+	process.env.NODE_ENV = grunt.option('dist') ? 'production' : 'development';
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Be nice
+
+	grunt.log.writeln('\n────────────────────────────────────────'.magenta);
+	grunt.log.writeln('xtc %s build, %s'.magenta, process.env.NODE_ENV, (new Date).toLocaleTimeString());
+
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Get project configuration
+
+	grunt.file.setBase(__dirname); // Let configure.js work relative to here
+	configr = require(path.join(xtcPath, 'lib/configure'));
+	grunt.file.setBase(xtcPath); // Point grunt back to xtc, so it finds its plugins
 
 	// Override project config, if command line options contain config options (for testing)
 	cfg = grunt.option('config-path') && grunt.option('config-files')
@@ -38,9 +47,7 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 
-		pkg                         : require('./package.json')
-
-		,staticBaseUriCss           : cfg.staticBaseUri
+		 staticBaseUriCss           : cfg.staticBaseUri
 		,staticBaseUri              : (cfg.staticBaseUri || '') + '/'
 
 
@@ -195,63 +202,70 @@ module.exports = function(grunt) {
 
 		,less: {
 			options: {
-				 sourceMap: true
+				 globalVars: {
+					'static-base'   : '"'+cfg.staticBaseUri+'"'
+				}
 				,outputSourceFiles  : true
-				//,sourceMapBasepath  : '<%=staticBaseUri%>'
-				,sourceMapBasepath  : ''
+				//,sourceMapRootpath  : '<%=staticBaseUri%>'
+				//,sourceMapBasepath  : '/zzz'
 				,imports: {
 					// Can't get this to work!
 					//reference   : ['<%=tcBase%>/css/lib/reference/*.less']
 					//reference   : [path.relative(buildPath + '/tmp', cfg.sources.base +'/css/lib/reference')+'/helpers.less']
 					//reference   : [path.resolve(process.cwd(), cfg.sources.base +'/css/lib/reference')+'/helpers.less']
 				}
-				,globalVars: {
-					'static-base'   : '"'+cfg.staticBaseUri+'"'
-				}
+				,report             : 'min'
 			}
 			,inline: {
 				options: {
 					// cssmin will not create file if the output is empty. a special comment fixes this.
 					 banner         : '/*! Inline style dependencies for page bootstrapping */'
-
+					,sourceMap      : true
 					,sourceMapFilename : '<%=destCss%>/inline.css.map'
-					,sourceMapURL   : '<%=staticBaseUri%><%=buildBaseDirName%>/inline.css.map'
+					,sourceMapURL   : 'inline.css.map'
 				}
 				,src                : '<%=tmpPath%>/inline-@import.less'
 				,dest               : '<%=destCss%>/inline.css'
 			}
 			,external: {
 				options: {
-					 sourceMapFilename : '<%=destCss%>/external.css.map'
-					,sourceMapURL   : '<%=staticBaseUri%><%=buildBaseDirName%>/external.css.map'
+					 sourceMap: true
+					,sourceMapFilename : '<%=destCss%>/external.css.map'
+					,sourceMapURL   : 'external.css.map'
 				}
 				,src                : '<%=tmpPath%>/external-@import.less'
 				,dest               : '<%=destCss%>/external.css'
 			}
-		}
-
-		,cssmin: {
-			inline: {
-				 src                : '<%=destCss%>/inline.css'
+			,inlineDist: {
+				options: {
+					 cleancss       : true
+				}
+				,src                : '<%=tmpPath%>/inline-@import.less'
 				,dest               : '<%=destCss%>/inline.min.css'
-			},
-			external: {
-				 src                : '<%=destCss%>/external.css'
+			}
+			,externalDist: {
+				options: {
+					 cleancss       : true
+				}
+				,src                : '<%=tmpPath%>/external-@import.less'
 				,dest               : '<%=destCss%>/external.min.css'
 			}
 		}
 
 		// After dist build remove all non-minified files.
 		,clean: {
-			dist: {
-				options: {
-					force: true
-				}
-				,src: [
+			options: {
+				force: true
+			}
+			,dist: {
+				src: [
+					 '<%=destCss%>/*.{png,css}'
+					,'<%=destJs%>/*.{js}'
+				]
+			}
+			,temp: {
+				src: [
 					 '<%=tmpPath%>'
-					,'<%=destCss%>/inline.css'
-					,'<%=destCss%>/external.css'
-					,'<%=destCss%>/*.map'
 					,'<%=destJs%>/inline.js'
 					,'<%=destJs%>/external.js'
 				]
@@ -362,14 +376,14 @@ module.exports = function(grunt) {
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Define build tasks                            // use actual task name (first part before colon)!
+	// Define dev build tasks                // format: [task:target, task:target] in grunt terminology
 
-	grunt.registerTask('build-sprites',              ['glue']);
-	grunt.registerTask('build-external-js',          ['concat:external_scripts', 'jshint:external']);
-	grunt.registerTask('build-inline-js',            ['concat:inline_scripts', 'log:devJsDone', 'jshint:inline']);
-	grunt.registerTask('build-external-css',         ['less_imports:external', 'less:external']);
-	grunt.registerTask('build-inline-css',           ['less_imports:inline', 'less:inline', 'log:devCssDone']);
-	grunt.registerTask('build-module-tests',         ['concat:module_tests' , 'jshint:module_tests']);
+	grunt.registerTask('build-sprites',      ['glue']);
+	grunt.registerTask('build-module-tests', ['concat:module_tests' ,   'jshint:module_tests']);
+	grunt.registerTask('build-external-js',  ['concat:external_scripts','jshint:external']);
+	grunt.registerTask('build-inline-js',    ['concat:inline_scripts',  'jshint:inline']);
+	grunt.registerTask('build-external-css', ['less_imports:external',  'less:external']);
+	grunt.registerTask('build-inline-css',   ['less_imports:inline',    'less:inline']);
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -386,25 +400,30 @@ module.exports = function(grunt) {
 	];
 
 	var distBuild = [
-		 'build-sprites'
-		,'build-external-css'
-		,'build-external-js'
-		,'build-inline-css'
-		,'build-inline-js'
-		,'build-module-tests'
-
+		 'clean:dist'
+		,'glue'
+		,'concat:module_tests'
+		,'concat:inline_scripts'
+		,'concat:external_scripts'
+		,'less_imports:inline'
+		,'less_imports:external'
+		,'less:inlineDist'
+		,'less:externalDist'
 		,'uglify:inline'
 		,'uglify:external'
-		,'cssmin:inline'
-		,'cssmin:external'
-		,'clean:dist'
+		,'clean:temp'
 	];
 
-	var task = isDistBuild ? distBuild : devBuild;
+	var defaultTask = isDistBuild ? distBuild : devBuild;
 
 	// If sprites building is not enabled in the app config, remove it.
-	!cfg.enableSpritesBuilding && task.shift();
-	grunt.registerTask('default', task);
+	if (!cfg.enableSpritesBuilding) {
+		defaultTask = defaultTask.filter(function(task) {
+			return (task !== 'build-sprites') && (task !== 'glue');
+		});
+	}
+
+	grunt.registerTask('default', defaultTask);
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -416,7 +435,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 

@@ -5,6 +5,19 @@
 -
 
 
+## 0.8.0-beta6
+
+- xtc can be installed as a node module inside a project.
+- Moved all devDependencies except Mocha to dependencies.
+- Removed node_modules from xtc repository
+- Move all dependencies to fixed versions and update some dependencies.
+- Breaking: To get links to web view of sources in the repository, just supply the repository's https git URI.
+- Bugfixes: Create correct app paths on Windows
+- Bugfix: Correct repository URLs in project overview if sources are outside xtc root folder.
+- xtc now prints a nice error message if the server port is already in use.
+- Removed support for Node v0.8
+
+
 ## 0.8.0-beta5
 
 - Bugfix: Update grunt-glue-nu 0.1.0 --> 0.3.0

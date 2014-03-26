@@ -1,7 +1,8 @@
 module.exports = function(app) {
 
-	var  cfg = require('../lib/configure').get()
-		,helpers = require('../lib/helpers.js')
+	var  xtcPath = app.get('xtcPath')
+		,cfg = require( app.xtcPath('lib/configure') ).get()
+		,helpers = require( app.xtcPath('lib/helpers.js') )
 		,authBasic = helpers.authBasic
 	;
 
