@@ -401,7 +401,6 @@ module.exports = function(grunt) {
 
 	var distBuild = [
 		 'clean:dist'
-
 		,'glue'
 		,'concat:module_tests'
 		,'concat:inline_scripts'
@@ -412,15 +411,19 @@ module.exports = function(grunt) {
 		,'less:externalDist'
 		,'uglify:inline'
 		,'uglify:external'
-
 		,'clean:temp'
 	];
 
-	var task = isDistBuild ? distBuild : devBuild;
+	var defaultTask = isDistBuild ? distBuild : devBuild;
 
 	// If sprites building is not enabled in the app config, remove it.
-	!cfg.enableSpritesBuilding && task.shift();
-	grunt.registerTask('default', task);
+	if (!cfg.enableSpritesBuilding) {
+		defaultTask = defaultTask.filter(function(task) {
+			return (task !== 'build-sprites') && (task !== 'glue');
+		});
+	}
+
+	grunt.registerTask('default', defaultTask);
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
