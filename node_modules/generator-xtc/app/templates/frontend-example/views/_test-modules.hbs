@@ -1,0 +1,18 @@
+<script>
+	xtc = window.xtc || {};
+	xtc.tests = { consoleOutput: {{consoleOutput}} };
+</script>
+{{#if showUi}}<link rel="stylesheet" href="{{static.prefix}}/test/lib/qunit-1.12.0.css"/> {{/if}}
+{{!--<script src="{{static.prefix}}/test/lib/qunit-1.12.0.js"></script>--}}
+<script src="{{static.base}}/lib/test/qunit-90afd90147.js"></script>
+<script src="{{static.base}}/lib/test/jquery-iframe.js"></script>
+<script src="{{static.build.test}}"></script>
+<iframe id="_xtc-test-frame" style="display: none"></iframe><script>
+	QUnit.config.altertitle = {{alterTitle}};
+	QUnit.config.reorder = {{reorder}}; // is always false
+	QUnit.config.scrollTop = false;
+	QUnit.config.autostart = false;
+</script>
+
+{{#if showUi}}<div id="qunit"></div>{{/if}}
+<div id="qunit-fixture"></div>

@@ -8,7 +8,8 @@ frontend/_base/css/sprites/*.less
 !frontend/_base/css/sprites/sprites-helper.less
 
 # node modules
-/node_modules/
+node_modules/*
+!/node_modules/generator-xtc/
 
 # system
 .idea/

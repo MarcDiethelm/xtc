@@ -1,0 +1,153 @@
+// Mixins
+////////////////////////////////////
+
+.box-sizing(@boundaries: border-box) {
+	-webkit-box-sizing: @boundaries;
+	-moz-box-sizing: @boundaries;
+	box-sizing: @boundaries;
+}
+
+.bg-beyond(@width: 500%) {
+	margin-left: -@width;
+	margin-right: -@width;
+	padding-left: @width;
+	padding-right: @width;
+	// bg-beyond with .clearfixed rows pushes content down. fix with...
+	// clear: both; // or
+	// overflow: hidden;
+}
+
+.transform(...) {
+	-webkit-transform: @arguments; // Safari 3.1+, Chrome
+	-moz-transform: @arguments; // Firefox 3.5-15
+	-ms-transform: @arguments; // IE9
+	-o-transform: @arguments; // Opera 10.5-12.00
+	transform: @arguments; // Firefox 16+, Opera 12.50+
+	zoom: 1;
+}
+
+.transition(@animProperties, @duration: .25s) {
+	-moz-transition: @animProperties @duration;
+	-webkit-transition: @animProperties @duration;
+	transition: @animProperties @duration;
+}
+
+// take every amount of arguments and use them as-is to make shorthands possible
+.border-radius(...) {
+	-webkit-border-radius: @arguments;
+	-moz-border-radius: @arguments;
+	border-radius: @arguments;
+}
+
+.linear-gradient('vertical', @colorStart: #eee, @colorEnd: #ccc, @start: 0%, @end: 100%) {
+	background: mix(@colorStart, @colorEnd); /* Old browsers */
+	background: -moz-linear-gradient(top, @colorStart @start, @colorEnd @end); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(@start, @colorStart), color-stop(@end, @colorEnd)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, @colorStart @start, @colorEnd @end); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, @colorStart @start, @colorEnd @end); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, @colorStart @start, @colorEnd @end); /* IE10+ */
+	background: linear-gradient(to bottom, @colorStart @start, @colorEnd @end); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@{colorStart}', endColorstr='@{colorEnd}', GradientType=0); /* IE6-9 */
+}
+
+.linear-gradient('horizontal', @colorStart: #eee, @colorEnd: #ccc, @start: 0%, @end: 100%) {
+	background: mix(@colorStart, @colorEnd); /* Old browsers */
+	background: -moz-linear-gradient(left, @colorStart @start, @colorEnd @end); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(@start, @colorStart), color-stop(@end, @colorEnd)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left, @colorStart @start, @colorEnd @end); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left, @colorStart @start, @colorEnd @end); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left, @colorStart @start, @colorEnd @end); /* IE10+ */
+	background: linear-gradient(to right, @colorStart @start, @colorEnd @end); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@{colorStart}', endColorstr='@{colorEnd}', GradientType=1); /* IE6-9 */
+}
+
+
+// Classes
+////////////////////////////////////
+
+/*
+ * Hide only visually, but have it available for screenreaders: h5bp.com/v
+ */
+.vis-hidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+
+/*
+ * Extends the .vis-hidden class to allow the element to be focusable
+ * when navigated to via the keyboard: h5bp.com/p
+ */
+	&.focusable:active,
+	&.focusable:focus {
+		clip: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		position: static;
+		width: auto;
+	}
+}
+
+.text-hide {
+	font: ~"0/0" a;
+	color: transparent;
+	text-shadow: none;
+	background-color: transparent;
+	border: 0;
+}
+
+/*
+ * Hide from both screenreaders and browsers: h5bp.com/u
+ */
+.hidden {
+	display: none !important;
+	visibility: hidden;
+}
+
+// scale blocks in fluid layouts
+.flex, // e.g. <img class="flex
+.flex img {
+	max-width: 100%;
+	width: auto; //fix for ie
+	height: auto;
+	image-rendering: optimizeQuality;
+	-ms-interpolation-mode: bicubic; // ie8-
+}
+
+// links around blocks
+a.img,
+a.box {
+	display: inline-block;
+	text-decoration: none;
+	cursor: pointer; // IE 7
+	line-height: 0; // prevents space at bottom
+}
+
+// … (shorten single-line text with three dots to fit parent)
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	-ms-text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
+
+/*
+ * Clearfix: contain floats
+ */
+.cf { // For modern browsers
+	&:before, &:after {
+		content: " "; // The space content is one way to avoid an Opera bug when the contenteditable` attribute is included anywhere else in the document. Otherwise it causes space to appear at the top and bottom of elements that receive the `clearfix` class.
+		display: table; //  The use of `table` rather than `block` is only necessary if using `:before` to contain the top-margins of child elements.
+	}
+	&:after {
+		clear: both;
+	}
+// For IE 6/7 only
+	*zoom: 1; // trigger hasLayout and contain floats.
+}

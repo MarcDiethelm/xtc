@@ -1,0 +1,38 @@
+/**
+ * module: example
+ * creator:
+ */
+.mod-example {
+	.icon:before {
+		// With sprites
+		//.sprite();
+		//.s-icon-paperclip();
+		margin-right: 1em;
+		float: left;
+
+		// Without sprites
+		display: inline-block;
+		content: '';
+		width: 2em;
+		height: 2em;
+		background-image: url('@{path-img}/icon-paperclip.png');
+		background-size: 2em 2em;
+	}
+	code {
+		padding: .1em;
+		background-color: #eeeeff;
+		font-style: italic;
+		color: #666;
+		text-shadow: none;
+	}
+	p {
+		margin: .7em 0;
+		line-height: 1.4em;
+		color: #222;
+		text-shadow: 0.09em 0.07em 0.025em #fafafa;
+	}
+	.exmpl {
+		margin-left: 2em;
+	}
+}
+/* END module: example */

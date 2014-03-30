@@ -1,0 +1,14 @@
+// Never commit authentication data to a public repository!
+// config-local.json listed in .gitignore
+// config-local.json listed in .jitsuignore
+
+// copy any config property you need and override it here for local development
+// just be sure it's not part of your deployments
+{
+	"auth": {
+		"ip": [
+			// localhost
+			 "127.0.0.1/32"
+		]
+	}
+}
