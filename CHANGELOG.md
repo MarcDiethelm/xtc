@@ -5,6 +5,12 @@
 -
 
 
+## 0.8.0-beta7
+
+- xtc-generator is now part of the xtc package and can be run from the project folder.
+- Moved `_config`, `frontend` and `controllers` folders to the generator.
+
+
 ## 0.8.0-beta6
 
 - xtc can be installed as a node module inside a project.

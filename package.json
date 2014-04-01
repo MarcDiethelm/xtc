@@ -34,12 +34,14 @@
 	},
 	"main": "server.js",
 	"scripts": {
-		"start": "node server.js",
-		"test": "mocha",
+		"start"     : "node server.js",
+		"test"      : "mocha",
 		"build"     : "grunt --base=./",
 		"build-dist": "grunt --base=./ --dist",
 		"mkmod"     : "yo xtc:module --path=./",
-		"mkskin"    : "yo xtc:skin --path=./"
+		"mkskin"    : "yo xtc:skin --path=./",
+		"install"   : "node ./bin/setup.js",
+		"uninstall" : "node ./bin/setup.js"
 	},
 	"engines": { "node" : ">=0.10.0" },
 	"configPath": "_config/"
