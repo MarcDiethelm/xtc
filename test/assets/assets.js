@@ -8,6 +8,11 @@ var assert = require('assert');
 //var Browser = require('zombie');
 var grunt = require('grunt');
 var config;
+var path = require('path');
+
+process.env.config = path.join(process.cwd(), '/node_modules/generator-xtc/app/templates/_config/');
+process.env.configNames = 'default';
+process.env.routes = path.join(process.cwd(), '/node_modules/generator-xtc/app/templates/_controllers/routes.js');
 
 describe('asset building', function() {
 
