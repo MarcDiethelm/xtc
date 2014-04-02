@@ -64,8 +64,8 @@ installing git dependencies with npm and Node version managers do not work in th
 With the Node installation comes [NPM](https://npmjs.org/) the awesome [node package manager](https://npmjs.org/doc/cli/npm.html).
 We'll use it to first install some command line tools that need to be installed globally:
 
-```Bash
-npm install -g grunt-cli yo generator-xtc
+```shell
+npm install -g xtc-cli yo grunt-cli
 ```
 
 #### Optional: Sprites
@@ -81,7 +81,7 @@ It worked if you can `glue -v` to get the installed version.
 
 ## Project Setup
 
-In the terminal, change to the project folder and start the project generator: `yo xtc`. Once you have answered some questions the project files will be created and xtc installed as a local node module.
+In the terminal, change to the project folder and start the xtc install and project generator: `xtc`. Once you have answered some questions xtc is installed as a local node module and the basic project files are created.
 
 
 ### Configuration
@@ -106,7 +106,7 @@ Which config files are loaded and their order can be configured in configs.json.
 
 ### Start the Server!
 
-In a terminal change to the project folder and start the server with `npm start`. xtc will build its configuration and start listening on the configured port. Now you can visit `localhost:3000` (if you haven't changed the default port) in a browser. That's it. You can start building websites now!
+In a terminal change to the project folder and start the server with `xtc start`. xtc will load its configuration and start listening on the configured port. Now you can visit `localhost:3000` (if you haven't changed the default port) in a browser. That's it. You can start building websites now!
 
 
 #### WebStorm / PHPStorm Users
@@ -249,17 +249,12 @@ think of it like using **a partial but using modules** instead of yet another me
 
 #### Module Creation
 
-To create new Terrific modules there's a convenient [Yeoman](http://yeoman.io/index.html) generator called
-[generator-xtc](https://github.com/MarcDiethelm/generator-xtc). Install it with
-
-```Shell
-npm install -g yo generator-xtc
-```
+To create new Terrific modules there's a convenient [Yeoman](http://yeoman.io/index.html) generator.
 
 To create a new module simply type
 
 ```Shell
-npm run mkmod
+xtc mkmod
 ```
 
 in the project root folder. You'll be asked to choose a module name.
@@ -271,7 +266,7 @@ Terrific modules can be extended or 'decorated' with JS or CSS [skins](http://te
 To create a new module skin type
 
 ```Shell
-npm run mkskin
+xtc mkskin
 ```
 
 in the project root folder. You'll be asked to choose a module to create the skin for.
@@ -292,18 +287,15 @@ QUnit adds a symbol to the HTML title indicating the test status. To disable set
 
 ### Asset Building: Grunt
 
-After editing your frontend styles and scripts you need to re-generate the assets for the frontend. You have already installed grunt-cli globally. Now in your project enter `npm run build`. That's it.
+After editing your frontend styles and scripts you need to re-generate the assets for the frontend. You have already installed grunt-cli globally. Now in your project enter `xtc build`. That's it.
 [Grunt](http://gruntjs.com/getting-started) will build your assets and also watch all your JS and Less/CSS source files
 as configured in [Gruntfile.js](http://gruntjs.com/sample-gruntfile). When you edit them it re-generates the assets
 automatically. You will have to restart Grunt for it to register
-[any files in new folders](https://github.com/gruntjs/grunt-contrib-watch/issues/70) though! (This will be fixed
-eventually.)
+[any files in new folders](https://github.com/gruntjs/grunt-contrib-watch/issues/70) though!
 
 **Note:** The generated assets are written to `frontend/public/build` which is ignored by git. Every developer on a development team must be able to create the assets on the fly. Committing the files would produce tedious merge conflicts after every pull.
 
-Start grunt with `npm run build-dist` to create minified production assets in `frontend/public/dist`. Then commit them. After that you're go for deployment.
-
-Note: `npm run xyz` is a wrapper command defined in package.json.
+Start grunt with `xtc build --dist` to create minified production assets in `frontend/public/dist`. Then commit them. After that you're go for deployment.
 
 
 ### Static Assets
