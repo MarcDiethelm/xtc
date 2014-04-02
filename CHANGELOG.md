@@ -9,6 +9,8 @@
 
 - xtc-generator is now part of the xtc package and can be run from the project folder.
 - Moved `_config`, `frontend` and `controllers` folders to the generator.
+- Small improvements and fixes
+- Project generator creates a .xtcrc file to save your choices for the next run (or update).
 
 
 ## 0.8.0-beta6
