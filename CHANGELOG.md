@@ -11,6 +11,7 @@
 - Moved `_config`, `frontend` and `controllers` folders to the generator.
 - Small improvements and fixes
 - Project generator creates a .xtcrc file to save your choices for the next run (or update).
+- Moved location of terrific-extensions.js from frontend/application/js to frontend/base/js
 
 
 ## 0.8.0-beta6
