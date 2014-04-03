@@ -120,10 +120,10 @@ Want more features? There are more.
 ## Quick Start
 
 - Install [Node.js](http://nodejs.org/).
-- Open a terminal and execute `npm install -g grunt-cli yo generator-xtc@0.8.0-beta6`.
-- In the terminal, change to the project folder and start the project generator: `yo xtc`.
-- Start the dev build and file watcher: `npm run build`.
-- Open a new terminal session and start the server with `npm start`.
+- Open a terminal and execute `npm install -g xtc-cli yo grunt-cli`.
+- In the terminal, change to the project folder and start the xtc install and project generator: `xtc install`.
+- Start the dev build and file watcher: `xtc build`.
+- Open a new terminal session and start the server with `xtc start`.
 - Now you can visit `localhost:3000` in a browser.
 
 That's it. Start building websites!

@@ -2,7 +2,9 @@
 	"name": "xtc",
 	"description": "A frontend framework and server",
 	"version": "0.8.0-beta6",
-	"private": true,
+	"publishConfig": {
+		"tag": "beta"
+	},
 	"dependencies": {
 		"express": "3.3.8",
 		"express3-handlebars": "0.5.0",
@@ -19,8 +21,10 @@
 		"grunt-contrib-concat": "0.3.0",
 		"grunt-contrib-uglify": "0.4.0",
 		"grunt-contrib-watch": "0.6.1",
-		"grunt-contrib-clean": "0.5.0"
+		"grunt-contrib-clean": "0.5.0",
+		"generator-xtc": "*"
 	},
+	"bundledDependencies": ["generator-xtc"],
 	"devDependencies": {
 		"mocha": "1.18.2"
 	},
@@ -30,12 +34,14 @@
 	},
 	"main": "server.js",
 	"scripts": {
-		"start": "node server.js",
-		"test": "mocha",
+		"start"     : "node server.js",
+		"test"      : "mocha",
 		"build"     : "grunt --base=./",
 		"build-dist": "grunt --base=./ --dist",
 		"mkmod"     : "yo xtc:module --path=./",
-		"mkskin"    : "yo xtc:skin --path=./"
+		"mkskin"    : "yo xtc:skin --path=./",
+		"install"   : "node ./bin/setup.js",
+		"uninstall" : "node ./bin/setup.js"
 	},
 	"engines": { "node" : ">=0.10.0" },
 	"configPath": "_config/"

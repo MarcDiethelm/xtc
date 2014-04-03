@@ -8,6 +8,11 @@ var assert = require('assert');
 //var Browser = require('zombie');
 var grunt = require('grunt');
 var config;
+var path = require('path');
+
+process.env.config = path.join(process.cwd(), '/node_modules/generator-xtc/app/templates/_config/');
+process.env.configNames = 'default';
+process.env.routes = path.join(process.cwd(), '/node_modules/generator-xtc/app/templates/_controllers/routes.js');
 
 describe('asset building', function() {
 
@@ -32,6 +37,7 @@ describe('asset building', function() {
 		});
 
 		describe('external css', function() {
+			this.timeout(10000);
 
 			before(function(done) {
 				runGrunt(['build-external-css', '--base=./', '-config-path=test/assets', '-config-files=assets'], done);
@@ -60,6 +66,7 @@ describe('asset building', function() {
 
 
 	describe('static uri config', function() {
+		this.timeout(10000);
 
 		describe('external CSS', function() {
 
