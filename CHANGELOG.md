@@ -5,6 +5,7 @@
 
 ## 0.8.0-rc1
 - Fix error handling for generator-xtc symlink removal.
+- Move app views from project to new xtc views dir. Patched Express to search multiple views dirs.
 
 ## 0.8.0-beta7
 - xtc-generator is now part of the xtc package and can be run from the project folder.

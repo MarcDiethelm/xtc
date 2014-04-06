@@ -24,12 +24,17 @@ var  path       = require('path')
 
 app = express();
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Set some globals we need later
+
+// A function to join paths to xtc's root path
+app.xtcPath = helpers.xtcPath;
+// Create template data that is always available
+app.locals(helpers.makeLocals());
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Set up template rendering
-
-// Create template data that is always available
-app.locals(helpers.makeLocals());
 
 // Create a Handlebars instance with our template helpers
 // We can then require the same instance again in lib/mod-render.js and controllers/_default.js
@@ -45,7 +50,9 @@ hbs = require('express3-handlebars').create({
 // Set the express3-handlebars instance as rendering engine
 app.engine('hbs', hbs.engine); // 1: template file extension, 2: engine render callback
 app.set('view engine', 'hbs');
-app.set('views', cfg.sources.views);
+// Patch Express to look for views in multiple folders
+require('./lib/multiple-view-dirs')(app);
+app.set('views', [cfg.sources.views, app.xtcPath('/views')]);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,7 +82,6 @@ app.use(cfg.staticBaseUri, express.static(cfg.buildBasePath)); // in case buildB
 helpers.registerModuleTestTrackingMiddleware(app);
 
 // Register our routes in routes.js
-app.xtcPath = helpers.xtcPath;
 require(cfg.routesPath)(app);
 
 app.use(helpers.render404); // If no other middleware responds, this last callback sends a 404.
