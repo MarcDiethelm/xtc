@@ -22,10 +22,10 @@ module.exports = function(app) {
 		 * Default route controllers
 		 */
 
-		_home: function(req, res, next) {
+		overview: function(req, res, next) {
 			var overview = require(app.xtcPath('lib/overview.js'))(cfg);
 
-			res.render('app-overview', {
+			res.render('overview', {
 				 layout: false
 				,docTitle: docTitle('Components Overview')
 				,title: 'Components Overview'
@@ -35,7 +35,7 @@ module.exports = function(app) {
 			});
 		}
 
-		,_getView: function(req, res, next) {
+		,getView: function(req, res, next) {
 			var layout = cfg.defaultLayoutName;
 
 			if ('raw' in req.query) {
@@ -50,7 +50,7 @@ module.exports = function(app) {
 			});
 		}
 
-		,_getModule: function(req, res, next) {
+		,getModule: function(req, res, next) {
 			var module = renderModule(
 					app.locals,
 					{
@@ -91,7 +91,7 @@ module.exports = function(app) {
 			}
 		}
 
-		,_getLayout: function(req, res, next) {
+		,getLayout: function(req, res, next) {
 			res.locals(app.locals);
 			res.locals({
 				layout: false
@@ -115,7 +115,7 @@ module.exports = function(app) {
 			);
 		}
 
-		,_getModuleTest: function(req, res, next) {
+		,getModuleTest: function(req, res, next) {
 			var  test = req.query.url
 				,output = ''
 				,modules = []
@@ -159,7 +159,7 @@ module.exports = function(app) {
 
 
 		 // Look for a view with the name supplied by the catch-all route
-		,_subPage: function(req, res, next) {
+		,autoRoute: function(req, res, next) {
 			fs.exists(path.join(cfg.sources.views, req.params.view + cfg.templateExtension), function(exists) {
 				if (exists) {
 					try {

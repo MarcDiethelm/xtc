@@ -405,18 +405,18 @@ xtc implements some features to help with template integration into different ba
 
 #### Project overview
 
-`/_home` displays an overview of all user-defined views, modules and layouts, i.e. ones whose names don't start with an underscore. The page contains links to the views and modules at `/[view name]`, `/_module/[module name]` and
-`/_layout/[layout name]` respectively. If you add the parameter `raw` to the URI, you get the pure HTML of that
+`/xtc` displays an overview of all user-defined views, modules and layouts, i.e. ones whose names don't start with an underscore. The page contains links to the views and modules at `/[view name]`, `/xtc/module/[module name]` and
+`/xtc/layout/[layout name]` respectively. If you add the parameter `raw` to the URI, you get the pure HTML of that
 resource without any surrounding markup, e.g:
 
 	/view-name?raw
-	/_module/module-name?raw
-	/layout/layout-name?raw
+	/xtc/module/module-name?raw
+	/xtc/layout/layout-name?raw
 
 Adding the parameter `solo` to a view request, will skip any modules that have the attribute `isLayout="true"` on their
 include tag. E.g.
 
-	/_view/example?solo
+	/view/example?solo
 
 **Views can be pinned** to the top of the list by adding their name to an array in the file `_config/pinned-views.json`.
 The pinned views will be presented in the order they appear in the file. The file is optional.

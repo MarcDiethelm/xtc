@@ -81,10 +81,20 @@ app.use(cfg.staticBaseUri, express.static(cfg.buildBasePath)); // in case buildB
 // Voodoo! Set up tracking the Terrific modules included for any URIs, for module testing in the browser.
 helpers.registerModuleTestTrackingMiddleware(app);
 
-// Register our routes in routes.js
+// Register project routes and xtc app routes
 require(cfg.routesPath)(app);
+require(app.xtcPath('./controllers/routes-xtc.js'))(app);
 
 app.use(helpers.render404); // If no other middleware responds, this last callback sends a 404.
+
+if (cfg.allowAuthBypassForIpRanges) {
+
+	// Populate the request IP with X-FORWARDED-FOR header if a proxy added one, or else the IP will be wrong.
+	// Needed for authBasic helper to allow bypassing authentication for configurable IPs.
+	// NOTE: This header is easily forged!
+
+	app.enable('trust proxy');
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

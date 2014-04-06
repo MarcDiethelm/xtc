@@ -74,8 +74,8 @@
 						<li class="item{{#if isPinned}} pinned{{else}} unpinned{{/if}}">
 							<a class="name" href="/{{name}}">{{name}}</a>
 							<small>
-								| <a href="/_view/{{name}}?solo">solo</a>
-								| <a href="/_view/{{name}}?raw">raw</a>
+								| <a href="/xtc/view/{{name}}?solo">solo</a>
+								| <a href="/xtc/view/{{name}}?raw">raw</a>
 								{{#if repoUri}} | <a href="{{repoUri}}">repo</a>{{/if}}
 							</small>
 						</li>
@@ -95,8 +95,8 @@
 								<ul>
 									{{#each templates}}
 										<li class="subitem">
-											<a class="subname" href="/_module/{{../name}}/{{name}}">{{name}}</a>
-											| <a href="/_module/{{../name}}/{{name}}?raw">raw</a>
+											<a class="subname" href="/xtc/module/{{../name}}/{{name}}">{{name}}</a>
+											| <a href="/xtc/module/{{../name}}/{{name}}?raw">raw</a>
 											{{#if repoUri}} | <a href="{{repoUri}}">repo</a>{{/if}}
 										</li>
 									{{/each}}
@@ -113,9 +113,9 @@
 				<ul>
 					{{#each layouts}}
 						<li class="item">
-							<a class="name" href="/_layout/{{name}}">{{name}}</a>
+							<a class="name" href="/xtc/layout/{{name}}">{{name}}</a>
 							<small>
-								| <a href="/_layout/{{name}}?raw">raw</a>
+								| <a href="/xtc/layout/{{name}}?raw">raw</a>
 								{{#if repoUri}} | <a href="{{repoUri}}">repo</a>{{/if}}
 							</small>
 						</li>
