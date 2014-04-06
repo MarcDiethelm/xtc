@@ -33,11 +33,9 @@ else if ('uninstall' === process.env.npm_lifecycle_event) {
 		fs.unlinkSync(path.join(process.cwd(), '../generator-xtc'), 'dir');
 		console.log('symlink: removed generator-xtc from node_modules\n')
 	} catch (e) {
-		if (e.code === 'EEXIST') {
+		if (e.code !== 'ENOENT') {
 			console.info('symlink: Unable to remove generator-xtc from node_modules\n');
 		}
-		else {
-			throw e;
-		}
+		throw e;
 	}
 }

@@ -3,6 +3,9 @@
 ## develop branch (0.9.0)
 -
 
+## 0.8.0-rc1
+- Fix error handling for generator-xtc symlink removal.
+
 ## 0.8.0-beta7
 - xtc-generator is now part of the xtc package and can be run from the project folder.
 - Moved `_config`, `frontend` and `controllers` folders to the generator.
