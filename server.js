@@ -98,7 +98,7 @@ if (!module.parent) {
 			var util = require('util')
 				,xtcUtils = require('./lib/utils')
 				,xtcErr = xtcUtils.error(
-					 util.format('\n✖︎ Port %d is already being used.', app.get('port'))
+					 util.format('\n✖︎ Port %d is already in use.', app.get('port'))
 					,err
 					,util.format(
 						'Quit the other process or choose a different port, e.g. by setting the devPort property in %s.'
