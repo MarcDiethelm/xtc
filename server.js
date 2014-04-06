@@ -101,7 +101,7 @@ if (cfg.allowAuthBypassForIpRanges) {
 // Listen to requests
 
 // Store the port in the settings (Why?)
-app.set('port', process.env.PORT || cfg.devPort);
+app.set('port', cfg.devPort);
 
 if (!module.parent) {
 	// Server starts listening
