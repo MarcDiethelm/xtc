@@ -135,7 +135,7 @@ There are some things you can do that will make development so much more easy:
 
 Below some are very basic examples. For more advanced stuff check out the files in the `controllers` folder and make sure you look at Express' documentation linked above.
 
-In xtc the server routes are defined in `controller/routes.js`. [Editing routes is very straightforward](http://expressjs.com/api.html#app.VERB).
+In xtc the server routes are defined in `controllers/routes.js`. [Editing routes is very straightforward](http://expressjs.com/api.html#app.VERB).
 
 Basically every route has at least one assigned callback.
 
@@ -210,7 +210,7 @@ To include a module in a view or other module template use this syntax:
 
 A module's markup by default is wrapped in a generated SECTION tag, that at the minimum looks like this:
 
-```HTML
+```html
 <section class="mod mod-modulename"></section>
 ```
 
@@ -224,7 +224,7 @@ A module include with all known options configured looks like this:
 
 This will generate the following wrapper:
 
-```HTML
+```html
 <article class="mod mod-example test-class skin-example-alternate skin-example-baz" id="foo" connectors="stats, filter"></article>
 ```
 
@@ -306,7 +306,7 @@ might need to be integrated.
 
 The URIs to your static assets are all available under the `static` variable in your templates:
 
-```JavaScript
+```js
 // prefixes
 static.base // The base URI to the static assets
 static.img // The base URI to your images
@@ -317,7 +317,7 @@ static.build.css.external // The URI to the generated main CSS file
 
 The static base URI is available in your LessCSS files as the variable
 
-```Less
+```less
 @static-base
 ```
 
@@ -327,7 +327,7 @@ You should always use a slash after a base variable.
 <script src="{{static.base}}/lib/jquery-1.10.2.js"></script>
 ```
 
-```Less
+```less
 background-image: url("@{static-base}/img/bg.png");
 ```
 
@@ -346,7 +346,7 @@ If you run the server in **production mode** the minified versions of these asse
 
 ~~Less files in `reference` folders (in `inline` and `base`) are included with Less 1.6.0's `@import (reference)`:
 Only mixins and variables that are actually used are imported. This is great for libraries of helper and mixins or UI
-frameworks like Bootstrap.~~ This is not currently working and will probably be removed for 0.8.0.
+frameworks like Bootstrap.~~ This is not currently working.
 
 
 ### Development and Production Mode
