@@ -56,7 +56,7 @@ A markup module is rendered in a wrapper.
 </section>
 ```
 
-The wrapper serves as an exclusive context or namespace for the module's DOM logic and and style sheets. A JS-only module can be applied "globally', i.e. to the whole page.
+The wrapper serves as an exclusive context or namespace for the module's DOM logic and style sheets. A JS-only module can be applied "globally', i.e. to the whole page.
 
 New modules can be generated with an interactive little CLI tool. You start it with:
 
