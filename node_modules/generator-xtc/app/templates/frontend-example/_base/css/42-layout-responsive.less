@@ -1,3 +1,6 @@
+// Dependencies:
+// - lib/responsibly.less
+
 /**
  * You can use the following mixins to easily set up responsive layouts.
  * For grid layouts with non-equal span sizes use incrementing col-[integer] classes and apply sizes to each of these classes:
@@ -20,36 +23,9 @@
  *
  **/
 
-// Dependencies:
-// - lib/responsibly.less
-
-// mixins //
-
-.col-clear(@columns) {
-	> .col:nth-child(@{columns}n+1) {
-		clear: left;
-	}
-}
-
-.col-set(@col-name, @col-span) {
-	> .@{col-name} {
-		.col-span(@col-span);
-	}
-}
-
-.col-set-equal(@col-span) {
-	@clear: @grid-max-cols / @col-span;
-	
-	// use default col-set mixin to generate selector
-	.col-set(col, @col-span);
-	
-	// with equal columns, clear every nth element for proper alignment
-	.col-clear(@clear);
-}
-
 // layouts //
 
-.layout-responsive-1 {
+.layout-r-1 {
 	/**
 	* specs: max cols 12
 	* desktop: 4
@@ -70,7 +46,7 @@
 	}
 }
 
-.layout-responsive-2 {
+.layout-r-2 {
 	/**
 	* specs: max cols 12
 	* desktop: 6
@@ -87,7 +63,7 @@
 	}
 }
 
-.layout-responsive-3 {
+.layout-r-3 {
 	/**
 	* specs:
 	* desktop: 8/4
@@ -105,7 +81,7 @@
 	}
 }
 
-.layout-responsive-4 {
+.layout-r-4 {
 	/**
 	* specs:
 	* desktop: 3

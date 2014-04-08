@@ -9,6 +9,7 @@
 - Moved xtc app routes from project to xtc controllers.
 - xtc app routes are now mounted at `/xtc`.
 - You can specify the port that xtc listens to by calling `xtc start` with `-p [number]` or `--port [number]`.
+- Grid demo now shows actual grid setup variables at the top.
 
 ## 0.8.0-beta7
 - xtc-generator is now part of the xtc package and can be run from the project folder.
