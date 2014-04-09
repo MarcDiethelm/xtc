@@ -214,7 +214,6 @@ module.exports = function(grunt) {
 					//reference   : [path.relative(buildPath + '/tmp', cfg.sources.base +'/css/lib/reference')+'/helpers.less']
 					//reference   : [path.resolve(process.cwd(), cfg.sources.base +'/css/lib/reference')+'/helpers.less']
 				}
-				,report             : 'min'
 			}
 			,inline: {
 				options: {
@@ -239,6 +238,7 @@ module.exports = function(grunt) {
 			,inlineDist: {
 				options: {
 					 cleancss       : true
+					,report         : 'min'
 				}
 				,src                : '<%=tmpPath%>/inline-@import.less'
 				,dest               : '<%=destCss%>/inline.min.css'
@@ -246,6 +246,7 @@ module.exports = function(grunt) {
 			,externalDist: {
 				options: {
 					 cleancss       : true
+					,report         : 'min'
 				}
 				,src                : '<%=tmpPath%>/external-@import.less'
 				,dest               : '<%=destCss%>/external.min.css'
