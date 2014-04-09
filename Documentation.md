@@ -81,27 +81,25 @@ It worked if you can `glue -v` to get the installed version.
 
 ## Project Setup
 
-In the terminal, change to the project folder and start the xtc install and project generator: `xtc`. Once you have answered some questions xtc is installed as a local node module and the basic project files are created.
+In the terminal, change to the project folder and start the xtc install and project generator: `xtc install`. Once you have answered some questions xtc is installed as a local node module and the basic project files including a package.json are created.
 
 
 ### Configuration
 
-xtc uses [CJSON](https://github.com/kof/node-cjson) for its config files, which allows JS-style comments. The files are merged into the app config in the order mentioned below. Any property you add is merged with the previous, overriding default properties as needed.
+Your package.json contains the property `configPath` which holds the location of the configuration. The default folder is `_config`. xtc's configuration consists of multiple files whose properties are merged to create the runtime configuration. On top of this, some config properties may be set using environment variables and command-line arguments.
 
-The configuration files are located the folder  `_config`.
+The load order of the config files is set in configs.json.
 
-- `config-default.js` defines a schema and defaults for all configurable properties. You should not normally have to edit it.
-- **`config-project.json`** is where you configure most of your app, by copying over and overriding the properties as needed.
-- `config-secret.json` is for basic auth credentials, db authentication info, SSL certs and so on. \[deprecated: see [Basic auth](#basic-authentication-and-bypass-for-ip-ranges)]
+- `config-default.js` defines defaults, CLI args and env vars for all configurable properties. You should not normally have to edit it. Copy properties to the following files to override the default value.
+- **`config-build.json`** serves to configure build source and output location, static URLs and so on.
+- **`config-server.json`** is where you configure properties related to the server.
+- `config-secret.json` for local development with [basic auth](#basic-authentication-and-bypass-for-ip-ranges) credentials, db authentication info, SSL certs and so on. For deployments you should use env vars to hold your secrets!
 - `config-local.json` serves to override configuration values only for development on your local machine.
 
- Some properties namely the ones in `config-secret.json` can be set with environment variables, env vars have a higher priority than the config files. This is the preferred way of setting sensitive values.
-
 `config-secret.json` and `config-local.json` are listed in `.gitignore` and won't be committed to your repository.
-`config-local.json` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be
-deployed. Make sure these two files are not tracked by git unless you know what you're doing.
+`config-local.json` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be deployed. Make sure these two files are not tracked by git unless you know what you're doing.
 
-Which config files are loaded and their order can be configured in configs.json. The location of the config files can be configured in package.json by changing the `configPath` property.
+xtc uses [CJSON](https://github.com/kof/node-cjson) for the config files, which allows comments.
 
 
 ### Start the Server!
@@ -434,7 +432,7 @@ xtc can be set up as build tool by either a frontend or a backend dev. Drop xtc 
 Password protecting content couldn't be easier. To restrict access you add BasicAuth to the route that accesses the
 sensitive resource.
 
-```JavaScript
+```js
 app.get('/data/:someParam', app.authBasic('user'), index.data);
 ```
 
