@@ -16,7 +16,7 @@ if ('install' === process.env.npm_lifecycle_event) {
 		console.log('symlink: generator-xtc into node_modules\n')
 	} catch (e) {
 		if (e.code === 'EEXIST') {
-			console.info('symlink: generator-xtc already already exists node_modules\n');
+			console.info('symlink: generator-xtc already exists in node_modules\n');
 		}
 		else {
 			throw e;
