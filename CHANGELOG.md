@@ -11,6 +11,7 @@
 - You can specify the port that xtc listens to by calling `xtc start` with `-p [number]` or `--port [number]`.
 - Grid demo now shows actual grid setup variables at the top.
 - You can now specify your own template file or folder to create modules from. All files are processed as Lo-Dash templates. Just changing the extension of the default template still works.
+- Colored console output in development
 
 ## 0.8.0-beta7
 - xtc-generator is now part of the xtc package and can be run from the project folder.
