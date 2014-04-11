@@ -52,6 +52,7 @@ app.engine('hbs', hbs.engine); // 1: template file extension, 2: engine render c
 app.set('view engine', 'hbs');
 // Patch Express to look for views in multiple folders
 require('./lib/multiple-view-dirs')(app);
+// First look in project's views, then in xtc's views
 app.set('views', [cfg.sources.views, app.xtcPath('/views')]);
 
 
@@ -86,6 +87,8 @@ require(cfg.routesPath)(app);
 require(app.xtcPath('./controllers/routes-xtc.js'))(app);
 
 app.use(helpers.render404); // If no other middleware responds, this last callback sends a 404.
+app.use(helpers.error); // Register a custom error handler
+
 
 if (cfg.allowAuthBypassForIpRanges) {
 
