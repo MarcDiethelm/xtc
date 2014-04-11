@@ -412,6 +412,7 @@ module.exports = function(grunt) {
 		,'less:externalDist'
 		,'uglify:inline'
 		,'uglify:external'
+		,'lint-js'
 		,'clean:temp'
 	];
 
@@ -438,22 +439,5 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-clean');
-
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Ad-hoc plugin
-
-	grunt.registerMultiTask('log', 'a console logging task', function() {
-		var options = this.options()
-		   ,color = options.color || false
-		;
-
-		if (options.bold) {
-			grunt.log.subhead(this.data.msg[color]);
-		}
-		else {
-			grunt.log.writeln(this.data.msg[color]);
-		}
-	});
 
 };
