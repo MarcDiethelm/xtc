@@ -11,5 +11,9 @@ frontend/_base/css/sprites/*.less
 node_modules/*
 !/node_modules/generator-xtc/
 
+# asset build testing
+/test/assets/build/
+/node_modules/generator-xtc/app/templates/frontend-example/_public/build/
+
 # system
 .idea/
