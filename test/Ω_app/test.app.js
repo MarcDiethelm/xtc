@@ -9,7 +9,7 @@ describe('app', function() {
 	before(function() {
 		// get the application server module
 		app = require('../../server');
-		this.server = app.listen(3333);
+		this.server = app.listen(process.env.XTC_PORT);
 	});
 
 	it('should return an Express/Connect instance', function() {

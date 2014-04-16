@@ -17,7 +17,7 @@ describe('renderModule', function() {
 	before(function() {
 		//this.server = app.listen(3000);
 
-		config = configr.merge('test/_config/', ['test']);
+		//config = configr.merge('test/_config/', ['test']);
 		config = configr.merge('test/terrific-modules/', ['terrific'], config);
 		renderModule = require('../../lib/mod-render')(config);
 		//this.browser = new Browser({ site: 'http://localhost:'+ config.devPort });
@@ -109,7 +109,7 @@ describe('renderModule', function() {
 	// Annotations enabled...
 
 	it('should render an annotated module', function() {
-		config = configr.merge('test/_config/', ['test'])
+		//config = configr.merge('test/_config/', ['test'])
 		config = configr.merge('test/terrific-modules/', ['terrific-annotate'], config)
 		renderModule = require('../../lib/mod-render')(config);
 

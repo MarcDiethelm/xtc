@@ -10,18 +10,20 @@ var grunt = require('grunt');
 var config;
 var path = require('path');
 
-process.env.config = path.join(process.cwd(), '/node_modules/generator-xtc/app/templates/_config/');
-process.env.configNames = 'default';
-process.env.routes = path.join(process.cwd(), '/node_modules/generator-xtc/app/templates/_controllers/routes.js');
+var suppressGruntStdout = true;
 
-describe('asset building', function() {
+var supressStatus = suppressGruntStdout ? ' (suppressing stdout from Grunt)' : '';
+
+
+describe('asset building' + supressStatus, function() {
 
 	describe('default config', function() {
 
 		describe('external JS', function() {
 
 			before(function(done) {
-				runGrunt(['build-external-js', '--base=./', '-config-path=test/assets', '-config-files=assets'], done);
+				// config-path: is digging out of generator templates to this folder
+				runGrunt(['build-external-js', '--base=./', '--gruntfile=./node_modules/generator-xtc/app/templates/Gruntfile.js', '-config-path=../../../../test/assets', '-config-files=assets'], done);
 			});
 
 			it('should create external.js', function() {
@@ -40,7 +42,7 @@ describe('asset building', function() {
 			this.timeout(10000);
 
 			before(function(done) {
-				runGrunt(['build-external-css', '--base=./', '-config-path=test/assets', '-config-files=assets'], done);
+				runGrunt(['build-external-css', '--base=./', '--gruntfile=./node_modules/generator-xtc/app/templates/Gruntfile.js', '-config-path=../../../../test/assets', '-config-files=assets'], done);
 			});
 
 			it('should create external.css', function() {
@@ -71,7 +73,7 @@ describe('asset building', function() {
 		describe('external CSS', function() {
 
 			before(function(done) {
-				runGrunt(['build-external-css', '--base=./', '-config-path=test/assets', '-config-files=assets,assets-uri'], done);
+				runGrunt(['build-external-css', '--base=./', '--gruntfile=./node_modules/generator-xtc/app/templates/Gruntfile.js', '-config-path=../../../../test/assets', '-config-files=assets,assets-uri'], done);
 			});
 
 			it('should create correct static uri', function() {
@@ -101,6 +103,7 @@ function runGrunt(args, done) {
 	};
 
 	grunt.util.spawn(options, function(error, result, code) {
+		suppressGruntStdout || console.log(result.stdout);
 		if (error) {
 			console.log(result.stdout);
 			throw(error);

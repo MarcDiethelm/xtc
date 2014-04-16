@@ -35,12 +35,10 @@
     "type": "git",
     "url": "https://github.com/marcdiethelm/xtc.git"
   },
-  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
     "test": "mocha",
-    "build": "grunt --base=./",
-    "build-dist": "grunt --base=./ --dist",
+    "build": "grunt --base=./ --gruntfile=./node_modules/generator-xtc/app/templates/Gruntfile.js --test",
+    "build-dist": "grunt --base=./ --gruntfile=./node_modules/generator-xtc/app/templates/Gruntfile.js --test --dist",
     "mkmod": "yo xtc:module --path=./",
     "mkskin": "yo xtc:skin --path=./",
     "install": "node ./bin/setup.js",
