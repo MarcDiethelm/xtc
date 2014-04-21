@@ -26,7 +26,7 @@ module.exports = {
 		 doc            : 'Local port for the server'
 		,format         : 'port'
 		,default        : 3000
-		,env            : 'XTC_PORT'
+		,env            : 'PORT'
 		,arg            : 'port'
 	}
 

@@ -1,2 +1,2 @@
 process.env.testRun = true;
-process.env.XTC_PORT = 4444;
+process.env.PORT = 4444;
