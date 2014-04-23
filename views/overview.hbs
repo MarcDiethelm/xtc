@@ -37,27 +37,35 @@
 		.pinned + .unpinned::before {
 			display: block;
 			content: '';
-			border-top: 2px dotted #888;
+			border-top: 2px dotted #888; /* opaque color is a fallback */
 			border-color: rgba(128,128,128,.3);
 			margin-bottom: 1em;
 		}
-		.table {
-			display: table;
-			width: 85%;
-			min-width: 480px;
-			max-width: 800px;
-		}
+
 		.table-cell {
-			display: table-cell;
-			width: 30%;
-			border-right: 2px solid #888;
+			border-top: 2px solid #888; /* opaque color is a fallback */
 			border-color: rgba(128,128,128,.3);
+			padding: .5em 0;
 		}
-		.table-cell + .table-cell {
-			padding-left: 2%;
-		}
-		.table-cell:first-child + .table-cell {
-			width: 36%;
+		@media (min-width: 40em) {
+			.table {
+				display: table;
+				width: 85%;
+				min-width: 480px;
+				max-width: 800px;
+			}
+			.table-cell {
+				display: table-cell;
+				width: 30%;
+				border-right: 2px solid rgba(128,128,128,.3);
+				border-top: none;
+			}
+			.table-cell + .table-cell {
+				padding-left: 2%;
+			}
+			.table-cell:first-child + .table-cell {
+				width: 36%;
+			}
 		}
 	</style>
 </head>
