@@ -119,12 +119,11 @@ if (!module.parent) {
 				,xtcErr = xtcUtils.error(
 					 util.format('\n✖︎ Port %d is already in use.', app.get('port'))
 					,err
-					,util.format(
-						'Quit the other process or choose a different port, e.g. by setting the devPort property in %s.'
-						,path.join(cfg.configPath, 'config-local.json'))
+					,'Quit the listening process or use a different port via config [devPort], env var [PORT] or cli arg [-p].'
 				)
 			;
 			console.error(xtcErr.c);
+			process.exit(1);
 		}
 		else {
 			throw err; // Unhandled 'error' event
