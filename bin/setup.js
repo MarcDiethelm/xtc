@@ -5,7 +5,7 @@
 
 var path = require('path')
 	,fs = require('fs')
-	,cwd = process.cwd
+	,cwd = process.cwd()
 ;
 
 if ('install' === process.env.npm_lifecycle_event) {
