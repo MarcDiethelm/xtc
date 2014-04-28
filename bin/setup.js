@@ -8,7 +8,7 @@ var path = require('path')
 	,util = require('util')
 	,cwd = process.cwd()
 	,src = path.join(cwd, '/node_modules/generator-xtc')
-	,dest = path.join(resolve, '../generator-xtc')
+	,dest = path.resolve(cwd, '../generator-xtc')
 ;
 
 if ('install' === process.env.npm_lifecycle_event) {
