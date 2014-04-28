@@ -15,8 +15,11 @@ if ('install' === process.env.npm_lifecycle_event) {
 		fs.symlinkSync(path.join(process.cwd(), '/node_modules/generator-xtc'), path.join(process.cwd(), '../generator-xtc'), 'dir');
 		console.log('symlink: generator-xtc into node_modules\n')
 	} catch (e) {
-		if (e.code === 'EEXIST') {
+		if ('EEXIST' === e.code) {
 			console.info('symlink: generator-xtc already exists in node_modules\n');
+		}
+		else if ('EPERM' === e.code) {
+			console.info('Permission error: creating symlink to generator-xtc\n');
 		}
 		else {
 			throw e;
