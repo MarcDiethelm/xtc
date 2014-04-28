@@ -9,19 +9,20 @@ var path = require('path')
 	,cwd = process.cwd()
 	,src = path.join(cwd, '/node_modules/generator-xtc')
 	,dest = path.resolve(cwd, '../generator-xtc')
+	,linkVerb = 'win32' === process.platform  ? 'junction' : 'symlink'
 ;
 
 if ('install' === process.env.npm_lifecycle_event) {
 
 	try {
-		fs.symlinkSync(src, dest, 'dir');
-		console.log('symlink: generator-xtc into node_modules\n')
+		fs.symlinkSync(src, dest, 'junction'); // junction: used on windows instead of symlink (where symlinks need admin permissions)
+		console.log(util.format('%s: generator-xtc into node_modules\n', linkVerb));
 	} catch (e) {
 		if ('EEXIST' === e.code) {
-			console.info('symlink: generator-xtc already exists in node_modules\n');
+			console.info(util.format('%s: generator-xtc already exists in node_modules\n', linkVerb));
 		}
 		else if ('EPERM' === e.code) {
-			throw new Error(util.format('Permission error: creating symlink to generator-xtc\n%s --> %s\n', src, dest));
+			throw new Error(util.format('permission error: creating %s to generator-xtc\n%s --> %s\n', linkVerb, src, dest));
 		}
 		else {
 			throw e;
@@ -35,10 +36,10 @@ else if ('uninstall' === process.env.npm_lifecycle_event) {
 
 	try {
 		fs.unlinkSync(dest, 'dir');
-		console.log('symlink: removed generator-xtc from node_modules\n')
+		console.log(util.format('%s: removed generator-xtc from node_modules\n', linkVerb));
 	} catch (e) {
 		if ('ENOENT' !== e.code) {
-			console.info('symlink: Unable to remove generator-xtc from node_modules\n');
+			console.info(util.format('%s: unable to remove generator-xtc from node_modules\n', linkVerb));
 		}
 		else {
 			throw e;
