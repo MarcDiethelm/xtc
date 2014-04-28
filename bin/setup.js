@@ -18,13 +18,13 @@ if ('install' === process.env.npm_lifecycle_event) {
 			console.info('symlink: generator-xtc already exists in node_modules\n');
 		}
 		else if ('EPERM' === e.code) {
-			console.info('Permission error: creating symlink to generator-xtc\n');
+			e.message = 'Permission error: creating symlink to generator-xtc\n' + e.message;
+			throw e;
 		}
 		else {
 			throw e;
 		}
 	}
-
 }
 
 // And of course we remove it again before xtc is uninstalled
