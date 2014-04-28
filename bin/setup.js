@@ -40,6 +40,8 @@ else if ('uninstall' === process.env.npm_lifecycle_event) {
 		if ('ENOENT' !== e.code) {
 			console.info('symlink: Unable to remove generator-xtc from node_modules\n');
 		}
-		throw e;
+		else {
+			throw e;
+		}
 	}
 }
