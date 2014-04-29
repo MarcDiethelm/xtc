@@ -35,7 +35,7 @@ if ('install' === process.env.npm_lifecycle_event) {
 else if ('uninstall' === process.env.npm_lifecycle_event) {
 
 	try {
-		fs.unlinkSync(dest, 'dir');
+		fs.unlinkSync(dest);
 		console.log(util.format('%s: removed generator-xtc from node_modules\n', linkVerb));
 	} catch (e) {
 		if ('ENOENT' !== e.code) {
