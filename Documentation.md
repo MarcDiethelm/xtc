@@ -214,7 +214,7 @@ A module's markup by default is wrapped in a generated SECTION tag, that at the 
 
 The HTML classes on the wrapper serve as 'binding sites' for the module's logic and styling.
 
-A module include with all known options configured looks like this:
+A module include with all available options configured looks like this:
 
 ```Handlebars
 {{mod "example" template="alternate" skins="alternate, baz" tag="article" id="foo" classes="test-class" data-connectors="stats, filter" data="{var1: 'foo'}"}}
