@@ -38,10 +38,11 @@ else if ('uninstall' === process.env.npm_lifecycle_event) {
 		fs.unlinkSync(dest);
 		console.log(util.format('%s: removed generator-xtc from node_modules\n', linkVerb));
 	} catch (e) {
-		if ('ENOENT' !== e.code) {
-			console.info(util.format('%s: unable to remove generator-xtc from node_modules\n', linkVerb));
+		if ('ENOENT' === e.code) {
+			console.info(util.format('%s: remove failed, generator-xtc not found in node_modules\n', linkVerb));
 		}
 		else {
+			e.message = util.format('%s: unable to remove generator-xtc from node_modules\n', linkVerb) + e.message;
 			throw e;
 		}
 	}
