@@ -5,7 +5,7 @@ Running xtc functions inside xtc module for dev testing without a project works 
 If (process.env.testRun == true) configure.js will load `configs.test.json` instead of configs.json.
 All intra-xtc testing must therefore set process.env.testRun somehow.
 
-- To run test server manually set env var testRun=1. ==> WebStorm Run Config
+- To run test server manually set env var xtcDev=true. ==> easily done in WebStorm Run Config
 - To test build manually use `npm test` which starts grunt with necessary args.
   Gruntfile then sets process.env.testRun.
 - To run automated tests mocha.opts specifies loading a file test.setup.js
