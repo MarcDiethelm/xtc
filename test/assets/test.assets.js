@@ -1,5 +1,3 @@
-// force the test environment to 'test'
-process.env.NODE_ENV = 'test';
 // get the application server module
 //var app = require('../app');
 // load Node.js assertion module

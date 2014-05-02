@@ -1,5 +1,3 @@
-// force the test environment to 'test'
-process.env.NODE_ENV = 'test';
 // get the application server module
 //var app = require('../app');
 // load Node.js assertion module
@@ -110,7 +108,7 @@ describe('renderModule', function() {
 
 	it('should render an annotated module', function() {
 		//config = configr.merge('test/_config/', ['test'])
-		config = configr.merge('test/terrific-modules/', ['terrific-annotate'], config)
+		config = configr.merge('test/terrific-modules/', ['terrific-annotate'], config);
 		renderModule = require('../../lib/mod-render')(config);
 
 		var actual = renderModule({}, { name: 'basic', template: 'alternate' });

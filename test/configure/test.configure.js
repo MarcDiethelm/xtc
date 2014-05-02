@@ -1,5 +1,3 @@
-// force the test environment to 'test'
-process.env.NODE_ENV = 'test';
 // load Node.js assertion module
 var assert = require('assert')
 	,_ = require('lodash-node')
