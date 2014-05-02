@@ -15,6 +15,8 @@ var supressStatus = suppressGruntStdout ? ' (suppressing stdout from Grunt)' : '
 
 describe('asset building' + supressStatus, function() {
 
+	this.timeout(10000);
+
 	describe('default config', function() {
 
 		describe('external JS', function() {
@@ -37,7 +39,6 @@ describe('asset building' + supressStatus, function() {
 		});
 
 		describe('external css', function() {
-			this.timeout(10000);
 
 			before(function(done) {
 				runGrunt(['build-external-css', '--base=./', '--gruntfile=./node_modules/generator-xtc/app/templates/Gruntfile.js', '-config-path=../../../../test/assets', '-config-files=assets'], done);
@@ -66,7 +67,6 @@ describe('asset building' + supressStatus, function() {
 
 
 	describe('static uri config', function() {
-		this.timeout(10000);
 
 		describe('external CSS', function() {
 
