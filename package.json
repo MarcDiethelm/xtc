@@ -29,7 +29,8 @@
     "generator-xtc"
   ],
   "devDependencies": {
-    "mocha": "1.18.2"
+    "mocha": "1.18.2",
+    "zombie": "^2.0.0-alpha31"
   },
   "repository": {
     "type": "git",

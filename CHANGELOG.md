@@ -12,6 +12,7 @@
 - Grid demo now shows actual grid setup variables at the top.
 - You can now specify your own template file or folder to create modules from. All files are processed as Lo-Dash templates. Just changing the extension of the default template still works.
 - Colored console output in development
+- Control the server from server.js in the project.
 
 ## 0.8.0-beta7
 - xtc-generator is now part of the xtc package and can be run from the project folder.

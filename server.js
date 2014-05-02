@@ -19,6 +19,7 @@ var  path       = require('path')
 	,handlebars
 	,hbs
 	,app
+	,xtc
 ;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,9 +27,12 @@ var  path       = require('path')
 
 app = express();
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Set some globals we need later
 
+app.cfg = cfg;
+xtc = app.xtc = {};
 // A function to join paths to xtc's root path
 app.xtcPath = helpers.xtcPath;
 // Create template data that is always available
@@ -38,7 +42,7 @@ app.locals(helpers.makeLocals());
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Set up template rendering
 
-// Create a Handlebars instance with our template helpers
+// Create a Handlebars instance with our and the user's template helpers
 // We can then require the same instance again in lib/mod-render.js and controllers/_default.js
 handlebars = require('./lib/handlebars-helpers-xtc.js');
 
@@ -50,7 +54,7 @@ hbs = require('express3-handlebars').create({
 });
 
 // Set the express3-handlebars instance as rendering engine
-app.engine('hbs', hbs.engine); // 1: template file extension, 2: engine render callback
+app.engine(cfg.templateExtension, hbs.engine); // 1: template file extension, 2: engine render callback
 app.set('view engine', 'hbs');
 // Patch Express to look for views in multiple folders
 require('./lib/multiple-view-dirs')(app);
@@ -62,76 +66,112 @@ app.set('views', [cfg.sources.views, app.xtcPath('/views')]);
 // Register server middleware (`app.use`)
 // (see http://expressjs.com/api.html#middleware and http://www.senchalabs.org/connect/)
 
+xtc.registerProjectMiddlewares = function(cb) {
+	cb(express);
 
-if ('development' == app.get('env')) {
-	app.use(express.errorHandler());
-	app.use(express.responseTime());
-}
+	app.use(cfg.staticBaseUri, express.static(cfg.staticPath));
+	app.use(cfg.staticBaseUri, express.static(cfg.buildBasePath)); // in case buildBasePath is different from staticPath
 
-if ('production' == app.get('env')) {}
+	// Voodoo! Set up tracking the Terrific modules included for any URIs, for module testing in the browser.
+	helpers.registerModuleTestTrackingMiddleware(app);
 
-app.use(express.favicon(path.join(cfg.staticPath, 'favicon.ico')));
-app.use(express.logger( 'development' == app.get('env') && 'dev' )); // Abbreviated logging for development
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.multipart()); // Security tip: Disable this if you don't need file upload.
-app.use(express.methodOverride());
-app.use(express.compress());
+	// Register project routes and xtc app routes
+	require(cfg.routesPath)(app);
+	require(app.xtcPath('./controllers/routes-xtc.js'))(app);
 
-app.use(cfg.staticBaseUri, express.static(cfg.staticPath));
-app.use(cfg.staticBaseUri, express.static(cfg.buildBasePath)); // in case buildBasePath is different from staticPath
-
-// Voodoo! Set up tracking the Terrific modules included for any URIs, for module testing in the browser.
-helpers.registerModuleTestTrackingMiddleware(app);
-
-// Register project routes and xtc app routes
-require(cfg.routesPath)(app);
-require(app.xtcPath('./controllers/routes-xtc.js'))(app);
-
-app.use(helpers.render404); // If no other middleware responds, this last callback sends a 404.
-app.use(helpers.error); // Register a custom error handler
-
-
-if (cfg.allowAuthBypassForIpRanges) {
-
-	// Populate the request IP with X-FORWARDED-FOR header if a proxy added one, or else the IP will be wrong.
-	// Needed for authBasic helper to allow bypassing authentication for configurable IPs.
-	// NOTE: This header is easily forged!
-
-	app.enable('trust proxy');
-}
+	app.use(helpers.render404); // If no other middleware responds, this last callback sends a 404.
+	app.use(helpers.error); // Register a custom error handler
+};
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Listen to requests
 
-// Store the port in the settings (Why?)
-app.set('port', cfg.devPort);
+/**
+ * Returns a new web server object.
+ * @param {function} app - the request listener
+ * @param {string} protocol - [http|https|tcp]
+ * @param {object} [options] - https or tcp server options (Node API)
+ * @returns {Server} - The server function
+ */
+xtc.createServer = function(app, protocol, options) {
+	var  server
+		,server_listen
+		,protocolModule
+	;
 
-if (!module.parent) {
-	// Server starts listening
-	http.createServer(app).listen(app.get('port'), function() {
-		console.log('listening on port %d\n', app.get('port'));
-	})
-	// Print a nice error message if the port is in use
-	.on('error', function(err) {
-		if (err.code === 'EADDRINUSE') {
-			var util = require('util')
-				,xtcUtils = require('./lib/utils')
-				,xtcErr = xtcUtils.error(
-					 util.format('\n✖︎ Port %d is already in use.', app.get('port'))
-					,err
-					,'Quit the listening process or use a different port via config [devPort], env var [PORT] or cli arg [-p].'
-				)
-			;
-			console.error(xtcErr.c);
-			process.exit(1);
-		}
-		else {
-			throw err; // Unhandled 'error' event
-		}
-	});
-} else {
-	// If parent exists we are in testing mode
-	module.exports = app;
-}
+	console.assert(/(http|tcp)/.test(protocol), 'Invalid arg protocol');
+	protocol == 'tcp' && (protocol = 'net');
+	protocolModule = require(protocol);
+
+	server = ('http' === protocol
+		? protocolModule.createServer(app)
+		: protocolModule.createServer(options, app)
+	);
+
+	server.on('error', function(err) {
+			// Print a nice error message if the port is in use
+			if (err.code === 'EADDRINUSE') {
+				var util = require('util')
+					,xtcUtils = require('./lib/utils')
+					,xtcErr = xtcUtils.error(
+						 util.format('\n✖︎ Port %d is already in use.', app.get('port'))
+						,err
+						,'Quit the listening process or use a different port via config [devPort], env var [PORT] or cli arg [-p].'
+					)
+				;
+				console.error(xtcErr.c);
+				process.exit(1);
+			}
+			else {
+				throw err; // Unhandled 'error' event
+			}
+		});
+
+	server_listen = server.listen.bind(server);
+
+	/**
+	 * Listen for connections.
+	 *
+	 * The port is defined in cfg.devPort
+	 *
+	 * HTTP and HTTPS:
+	 *
+	 * If you run your application both as HTTP
+	 * and HTTPS you may wrap them individually,
+	 * since your Connect "server" is really just
+	 * a JavaScript `Function`.
+	 *
+	 *      var xtc = require('xtc')
+	 *        , http = require('http')
+	 *        , https = require('https');
+	 *
+	 *      var app = xtc();
+	 *
+	 *      http.createServer(app).listen(80);
+	 *      https.createServer(options, app).listen(443);
+	 *
+	 * @param {number} [port]
+	 * @param {string} [hostname]
+	 * @return {http.Server}
+	 * @api public
+	 */
+	server.listen = function listen(port, hostname) {
+
+		server_listen(port, hostname, function() {
+			!process.env.testRun && log('listening on port %d\n', cfg.devPort);
+		});
+
+		return server;
+	};
+
+	return server;
+};
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Make a nice line of forward slashes
+
+module.exports = function xtc() {
+	return app;
+};

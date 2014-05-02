@@ -127,9 +127,23 @@ There are some things you can do that will make development so much more easy:
 - Files that start with an underscore are resources required for xtc's functionality.
 
 
-### Routing and Rendering
+## Server
 
-[Express](https://github.com/visionmedia/express) is the server application used in xtc. It is very powerful and I recommend reading through its [guide](http://expressjs.com/guide.html) and [API](http://expressjs.com/api.html).
+[Express 3](https://github.com/visionmedia/express) is the server application used in xtc. It is very powerful and I recommend reading through its [guide](http://expressjs.com/guide.html) and [API](http://expressjs.com/api.html).
+If you installed xtc with the server component, you can control configure its functionality in `server.js`. In this file the server middlewares are set up and the [server object](http://nodejs.org/api/http.html#http_http_createserver_requestlistener) is exposed if you need it. A middleware in Express is just a callback in a stack that is executed on each request. A minimal middleware looks like this:
+
+```js
+function fooWare(req, res, next) {
+	// do some server stuff with the request and response here
+	next(); // call next middleware
+}
+
+// Add it to the end of the stack
+app.use(fooWare);
+```
+[Understanding Express 3 ⇗](http://evanhahn.com/understanding-express-3/)
+
+### Routing and Rendering
 
 Below some are very basic examples. For more advanced stuff check out the files in the `controllers` folder and make sure you look at Express' documentation linked above.
 
