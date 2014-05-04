@@ -17,7 +17,7 @@ describe('server', function() {
 
 		app = require(path.join(process.cwd(), 'node_modules/generator-xtc/app/templates/server.js'));
 		this.server = app.xtc.createServer(app, 'http', {});
-		this.server.listen(port);
+		this.server.listen(+port); // +: coerce type to number
 
 		this.browser = new Zombie({silent: true});
 

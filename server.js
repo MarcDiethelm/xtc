@@ -159,8 +159,13 @@ xtc.createServer = function(app, protocol, options) {
 	 */
 	server.listen = function listen(port, hostname) {
 
+		if (typeof port !== 'number') {
+			console.error('\nport must be a number, got %s', port);
+			process.exit(1);
+		}
+
 		server_listen(port, hostname, function() {
-			!process.env.testRun && log('listening on port %d\n', cfg.devPort);
+			!process.env.testRun && log('listening on port %d\n', port);
 		});
 
 		return server;
