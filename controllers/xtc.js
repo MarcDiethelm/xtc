@@ -1,6 +1,6 @@
 module.exports = function(app) {
 
-	var  cfg = require(app.xtcPath('lib/configure')).get()
+	var  cfg = require(app.xtcPath('lib/configure')).getRaw()
 		,path = require('path')
 		,fs = require('fs')
 
@@ -26,12 +26,12 @@ module.exports = function(app) {
 			var overview = require(app.xtcPath('lib/overview.js'))(cfg);
 
 			res.render('overview', {
-				 layout: false
-				,docTitle: docTitle('Components Overview')
+				 docTitle: docTitle('Components Overview')
 				,title: 'Components Overview'
 				,views: overview.views
 				,layouts: overview.layouts
 				,modules: overview.modules
+				,skipModules: 'layout'
 			});
 		}
 

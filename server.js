@@ -33,6 +33,7 @@ app = express();
 
 app.cfg = cfg;
 xtc = app.xtc = {};
+cfg = cfg.root(); // get the raw config object, so we don't have to use `get` and `set`.
 // A function to join paths to xtc's root path
 app.xtcPath = helpers.xtcPath;
 // Create template data that is always available

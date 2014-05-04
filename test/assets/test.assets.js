@@ -5,7 +5,6 @@ var assert = require('assert');
 // use zombie.js as headless browser
 //var Browser = require('zombie');
 var grunt = require('grunt');
-var config;
 var path = require('path');
 
 var suppressGruntStdout = true;

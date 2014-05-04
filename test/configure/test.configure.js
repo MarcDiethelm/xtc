@@ -9,13 +9,18 @@ var assert = require('assert')
 
 describe('configure', function() {
 
-	var config;
+	var config = configr.get();
 
-	it('configure.get() should return a plain object', function() {
-		config = configr.get();
-		assert.ok(_.isPlainObject(config));
+	it('config.root() should return a plain object', function() {
+		assert.ok(_.isPlainObject(config.root()));
 	});
 
+	it('config.get(key) should retrieve value of config.set(key, value)', function() {
+		var expected = 'potato';
+		config.set('testVal', expected);
+		var actual = config.get('testVal');
+		assert.strictEqual(actual, expected);
+	});
 
 	describe('merge results', function() {
 
@@ -29,17 +34,17 @@ describe('configure', function() {
 			config = configr.merge('test/configure/fixtures', ['project']);
 		});
 
-		it('configure: default only value should equal default', function() {
-			assert.equal(config.static.img, 'img');
+		it('default only value should equal default', function() {
+			assert.equal(config.get('static.img'), 'img');
 		});
 
-		it('configure: project value should override default value', function() {
-			assert.equal(config.devPort, 3333);
+		it('project value should override default value', function() {
+			assert.equal(config.get('devPort'), 3333);
 		});
 
-		it('configure: creates absolute app paths', function() {
-			assert.equal(config.appPath, appPath);
-			assert.equal(config.staticPath, path.join(appPath, 'frontend/_static'));
+		it('creates absolute app paths', function() {
+			assert.equal(config.get('appPath'), appPath);
+			assert.equal(config.get('staticPath'), path.join(appPath, 'frontend/_static'));
 		});
 	});
 
