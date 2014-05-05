@@ -32,9 +32,16 @@ describe('server', function() {
 
 	it('should serve an overview page', function(done) {
 		this.browser
-			.visit(util.format('http://localhost:%d/xtc', port))
-			.then(done, done)
-		;
+			.visit(
+				util.format('http://localhost:%d/xtc', port) // Zombie's error handling is a bit weird
+				,(function(err, browser) { // browser should be defined here, but isn't
+					if (200 === this.browser.statusCode) {
+						done();
+					} else {
+						done(this.browser.error);
+					}
+				}).bind(this)
+			);
 	});
 
 	after(function(done) {
