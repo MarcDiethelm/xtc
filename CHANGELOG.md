@@ -14,6 +14,7 @@
 - Colored console output in development
 - Control the server from server.js in the project.
 - Fix registration of user-defined Handlebars helpers.
+- Moved the Handlebars helper Hipsum.js to project dependencies.
 
 ## 0.8.0-beta7
 - xtc-generator is now part of the xtc package and can be run from the project folder.

@@ -187,8 +187,7 @@ You can add your own Handlebars helper functions in addition to some existing he
 `lib/handlebars-helpers.js` for examples and to add your own. And take a look at http://handlebarsjs.com/#helpers for more info about
  Handlebars helpers.
 
-xtc includes [Hipsum.js](https://github.com/MarcDiethelm/Hipsum.js) so you can quickly generate filler text in your
-templates. Check out the documentation there if needed.
+xtc install [Hipsum.js](https://github.com/MarcDiethelm/Hipsum.js) to your project so you can quickly generate filler text in your templates. Check out the documentation in the link if needed.
 
 
 ### Frontend Folder: Order matters
