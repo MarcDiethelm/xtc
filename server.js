@@ -16,7 +16,9 @@ var  path       = require('path')
 	,cfg        = require('./lib/configure').get()
 	,helpers    = require('./lib/helpers.js')
 
-	,handlebars
+	// Create a Handlebars instance with our and the user's template helpers
+	// We can then require the same instance again in lib/mod-render.js and controllers/_default.js
+	,handlebars = require('./lib/handlebars-helpers-xtc.js')
 	,hbs
 	,app
 	,xtc
@@ -33,6 +35,7 @@ app = express();
 
 xtc = app.xtc = {
 	 cfg: cfg
+	,handlebars: handlebars
 };
 cfg = cfg.root(); // get the raw config object, so we don't have to use `get` and `set`.
 // A function to join paths to xtc's root path
