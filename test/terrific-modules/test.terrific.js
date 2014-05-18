@@ -13,12 +13,9 @@ require('../../lib/handlebars-helpers-xtc.js');
 describe('renderModule', function() {
 
 	before(function() {
-		//this.server = app.listen(3000);
 
-		//config = configr.merge('test/_config/', ['test']);
-		config = configr.merge('test/terrific-modules/', ['terrific'], config).root();
+		config = configr.merge('../../../../test/terrific-modules/', ['terrific'], config).root();
 		renderModule = require('../../lib/mod-render')(config);
-		//this.browser = new Browser({ site: 'http://localhost:'+ config.devPort });
 	});
 
 	it('should render a basic module', function() {
@@ -107,8 +104,7 @@ describe('renderModule', function() {
 	// Annotations enabled...
 
 	it('should render an annotated module', function() {
-		//config = configr.merge('test/_config/', ['test'])
-		config = configr.merge('test/terrific-modules/', ['terrific-annotate'], config).root();
+		config = configr.merge('../../../../test/terrific-modules/', ['terrific-annotate'], config).root();
 		renderModule = require('../../lib/mod-render')(config);
 
 		var actual = renderModule({}, { name: 'basic', template: 'alternate' });
@@ -120,8 +116,4 @@ describe('renderModule', function() {
 		var expected = grunt.file.read('test/terrific-modules/expected/basic/basic-no-wrapper.html');
 		assert.equal(actual, expected);
 	});
-
-	/*after(function(done) {
-		this.server.close(done);
-	});*/
 });

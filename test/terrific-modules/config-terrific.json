@@ -5,7 +5,7 @@
 	,"sourcesBasePath"  : ""
 	,"sources": {
 		// path to the Terrific modules directories
-		"modulesBaseDir": "test/terrific-modules/fixtures"
+		"modulesBaseDir": "../../../../test/terrific-modules/fixtures"
 	}
 	,"moduleDirName": "mod-{{name}}"
 }

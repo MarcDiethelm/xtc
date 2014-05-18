@@ -29,7 +29,7 @@ describe('configure', function() {
 		before(function() {
 			fs = require('fs');
 			path = require('path');
-			appPath = process.cwd();
+			appPath = path.resolve(process.cwd(), 'node_modules/generator-xtc/app/templates');
 
 			config = configr.merge('test/configure/fixtures', ['project']);
 		});
@@ -39,12 +39,12 @@ describe('configure', function() {
 		});
 
 		it('project value should override default value', function() {
-			assert.equal(config.get('devPort'), 3333);
+			assert.equal(config.get('devPort'), 4444); // This value is set in test.setup.js via process.env.PORT
 		});
 
 		it('creates absolute app paths', function() {
 			assert.equal(config.get('appPath'), appPath);
-			assert.equal(config.get('staticPath'), path.join(appPath, 'frontend/_static'));
+			assert.equal(config.get('staticPath'), path.join(appPath, 'frontend-example/_public'));
 		});
 	});
 
