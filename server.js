@@ -31,8 +31,9 @@ app = express();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Set some globals we need later
 
-app.cfg = cfg;
-xtc = app.xtc = {};
+xtc = app.xtc = {
+	 cfg: cfg
+};
 cfg = cfg.root(); // get the raw config object, so we don't have to use `get` and `set`.
 // A function to join paths to xtc's root path
 app.xtcPath = helpers.xtcPath;
