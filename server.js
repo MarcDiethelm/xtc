@@ -74,6 +74,11 @@ app.set('views', [cfg.sources.views, app.xtcPath('/views')]);
 xtc.registerProjectMiddlewares = function(cb) {
 	cb(express);
 
+	app.use(function(req, res, next) {
+		res.setHeader('X-Powered-By', 'xtc');
+		next();
+	});
+
 	app.use(cfg.staticBaseUri, express.static(cfg.staticPath));
 	app.use(cfg.staticBaseUri, express.static(cfg.buildBasePath)); // in case buildBasePath is different from staticPath
 
