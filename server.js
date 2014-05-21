@@ -36,10 +36,16 @@ app = express();
 xtc = app.xtc = {
 	 cfg: cfg
 	,handlebars: handlebars
+	,helpers: {
+		 docTitle: helpers.docTitle
+		,authBasic: helpers.authBasic
+	}
 };
+
 cfg = cfg.root(); // get the raw config object, so we don't have to use `get` and `set`.
 // A function to join paths to xtc's root path
 app.xtcPath = helpers.xtcPath;
+app.projectPath = helpers.projectPath;
 // Create template data that is always available
 app.locals(helpers.makeLocals());
 

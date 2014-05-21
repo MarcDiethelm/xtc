@@ -7,7 +7,7 @@ module.exports = function(app) {
 		,renderModule = require(app.xtcPath('lib/mod-render'))()
 		,exphbs = require(app.xtcPath('node_modules/express3-handlebars'))
 		,utils = require(app.xtcPath('lib/utils'))
-		,helpers = require(app.xtcPath('lib/helpers.js'))
+		,helpers = app.xtc.helpers
 		,docTitle = helpers.docTitle
 		,hbs
 	 ;

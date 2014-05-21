@@ -16,6 +16,7 @@
 - Fix registration of user-defined Handlebars helpers.
 - Moved the Handlebars helper Hipsum.js to project dependencies.
 - The Handlebars instance is passed to project. Project template helpers are now registered at the project level instead of in the xtc module.
+- Added a new project-level helpers module to add new or override default helper functions at `app.xtc.helpers`.
 
 ## 0.8.0-beta7
 - xtc-generator is now part of the xtc package and can be run from the project folder.
