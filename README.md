@@ -18,7 +18,7 @@ xtc sets up Express and uses [Grunt](http://gruntjs.com/) and [Yeoman](http://ye
 - \# [Quick Start](#quick-start)
 - [&nbsp;&nbsp; Documentation](Documentation.md)
 - [&nbsp;&nbsp; Releases](https://github.com/MarcDiethelm/xtc/releases)
-- [⇗ **Simple demo server**](http://xtc.starfleet.info) on the [demo branch](https://github.com/MarcDiethelm/xtc/tree/demo).<br>
+- [⇗ **Demo site**](http://xtc.starfleet.info) from the [xtc-site repository](https://github.com/MarcDiethelm/xtc-site).<br>
 
 
 ## About Modules
