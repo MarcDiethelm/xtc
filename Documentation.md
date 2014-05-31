@@ -391,7 +391,7 @@ Gruntfile.js you have almost total freedom to build your sprite bundles exactly 
 ### Build Customization
 
 If you need more flexibility or a different feature, you can edit the `Gruntfile.js` where the build tasks are defined.
-With [Grunt](#asset-building-grunt) there's almost no limit to what you can do.
+With [Grunt](#asset-building-grunt) there's almost no limit to what you can do. Grunt plugins installed in your project will be registered with Grunt [automatically](https://github.com/sindresorhus/load-grunt-tasks) as long as their name starts with `grunt-`.
 
 
 ### Deploying
