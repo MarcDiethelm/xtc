@@ -1,9 +1,11 @@
 # Changelog
 
 ## develop branch (0.9.0)
--
 
-## 0.8.0-rc1
+## 0.8.0
+### Upgrading to 0.8.0
+
+## 0.8.0-beta4
 - Fix error handling for generator-xtc symlink removal.
 - Moved app views from project to new xtc `views` dir. Patched Express to search multiple views dirs.
 - Moved xtc app routes from project to xtc controllers.
@@ -18,6 +20,7 @@
 - The Handlebars instance is passed to project. Project template helpers are now registered at the project level instead of in the xtc module.
 - Added a new project-level helpers module to add new or override default helper functions at `app.xtc.helpers`.
 - Ability to add custom grunt plugins at project level.
+- Don't send detailed error messages to clients in production mode.
 
 ## 0.8.0-beta7
 - xtc-generator is now part of the xtc package and can be run from the project folder.

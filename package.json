@@ -1,7 +1,7 @@
 {
   "name": "xtc",
   "description": "A frontend framework and server",
-  "version": "0.8.0-rc1",
+  "version": "0.8.0-beta8",
   "publishConfig": {
     "tag": "beta"
   },
