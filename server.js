@@ -174,7 +174,10 @@ xtc.createServer = function(app, protocol, options) {
 	 */
 	server.listen = function listen(port, hostname) {
 
-		if (typeof port !== 'number') {
+		if (typeof port === 'number') {
+			app.set('port', port);
+		}
+		else {
 			console.error('\nport must be a number, got %s', port);
 			process.exit(1);
 		}
