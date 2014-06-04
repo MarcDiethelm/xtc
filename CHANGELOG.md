@@ -21,6 +21,8 @@
 - Added a new project-level helpers module to add new or override default helper functions at `app.xtc.helpers`.
 - Ability to add custom grunt plugins at project level.
 - Don't send detailed error messages to clients in production mode.
+- Changed names of frontend subfolders (removing underscores, adding underscore to `views`).
+- Changed `_config` folder to `config`.
 
 ## 0.8.0-beta7
 - xtc-generator is now part of the xtc package and can be run from the project folder.
