@@ -1,0 +1,303 @@
+/**
+ * "such.less" CSS boilerplate framework
+ * helpers.less
+ * https://github.com/MarcDiethelm/such.less
+ * License: MIT
+ * Copyright 2014 Marc Diethelm
+ */
+
+// CSS3 BROWSER PREFIXES
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+.box-sizing(@boundaries: border-box) {
+	-webkit-box-sizing: @boundaries;
+	-moz-box-sizing: @boundaries;
+	box-sizing: @boundaries;
+}
+
+.transform(...) {
+	-webkit-transform: @arguments;
+	-moz-transform: @arguments;
+	-ms-transform: @arguments;
+	-o-transform: @arguments;
+	transform: @arguments;
+	zoom: 1;
+}
+
+.transition(...) {
+	-webkit-transition: @arguments;
+	-moz-transition: @arguments;
+	-o-transition: @arguments;
+	transition: @arguments;
+}
+
+// take every amount of arguments and use them as-is to make shorthands possible
+.border-radius(...) {
+	-webkit-border-radius: @arguments;
+	-moz-border-radius: @arguments;
+	border-radius: @arguments;
+}
+
+// messy placeholder color mixin because placeholder selectors can't be chained
+.placeholder-color(@color: inherit) {
+	::-webkit-input-placeholder {
+		// WebKit browsers
+		color: @color;
+	}
+	:-moz-placeholder {
+		// Mozilla Firefox 4 to 18
+		color: @color;
+	}
+	::-moz-placeholder {
+		// Mozilla Firefox 19+
+		color: @color;
+	}
+	:-ms-input-placeholder {
+		// Internet Explorer 10+
+		color: @color;
+	}
+}
+
+// GRADIENTS
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+.linear-gradient('vertical', @colorStart: #eee, @colorEnd: #ccc, @start: 0%, @end: 100%) {
+	background: mix(@colorStart, @colorEnd); /* Old browsers */
+	background: -moz-linear-gradient(top, @colorStart @start, @colorEnd @end); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(@start, @colorStart), color-stop(@end, @colorEnd)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, @colorStart @start, @colorEnd @end); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, @colorStart @start, @colorEnd @end); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, @colorStart @start, @colorEnd @end); /* IE10+ */
+	background: linear-gradient(to bottom, @colorStart @start, @colorEnd @end); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@{colorStart}', endColorstr='@{colorEnd}', GradientType=0); /* IE6-9 */
+}
+
+.linear-gradient('horizontal', @colorStart: #eee, @colorEnd: #ccc, @start: 0%, @end: 100%) {
+	background: mix(@colorStart, @colorEnd); /* Old browsers */
+	background: -moz-linear-gradient(left, @colorStart @start, @colorEnd @end); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(@start, @colorStart), color-stop(@end, @colorEnd)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left, @colorStart @start, @colorEnd @end); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left, @colorStart @start, @colorEnd @end); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left, @colorStart @start, @colorEnd @end); /* IE10+ */
+	background: linear-gradient(to right, @colorStart @start, @colorEnd @end); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@{colorStart}', endColorstr='@{colorEnd}', GradientType=1); /* IE6-9 */
+}
+
+// BOX SHADOW
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+.box-shadow(@x: 0, @y: 0, @blur: 5px, @spread: 0, @color: #ccc) {
+	-webkit-box-shadow: @arguments;
+	-moz-box-shadow: @arguments;
+	box-shadow: @arguments;
+}
+
+.box-shadow(inset, @x: 0, @y: 0, @blur: 5px, @spread: 0, @color: #ccc) {
+	// cannot use @arguments here!
+	-webkit-box-shadow: inset @x @y @blur @spread @color;
+	-moz-box-shadow: inset @x @y @blur @spread @color;
+	box-shadow: inset @x @y @blur @spread @color;
+}
+
+.box-shadow(none) {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+// STYLE HELPERS
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// extend a background horizontally to "infinity and beyond" without altering the elements content boundaries
+.bg-beyond(@width: 500%) {
+	margin-left: -@width;
+	margin-right: -@width;
+	padding-left: @width;
+	padding-right: @width;
+	// bg-beyond with .clearfixed rows pushes content down. fix with...
+	// clear: both; // or
+	// overflow: hidden;
+}
+
+// convert hex code to RGBA background color with pure color fallback
+.rgba-bg(@color, @transparency) {
+	@rgba: fade(@color, @transparency);
+	
+	background: @color;
+	background: @rgba;
+}
+
+/**
+ * CSS pseudo element triangle helper
+ *
+ * params .triangle(1, 2, 3, 4):
+ * 1. Direction in which the triangle peak should face.
+ * 2. Thickness of the triangle (e.g. half a diagonal line if you make a square out of two triangles).
+ * 3. Triangle color, can be inherited from parent (default).
+ * 4. Optional parameter to center the triangle on the given side relative to its parent.
+ *    This needs the parent to have position: relative.
+ *
+ * usage example:
+ *
+ * .my-element {
+ *      position: relative;
+ *
+ *      &:after {
+ *          .triangle('down', 10px, red, 'centered');
+ *      }
+ * }
+ **/
+
+.triangle(@_, @size, @color: inherit, ...) {
+	content: ' ';
+	display: inline-block;
+	width: 0px;
+	height: 0px;
+	border: @size solid transparent;
+}
+
+.triangle(@_, @size, @color, 'centered') {
+	position: absolute;
+}
+
+.triangle('up', @size, @color, ...) {
+	border-bottom-color: @color;
+	border-top: none;
+}
+
+.triangle('up', @size, @color, 'centered') {
+	top: -@size;
+	left: 50%;
+	margin-left: -@size;
+}
+
+.triangle('right', @size, @color, ...) {
+	border-left-color: @color;
+	border-right: none;
+}
+
+.triangle('right', @size, @color, 'centered') {
+	top: 50%;
+	right: -@size;
+	margin-top: -@size;
+}
+
+.triangle('down', @size, @color, ...) {
+	border-top-color: @color;
+	border-bottom: none;
+}
+
+.triangle('down', @size, @color, 'centered') {
+	bottom: -@size;
+	left: 50%;
+	margin-left: -@size;
+}
+
+.triangle('left', @size, @color, ...) {
+	border-right-color: @color;
+	border-left: none;
+}
+
+.triangle('left', @size, @color, 'centered') {
+	top: 50%;
+	left: -@size;
+	margin-top: -@size;
+}
+
+// POLYFILLS
+////////////////////////////////////
+
+// http://www.whatwg.org/specs/web-apps/current-work/multipage/editing.html#the-hidden-attribute
+[hidden] {
+	display: none;
+}
+
+// CLASSES
+////////////////////////////////////
+
+/*
+ * Hide only visually, but have it available for screenreaders: h5bp.com/v
+ */
+.vis-hidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+
+/*
+ * Extends the .vis-hidden class to allow the element to be focusable
+ * when navigated to via the keyboard: h5bp.com/p
+ */
+	&.focusable:active,
+	&.focusable:focus {
+		clip: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		position: static;
+		width: auto;
+	}
+}
+
+.text-hide {
+	font: ~"0/0" a;
+	color: transparent;
+	text-shadow: none;
+	background-color: transparent;
+	border: 0;
+	text-rendering: auto; // prevent webkit ghost text if text rendering is set to optimizeLegibility
+}
+
+/*
+ * Hide from both screenreaders and browsers: h5bp.com/u
+ */
+.hidden {
+	display: none !important;
+	visibility: hidden;
+}
+
+// scale blocks in fluid layouts
+.flex, // e.g. <img class="flex
+.flex img {
+	max-width: 100%;
+	width: auto; //fix for ie
+	height: auto;
+	image-rendering: optimizeQuality;
+	-ms-interpolation-mode: bicubic; // ie8-
+}
+
+// links around blocks
+a.img,
+a.box {
+	display: inline-block;
+	text-decoration: none;
+	cursor: pointer; // IE 7
+	line-height: 0; // prevents space at bottom
+}
+
+// … (shorten single-line text with three dots to fit parent)
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	-ms-text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
+
+/*
+ * Clearfix: contain floats
+ */
+.cf { // For modern browsers
+	&:before, &:after {
+		content: " "; // The space content is one way to avoid an Opera bug when the contenteditable` attribute is included anywhere else in the document. Otherwise it causes space to appear at the top and bottom of elements that receive the `clearfix` class.
+		display: table; //  The use of `table` rather than `block` is only necessary if using `:before` to contain the top-margins of child elements.
+	}
+	&:after {
+		clear: both;
+	}
+// For IE 6/7 only
+	*zoom: 1; // trigger hasLayout and contain floats.
+}

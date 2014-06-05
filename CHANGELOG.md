@@ -24,6 +24,7 @@
 - Changed names of frontend subfolders (removing underscores, adding underscore to `views`).
 - Changed `_config` folder to `config`.
 - `xtc setup` creates an [`.editorconfig`](http://editorconfig.org/) file.
+- Update such.less. Includes newset iteration of responsive grid, now re-named Spartan.
 
 ## 0.8.0-beta7
 - xtc-generator is now part of the xtc package and can be run from the project folder.
