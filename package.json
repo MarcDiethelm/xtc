@@ -39,8 +39,8 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha",
-    "build": "grunt --base=./ --gruntfile=./node_modules/generator-xtc/app/templates/Gruntfile.js --test",
-    "build-dist": "grunt --base=./ --gruntfile=./node_modules/generator-xtc/app/templates/Gruntfile.js --test --dist",
+    "build": "grunt --base=./ --gruntfile=./node_modules/generator-xtc/app/templates/Gruntfile.js --test=true",
+    "build-dist": "grunt --base=./ --gruntfile=./node_modules/generator-xtc/app/templates/Gruntfile.js --test=true --dist=true",
     "mkmod": "yo xtc:module --path=./",
     "mkskin": "yo xtc:skin --path=./",
     "install": "node ./bin/setup.js",
