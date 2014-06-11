@@ -91,6 +91,14 @@ xtc.registerProjectMiddlewares = function(cb) {
 	// Voodoo! Set up tracking the Terrific modules included for any URIs, for module testing in the browser.
 	helpers.registerModuleTestTrackingMiddleware(app);
 
+	if (app.enabled('csrf')) {
+		app.use(express.csrf());
+		app.use(function(req, res, next) {
+			res.locals.token = req.csrfToken();
+			next();
+		});
+	}
+
 	// Register project routes and xtc app routes
 	require(cfg.routesPath)(app);
 	require(app.xtcPath('./controllers/routes-xtc.js'))(app);
