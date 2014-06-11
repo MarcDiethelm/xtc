@@ -1,0 +1,57 @@
+// Dependencies:
+// - 00-variables.less
+// - lib/wireframe.less
+
+html {
+	#type > #copy > .style('default'; @color-copy);
+	#type > .rendering('antialiased');
+	.visual-viewports(); // Remove for production
+
+	padding: 0 1em;
+	@media @m-medium-up {
+		padding: 0 2em;
+	}
+}
+
+body {
+	#layout > .content-boundaries(0, @max-content-width);
+	#layout > .center();
+	background: @color-bg-body;
+}
+
+// GRID
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@grid-config: @grid-type, @max-content-width, @grid-gutter, @gutter-type, @grid-cols;
+
+.grid-bundle(@config: @grid-config);
+
+// TYPOGRAPHY
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+.title-page {
+	#type > #title > .style('page'; inherit);
+}
+
+.title {
+	#type > #title > .style('default'; inherit);
+}
+
+.copy {
+	#type > #copy > .style('default'; inherit);
+}
+
+.small {
+	#type > #copy > .style('small'; inherit);
+}
+
+// LINKS
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Base link style is in typography file. Apply and define any variations and exceptions here...
+a:link,
+a:visited,
+a:hover,
+a:active {
+	#type > #link > .style('default'; @color-link);
+}

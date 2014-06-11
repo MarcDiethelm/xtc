@@ -1,0 +1,4 @@
+# syntax: http://git-scm.com/docs/gitignore
+
+config-secret.js
+config-local.js

@@ -1,0 +1,125 @@
+<style>
+	ul, li {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.item {
+		padding-bottom: 1em;
+		color: #888;
+	}
+	.subitem {
+		padding-top: .7em;
+		padding-left: 1.7em;
+		font-weight: normal;
+	}
+	.name, a.name {
+		font-weight: bold;
+	}
+	.item .name {
+		padding-right: 2px;
+	}
+	small a {
+		padding: 1px;
+		font-size: 1.17em;
+		font-size: 0.9rem;
+	}
+	.subname, a.subname {
+		font-weight: bold;
+	}
+	.pinned + .unpinned::before {
+		display: block;
+		content: '';
+		border-top: 2px dotted #888; /* opaque color is a fallback */
+		border-color: rgba(128,128,128,.3);
+		margin-bottom: 1em;
+	}
+
+	.table-cell {
+		border-top: 2px solid #888; /* opaque color is a fallback */
+		border-color: rgba(128,128,128,.3);
+		padding: .5em 0;
+	}
+	@media (min-width: 40em) {
+		.table {
+			display: table;
+			width: 85%;
+			min-width: 480px;
+			max-width: 800px;
+		}
+		.table-cell {
+			display: table-cell;
+			width: 30%;
+			border-right: 2px solid rgba(128,128,128,.3);
+			border-top: none;
+		}
+		.table-cell + .table-cell {
+			padding-left: 2%;
+		}
+		.table-cell:first-child + .table-cell {
+			width: 36%;
+		}
+	}
+</style>
+
+<h1 class="title-page">{{title}}</h1>
+
+<div class="table">
+
+	<div class="table-cell">
+		<h2 class="title">Views</h2>
+		<ul>
+			{{#each views}}
+				<li class="item{{#if isPinned}} pinned{{else}} unpinned{{/if}}">
+					<a class="name" href="/{{name}}">{{name}}</a>
+					<small>
+						| <a href="/xtc/view/{{name}}?solo">solo</a>
+						| <a href="/xtc/view/{{name}}?raw">raw</a>
+						{{#if repoUri}} | <a href="{{repoUri}}">repo</a>{{/if}}
+					</small>
+				</li>
+			{{/each}}
+		</ul>
+	</div>
+
+
+	<div class="table-cell">
+		<h2 class="title">Modules</h2>
+		<ul>
+			{{#each modules}}
+				<li class="item">
+					<span class="name">{{name}}</span>
+					<small>
+						{{#if repoUri}} | <a href="{{repoUri}}">repo</a>{{/if}}
+						<ul>
+							{{#each templates}}
+								<li class="subitem">
+									<a class="subname" href="/xtc/module/{{../name}}/{{name}}">{{name}}</a>
+									| <a href="/xtc/module/{{../name}}/{{name}}?raw">raw</a>
+									{{#if repoUri}} | <a href="{{repoUri}}">repo</a>{{/if}}
+								</li>
+							{{/each}}
+						</ul>
+					</small>
+				</li>
+			{{/each}}
+		</ul>
+	</div>
+
+
+	<div class="table-cell">
+		<h2 class="title">Layouts</h2>
+		<ul>
+			{{#each layouts}}
+				<li class="item">
+					<a class="name" href="/xtc/layout/{{name}}">{{name}}</a>
+					<small>
+						| <a href="/xtc/layout/{{name}}?raw">raw</a>
+						{{#if repoUri}} | <a href="{{repoUri}}">repo</a>{{/if}}
+					</small>
+				</li>
+			{{/each}}
+		</ul>
+	</div>
+
+</div>

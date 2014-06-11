@@ -1,0 +1,14 @@
+// font-face inclusion as with http://www.fontsquirrel.com/tools/webfont-generator
+// dummy parameter for every source because of an occasional firefox bug
+@font-face {
+	font-family: 'Open Sans Light';
+	src: url('@{path-fonts}/OpenSans-Light-webfont.eot?wow');                                   /* IE9 Compat Modes */
+	src: url('@{path-fonts}/OpenSans-Light-webfont.eot?wow#iefix') format('embedded-opentype'), /* IE6-IE8 */
+	     url('@{path-fonts}/OpenSans-Light-webfont.woff?wow') format('woff'),                   /* Modern Browsers */
+	     url('@{path-fonts}/OpenSans-Light-webfont.ttf?wow') format('truetype'),                /* Safari, Android, iOS */
+	     url('@{path-fonts}/OpenSans-Light-webfont.svg?wow#open_sanslight') format('svg');      /* Legacy iOS */
+	// In-depth information how to set the following font definitions:
+	// http://www.smashingmagazine.com/2013/02/14/setting-weights-and-styles-at-font-face-declaration/
+	font-weight: normal;
+	font-style: normal;
+}

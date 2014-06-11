@@ -7,7 +7,7 @@
 	// Paths to frontend source folders relative to app.js, will be resolved to absolute paths
 
 	// base path to the frontend sources, can be empty
-	,"sourcesBasePath"  : "test/assets/fixtures/default"
+	,"sourcesBasePath"  : "../../../../test/assets/fixtures/default"
 	,"sources": {
 		"inline"            : "_inline"
 		,"base"             : "_base"
@@ -26,7 +26,7 @@
 	// Frontend asset build destinations
 	// Destination paths and file names. Paths relative to app.js, will be resolved to absolute paths.
 
-	,"buildBasePath"    : "test/assets"
+	,"buildBasePath"    : "../../../../test/assets"
 	,"build": {
 		// baseDirNameX is relative to buildBasePath
 		"baseDirNameDev"    : "build",

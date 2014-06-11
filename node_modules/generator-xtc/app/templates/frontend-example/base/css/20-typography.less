@@ -1,0 +1,119 @@
+// BASE TYPOGRAPHY
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Dependencies:
+// - 00-variables.less
+
+#type {
+	@font-family    : @font-default;
+	@font-size      : @font-size-default;
+	@line-height    : @line-height-default;
+	@font-weight    : normal;
+	@color          : @color-copy;
+
+	// optimised text rendering
+	.rendering(@_) {
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+	}
+
+	#title {
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		@font-family: @font-title;
+		//@font-weight: bold;
+		@color: gray;
+		@line-height: 22px;
+
+		// applies to all below //
+		.style(@_, @color: @color) {
+			color: @color;
+			font-family: @font-family;
+			font-weight: @font-weight !important; // (!important): Prevent faux bold / double-bold styling for webfonts
+			font-style: normal !important; // (!important): Prevent faux italic / double-italic styling for webfonts
+		}
+
+		.style('default'; ...) {
+			font-size: medium;
+			line-height: @line-height;
+
+			@media @m-medium-up {
+				font-size: large;
+			}
+		}
+
+		.style('page'; ...) {
+			font-size: large;
+			line-height: 26px; // old browsers
+			line-height: 2rem;
+
+			@media @m-medium-up {
+				font-size: x-large;
+			}
+		}
+
+	}
+
+	#copy {
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		// applied to all below //
+		.style(@_, @color: @color) {
+			color: @color;
+			font-family: @font-family;
+			font-weight: @font-weight;
+		}
+
+		.style('default'; ...) {
+			font-size: @font-size;
+			line-height: @line-height;
+		}
+
+		.style('small'; ...) {
+			font-size: x-small;
+			line-height: @line-height;
+		}
+
+	}
+
+	#link {
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		// applies to all below //
+		.style(@_, @color: @color) {
+			color: @color;
+			text-decoration: none;
+		}
+
+		.style('default'; ...) {
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+/**
+
+Usage:
+	As HTML class
+	<h6 class="title-page">Lorem</h6>
+
+	In style sheet
+	.mod-example {
+
+		// extend
+		.header .title:extend(title-claim); // or
+		.header .title { &.extend(.title-claim) };
+
+		// mixin
+		// default claim title
+		.header .title { .title-claim() };
+
+		// mixin
+		// local variation: pink, normal weight
+		#typo > #title > .style('page', pink);
+		// override styles for exceptions in design
+		font-weight: normal; // blame the designer
+	}
+	
+**/

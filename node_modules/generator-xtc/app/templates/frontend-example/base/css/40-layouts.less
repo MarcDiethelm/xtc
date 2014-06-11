@@ -1,0 +1,144 @@
+// Dependencies:
+// - 00-variables.les
+// - lib/spartan.less
+
+// BASE LAYOUT
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#layout {
+	// fallback values if mixins get called without params
+	@min-width-default: 0;
+	@max-width-default: @max-content-width;
+
+	.content-boundaries(@min-width: @min-width-default, @max-width: @max-width-default) {
+		min-width: @min-width;
+		max-width: @max-width;
+	}
+
+	.center() {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+// RESPONSIVE LAYOUTS
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * You can use the following mixins to easily set up responsive layouts.
+ * For grid layouts with non-equal span sizes use incrementing col-[integer] classes and apply sizes to each of these classes:
+ *
+ * .grid-col-set([column name], [column span width]):
+ * Standard mixin to set up a column in a responsive layout
+ *
+ * To set up layouts with equal width columns you only specify the width in `.grid-col-set-equal`.
+ *
+ * .grid-col-set-equal([column span width]):
+ * Extended mixin to set up equal width columns and properly clear them at the same time
+ *
+ * Note: Every use of .grid-col-set-equal() must be wrapped in a media query (even for smallest "mobile first" viewport).
+ *       Because else the `nth-child` selectors used in ` .grid-col-set-equal()` for proper clearing would be passed on to all
+ *       other viewports/media queries in the layout.
+ *
+ * .grid-col-clear([columns per line]):
+ * Use this to manually clear every nth column if columns differ in height.
+ * This ensures that a grid layout can have only [columns per line] columns on one horizontal grid line.
+ *
+ **/
+
+// layouts //
+
+.layout-r-1 {
+	/**
+	* specs: max cols 12
+	* desktop: 4
+	* tablet: 6
+	* phone: 12
+	**/
+
+	@media  @m-small {
+		.grid-col-set-equal(12);
+	}
+
+	@media @m-medium {
+		.grid-col-set-equal(6);
+	}
+
+	@media @m-large {
+		.grid-col-set-equal(4);
+	}
+}
+
+.layout-r-2 {
+	/**
+	* specs: max cols 12
+	* desktop: 6
+	* tablet: 12
+	* phone: 12
+	**/
+
+	@media @m-medium-down {
+		.grid-col-set-equal(12);
+	}
+
+	@media @m-large {
+		.grid-col-set-equal(6);
+	}
+}
+
+.layout-r-3 {
+	/**
+	* specs:
+	* desktop: 8/4
+	* tablet: 8/4
+	* phone: 12
+	**/
+
+	@media @m-small {
+		.grid-col-set-equal(12);
+	}
+
+	@media @m-medium-up {
+		.grid-col-set(col-1, 8);
+		.grid-col-set(col-2, 4);
+	}
+}
+
+.layout-r-4 {
+	/**
+	* specs:
+	* desktop: 3
+	* tablet: 6
+	* phone: 12
+	**/
+
+	@media @m-small {
+		.grid-col-set-equal(12);
+	}
+
+	@media @m-medium {
+		.grid-col-set-equal(6);
+	}
+
+	@media @m-large {
+		.grid-col-set-equal(3);
+	}
+}
+
+.layout-nogrid-1 {
+	/**
+	* specs:
+	* desktop: 7
+	* tablet: 5
+	* phone: 5
+	**/
+
+	@media @m-medium-down {
+		.grid-col-set(col, @grid-cols / 5);
+	}
+
+	@media @m-large {
+		.grid-col-set(col, @grid-cols / 7);
+	}
+}

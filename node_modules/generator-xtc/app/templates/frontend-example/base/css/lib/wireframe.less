@@ -1,0 +1,119 @@
+/*
+ * For early scaffolding to let us know which viewport we're in.
+ */
+.visual-viewports() {
+	&:before,
+	&:after {
+		position: fixed;
+		padding: 5px;
+		opacity: .5;
+		font-weight: normal;
+		font-size: x-large;
+		right: 15px;
+		z-index: 999;
+		pointer-events: none;
+	}
+
+	// Todo: can we generate this with less?
+	&:before {
+		top: 45px;
+		background-color: hotpink;
+		border: 1px solid mediumvioletred;
+	}
+
+	&:after {
+		top: 80px;
+		background-color: turquoise;
+		border: 1px solid teal;
+	}
+
+	@media @m-small {
+		&:before {
+			content: 'small';
+		}
+	}
+
+	@media @m-medium-up {
+		&:before {
+			content: 'medium';
+		}
+	}
+
+	@media @m-large {
+		&:before {
+			content: 'large';
+		}
+	}
+
+	@media @co-1-col {
+		&:after {
+			content: '1 col';
+		}
+	}
+
+	@media @co-2-col {
+		&:after {
+			content: '2 cols';
+		}
+	}
+
+	@media @co-3-col {
+		&:after {
+			content: '3 cols';
+		}
+	}
+}
+
+/* WIREFRAME STYLES */
+
+.wf-box-sizing() {
+	-moz-box-sizing: border-box;
+ -webkit-box-sizing: border-box;
+     -ms-box-sizing: border-box;
+         box-sizing: border-box;
+}
+
+.wf-row {
+	.wf-box-sizing();
+	margin-bottom: 25px;
+}
+.wf-box {
+	.wf-box-sizing();
+	display: block;
+	outline: 1px dashed #999;
+	background-color: #eaeaea;
+	margin-bottom: 3px;
+	padding: .5rem;
+	
+	.wf-box {
+		background-color: #f8f8f8;
+		outline: 1px dotted #fff;
+	}
+}
+.wf-box-dark:extend(.wf-box) {
+	background-color: #444;
+	
+	.wf-box-dark {
+		background-color: #555;
+	}
+}
+.wf-text {
+/*	color: #ddd;
+	letter-spacing: -.13em;
+	word-spacing: -.2em;*/
+}
+.wf-label {
+	padding: 0 2px 2px;
+	font-weight: 200;
+	font-size: 20px;
+	line-height: 30px;
+	font-family: "Helvetica Neue", "Open Sans Light", Helvetica, sans-serif;
+	color: #777;
+	background-color: #eeeeff;
+	
+	&:before,
+	&:after {
+		content: '';
+		vertical-align: -.5rem;
+	}
+}

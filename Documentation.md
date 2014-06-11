@@ -81,27 +81,25 @@ It worked if you can `glue -v` to get the installed version.
 
 ## Project Setup
 
-In the terminal, change to the project folder and start the xtc install and project generator: `xtc`. Once you have answered some questions xtc is installed as a local node module and the basic project files are created.
+In the terminal, change to the project folder and start the xtc install and project generator: `xtc install`. Once you have answered some questions xtc is installed as a local node module and the basic project files including a package.json are created.
 
 
 ### Configuration
 
-xtc uses [CJSON](https://github.com/kof/node-cjson) for its config files, which allows JS-style comments. The files are merged into the app config in the order mentioned below. Any property you add is merged with the previous, overriding default properties as needed.
+Your package.json contains the property `configPath` which holds the location of the configuration. The default folder is `_config`. xtc's configuration consists of multiple files whose properties are merged to create the runtime configuration. On top of this, some config properties may be set using environment variables and command-line arguments.
 
-The configuration files are located the folder  `_config`.
+The load order of the config files is set in configs.json.
 
-- `config-default.js` defines a schema and defaults for all configurable properties. You should not normally have to edit it.
-- **`config-project.json`** is where you configure most of your app, by copying over and overriding the properties as needed.
-- `config-secret.json` is for basic auth credentials, db authentication info, SSL certs and so on. \[deprecated: see [Basic auth](#basic-authentication-and-bypass-for-ip-ranges)]
+- `config-default.js` defines defaults, CLI args and env vars for all configurable properties. You should not normally have to edit it. Copy properties to the following files to override the default value.
+- **`config-build.json`** serves to configure build source and output location, static URLs and so on.
+- **`config-server.json`** is where you configure properties related to the server.
+- `config-secret.json` for local development with [basic auth](#basic-authentication-and-bypass-for-ip-ranges) credentials, db authentication info, SSL certs and so on. For deployments you should use env vars to hold your secrets!
 - `config-local.json` serves to override configuration values only for development on your local machine.
 
- Some properties namely the ones in `config-secret.json` can be set with environment variables, env vars have a higher priority than the config files. This is the preferred way of setting sensitive values.
-
 `config-secret.json` and `config-local.json` are listed in `.gitignore` and won't be committed to your repository.
-`config-local.json` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be
-deployed. Make sure these two files are not tracked by git unless you know what you're doing.
+`config-local.json` is also listed in `.jitsuignore`, so if you're using Nodejitsu for hosting this file will never be deployed. Make sure these two files are not tracked by git unless you know what you're doing.
 
-Which config files are loaded and their order can be configured in configs.json. The location of the config files can be configured in package.json by changing the `configPath` property.
+xtc uses [CJSON](https://github.com/kof/node-cjson) for the config files, which allows comments.
 
 
 ### Start the Server!
@@ -129,13 +127,27 @@ There are some things you can do that will make development so much more easy:
 - Files that start with an underscore are resources required for xtc's functionality.
 
 
-### Routing and Rendering
+## Server
 
-[Express](https://github.com/visionmedia/express) is the server application used in xtc. It is very powerful and I recommend reading through its [guide](http://expressjs.com/guide.html) and [API](http://expressjs.com/api.html).
+[Express 3](https://github.com/visionmedia/express) is the server application used in xtc. It is very powerful and I recommend reading through its [guide](http://expressjs.com/guide.html) and [API](http://expressjs.com/api.html).
+If you installed xtc with the server component, you can control configure its functionality in `server.js`. In this file the server middlewares are set up and the [server object](http://nodejs.org/api/http.html#http_http_createserver_requestlistener) is exposed if you need it. A middleware in Express is just a callback in a stack that is executed on each request. A minimal middleware looks like this:
+
+```js
+function fooWare(req, res, next) {
+	// do some server stuff with the request and response here
+	next(); // call next middleware
+}
+
+// Add it to the end of the stack
+app.use(fooWare);
+```
+[Understanding Express 3 ⇗](http://evanhahn.com/understanding-express-3/)
+
+### Routing and Rendering
 
 Below some are very basic examples. For more advanced stuff check out the files in the `controllers` folder and make sure you look at Express' documentation linked above.
 
-In xtc the server routes are defined in `controller/routes.js`. [Editing routes is very straightforward](http://expressjs.com/api.html#app.VERB).
+In xtc the server routes are defined in `controllers/routes.js`. [Editing routes is very straightforward](http://expressjs.com/api.html#app.VERB).
 
 Basically every route has at least one assigned callback.
 
@@ -175,8 +187,7 @@ You can add your own Handlebars helper functions in addition to some existing he
 `lib/handlebars-helpers.js` for examples and to add your own. And take a look at http://handlebarsjs.com/#helpers for more info about
  Handlebars helpers.
 
-xtc includes [Hipsum.js](https://github.com/MarcDiethelm/Hipsum.js) so you can quickly generate filler text in your
-templates. Check out the documentation there if needed.
+xtc install [Hipsum.js](https://github.com/MarcDiethelm/Hipsum.js) to your project so you can quickly generate filler text in your templates. Check out the documentation in the link if needed.
 
 
 ### Frontend Folder: Order matters
@@ -210,13 +221,13 @@ To include a module in a view or other module template use this syntax:
 
 A module's markup by default is wrapped in a generated SECTION tag, that at the minimum looks like this:
 
-```HTML
+```html
 <section class="mod mod-modulename"></section>
 ```
 
 The HTML classes on the wrapper serve as 'binding sites' for the module's logic and styling.
 
-A module include with all known options configured looks like this:
+A module include with all available options configured looks like this:
 
 ```Handlebars
 {{mod "example" template="alternate" skins="alternate, baz" tag="article" id="foo" classes="test-class" data-connectors="stats, filter" data="{var1: 'foo'}"}}
@@ -224,7 +235,7 @@ A module include with all known options configured looks like this:
 
 This will generate the following wrapper:
 
-```HTML
+```html
 <article class="mod mod-example test-class skin-example-alternate skin-example-baz" id="foo" connectors="stats, filter"></article>
 ```
 
@@ -306,7 +317,7 @@ might need to be integrated.
 
 The URIs to your static assets are all available under the `static` variable in your templates:
 
-```JavaScript
+```js
 // prefixes
 static.base // The base URI to the static assets
 static.img // The base URI to your images
@@ -317,7 +328,7 @@ static.build.css.external // The URI to the generated main CSS file
 
 The static base URI is available in your LessCSS files as the variable
 
-```Less
+```less
 @static-base
 ```
 
@@ -327,7 +338,7 @@ You should always use a slash after a base variable.
 <script src="{{static.base}}/lib/jquery-1.10.2.js"></script>
 ```
 
-```Less
+```less
 background-image: url("@{static-base}/img/bg.png");
 ```
 
@@ -346,7 +357,7 @@ If you run the server in **production mode** the minified versions of these asse
 
 ~~Less files in `reference` folders (in `inline` and `base`) are included with Less 1.6.0's `@import (reference)`:
 Only mixins and variables that are actually used are imported. This is great for libraries of helper and mixins or UI
-frameworks like Bootstrap.~~ This is not currently working and will probably be removed for 0.8.0.
+frameworks like Bootstrap.~~ This is not currently working.
 
 
 ### Development and Production Mode
@@ -380,7 +391,7 @@ Gruntfile.js you have almost total freedom to build your sprite bundles exactly 
 ### Build Customization
 
 If you need more flexibility or a different feature, you can edit the `Gruntfile.js` where the build tasks are defined.
-With [Grunt](#asset-building-grunt) there's almost no limit to what you can do.
+With [Grunt](#asset-building-grunt) there's almost no limit to what you can do. Grunt plugins installed in your project will be registered with Grunt [automatically](https://github.com/sindresorhus/load-grunt-tasks) as long as their name starts with `grunt-`.
 
 
 ### Deploying
@@ -405,18 +416,18 @@ xtc implements some features to help with template integration into different ba
 
 #### Project overview
 
-`/_home` displays an overview of all user-defined views, modules and layouts, i.e. ones whose names don't start with an underscore. The page contains links to the views and modules at `/[view name]`, `/_module/[module name]` and
-`/_layout/[layout name]` respectively. If you add the parameter `raw` to the URI, you get the pure HTML of that
+`/xtc` displays an overview of all user-defined views, modules and layouts, i.e. ones whose names don't start with an underscore. The page contains links to the views and modules at `/[view name]`, `/xtc/module/[module name]` and
+`/xtc/layout/[layout name]` respectively. If you add the parameter `raw` to the URI, you get the pure HTML of that
 resource without any surrounding markup, e.g:
 
 	/view-name?raw
-	/_module/module-name?raw
-	/layout/layout-name?raw
+	/xtc/module/module-name?raw
+	/xtc/layout/layout-name?raw
 
 Adding the parameter `solo` to a view request, will skip any modules that have the attribute `isLayout="true"` on their
 include tag. E.g.
 
-	/_view/example?solo
+	/view/example?solo
 
 **Views can be pinned** to the top of the list by adding their name to an array in the file `_config/pinned-views.json`.
 The pinned views will be presented in the order they appear in the file. The file is optional.
@@ -427,14 +438,22 @@ xtc is the ideal environment for frontend development in other backends. All the
 
 Instead of re-inventing the wheel in other backends and building disparate solutions to try to enable frontend building, which always fall short, you can use xtc as a standardized environment made for frontend development. xtc is completely configurable when it comes to specifying the sources and build output locations.
 
-xtc can be set up as build tool by either a frontend or a backend dev. Drop xtc in, edit the JSON config, start a build. It just works.
+xtc can be set up as build tool by either a frontend or a backend dev. Install xtc and choose a build-only setup, if needed edit the JSON config and .gitignore, start a build. It just works.
+
+Note that some files and directories need to be in the same directory:
+
+- package.json
+- node_modules
+- Gruntfile.js
+
+The dev build dir should be listed in a .gitignore.
 
 ## Basic Authentication and Bypass for IP Ranges
 
 Password protecting content couldn't be easier. To restrict access you add BasicAuth to the route that accesses the
 sensitive resource.
 
-```JavaScript
+```js
 app.get('/data/:someParam', app.authBasic('user'), index.data);
 ```
 

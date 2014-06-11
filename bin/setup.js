@@ -4,25 +4,30 @@
 // Else Yeoman won't find it.
 
 var path = require('path')
-	fs = require('fs')
+	,fs = require('fs')
+	,util = require('util')
+	,cwd = process.cwd()
+	,src = path.join(cwd, '/node_modules/generator-xtc')
+	,dest = path.resolve(cwd, '../generator-xtc')
+	,linkVerb = 'win32' === process.platform  ? 'junction' : 'symlink'
 ;
-
-// process.cwd() == __dirname
 
 if ('install' === process.env.npm_lifecycle_event) {
 
 	try {
-		fs.symlinkSync(path.join(process.cwd(), '/node_modules/generator-xtc'), path.join(process.cwd(), '../generator-xtc'), 'dir');
-		console.log('symlink: generator-xtc into node_modules\n')
+		fs.symlinkSync(src, dest, 'junction'); // junction: used on windows instead of symlink (where symlinks need admin permissions)
+		console.log(util.format('%s: generator-xtc into node_modules\n', linkVerb));
 	} catch (e) {
-		if (e.code === 'EEXIST') {
-			console.info('symlink: generator-xtc already already exists node_modules\n');
+		if ('EEXIST' === e.code) {
+			console.info(util.format('%s: generator-xtc already exists in node_modules\n', linkVerb));
+		}
+		else if ('EPERM' === e.code) {
+			throw new Error(util.format('permission error: creating %s to generator-xtc\n%s --> %s\n', linkVerb, src, dest));
 		}
 		else {
 			throw e;
 		}
 	}
-
 }
 
 // And of course we remove it again before xtc is uninstalled
@@ -30,13 +35,14 @@ if ('install' === process.env.npm_lifecycle_event) {
 else if ('uninstall' === process.env.npm_lifecycle_event) {
 
 	try {
-		fs.unlinkSync(path.join(process.cwd(), '../generator-xtc'), 'dir');
-		console.log('symlink: removed generator-xtc from node_modules\n')
+		fs.unlinkSync(dest);
+		console.log(util.format('%s: removed generator-xtc from node_modules\n', linkVerb));
 	} catch (e) {
-		if (e.code === 'EEXIST') {
-			console.info('symlink: Unable to remove generator-xtc from node_modules\n');
+		if ('ENOENT' === e.code) {
+			console.info(util.format('%s: remove failed, generator-xtc not found in node_modules\n', linkVerb));
 		}
 		else {
+			e.message = util.format('%s: unable to remove generator-xtc from node_modules\n', linkVerb) + e.message;
 			throw e;
 		}
 	}

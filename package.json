@@ -1,48 +1,53 @@
 {
-	"name": "xtc",
-	"description": "A frontend framework and server",
-	"version": "0.8.0-beta6",
-	"publishConfig": {
-		"tag": "beta"
-	},
-	"dependencies": {
-		"express": "3.3.8",
-		"express3-handlebars": "0.5.0",
-		"convict": "0.4.2",
-		"hipsum": "0.2.0",
-		"lodash-node": "2.4.1",
-		"range_check": "0.0.4",
-		"handlebars": "1.3.0",
-		"grunt": "0.4.4",
-		"grunt-less-imports": "0.9.1",
-		"assemble-less": "0.7.0",
-		"grunt-glue-nu": "0.3.1",
-		"grunt-contrib-jshint": "0.9.2",
-		"grunt-contrib-concat": "0.3.0",
-		"grunt-contrib-uglify": "0.4.0",
-		"grunt-contrib-watch": "0.6.1",
-		"grunt-contrib-clean": "0.5.0",
-		"generator-xtc": "*"
-	},
-	"bundledDependencies": ["generator-xtc"],
-	"devDependencies": {
-		"mocha": "1.18.2"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/marcdiethelm/xtc.git"
-	},
-	"main": "server.js",
-	"scripts": {
-		"start"     : "node server.js",
-		"test"      : "mocha",
-		"build"     : "grunt --base=./",
-		"build-dist": "grunt --base=./ --dist",
-		"mkmod"     : "yo xtc:module --path=./",
-		"mkskin"    : "yo xtc:skin --path=./",
-		"install"   : "node ./bin/setup.js",
-		"uninstall" : "node ./bin/setup.js"
-	},
-	"engines": { "node" : ">=0.10.0" },
-	"configPath": "_config/"
+  "name": "xtc",
+  "description": "A frontend framework and server",
+  "version": "0.8.0-beta8",
+  "publishConfig": {
+    "tag": "beta"
+  },
+  "dependencies": {
+    "assemble-less": "0.7.0",
+    "chalk": "0.4.0",
+    "convict": "0.4.2",
+    "express": "3.3.8",
+    "express3-handlebars": "0.5.0",
+    "generator-xtc": "*",
+    "grunt": "0.4.5",
+    "load-grunt-tasks": "0.5.0",
+    "grunt-contrib-clean": "0.5.0",
+    "grunt-contrib-concat": "0.4.0",
+    "grunt-contrib-jshint": "0.10.0",
+    "grunt-contrib-uglify": "0.4.0",
+    "grunt-contrib-watch": "0.6.1",
+    "grunt-glue-nu": "0.3.2",
+    "grunt-less-imports": "0.9.1",
+    "handlebars": "1.3.0",
+    "lodash-node": "2.4.1",
+    "range_check": "0.0.4"
+  },
+  "bundledDependencies": [
+    "generator-xtc"
+  ],
+  "devDependencies": {
+    "mocha": "1.18.2",
+    "zombie": "^2.0.0-alpha31"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcdiethelm/xtc.git"
+  },
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha",
+    "build": "grunt --base=./ --gruntfile=./node_modules/generator-xtc/app/templates/Gruntfile.js --test=true",
+    "build-dist": "grunt --base=./ --gruntfile=./node_modules/generator-xtc/app/templates/Gruntfile.js --test=true --dist=true",
+    "mkmod": "yo xtc:module --path=./",
+    "mkskin": "yo xtc:skin --path=./",
+    "install": "node ./bin/setup.js",
+    "uninstall": "node ./bin/setup.js"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "configPath": "node_modules/generator-xtc/app/templates/_config/"
 }

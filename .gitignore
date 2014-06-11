@@ -3,13 +3,17 @@
 # app
 config-secret.js
 config-local.js
-frontend/_public/build/
-frontend/_base/css/sprites/*.less
-!frontend/_base/css/sprites/sprites-helper.less
+frontend/public/build/
+frontend/base/css/sprites/*.less
+!frontend/base/css/sprites/sprites-helper.less
 
 # node modules
 node_modules/*
 !/node_modules/generator-xtc/
+
+# asset build testing
+/test/assets/build/
+/node_modules/generator-xtc/app/templates/frontend-example/public/build/
 
 # system
 .idea/

@@ -1,0 +1,61 @@
+
+// DEMO STUFF
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Dependencies:
+// - 00-variables.less
+
+// grid demo
+.demo-grid {
+	.title {
+		margin-top: 2em;
+		padding-top: .5em;
+		display: block;
+		border-top: 1px solid lighten(@color-copy, 50%);
+	}
+
+	th {
+		text-align: left;
+		padding-right: 3.5em;
+		vertical-align: top;
+	}
+	th, td {
+		padding-top: .175em;
+		padding-bottom: .175em;
+		border-bottom: 1px dotted lighten(@color-copy, 40%);
+	}
+	td {
+		font-weight: bold;
+	}
+	th, ._reset {
+		font-weight: normal;
+	}
+	.g-col {
+		margin-bottom: 1em;
+		
+		> span:extend(.wf-box) {
+			display: block;
+			overflow: hidden;
+		}
+	}
+	._type:after {
+		content: '@{grid-type}';
+	}
+	._max-width:after {
+		content: '@{max-content-width}';
+	}
+	._gutter-width:after {
+		content: '@{grid-gutter}';
+	}
+	._gutter-type:after {
+		content: '@{gutter-type}';
+	}
+	._gutter-width-percent:after {
+		@grid-gutter-width-percent: round(percentage(@grid-gutter / (@max-content-width + @grid-gutter)), @spartan-grid-precision);
+		content: '@{grid-gutter-width-percent}';
+	}
+	hr {
+		border: none;
+		border-bottom: 1px solid lighten(@color-copy, 50%);
+	}
+}
