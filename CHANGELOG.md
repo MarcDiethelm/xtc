@@ -4,8 +4,9 @@
 
 ## 0.8.0
 ### Upgrading to 0.8.0
+- `npm rm -g generator-xtc`
 
-## 0.8.0-beta4
+## 0.8.0-beta8
 - Fix error handling for generator-xtc symlink removal.
 - Moved app views from project to new xtc `views` dir. Patched Express to search multiple views dirs.
 - Moved xtc app routes from project to xtc controllers.
@@ -24,7 +25,8 @@
 - Changed names of frontend subfolders (removing underscores, adding underscore to `views`).
 - Changed `_config` folder to `config`.
 - `xtc setup` creates an [`.editorconfig`](http://editorconfig.org/) file.
-- Update such.less. Includes newset iteration of responsive grid, now re-named Spartan.
+- Update such.less. Includes newest iteration of responsive grid, now re-named Spartan.
+- Adds easy CSRF support.
 
 ## 0.8.0-beta7
 - xtc-generator is now part of the xtc package and can be run from the project folder.
