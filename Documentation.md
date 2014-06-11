@@ -438,7 +438,15 @@ xtc is the ideal environment for frontend development in other backends. All the
 
 Instead of re-inventing the wheel in other backends and building disparate solutions to try to enable frontend building, which always fall short, you can use xtc as a standardized environment made for frontend development. xtc is completely configurable when it comes to specifying the sources and build output locations.
 
-xtc can be set up as build tool by either a frontend or a backend dev. Drop xtc in, edit the JSON config, start a build. It just works.
+xtc can be set up as build tool by either a frontend or a backend dev. Install xtc and choose a build-only setup, if needed edit the JSON config and .gitignore, start a build. It just works.
+
+Note that some files and directories need to be in the same directory:
+
+- package.json
+- node_modules
+- Gruntfile.js
+
+The dev build dir should be listed in a .gitignore.
 
 ## Basic Authentication and Bypass for IP Ranges
 
