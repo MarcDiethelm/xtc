@@ -4,7 +4,7 @@
 	 *
 	 * @author 
 	 * @namespace Tc.Module
-	 * @class Default
+	 * @class Example
 	 * @extends Tc.Module
 	 */
 	Tc.Module.Example = Tc.Module.extend({

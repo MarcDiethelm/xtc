@@ -4,7 +4,7 @@
 	 *
 	 * @author 
 	 * @namespace Tc.Module
-	 * @class Default
+	 * @class PageController
 	 * @extends Tc.Module
 	 */
 	Tc.Module.PageController = Tc.Module.extend({
