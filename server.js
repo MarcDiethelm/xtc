@@ -39,6 +39,7 @@ xtc = app.xtc = {
 	,helpers: {
 		 docTitle: helpers.docTitle
 		,authBasic: helpers.authBasic
+		,render404: helpers.render404
 	}
 };
 

@@ -14,6 +14,14 @@ describe('helpers', function() {
 		app = require(path.join(process.cwd(), 'node_modules/generator-xtc/app/templates/server.js'));
 	});
 
+	it('should return a helper object', function() {
+		assert.ok(typeof app.xtc.helpers === 'object');
+	});
+
+	it('should contain a 404 handler', function() {
+		assert.ok(typeof app.xtc.helpers.render404 === 'function');
+	});
+
 
 	it('should register Handlebars helpers', function() {
 		handlebars = require('handlebars');

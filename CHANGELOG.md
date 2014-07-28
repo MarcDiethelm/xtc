@@ -6,6 +6,9 @@
 ### Upgrading to 0.8.0
 - `npm rm -g generator-xtc`
 
+## 0.8.0-rc1 — 2014-xx-xx
+- Fix 404 handler.
+
 ## 0.8.0-beta8 — 2014-06-11
 - Fix error handling for generator-xtc symlink removal.
 - Moved app views from project to new xtc `views` dir. Patched Express to search multiple views dirs.

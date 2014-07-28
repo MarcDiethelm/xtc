@@ -44,6 +44,26 @@ describe('server', function() {
 			);
 	});
 
+	it('should serve a 404 page', function(done) {
+		var actual;
+		var expected = '404 – XTC Project [dev]';
+
+		this.browser
+			.visit(
+				util.format('http://localhost:%d/fail', port)
+				,(function(err, browser) { // browser should be defined here, but isn't
+					if (404 === this.browser.statusCode) {
+						actual = this.browser.text('title');
+						//actual = this.browser.query('title').textContent; // does the same
+						assert.equal(actual, expected);
+						done();
+					} else if (err) {
+						done(err);
+					}
+				}).bind(this)
+			);
+	});
+
 	after(function(done) {
 		this.server.close();
 		done();
