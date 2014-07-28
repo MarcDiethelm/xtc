@@ -8,6 +8,7 @@
 
 ## 0.8.0-rc1 — 2014-xx-xx
 - Fix 404 handler.
+- Don't gitignore module testing template.
 
 ## 0.8.0-beta8 — 2014-06-11
 - Fix error handling for generator-xtc symlink removal.
