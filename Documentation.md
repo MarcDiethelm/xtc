@@ -251,7 +251,7 @@ markup. This includes HTML5 `data-` attributes.
 You can enable **annotations** in the HTML output around modules in the config. The annotation displays the module name,
 the template file name, the filesystem path and repository URL to the module.
 
-the **indentation** of included modules can be controlled with the `indent` attribute using integer values. Nested child modules are indented automatically.
+The **indentation** of included modules can be controlled with the `indent` attribute using integer values. Nested child modules are indented automatically.
 
 Using the `noWrapper=true` attribute on a module include will prevent creation of the wrapper element and module annotation.
 This is useful when creating markup-only modules in base layouts, e.g a HTML HEAD module including the doctype. You can
