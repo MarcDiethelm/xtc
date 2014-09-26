@@ -1,7 +1,7 @@
 {
   "name": "xtc",
   "description": "A frontend framework and server",
-  "version": "0.8.0-beta8",
+  "version": "0.8.0-rc1",
   "publishConfig": {
     "tag": "beta"
   },
@@ -42,10 +42,10 @@
     "build": "grunt --base=./ --gruntfile=./node_modules/generator-xtc/app/templates/Gruntfile.js --test=true",
     "build-dist": "grunt --base=./ --gruntfile=./node_modules/generator-xtc/app/templates/Gruntfile.js --test=true --dist=true",
     "mkmod": "yo xtc:module --path=./",
-    "mkskin": "yo xtc:skin --path=./",
+    "mkskin": "yo xtc:skin --path=./"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.10.30"
   },
   "configPath": "node_modules/generator-xtc/app/templates/_config/"
 }
