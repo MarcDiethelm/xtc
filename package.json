@@ -43,8 +43,6 @@
     "build-dist": "grunt --base=./ --gruntfile=./node_modules/generator-xtc/app/templates/Gruntfile.js --test=true --dist=true",
     "mkmod": "yo xtc:module --path=./",
     "mkskin": "yo xtc:skin --path=./",
-    "install": "node ./bin/setup.js",
-    "uninstall": "node ./bin/setup.js"
   },
   "engines": {
     "node": ">=0.10.0"
