@@ -10,7 +10,7 @@
 - Fix 404 handler.
 - Don't gitignore module testing template.
 - Fix a recursion bug in the module and skin generator.
-
+- Symlinking generator-xtc is now handled by xtc-cli. xtc-generator needs to be symlinked from xtc's node_modules to the project's node_modules, so Yeoman can find and run our generators. Since we cannot make relative symlinks on Windows (junctions actually, symlinks need admin permission), the symlink is now gitignored. This means when you're checking out an xtc project from git you will need to run `xtc doctor` (or somebody can commit a relative symlink if no Windows users are involved).
 ## 0.8.0-beta8 — 2014-06-11
 - Fix error handling for generator-xtc symlink removal.
 - Moved app views from project to new xtc `views` dir. Patched Express to search multiple views dirs.
