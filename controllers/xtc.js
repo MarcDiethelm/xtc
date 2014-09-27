@@ -5,7 +5,7 @@ module.exports = function(app) {
 		,fs = require('fs')
 
 		,renderModule = require(app.xtcPath('lib/mod-render'))()
-		,exphbs = require(app.xtcPath('node_modules/express3-handlebars'))
+		,exphbs = require(app.xtcPath('node_modules/express-handlebars'))
 		,utils = require(app.xtcPath('lib/utils'))
 		,helpers = app.xtc.helpers
 		,docTitle = helpers.docTitle
@@ -78,16 +78,16 @@ module.exports = function(app) {
 					,skipModules: true
 				});
 
-				hbs.render(path.join(cfg.sources.layouts, cfg.defaultLayoutName + cfg.templateExtension), res.locals,
-					function(err, html) {
-						if (err) {
-							var error = utils.error('Unable to render the module in the default template', err);
-							console.error(error.c);
-							html = error.web;
-						}
+				hbs.render(path.join(cfg.sources.layouts, cfg.defaultLayoutName + cfg.templateExtension), res.locals)
+					.then(function(html) {
 						res.send(html);
-					}
-				);
+					})
+					.catch(function(err) {
+						var error = utils.error('Unable to render the module in the default template', err);
+						console.error(error.c);
+						res.send(error.web);
+					})
+				;
 			}
 		}
 
@@ -99,20 +99,17 @@ module.exports = function(app) {
 				,body: ''
 			});
 
-			hbs.render(path.join(cfg.sources.layouts, req.params.layout + cfg.templateExtension), res.locals,
-				function(err, html) {
-					if (err) {
-						var error = utils.error('Unable to render the layout', err);
-						console.error(error.c);
-						html = error.web;
-					}
-
-					'raw' in req.query
-						&& res.setHeader('Content-Type', 'text/plain');
-
+			hbs.render(path.join(cfg.sources.layouts, req.params.layout + cfg.templateExtension), res.locals)
+				.then(function(html) {
+					'raw' in req.query && res.setHeader('Content-Type', 'text/plain');
 					res.send(html);
-				}
-			);
+				})
+				.catch(function(err) {
+					var error = utils.error('Unable to render the layout', err);
+					console.error(error.c);
+					res.send(error.web);
+				})
+			;
 		}
 
 		,getModuleTest: function(req, res, next) {
@@ -122,7 +119,7 @@ module.exports = function(app) {
 				,done = {}// keep track of handled module, to skip modules with identical options.
 			;
 
-			app.tests[test].forEach(function(options) {
+			app.tests[test] && app.tests[test].forEach(function(options) {
 				if (options.name+options.template+options.skins+options.connectors in done)
 					return;
 
@@ -144,17 +141,16 @@ module.exports = function(app) {
 				,helpers: { test: null }
 			});
 
-			hbs.render(path.join(cfg.sources.layouts, cfg.defaultLayoutName + cfg.templateExtension), res.locals,
-				function(err, html) {
-					if (err) {
-						var error = utils.error('Unable to render the modules in the default template', err);
-						console.error(error.c);
-						html = error.web;
-					}
-
+			hbs.render(path.join(cfg.sources.layouts, cfg.defaultLayoutName + cfg.templateExtension), res.locals)
+				.then(function(html) {
 					res.send(html);
-				}
-			);
+				})
+				.catch(function(err) {
+					var error = utils.error('Unable to render the modules in the default template', err);
+					console.error(error.c);
+					res.send(error.web);
+				})
+			;
 		}
 
 

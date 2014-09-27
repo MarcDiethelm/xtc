@@ -58,14 +58,14 @@ app.locals(helpers.makeLocals());
 // We can then require the same instance again in lib/mod-render.js and controllers/_default.js
 handlebars = require('./lib/handlebars-helpers-xtc.js');
 
-hbs = require('express3-handlebars').create({
+hbs = require('express-handlebars').create({
 	 handlebars     : handlebars
 	,layoutsDir     : cfg.sources.layouts
 	,defaultLayout  : cfg.defaultLayoutName
 	,extname        : cfg.templateExtension
 });
 
-// Set the express3-handlebars instance as rendering engine
+// Set the express-handlebars instance as rendering engine
 app.engine(cfg.templateExtension, hbs.engine); // 1: template file extension, 2: engine render callback
 app.set('view engine', 'hbs');
 // Patch Express to look for views in multiple folders
