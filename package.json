@@ -20,7 +20,7 @@
     "grunt-contrib-uglify": "0.4.0",
     "grunt-contrib-watch": "0.6.1",
     "grunt-glue-nu": "0.3.2",
-    "grunt-less-imports": "1.0.0",
+    "grunt-less-imports": "1.1.0",
     "handlebars": "1.3.0",
     "lodash-node": "2.4.1",
     "range_check": "0.0.4"
