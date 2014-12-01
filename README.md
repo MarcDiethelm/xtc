@@ -108,7 +108,7 @@ Want more features? There are more.
 - Can be used as a Terrific build tool in foreign frameworks that do their own Terrific module includes.
 - Easy to configure. (Almost) everything in one place.
 - The whole frontend is contained in one folder, called... frontend.
-- Less [@import (reference)](http://lesscss.org/features/#import-options-reference): Only includes what is actually used in your project. Great for libraries with mixins, helpers.
+- JS and CSS source maps showing the your actual source files in the browser during development.
 - Generated [project overview](https://github.com/MarcDiethelm/xtc/blob/master/Documentation.md#project-overview) lists all views, modules and layouts, with links to stand-alone, rendered source and repository.
 - Lazy routing: just create a new view and use its filename as the URI.
 - Helpful, friendly error messages if you do something wrong.
