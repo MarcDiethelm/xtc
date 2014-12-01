@@ -321,6 +321,7 @@ The URIs to your static assets are all available under the `static` variable in 
 // prefixes
 static.base // The base URI to the static assets
 static.img // The base URI to your images
+static.build.dir // The URI to your generated assets
 // full URIs
 static.build.js.external // The URI to the generated main JS file
 static.build.css.external // The URI to the generated main CSS file

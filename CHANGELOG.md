@@ -14,6 +14,7 @@
 - Fix a bug where handlebars instance is not available in project helpers.
 - Adds a Handlebars helper to escape html to entities.
 - JS source maps
+- A template var `static.build.dir` containing the URI to the generated assets.  Needed if the build path is configured to be outside of the static path.
 
 ## 0.8.0-beta8 — 2014-06-11
 - Fix error handling for generator-xtc symlink removal.
