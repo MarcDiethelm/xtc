@@ -45,10 +45,13 @@ And your next project will be able to the same functionality out of the box.
 
 Install node using a node version manager. Or download the Node.js [installer](http://nodejs.org/).
 
-> It is recommended that you use a Node version manager so you can switch between node versions effortlessly. Eventually you'll have multiple Node projects, possibly depending on different versions of Node.js. I recommend using [n](https://github.com/visionmedia/n). Just clone/download it and `make install`. Oh, and before you do make sure `/usr/local` and its descendants are writable by you. If you're on a Mac, [brew](http://brew.sh/) takes care of that. After that no more `sudo`.
+> It is recommended that you use a Node version manager so you can switch between node versions effortlessly. Eventually you'll have multiple Node projects, possibly depending on different versions of Node.js. I recommend using [n](https://github.com/visionmedia/n). Just clone/download it and `make install`.
 
-Strictly speaking you don't NEED a node version manager. Downloading the installer from the Node.js website will work
-just fine. If you're on Windows it's what you do.
+Strictly speaking you don't NEED a node version manager. Downloading the installer from the Node.js website will work just fine. If you're on Windows it's what you do.
+
+#### NPM and sudo: don't!
+
+Oh, and before you do anything else make sure `/usr/local` and its descendants are writable by you. If you're on a Mac, [brew](http://brew.sh/) or [npm-sudo-fix](https://github.com/danielchatfield/npm-sudo-fix/blob/master/index.js) take care of that. After that no more `sudo`. Or [use sudo with `-H`](https://coderwall.com/p/dxmfpg/one-does-not-simply-sudo-npm)!
 
 #### Windows users
 

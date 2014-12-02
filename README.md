@@ -120,7 +120,7 @@ Want more features? There are more.
 ## Quick Start
 
 - Install [Node.js](http://nodejs.org/).
-- Open a terminal and execute `npm install -g xtc-cli yo grunt-cli`.
+- Open a terminal and execute `npm install -g xtc-cli yo grunt-cli`.<br>[Don't use sudo without `-H`](https://coderwall.com/p/dxmfpg/one-does-not-simply-sudo-npm)!
 - In the terminal, change to the project folder and start the xtc install and project generator: `xtc install`.
 - Start the dev build and file watcher: `xtc build`.
 - Open a new terminal session and start the server with `xtc start`.
