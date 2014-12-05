@@ -9,6 +9,7 @@ module.exports = function(app) {
 		,utils = require(app.xtcPath('lib/utils'))
 		,helpers = app.xtc.helpers
 		,docTitle = helpers.docTitle
+		,typePlainText = 'text/plain; charset=utf-8'
 		,hbs
 	 ;
 
@@ -39,7 +40,7 @@ module.exports = function(app) {
 			var layout = cfg.defaultLayoutName;
 
 			if ('raw' in req.query) {
-				res.setHeader('Content-Type', 'text/plain');
+				res.setHeader('Content-Type', typePlainText);
 				layout = false;
 			}
 			res.render(req.params.view, {
@@ -66,7 +67,7 @@ module.exports = function(app) {
 			}
 
 			if ('raw' in req.query) {
-				res.setHeader('Content-Type', 'text/plain');
+				res.setHeader('Content-Type', typePlainText);
 				res.send(module);
 			} else {
 				res.locals(app.locals);
@@ -101,7 +102,7 @@ module.exports = function(app) {
 
 			hbs.render(path.join(cfg.sources.layouts, req.params.layout + cfg.templateExtension), res.locals)
 				.then(function(html) {
-					'raw' in req.query && res.setHeader('Content-Type', 'text/plain');
+					'raw' in req.query && res.setHeader('Content-Type', typePlainText);
 					res.send(html);
 				})
 				.catch(function(err) {
