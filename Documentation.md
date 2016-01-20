@@ -7,7 +7,7 @@
 	- [Optional: Sprites](#optional-sprites)
 - [Project Setup](#project-setup)
 	- [Configuration](#configuration)
-	- [Start the Server!](#asset-building-grunt)
+	- [Start the Server!](#start-the-server)
 	- [WebStorm / PHPStorm Users](#webstorm--phpstorm-users)
 - [Manual](#manual)
 	- [Naming Convention](#naming-convention)
